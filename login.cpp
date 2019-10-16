@@ -10,6 +10,7 @@
 #include <QJsonDocument>
 #include <QUrlQuery>
 #include <QJsonValue>
+#include <QDebug>
 
 Login::Login(QWidget *parent) :
     QMainWindow(parent),
@@ -29,7 +30,7 @@ void Login::on_pushButton_validate_clicked()
     QString pwd= ui->lineEdit_pwd->text();
     if(username != "" && pwd != ""){
         QNetworkAccessManager manager;
-        QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/API/get/User?username="+username+"&password="+pwd)));
+        QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/API/getUser?username="+username+"&password="+pwd)));
         QEventLoop event;
         connect(response,SIGNAL(finished()),&event,SLOT(quit()));
         event.exec();
