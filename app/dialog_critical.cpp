@@ -6,6 +6,7 @@ Dialog_Critical::Dialog_Critical(QWidget *parent) :
     ui(new Ui::Dialog_Critical)
 {
     ui->setupUi(this);
+    this->setWindowFlags(Qt::CustomizeWindowHint);
 }
 
 Dialog_Critical::~Dialog_Critical()
