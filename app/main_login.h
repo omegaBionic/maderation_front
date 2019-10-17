@@ -4,19 +4,24 @@
 #include <QMainWindow>
 
 namespace Ui {
-class Main_login;
+class Main_Login;
 }
 
-class Main_login : public QMainWindow
+class Main_Login : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit Main_login(QWidget *parent = nullptr);
-    ~Main_login();
+    explicit Main_Login(QWidget *parent = nullptr);
+    ~Main_Login();
+
+private slots:
+    void on_pushButton_connect_clicked();
+
+    void on_pushButton_2_clicked();
 
 private:
-    Ui::Main_login *ui;
+    Ui::Main_Login *ui;
 };
 
 #endif // MAIN_LOGIN_H

@@ -1,4 +1,9 @@
 QT       += core gui
+QT       += network
+CONFIG += qt warn_on depend_includepath testcase
+CONFIG += qtc_runnable
+
+TEMPLATE = app
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,15 +22,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    login.cpp
+    main_login.cpp
 
 HEADERS += \
-    login.h
+    main_login.h
 
 FORMS += \
-    login.ui
+    main_login.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+

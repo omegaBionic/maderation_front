@@ -1,14 +1,50 @@
 #include "main_login.h"
 #include "ui_main_login.h"
+#include <QDesktopServices>
+#include <QUrl>
+#include <QProcess>
+#include <QMessageBox>
+#include <QFile>
+#include <QtNetwork>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QUrlQuery>
+#include <QJsonValue>
+#include <QDebug>
 
-Main_login::Main_login(QWidget *parent) :
+Main_Login::Main_Login(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::Main_login)
+    ui(new Ui::Main_Login)
 {
     ui->setupUi(this);
 }
 
-Main_login::~Main_login()
+Main_Login::~Main_Login()
 {
     delete ui;
+}
+
+void Main_Login::on_pushButton_connect_clicked()
+{
+    QString username= ui->lineEdit_user->text();
+       QString pwd= ui->lineEdit_pwd->text();
+       if(username != "" && pwd != ""){
+           QNetworkAccessManager manager;
+           QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/API/getUser?username="+username+"&password="+pwd)));
+           QEventLoop event;
+           connect(response,SIGNAL(finished()),&event,SLOT(quit()));
+           event.exec();
+           QString html = response->readAll();
+           QJsonObject jsonObject= QJsonDocument::fromJson(html.toUtf8()).object();
+           if(username == jsonObject.value("Item")["username"]["S"].toString() && pwd == jsonObject.value("Item")["password"]["S"].toString()){
+               QMessageBox::information(this,"Success", "Connexion réussie");
+           }else{
+               QMessageBox::critical(this,"Wrong password", "Wrong password or username, please retry");
+           }
+       }
+}
+
+void Main_Login::on_pushButton_2_clicked()
+{
+    QDesktopServices::openUrl(QUrl("https://www.google.com", QUrl::TolerantMode));
 }
