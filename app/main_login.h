@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "dialog_critical.h"
+
 namespace Ui {
 class Main_Login;
 }
