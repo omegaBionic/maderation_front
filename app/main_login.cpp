@@ -17,6 +17,10 @@ Main_Login::Main_Login(QWidget *parent) :
     ui(new Ui::Main_Login)
 {
     ui->setupUi(this);
+
+    this->setMinimumSize(640,360);
+//    ui->menuBar->hide();
+//    ui->progressBar->hide();
 }
 
 Main_Login::~Main_Login()
@@ -37,9 +41,11 @@ void Main_Login::on_pushButton_connect_clicked()
            QString html = response->readAll();
            QJsonObject jsonObject= QJsonDocument::fromJson(html.toUtf8()).object();
            if(username == jsonObject.value("Item")["username"]["S"].toString() && pwd == jsonObject.value("Item")["password"]["S"].toString()){
-               QMessageBox::information(this,"Success", "Connexion réussie");
+               Dialog_Critical* d = new Dialog_Critical(this,"success", "connexion réussie", "information");
+               d->show();
            }else{
-               QMessageBox::critical(this,"Wrong password", "Wrong password or username, please retry");
+               Dialog_Critical* d = new Dialog_Critical(this,"Error", "connexion ratée", "critical");
+               d->show();
            }
        }
 }

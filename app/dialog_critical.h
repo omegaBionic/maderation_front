@@ -12,8 +12,13 @@ class Dialog_Critical : public QDialog
     Q_OBJECT
 
 public:
-    explicit Dialog_Critical(QWidget *parent = nullptr);
+    explicit Dialog_Critical(QWidget *parent,QString title, QString text,QString icon);
     ~Dialog_Critical();
+
+private slots:
+    void on_validate_clicked();
+
+    void on_cancel_clicked();
 
 private:
     Ui::Dialog_Critical *ui;
