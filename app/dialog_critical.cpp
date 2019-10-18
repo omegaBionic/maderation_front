@@ -8,7 +8,7 @@ Dialog_Critical::Dialog_Critical(QWidget *parent, QString title, QString text,QS
 {
     ui->setupUi(this);
     this->setWindowFlags(Qt::FramelessWindowHint);
-    ui->setupUi(this);
+
     ui->label_title->setText(title);
     ui->label_text->setText(text);
     ui->cancel->hide();
