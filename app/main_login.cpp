@@ -19,6 +19,10 @@ Main_Login::Main_Login(QWidget *parent) :
     ui->setupUi(this);
 
     this->setMinimumSize(640,360);
+
+
+
+
 //    ui->menuBar->hide();
 //    ui->progressBar->hide();
 }
@@ -54,3 +58,6 @@ void Main_Login::on_pushButton_2_clicked()
 {
     QDesktopServices::openUrl(QUrl("https://www.google.com", QUrl::TolerantMode));
 }
+
+
+

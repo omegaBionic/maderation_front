@@ -11,67 +11,80 @@
 #include <QUrlQuery>
 #include <QJsonValue>
 #include <QDebug>
-#include <stdio.h>
-#include <stdlib.h>
-#include <iostream>
-#include <fstream>
-#include <windows.h>
-#include <QFile>
 #include <sys/stat.h>
-#include <QtNetwork>
-#include <QJsonObject>
-#include <QJsonDocument>
-#include <QUrlQuery>
-#include <QJsonValue>
-#include <QDebug>
+#include <QDir>
+#include <Init.h>
+#include <QCoreApplication>
 
 
 
 
-using namespace std;
 
-void Check_folder()
+Init::Init()
 {
-    // verification de lexistance du dossier DATA
 
-    int access (const char *path, int mode);
+}
 
+Init::~Init()
+{
 
-    char* folder = "DATA";
-    if(mkdir(folder) == -1)
+}
+
+void Init::Check_folder()
+{
+    // verification de lexistence du dossier DATA
+
+    QDir folder("DATA");
+    if(folder.exists())
     {
         //existe
         qDebug("folder exist");
     }
-    else
+    else if (!folder.exists())
     {
         //existe pas
+        folder.mkpath("."); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
         qDebug("created");
+
     }
 
 }
 
-bool Network_Connection()
+bool Init::Network_Connection()
 {
-    QString key = "179616f1a4cecab2a7eab481b84d076c";
+    //connection a l'api
+    qDebug("connection a l'api");
     QNetworkAccessManager manager;
-    QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/API/get/status?key=179616f1a4cecab2a7eab481b84d076c")));
+    QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/api/get/status?key=179616f1a4cecab2a7eab481b84d076c")));
+    QEventLoop event;
+    QObject::connect(&manager, SIGNAL(finished()), &event, SLOT(quit()));
+    event.exec();
     QString html = response->readAll();
-    QJsonObject jsonObject= QJsonDocument::fromJson(html.toUtf8()).object();
 
+    //transformation du json pour lecture
 
+     qDebug("Récuperation du json et transformation");
+    //html ="{\"status\":true,\"datas\":\"key: OK, dynamodb: OK\"}";
+    QJsonDocument jsonDoc= QJsonDocument::fromJson(html.toUtf8());
+    QJsonObject MyObject = jsonDoc.object();
+    MyObject.value(QString("status"));
+    qDebug()<< MyObject.value(QString("status"));
+    QJsonValue statut =  MyObject.value(QString("status"));
 
-    if(key == jsonObject.value("Item")["key"]["S"].toString())
+     qDebug("Vérification du statut de la  bdd");
+
+    if(statut == true)
     {
-        qDebug("Connexion bdd ok");
-        return true;
+           qDebug("connected");
+           return true;
     }
     else
     {
-         qDebug("Connexion bdd erreur");
-         return false;
+           qDebug("not connected");
+           return false;
     }
+};
 
 
-}
+
 
