@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
    Init *Initializer = new Init;
 
     Initializer->Check_folder();
-    //Initializer->Network_Connection();
+  //  Initializer->Network_Connection();
 
     //Network_Connection();
     QApplication a(argc, argv);

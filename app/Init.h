@@ -16,7 +16,6 @@ class Init: public QObject
  public :
     Init();
     void Check_folder();
-    bool Network_Connection();
 
     ~Init();
 

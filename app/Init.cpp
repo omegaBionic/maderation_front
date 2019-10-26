@@ -18,8 +18,6 @@
 
 
 
-
-
 Init::Init()
 {
 
@@ -48,41 +46,8 @@ void Init::Check_folder()
 
     }
 
-}
 
-bool Init::Network_Connection()
-{
-    //connection a l'api
-    qDebug("connection a l'api");
-    QNetworkAccessManager manager;
-    QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/api/get/status?key=179616f1a4cecab2a7eab481b84d076c")));
-    QEventLoop event;
-    QObject::connect(&manager, SIGNAL(finished()), &event, SLOT(quit()));
-    event.exec();
-    QString html = response->readAll();
 
-    //transformation du json pour lecture
-
-     qDebug("Récuperation du json et transformation");
-    //html ="{\"status\":true,\"datas\":\"key: OK, dynamodb: OK\"}";
-    QJsonDocument jsonDoc= QJsonDocument::fromJson(html.toUtf8());
-    QJsonObject MyObject = jsonDoc.object();
-    MyObject.value(QString("status"));
-    qDebug()<< MyObject.value(QString("status"));
-    QJsonValue statut =  MyObject.value(QString("status"));
-
-     qDebug("Vérification du statut de la  bdd");
-
-    if(statut == true)
-    {
-           qDebug("connected");
-           return true;
-    }
-    else
-    {
-           qDebug("not connected");
-           return false;
-    }
 };
 
 
