@@ -32,7 +32,7 @@ Main_Login::~Main_Login()
     delete ui;
 }
 
-bool test()
+bool Main_Login::CheckConnexion()
 {
     //connection a l'api
     qDebug("connection a l'api");
@@ -62,7 +62,7 @@ bool test()
 
 void Main_Login::on_pushButton_connect_clicked()
 {
-    if(!test()==true)
+    if(!CheckConnexion()==true)
     {
         qDebug("not connected");
     }
