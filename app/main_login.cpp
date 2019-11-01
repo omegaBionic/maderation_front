@@ -32,22 +32,45 @@ void Main_Login::on_pushButton_connect_clicked()
 {
     QString username= ui->lineEdit_user->text();
        QString pwd= ui->lineEdit_pwd->text();
-       if(username != "" && pwd != ""){
+
+       if(username != "" && pwd != "")
+       {
            QNetworkAccessManager manager;
-           QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/API/getUser?username="+username+"&password="+pwd)));
+           QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/api/get/users?key=83c2c07ea1251a1a39ec46d52cbba19c")));
            QEventLoop event;
            connect(response,SIGNAL(finished()),&event,SLOT(quit()));
            event.exec();
            QString html = response->readAll();
            QJsonObject jsonObject= QJsonDocument::fromJson(html.toUtf8()).object();
-           if(username == jsonObject.value("Item")["username"]["S"].toString() && pwd == jsonObject.value("Item")["password"]["S"].toString()){
+
+           if(username == jsonObject.value("Item")["mail"]["S"].toString() && pwd == jsonObject.value("Item")["password"]["S"].toString()){
                Dialog_Critical* d = new Dialog_Critical(this,"success", "connexion réussie", "information");
                d->show();
-           }else{
+           }
+           else
+           {
                Dialog_Critical* d = new Dialog_Critical(this,"Error", "connexion ratée", "critical");
                d->show();
            }
+
+
        }
+       else if(username != "" && pwd == "")
+       {
+           Dialog_Critical* d = new Dialog_Critical(this,"Error", "Vous devez rentrer votre mot de passe !","critical" );
+           d->show();
+       }
+       else if(username == "" && pwd != "")
+       {
+           Dialog_Critical* d = new Dialog_Critical(this,"Error","Vous devez rentrer votre identifiant !", "critical");
+           d->show();
+       }
+       else if(username == "" && pwd == "")
+       {
+           Dialog_Critical* d = new Dialog_Critical(this,"Error", "Vous devez rentrer vos identifiants de connexion !","critical");
+           d->show();
+       }
+
 }
 
 void Main_Login::on_pushButton_2_clicked()
