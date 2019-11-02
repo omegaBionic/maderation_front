@@ -30,6 +30,11 @@ Main_Login::~Main_Login()
 
 void Main_Login::on_pushButton_connect_clicked()
 {
+    QStringList User_username;
+    QStringList User_Pwd;
+    QStringList User_Email;
+    QStringList User_FirstName;
+
     QString username= ui->lineEdit_user->text();
        QString pwd= ui->lineEdit_pwd->text();
 
@@ -41,9 +46,61 @@ void Main_Login::on_pushButton_connect_clicked()
            connect(response,SIGNAL(finished()),&event,SLOT(quit()));
            event.exec();
            QString html = response->readAll();
-           QJsonObject jsonObject= QJsonDocument::fromJson(html.toUtf8()).object();
+           QJsonDocument JsonDoc = QJsonDocument::fromJson(html.toUtf8());
+           QJsonObject MyObject = JsonDoc.object();
+           QJsonArray jsonArray = MyObject.value("datas")["Items"].toArray();
 
-           if(username == jsonObject.value("Item")["mail"]["S"].toString() && pwd == jsonObject.value("Item")["password"]["S"].toString()){
+
+
+
+
+           foreach (const QJsonValue & value, jsonArray)
+           {
+               QJsonObject obj = value.toObject();
+
+               User_username.append(obj.value("username")["S"].toString());             
+
+               User_Pwd.append(obj.value("password")["S"].toString());
+
+               User_Email.append(obj.value("mail")["S"].toString());
+
+               User_FirstName.append(obj.value("firstname")["S"].toString());
+
+           }
+
+
+           qDebug()<< User_username[0];
+           qDebug()<< User_username[1];
+           qDebug()<< User_username[2];
+
+           foreach(const QString& var, User_username)
+           {
+               if(var == username )
+               {
+                   qDebug("username present!");
+               }
+               else
+               {
+                   qDebug("username non present");
+               }
+
+           }
+
+           foreach(const QString& var, User_Pwd)
+           {
+               if(var == pwd )
+               {
+                   qDebug("mdp present");
+               }
+               else
+               {
+                   qDebug("mot de passe non present");
+               }
+           }
+
+
+
+           if(username == MyObject.value("Item")["username"]["S"].toString() && pwd == MyObject.value("Item")["password"]["S"].toString()){
                Dialog_Critical* d = new Dialog_Critical(this,"success", "connexion réussie", "information");
                d->show();
            }

@@ -23,11 +23,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     dialog_critical.cpp \
     main.cpp \
-    main_login.cpp
+    main_login.cpp \
+    user.cpp
 
 HEADERS += \
     dialog_critical.h \
-    main_login.h
+    main_login.h \
+    user.h
 
 FORMS += \
     dialog_critical.ui \
