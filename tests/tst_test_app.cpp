@@ -1,7 +1,26 @@
 #include <QtTest>
 #include <QCoreApplication>
 
+//pour quentin -----------------------------------------
+#include <QDesktopServices>
+#include <QUrl>
+#include <QProcess>
+#include <QFile>
+#include <QtNetwork>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QUrlQuery>
+#include <QJsonValue>
+#include <QDebug>
+#include <sys/stat.h>
+#include <QDir>
+//------------------------------------------------------
+
+
+
 // add necessary includes here
+
+
 
 class test_app : public QObject
 {
@@ -33,7 +52,10 @@ test_app::~test_app()
 void test_app::initTestCase()
 {
     // se lance au tout début
+
+
 }
+
 
 void test_app::cleanupTestCase()
 {
