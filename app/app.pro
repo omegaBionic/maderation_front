@@ -21,17 +21,31 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    api_get_request.cpp \
+    Init.cpp \
+    dialog_critical.cpp \
+    encryption.cpp \
     main.cpp \
     main_login.cpp
 
 HEADERS += \
+    api_get_request.h \
+    Init.h \
+    dialog_critical.h \
+    encryption.h \
     main_login.h
 
 FORMS += \
+    dialog_critical.ui \
     main_login.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    data_picture.qrc
+DISTFILES += \
+    img/house.jpg
 
