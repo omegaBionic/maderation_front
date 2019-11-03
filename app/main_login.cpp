@@ -61,7 +61,7 @@ bool CheckConnection()
      qDebug("Vérification du statut de la  bdd");
 }
 
-void Main_Login::on_pushButton_connect_clicked()
+void Main_Login::on_btn_login_clicked()
 {
     QString key = "23";
     Encryption *Chiffrement = new Encryption;// convertir le texte a chiffrer en QbyteArray avec : QString MonText = "test"; ---->  QByteArray MonText_converti = MonText.toUtf8(); avant .
@@ -135,3 +135,4 @@ void Main_Login::on_lbl_create_account_linkActivated(const QString &link)
 {
     QDesktopServices::openUrl(QUrl("https://www.google.com", QUrl::TolerantMode));
 }
+

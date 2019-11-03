@@ -3,6 +3,8 @@
 #include <QNetworkReply>
 #include <QDir>
 #include <fstream>
+
+
 api_get_request::api_get_request(QObject *parent) : QObject(parent)
 {
     if(!QDir("data").exists()){
