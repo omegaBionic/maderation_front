@@ -1,5 +1,6 @@
 #include "main_login.h"
 #include "ui_main_login.h"
+#include "user.h"
 #include <QDesktopServices>
 #include <QUrl>
 #include <QProcess>
@@ -30,10 +31,7 @@ Main_Login::~Main_Login()
 
 void Main_Login::on_pushButton_connect_clicked()
 {
-    QStringList User_username;
-    QStringList User_Pwd;
-    QStringList User_Email;
-    QStringList User_FirstName;
+
 
     QString username= ui->lineEdit_user->text();
        QString pwd= ui->lineEdit_pwd->text();
@@ -50,53 +48,8 @@ void Main_Login::on_pushButton_connect_clicked()
            QJsonObject MyObject = JsonDoc.object();
            QJsonArray jsonArray = MyObject.value("datas")["Items"].toArray();
 
-
-
-
-
-           foreach (const QJsonValue & value, jsonArray)
-           {
-               QJsonObject obj = value.toObject();
-
-               User_username.append(obj.value("username")["S"].toString());             
-
-               User_Pwd.append(obj.value("password")["S"].toString());
-
-               User_Email.append(obj.value("mail")["S"].toString());
-
-               User_FirstName.append(obj.value("firstname")["S"].toString());
-
-           }
-
-
-           qDebug()<< User_username[0];
-           qDebug()<< User_username[1];
-           qDebug()<< User_username[2];
-
-           foreach(const QString& var, User_username)
-           {
-               if(var == username )
-               {
-                   qDebug("username present!");
-               }
-               else
-               {
-                   qDebug("username non present");
-               }
-
-           }
-
-           foreach(const QString& var, User_Pwd)
-           {
-               if(var == pwd )
-               {
-                   qDebug("mdp present");
-               }
-               else
-               {
-                   qDebug("mot de passe non present");
-               }
-           }
+           User *DataUser = new User;
+           DataUser->GetUserData(jsonArray ,username,pwd);
 
 
 
