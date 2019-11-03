@@ -24,11 +24,17 @@ private slots:
 
     void on_pushButton_2_clicked();
 
-    void on_pushButton_VerifConection_clicked();
+    void on_pushButton_clicked();
 
-    void on_CheckConnection_clicked();
+    void on_checkBox_stateChanged(int arg1);
 
-    void on_CheckConnection_destroyed();
+    void on_label_3_linkActivated(const QString &link);
+
+    void on_btn_login_clicked();
+
+    void on_lbl_pwd_linkActivated(const QString &link);
+
+    void on_lbl_create_account_linkActivated(const QString &link);
 
 private:
     Ui::Main_Login *ui;
