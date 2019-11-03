@@ -1,5 +1,6 @@
 #include "main_login.h"
 #include "Init.h"
+#include "encryption.h"
 #include <QApplication>
 #include <QObject>
 
@@ -10,14 +11,18 @@
 int main(int argc, char *argv[])
 {
 
+
+
    Init *Initializer = new Init;
 
-    Initializer->Check_folder();
+   Initializer->Check_folder();
+
   //  Initializer->Network_Connection();
 
     //Network_Connection();
     QApplication a(argc, argv);
     Main_Login w;
+
 
     w.showFullScreen();
 

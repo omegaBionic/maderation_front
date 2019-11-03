@@ -23,12 +23,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Init.cpp \
     dialog_critical.cpp \
+    encryption.cpp \
     main.cpp \
     main_login.cpp
 
 HEADERS += \
     Init.h \
     dialog_critical.h \
+    encryption.h \
     main_login.h
 
 FORMS += \

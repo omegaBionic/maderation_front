@@ -16,6 +16,8 @@ class Main_Login : public QMainWindow
 public:
     explicit Main_Login(QWidget *parent = nullptr);
     ~Main_Login();
+    bool CheckConnexion();
+
 
 private slots:
     void on_pushButton_connect_clicked();

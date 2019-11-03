@@ -11,6 +11,7 @@
 #include <QUrlQuery>
 #include <QJsonValue>
 #include <QDebug>
+#include "encryption.h"
 
 Main_Login::Main_Login(QWidget *parent) :
     QMainWindow(parent),
@@ -62,7 +63,10 @@ bool Main_Login::CheckConnexion()
 
 void Main_Login::on_pushButton_connect_clicked()
 {
-    if(!CheckConnexion()==true)
+    QString key = "23";
+    Encryption *Chiffrement = new Encryption;// convertir le texte a chiffrer en QbyteArray avec : QString MonText = "test"; ---->  QByteArray MonText_converti = MonText.toUtf8(); avant .
+
+    if(!CheckConnection()==true)
     {
         qDebug("not connected");
     }
@@ -71,9 +75,21 @@ void Main_Login::on_pushButton_connect_clicked()
         qDebug("connected");
     }
 
-    QString username= ui->lineEdit_user->text();
+       QString username= ui->lineEdit_user->text();
        QString pwd= ui->lineEdit_pwd->text();
+       QString Pwd_encrypted;
+       QString Pwd_Json_Encrypted;
+
+       QString pwd_decrypted;
+       QString pwd_Json_Decrypted;
        if(username != "" && pwd != ""){
+
+           //Chiffrement pwd de la form
+
+           Pwd_encrypted  = (Chiffrement->CypherEncrypt(pwd, &key)); //chiffrement
+           //pwd_decrypted = (Chiffrement->CypherDecrypt(Pwd_encrypted, &key));//dechiffrement
+            //------------------
+
            QNetworkAccessManager manager;
            //QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/API/getUser?username="+username+"&password="+pwd)));
            QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/api/get/status?key=179616f1a4cecab2a7eab481b84d076c")));
@@ -82,6 +98,23 @@ void Main_Login::on_pushButton_connect_clicked()
            event.exec();
            QString html = response->readAll();
            QJsonObject jsonObject= QJsonDocument::fromJson(html.toUtf8()).object();
+
+           //Chiffrement pwd du json
+           QString pwd_json = jsonObject.value("Item")["password"]["S"].toString();
+           Pwd_Json_Encrypted  = (Chiffrement->CypherEncrypt(pwd_json, &key));
+          // pwd_Json_Decrypted = (Chiffrement->CypherDecrypt(Pwd_Json_Encrypted, &key));
+            //------------------
+
+           //comparaison des deux mdp chiffré
+           if(Pwd_encrypted == Pwd_Json_Encrypted)
+           {
+               qDebug("identique");
+           }
+           else
+           {
+               qDebug("Differents");
+           }
+
            if(username == jsonObject.value("Item")["username"]["S"].toString() && pwd == jsonObject.value("Item")["password"]["S"].toString()){
                Dialog_Critical* d = new Dialog_Critical(this,"success", "connexion réussie", "information");
                d->show();
