@@ -59,6 +59,11 @@ bool Main_Login::CheckConnexion()
     QJsonValue statut =  MyObject.value(QString("status"));
 
      qDebug("Vérification du statut de la  bdd");
+     if(MyObject.value(QString("status")) == "true"){
+         return true;
+     }else {
+         return false;
+     }
 }
 
 void Main_Login::on_pushButton_connect_clicked()
@@ -66,7 +71,7 @@ void Main_Login::on_pushButton_connect_clicked()
     QString key = "23";
     Encryption *Chiffrement = new Encryption;// convertir le texte a chiffrer en QbyteArray avec : QString MonText = "test"; ---->  QByteArray MonText_converti = MonText.toUtf8(); avant .
 
-    if(!CheckConnection()==true)
+    if(!CheckConnexion()==true)
     {
         qDebug("not connected");
     }
@@ -91,8 +96,8 @@ void Main_Login::on_pushButton_connect_clicked()
             //------------------
 
            QNetworkAccessManager manager;
-           //QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/API/getUser?username="+username+"&password="+pwd)));
-           QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/api/get/status?key=179616f1a4cecab2a7eab481b84d076c")));
+           QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/api/get/users?key=83c2c07ea1251a1a39ec46d52cbba19c")));
+           //QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/api/get/status?key=179616f1a4cecab2a7eab481b84d076c")));
            QEventLoop event;
            connect(response,SIGNAL(finished()),&event,SLOT(quit()));
            event.exec();
@@ -100,7 +105,7 @@ void Main_Login::on_pushButton_connect_clicked()
            QJsonObject jsonObject= QJsonDocument::fromJson(html.toUtf8()).object();
 
            //Chiffrement pwd du json
-           QString pwd_json = jsonObject.value("Item")["password"]["S"].toString();
+           QString pwd_json = jsonObject.value("datas")["Items"]["password"]["S"].toString();
            Pwd_Json_Encrypted  = (Chiffrement->CypherEncrypt(pwd_json, &key));
           // pwd_Json_Decrypted = (Chiffrement->CypherDecrypt(Pwd_Json_Encrypted, &key));
             //------------------
@@ -115,7 +120,7 @@ void Main_Login::on_pushButton_connect_clicked()
                qDebug("Differents");
            }
 
-           if(username == jsonObject.value("Item")["username"]["S"].toString() && pwd == jsonObject.value("Item")["password"]["S"].toString()){
+           if(username == jsonObject.value("datas")["Items"]["username"]["S"].toString() && pwd == jsonObject.value("datas")["Items"]["password"]["S"].toString()){
                Dialog_Critical* d = new Dialog_Critical(this,"success", "connexion réussie", "information");
                d->show();
            }else{
