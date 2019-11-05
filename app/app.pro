@@ -26,13 +26,15 @@ SOURCES += \
     dialog_critical.cpp \
     encryption.cpp \
     main.cpp \
-    main_login.cpp
+    main_login.cpp \
+    user.cpp
 
 HEADERS += \
     api_get_request.h \
     Init.h \
     dialog_critical.h \
     encryption.h \
+    user.h
     main_login.h
 
 FORMS += \

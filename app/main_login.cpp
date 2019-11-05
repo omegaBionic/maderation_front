@@ -1,5 +1,6 @@
 #include "main_login.h"
 #include "ui_main_login.h"
+#include "user.h"
 #include <QDesktopServices>
 #include <QUrl>
 #include <QProcess>
@@ -127,6 +128,22 @@ void Main_Login::on_btn_login_clicked()
            }
 
        }
+       else if(username != "" && pwd == "")
+       {
+           Dialog_Critical* d = new Dialog_Critical(this,"Error", "Vous devez rentrer votre mot de passe !","critical" );
+           d->show();
+       }
+       else if(username == "" && pwd != "")
+       {
+           Dialog_Critical* d = new Dialog_Critical(this,"Error","Vous devez rentrer votre identifiant !", "critical");
+           d->show();
+       }
+       else if(username == "" && pwd == "")
+       {
+           Dialog_Critical* d = new Dialog_Critical(this,"Error", "Vous devez rentrer vos identifiants de connexion !","critical");
+           d->show();
+       }
+
 
 }
 
