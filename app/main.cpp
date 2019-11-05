@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     Main_Login w;
 
 
-    w.show();
+    w.showFullScreen();
 
     return a.exec();
 
