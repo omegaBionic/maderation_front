@@ -3,5 +3,7 @@
         <file>gui_resources/critical.png</file>
         <file>gui_resources/information.png</file>
         <file>gui_resources/question.ico</file>
+        <file>img/house.jpg</file>
+        <file>img/logo madera.png</file>
     </qresource>
 </RCC>

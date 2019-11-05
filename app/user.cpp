@@ -5,60 +5,63 @@
 #include <QDebug>
 #include <QFile>
 #include <QObject>
-User::User()
+User::User(QString username, QString phoneNumber, bool isActive, QString password, QString lastName, QString firstName, QString mail, int IDAdress)
 {
-
+    this->_username = username;
+    this->_phoneNumber = phoneNumber;
+    this->_isActive = isActive;
+    this->_password = password;
+    this->_lastname = lastName;
+    this->_firstname = firstName;
+    this->_mail = mail;
+    this->_IDAdress = IDAdress;
+}
+void User::setPhoneNumber(QString phoneNb){
+    _phoneNumber = phoneNb;
+}
+void User::setIsActive(bool isAct){
+    _isActive = isAct;
+}
+void User::setPassword(QString pwd){
+    _password = pwd;
+}
+void User::setLastName(QString lastN){
+    _lastname = lastN;
+}
+void User::setMail(QString ml){
+    _mail = ml;
+}
+void User::setUsername(QString user){
+    _username = user;
+}
+void User::setFirstName(QString firstN){
+    _firstname = firstN;
+}
+void User::setIdAddress(int adrId){
+    _IDAdress = adrId;
 }
 
-QString User::GetUserData(QJsonArray MyJsonArray, QString Username, QString Password)
-{
-    QStringList User_username;
-    QStringList User_Pwd;
-    QStringList User_Email;
-    QStringList User_FirstName;
-
-    foreach (const QJsonValue & value, MyJsonArray)
-    {
-        QJsonObject obj = value.toObject();
-
-        User_username.append(obj.value("username")["S"].toString());
-
-        User_Pwd.append(obj.value("password")["S"].toString());
-
-        User_Email.append(obj.value("mail")["S"].toString());
-
-        User_FirstName.append(obj.value("firstname")["S"].toString());
-
-    }
-
-
-    qDebug()<< User_username[0];
-    qDebug()<< User_username[1];
-    qDebug()<< User_username[2];
-
-    foreach(const QString& var, User_username)
-    {
-        if(var == Username )
-        {
-            qDebug("username present!");
-        }
-        else
-        {
-            qDebug("username non present");
-        }
-
-    }
-
-    foreach(const QString& var, User_Pwd)
-    {
-        if(var == Password )
-        {
-            qDebug("mdp present");
-        }
-        else
-        {
-            qDebug("mot de passe non present");
-        }
-    }
-    return ("ok");
+QString User::getPhoneNumber(){
+    return _phoneNumber;
+}
+bool User::getIsActive(){
+    return _isActive;
+}
+QString User::getPassword(){
+    return _password;
+}
+QString User::getLastName(){
+    return _lastname;
+}
+QString User::getMail(){
+   return _mail;
+}
+QString User::getUsername(){
+    return _username;
+}
+QString User::getFirstName(){
+   return _firstname;
+}
+int User::getAddressIdAddress(){
+    return _IDAdress;
 }

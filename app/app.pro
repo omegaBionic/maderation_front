@@ -34,7 +34,7 @@ HEADERS += \
     Init.h \
     dialog_critical.h \
     encryption.h \
-    user.h
+    user.h \
     main_login.h
 
 FORMS += \
@@ -48,6 +48,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     data_picture.qrc
-DISTFILES += \
-    img/house.jpg
 

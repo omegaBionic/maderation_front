@@ -81,8 +81,11 @@ void Main_Login::on_btn_login_clicked()
         qDebug("connected");
     }
 
-       QString username= ui->lineEdit_user->text();
-       QString pwd= ui->lineEdit_pwd->text();
+       QString username= ui->lineEdit_user->text().toLower();
+       QString pwd= ui->lineEdit_pwd->text().toLower();
+       qDebug() << username;
+       qDebug() << pwd;
+
        QString Pwd_encrypted;
        QString Pwd_Json_Encrypted;
 
@@ -97,7 +100,7 @@ void Main_Login::on_btn_login_clicked()
             //------------------
 
            QNetworkAccessManager manager;
-           QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/api/get/users?key=83c2c07ea1251a1a39ec46d52cbba19c")));
+           QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/api/get/user?key=83c2c07ea1251a1a39ec46d52cbba19c")));
            QEventLoop event;
            connect(response,SIGNAL(finished()),&event,SLOT(quit()));
            event.exec();
@@ -119,11 +122,13 @@ void Main_Login::on_btn_login_clicked()
            {
                qDebug("Differents");
            }
+           qDebug() <<jsonObject.value("datas")["Items"][0]["username"]["S"].toString();
+           qDebug() <<jsonObject.value("datas")["Items"][0]["password"]["S"].toString();
            if(username == jsonObject.value("datas")["Items"][0]["username"]["S"].toString() && pwd == jsonObject.value("datas")["Items"][0]["password"]["S"].toString()){
                Dialog_Critical* d = new Dialog_Critical(this,"success", "connexion réussie", "information");
                d->show();
            }else{
-               Dialog_Critical* d = new Dialog_Critical(this,"Error", "connexion ratée, pwd is : " + pwd + "json is : "+jsonObject.value("datas")["Items"]["password"]["S"].toString(), "critical");
+               Dialog_Critical* d = new Dialog_Critical(this,"Error", "connexion ratée, json is : "+jsonObject.value("datas")["Items"][0]["password"]["S"].toString(), "critical");
                d->show();
            }
 
@@ -147,13 +152,19 @@ void Main_Login::on_btn_login_clicked()
 
 }
 
-void Main_Login::on_lbl_pwd_linkActivated(const QString &link)
-{
-    QDesktopServices::openUrl(QUrl("https://www.google.com", QUrl::TolerantMode));
-}
 
-void Main_Login::on_lbl_create_account_linkActivated(const QString &link)
-{
-    QDesktopServices::openUrl(QUrl("https://www.google.com", QUrl::TolerantMode));
+void Main_Login::resizeEvent(QResizeEvent *){
+    QRect win = this->geometry();
+    _width = win.width()/128;
+    _height = win.height()/72;
+    ui->line->setGeometry(102*_width, 50*_height, 20*_width, 5*_height);
+    ui->btn_login->setGeometry(100*_width, 45*_height, 24*_width, 3*_height);
+    ui->lineEdit_pwd->setGeometry(100*_width, 30*_height, 24*_width, 4*_height);
+    ui->lineEdit_user->setGeometry(100*_width, 25*_height, 24*_width, 4*_height);
+    ui->label_title->setGeometry(102*_width, 5*_height, 18*_width, 18*_height);
+    ui->label_title->setPixmap(QPixmap(":/pictures/img/logo madera.png").scaled(18*_width, 18*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+    ui->chk_remember->setGeometry(100*_width, 38*_height, 24*_width, 2*_height);
+    ui->btn_forgot->setGeometry(102*_width, 55*_height, 20*_width, 2*_height);
+    ui->label_2->setGeometry(0*_width, 0*_height, 95*_width, 72*_height);
+    ui->label_2->setPixmap(QPixmap(":/pictures/img/house.jpg").scaled(95*_width, 72*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
 }
-

@@ -20,14 +20,13 @@ public:
 
 
 private slots:
-    void on_lbl_pwd_linkActivated(const QString &link);
-
-    void on_lbl_create_account_linkActivated(const QString &link);
-
     void on_btn_login_clicked();
 
 private:
     Ui::Main_Login *ui;
+    void resizeEvent(QResizeEvent * event);
+    int _width;
+    int _height;
 
 };
 
