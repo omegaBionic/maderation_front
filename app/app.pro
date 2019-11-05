@@ -5,6 +5,9 @@ CONFIG += qtc_runnable
 
 TEMPLATE = app
 
+RC_ICONS = icon/logo.ico
+
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -49,3 +52,12 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     data_picture.qrc
 
+
+DISTFILES += \
+    android-sources/AndroidManifest.xml \
+    android-sources/build.gradle \
+    android-sources/gradle/wrapper/gradle-wrapper.jar \
+    android-sources/gradle/wrapper/gradle-wrapper.properties \
+    android-sources/gradlew \
+    android-sources/gradlew.bat \
+    android-sources/res/values/libs.xml

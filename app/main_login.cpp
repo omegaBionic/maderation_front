@@ -20,7 +20,8 @@ Main_Login::Main_Login(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    this->setMinimumSize(640,360);
+    this->setMinimumSize(800,500);
+    this->setGeometry(0,0,800,500);
 
 
 
@@ -153,10 +154,22 @@ void Main_Login::on_btn_login_clicked()
 }
 
 
+
+
+/*
+ *
+ * resize the window to the correct format
+ *
+ *
+ */
 void Main_Login::resizeEvent(QResizeEvent *){
+    // format 16:9 only for the moment
     QRect win = this->geometry();
+
     _width = win.width()/128;
     _height = win.height()/72;
+
+
     ui->line->setGeometry(102*_width, 50*_height, 20*_width, 5*_height);
     ui->btn_login->setGeometry(100*_width, 45*_height, 24*_width, 3*_height);
     ui->lineEdit_pwd->setGeometry(100*_width, 30*_height, 24*_width, 4*_height);
@@ -167,4 +180,5 @@ void Main_Login::resizeEvent(QResizeEvent *){
     ui->btn_forgot->setGeometry(102*_width, 55*_height, 20*_width, 2*_height);
     ui->label_2->setGeometry(0*_width, 0*_height, 95*_width, 72*_height);
     ui->label_2->setPixmap(QPixmap(":/pictures/img/house.jpg").scaled(95*_width, 72*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+
 }
