@@ -21,15 +21,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    api_get_request.cpp \
+    Init.cpp \
     dialog_critical.cpp \
+    encryption.cpp \
     main.cpp \
     main_login.cpp \
     user.cpp
 
 HEADERS += \
+    api_get_request.h \
+    Init.h \
     dialog_critical.h \
-    main_login.h \
+    encryption.h \
     user.h
+    main_login.h
 
 FORMS += \
     dialog_critical.ui \
@@ -42,4 +48,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     data_picture.qrc
+DISTFILES += \
+    img/house.jpg
 

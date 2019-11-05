@@ -16,14 +16,19 @@ class Main_Login : public QMainWindow
 public:
     explicit Main_Login(QWidget *parent = nullptr);
     ~Main_Login();
+    bool CheckConnexion();
+
 
 private slots:
-    void on_pushButton_connect_clicked();
+    void on_lbl_pwd_linkActivated(const QString &link);
 
-    void on_pushButton_2_clicked();
+    void on_lbl_create_account_linkActivated(const QString &link);
+
+    void on_btn_login_clicked();
 
 private:
     Ui::Main_Login *ui;
+
 };
 
 #endif // MAIN_LOGIN_H
