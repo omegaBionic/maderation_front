@@ -97,7 +97,6 @@ void Main_Login::on_btn_login_clicked()
 
            QNetworkAccessManager manager;
            QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/api/get/users?key=83c2c07ea1251a1a39ec46d52cbba19c")));
-           //QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/api/get/status?key=179616f1a4cecab2a7eab481b84d076c")));
            QEventLoop event;
            connect(response,SIGNAL(finished()),&event,SLOT(quit()));
            event.exec();
@@ -119,12 +118,11 @@ void Main_Login::on_btn_login_clicked()
            {
                qDebug("Differents");
            }
-
-           if(username == jsonObject.value("datas")["Items"]["username"]["S"].toString() && pwd == jsonObject.value("datas")["Items"]["password"]["S"].toString()){
+           if(username == jsonObject.value("datas")["Items"][0]["username"]["S"].toString() && pwd == jsonObject.value("datas")["Items"][0]["password"]["S"].toString()){
                Dialog_Critical* d = new Dialog_Critical(this,"success", "connexion réussie", "information");
                d->show();
            }else{
-               Dialog_Critical* d = new Dialog_Critical(this,"Error", "connexion ratée", "critical");
+               Dialog_Critical* d = new Dialog_Critical(this,"Error", "connexion ratée, pwd is : " + pwd + "json is : "+jsonObject.value("datas")["Items"]["password"]["S"].toString(), "critical");
                d->show();
            }
 
