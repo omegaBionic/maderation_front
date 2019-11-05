@@ -66,7 +66,7 @@ bool Main_Login::CheckConnexion()
      }
 }
 
-void Main_Login::on_pushButton_connect_clicked()
+void Main_Login::on_btn_login_clicked()
 {
     QString key = "23";
     Encryption *Chiffrement = new Encryption;// convertir le texte a chiffrer en QbyteArray avec : QString MonText = "test"; ---->  QByteArray MonText_converti = MonText.toUtf8(); avant .
@@ -97,7 +97,6 @@ void Main_Login::on_pushButton_connect_clicked()
 
            QNetworkAccessManager manager;
            QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/api/get/users?key=83c2c07ea1251a1a39ec46d52cbba19c")));
-           //QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/api/get/status?key=179616f1a4cecab2a7eab481b84d076c")));
            QEventLoop event;
            connect(response,SIGNAL(finished()),&event,SLOT(quit()));
            event.exec();
@@ -119,22 +118,25 @@ void Main_Login::on_pushButton_connect_clicked()
            {
                qDebug("Differents");
            }
-
-           if(username == jsonObject.value("datas")["Items"]["username"]["S"].toString() && pwd == jsonObject.value("datas")["Items"]["password"]["S"].toString()){
+           if(username == jsonObject.value("datas")["Items"][0]["username"]["S"].toString() && pwd == jsonObject.value("datas")["Items"][0]["password"]["S"].toString()){
                Dialog_Critical* d = new Dialog_Critical(this,"success", "connexion réussie", "information");
                d->show();
            }else{
-               Dialog_Critical* d = new Dialog_Critical(this,"Error", "connexion ratée", "critical");
+               Dialog_Critical* d = new Dialog_Critical(this,"Error", "connexion ratée, pwd is : " + pwd + "json is : "+jsonObject.value("datas")["Items"]["password"]["S"].toString(), "critical");
                d->show();
            }
+
        }
 
 }
 
-void Main_Login::on_pushButton_2_clicked()
+void Main_Login::on_lbl_pwd_linkActivated(const QString &link)
 {
     QDesktopServices::openUrl(QUrl("https://www.google.com", QUrl::TolerantMode));
 }
 
-
+void Main_Login::on_lbl_create_account_linkActivated(const QString &link)
+{
+    QDesktopServices::openUrl(QUrl("https://www.google.com", QUrl::TolerantMode));
+}
 
