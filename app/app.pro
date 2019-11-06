@@ -5,6 +5,9 @@ CONFIG += qtc_runnable
 
 TEMPLATE = app
 
+RC_ICONS = icon/logo.ico
+
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -21,17 +24,43 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    api_get_request.cpp \
+    Init.cpp \
+    dialog_critical.cpp \
+    encryption.cpp \
     main.cpp \
-    main_login.cpp
+    main_login.cpp \
+    menu_toolbar.cpp \
+    user.cpp
 
 HEADERS += \
+    api_get_request.h \
+    Init.h \
+    dialog_critical.h \
+    encryption.h \
+    menu_toolbar.h \
+    user.h \
     main_login.h
 
 FORMS += \
-    main_login.ui
+    dialog_critical.ui \
+    main_login.ui \
+    menu_toolbar.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+RESOURCES += \
+    data_picture.qrc
+
+
+DISTFILES += \
+    android-sources/AndroidManifest.xml \
+    android-sources/build.gradle \
+    android-sources/gradle/wrapper/gradle-wrapper.jar \
+    android-sources/gradle/wrapper/gradle-wrapper.properties \
+    android-sources/gradlew \
+    android-sources/gradlew.bat \
+    android-sources/res/values/libs.xml

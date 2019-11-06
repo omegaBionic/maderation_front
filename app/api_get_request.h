@@ -1,3 +1,4 @@
+signals:
 #ifndef API_GET_REQUEST_H
 #define API_GET_REQUEST_H
 #include <QtNetwork>
