@@ -19,15 +19,6 @@ Main_Login::Main_Login(QWidget *parent) :
     ui(new Ui::Main_Login)
 {
     ui->setupUi(this);
-
-    this->setMinimumSize(800,500);
-    this->setGeometry(0,0,800,500);
-
-
-
-
-//    ui->menuBar->hide();
-//    ui->progressBar->hide();
 }
 
 Main_Login::~Main_Login()
@@ -168,7 +159,6 @@ void Main_Login::resizeEvent(QResizeEvent *){
 
     _width = win.width()/128;
     _height = win.height()/72;
-
 
     ui->line->setGeometry(102*_width, 50*_height, 20*_width, 5*_height);
     ui->btn_login->setGeometry(100*_width, 45*_height, 24*_width, 3*_height);

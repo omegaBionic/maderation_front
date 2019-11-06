@@ -12,6 +12,8 @@ api_get_request::api_get_request(QObject *parent) : QObject(parent)
     }
 }
 
+
+
 //Retourne toutes les données
 void get_tables(){
 
@@ -38,6 +40,8 @@ void get_tables(){
     reply->deleteLater();
 }
 
+
+
 void get_table_user(){
 
     QNetworkAccessManager man;
@@ -57,6 +61,8 @@ void get_table_user(){
 
     reply->deleteLater();
 }
+
+
 
 void parse_file_user(){
 
@@ -83,4 +89,6 @@ void parse_file_user(){
     QString addressIdAddress = json["addressIdAddress"].toString();
 
 }
+
+
 

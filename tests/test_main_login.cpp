@@ -14,9 +14,7 @@
 #include <QDebug>
 #include <sys/stat.h>
 #include <QDir>
-#include <QMainWindow>
 //------------------------------------------------------
-#include "../app/main_login.h"
 
 
 
@@ -24,76 +22,63 @@
 
 
 
-class test_app : public QObject
+class test_main_login : public QObject
 {
     Q_OBJECT
 
 public:
-    test_app();
-    ~test_app();
-    Main_Login *main;
+    test_main_login();
+    ~test_main_login();
 
 private slots:
     void initTestCase();
     void cleanupTestCase();
     void init();
     void cleanup();
-    void main_login_check_connexion();
-    void test2();
+    void test_case1();
 
 };
 
-test_app::test_app()
+test_main_login::test_main_login()
 {
 
 }
 
-test_app::~test_app()
+test_main_login::~test_main_login()
 {
 
 }
 
-void test_app::initTestCase()
+void test_main_login::initTestCase()
 {
     // se lance au tout début
-    main = new Main_Login(0);
 
 
 }
 
 
-void test_app::cleanupTestCase()
+void test_main_login::cleanupTestCase()
 {
     // se lance à la fin
-    main = NULL;
 }
 
-void test_app::init()
+void test_main_login::init()
 {
     // se lance avant chaque test
-    main = new Main_Login(0);
 }
 
-void test_app::cleanup()
+void test_main_login::cleanup()
 {
     // se lance après chaque test
-    main = NULL;
 }
 
 //un exemple de test fonctionnel
-void test_app::main_login_check_connexion()
-{
-    QVERIFY(main->CheckConnexion());
-}
-
-void test_app::test2()
+void test_main_login::test_case1()
 {
     QVERIFY(1==1);
 }
 
 
-
-
 //la définition de test
-QTEST_MAIN(test_app)
-#include "tst_test_app.moc"
+QTEST_MAIN(test_main_login)
+#include "test_main_login.moc"

@@ -13,7 +13,7 @@
 #include <QDebug>
 #include <sys/stat.h>
 #include <QDir>
-#include <Init.h>
+#include "Init.h"
 #include <QCoreApplication>
 
 
