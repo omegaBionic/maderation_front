@@ -30,6 +30,7 @@ SOURCES += \
     encryption.cpp \
     main.cpp \
     main_login.cpp \
+    menu_toolbar.cpp \
     user.cpp
 
 HEADERS += \
@@ -37,12 +38,14 @@ HEADERS += \
     Init.h \
     dialog_critical.h \
     encryption.h \
+    menu_toolbar.h \
     user.h \
     main_login.h
 
 FORMS += \
     dialog_critical.ui \
-    main_login.ui
+    main_login.ui \
+    menu_toolbar.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
