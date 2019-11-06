@@ -13,16 +13,74 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QWidget" name="horizontalLayoutWidget">
+  <property name="styleSheet">
+   <string notr="true">border-radius: 15px;
+background-color: black;</string>
+  </property>
+  <widget class="QPushButton" name="btn_messages">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>851</width>
-     <height>371</height>
+     <x>515</x>
+     <y>177</y>
+     <width>57</width>
+     <height>16</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout"/>
+   <property name="text">
+    <string>messages</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_logoff">
+   <property name="geometry">
+    <rect>
+     <x>343</x>
+     <y>177</y>
+     <width>33</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>logoff</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_menu">
+   <property name="geometry">
+    <rect>
+     <x>686</x>
+     <y>177</y>
+     <width>32</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>menu</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_archive">
+   <property name="geometry">
+    <rect>
+     <x>1</x>
+     <y>177</y>
+     <width>41</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>archive</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_alert">
+   <property name="geometry">
+    <rect>
+     <x>172</x>
+     <y>177</y>
+     <width>26</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>alert</string>
+   </property>
   </widget>
  </widget>
  <resources/>

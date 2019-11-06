@@ -17,6 +17,9 @@ public:
 
 private:
     Ui::menu_toolbar *ui;
+    void resizeEvent(QResizeEvent * event);
+    int _width;
+    int _height;
 };
 
 #endif // MENU_TOOLBAR_H

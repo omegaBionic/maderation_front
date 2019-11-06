@@ -1,5 +1,7 @@
 #include "main_login.h"
 #include "ui_main_login.h"
+#include "ui_menu_toolbar.h"
+#include "menu_toolbar.h"
 #include "user.h"
 #include <QDesktopServices>
 #include <QUrl>
