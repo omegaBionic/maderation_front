@@ -11,6 +11,7 @@ TEMPLATE = app
 
 
 SOURCES +=  tst_test_app.cpp \
+            ../app/menu_toolbar.cpp \
             ../app/main_login.cpp \
             ../app/api_get_request.cpp \
             ../app/Init.cpp \
@@ -20,6 +21,7 @@ SOURCES +=  tst_test_app.cpp \
 
 HEADERS += \
     ../app/api_get_request.h \
+    ../app/menu_toolbar.h \
     ../app/Init.h \
     ../app/dialog_critical.h \
     ../app/encryption.h \

@@ -30,17 +30,17 @@ SOURCES += \
     encryption.cpp \
     main.cpp \
     main_login.cpp \
-    menu_toolbar.cpp \
-    user.cpp
+    user.cpp \
+    menu_toolbar.cpp
 
 HEADERS += \
     api_get_request.h \
     Init.h \
     dialog_critical.h \
     encryption.h \
-    menu_toolbar.h \
     user.h \
-    main_login.h
+    main_login.h \
+    menu_toolbar.h
 
 FORMS += \
     dialog_critical.ui \

@@ -1,7 +1,5 @@
 #include "main_login.h"
 #include "ui_main_login.h"
-#include "ui_menu_toolbar.h"
-#include "menu_toolbar.h"
 #include "user.h"
 #include <QDesktopServices>
 #include <QUrl>
@@ -20,7 +18,9 @@ Main_Login::Main_Login(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Main_Login)
 {
+//    _menu = new menu_toolbar();
     ui->setupUi(this);
+
 }
 
 Main_Login::~Main_Login()
@@ -161,6 +161,8 @@ void Main_Login::resizeEvent(QResizeEvent *){
 
     _width = win.width()/128;
     _height = win.height()/72;
+
+//    _menu->setGeometry(35*_width, 60*_height, 58*_width, 10*_height);
 
     ui->line->setGeometry(102*_width, 50*_height, 20*_width, 5*_height);
     ui->btn_login->setGeometry(100*_width, 45*_height, 24*_width, 3*_height);

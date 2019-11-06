@@ -24,8 +24,11 @@ private slots:
     void on_btn_login_clicked();
 
 private:
-    Ui::Main_Login *ui;
     void resizeEvent(QResizeEvent * event);
+
+    Ui::Main_Login *ui;
+
+    menu_toolbar* _menu;
     int _width;
     int _height;
 

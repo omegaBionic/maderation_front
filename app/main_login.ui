@@ -281,26 +281,8 @@ color:black;
      <string>Forgot Password ?</string>
     </property>
    </widget>
-   <widget class="menu_toolbar" name="widget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>220</x>
-      <y>260</y>
-      <width>561</width>
-      <height>111</height>
-     </rect>
-    </property>
-   </widget>
   </widget>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>menu_toolbar</class>
-   <extends>QWidget</extends>
-   <header location="global">menu_toolbar.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
