@@ -18,7 +18,6 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
-#include "menu_toolbar.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -34,7 +33,6 @@ public:
     QPushButton *btn_login;
     QLabel *label_title;
     QPushButton *btn_forgot;
-    menu_toolbar *widget;
 
     void setupUi(QMainWindow *Main_Login)
     {
@@ -118,9 +116,6 @@ public:
 "border: 0px solid black;\n"
 "color:black;\n"
 "}"));
-        widget = new menu_toolbar(centralwidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(550, 380, 311, 80));
         Main_Login->setCentralWidget(centralwidget);
 
         retranslateUi(Main_Login);

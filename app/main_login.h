@@ -4,7 +4,7 @@
 #include <QMainWindow>
 
 #include "dialog_critical.h"
-#include "menu_toolbar.h"
+//#include "menu_toolbar.h"
 
 namespace Ui {
 class Main_Login;
@@ -28,7 +28,7 @@ private:
 
     Ui::Main_Login *ui;
 
-    menu_toolbar* _menu;
+//    menu_toolbar* _menu;
     int _width;
     int _height;
 
