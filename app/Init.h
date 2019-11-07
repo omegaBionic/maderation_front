@@ -17,6 +17,7 @@ class Init: public QObject
     Init();
     void Check_folder();
     void InsertTable();
+   static bool CheckConnection();
 
 
 
