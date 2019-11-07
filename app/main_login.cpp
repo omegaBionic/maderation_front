@@ -54,7 +54,7 @@ bool Main_Login::CheckConnexion()
     QJsonValue statut =  MyObject.value(QString("status"));
 
      qDebug("Vérification du statut de la  bdd");
-     if(MyObject.value(QString("status")) == "true"){
+     if(MyObject.value(QString("status")) == 200 && MyObject.value(QString("datas")) == "OK"){
          return true;
      }else {
          return false;

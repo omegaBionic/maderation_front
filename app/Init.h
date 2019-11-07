@@ -16,7 +16,9 @@ class Init: public QObject
  public :
     Init();
     void Check_folder();
-    void Transfert_Tables();
+    void InsertTable();
+
+
 
     ~Init();
 

@@ -48,10 +48,13 @@ void Init::Check_folder()
 
 };
 
-void Init::Transfert_Tables()
+void Init::InsertTable()
 {
 
 }
+
+
+
 
 
 
