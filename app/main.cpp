@@ -1,5 +1,6 @@
 #include "main_login.h"
 #include "Init.h"
+#include "menu_toolbar.h"
 #include "encryption.h"
 #include <QApplication>
 #include <QObject>

@@ -5,6 +5,9 @@ CONFIG += qtc_runnable
 
 TEMPLATE = app
 
+RC_ICONS = icon/logo.ico
+
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -26,18 +29,23 @@ SOURCES += \
     dialog_critical.cpp \
     encryption.cpp \
     main.cpp \
-    main_login.cpp
+    main_login.cpp \
+    user.cpp \
+    menu_toolbar.cpp
 
 HEADERS += \
     api_get_request.h \
     Init.h \
     dialog_critical.h \
     encryption.h \
-    main_login.h
+    user.h \
+    main_login.h \
+    menu_toolbar.h
 
 FORMS += \
     dialog_critical.ui \
-    main_login.ui
+    main_login.ui \
+    menu_toolbar.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -46,6 +54,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     data_picture.qrc
-DISTFILES += \
-    img/house.jpg
 
+
+DISTFILES += \
+    android-sources/AndroidManifest.xml \
+    android-sources/build.gradle \
+    android-sources/gradle/wrapper/gradle-wrapper.jar \
+    android-sources/gradle/wrapper/gradle-wrapper.properties \
+    android-sources/gradlew \
+    android-sources/gradlew.bat \
+    android-sources/res/values/libs.xml
