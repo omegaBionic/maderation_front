@@ -18,6 +18,7 @@
 #include <QMainWindow>
 //------------------------------------------------------
 #include "../app/main_login.h"
+#include "../app/main_menu.h"
 
 
 
@@ -40,6 +41,7 @@ private slots:
     void init();
     void cleanup();
     void main_login_check_connexion();
+    void main_menu_exist();
 
 //    void api_get_request_test_get_status();
 //    void api_get_request_test_get_table_user();
@@ -520,6 +522,12 @@ void test_app::main_login_check_connexion()
 //    }
 
 //}
+
+
+void test_app::main_menu_exist(){
+    Main_Menu *m = new Main_Menu();
+    QVERIFY(m != NULL);
+}
 
 //la définition de test
 QTEST_MAIN(test_app)

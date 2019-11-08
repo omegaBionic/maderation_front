@@ -13,6 +13,7 @@ TEMPLATE = app
 SOURCES +=  tst_test_app.cpp \
             ../app/menu_toolbar.cpp \
             ../app/main_login.cpp \
+            ../app/main_menu.cpp \
             ../app/api_get_request.cpp \
             ../app/Init.cpp \
             ../app/dialog_critical.cpp \
@@ -26,10 +27,12 @@ HEADERS += \
     ../app/dialog_critical.h \
     ../app/encryption.h \
     ../app/user.h \
+    ../app/main_menu.h \
     ../app/main_login.h
 
 FORMS += \
     ../app/main_login.ui \
+    ../app/main_menu.ui \
     ../app/dialog_critical.ui
 
 

@@ -30,6 +30,7 @@ SOURCES += \
     encryption.cpp \
     main.cpp \
     main_login.cpp \
+    main_menu.cpp \
     user.cpp \
     menu_toolbar.cpp
 
@@ -38,6 +39,7 @@ HEADERS += \
     Init.h \
     dialog_critical.h \
     encryption.h \
+    main_menu.h \
     user.h \
     main_login.h \
     menu_toolbar.h
@@ -45,6 +47,7 @@ HEADERS += \
 FORMS += \
     dialog_critical.ui \
     main_login.ui \
+    main_menu.ui \
     menu_toolbar.ui
 
 # Default rules for deployment.
