@@ -5,6 +5,7 @@ menu_toolbar::menu_toolbar(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::menu_toolbar)
 {
+    _isHided = false;
     ui->setupUi(this);
 }
 
@@ -21,15 +22,57 @@ void menu_toolbar::resizeEvent(QResizeEvent *){
 
     _width = win.width()/128;
     _height = win.height()/72;
-    ui->btn_menu->setGeometry(4*_width, 0*_height, 24*_width, 72*_height);
-    ui->btn_menu->setIcon(QPixmap(":/pictures/img/logo accueil.png").scaled(24*_width, 72*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
-    ui->btn_archive->setGeometry(28*_width, 0*_height, 24*_width, 72*_height);
-    ui->btn_archive->setIcon(QPixmap(":/pictures/img/logo archive.png").scaled(24*_width, 72*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
-    ui->btn_messages->setGeometry(52*_width, 0*_height, 24*_width, 72*_height);
-    ui->btn_messages->setIcon(QPixmap(":/pictures/img/logo message.png").scaled(24*_width, 72*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
-    ui->btn_alert->setGeometry(76*_width, 0*_height, 24*_width, 72*_height);
-    ui->btn_alert->setIcon(QPixmap(":/pictures/img/logo accueil.png").scaled(24*_width, 72*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
-    ui->btn_logoff->setGeometry(100*_width, 0*_height, 24*_width, 72*_height);
-    ui->btn_logoff->setIcon(QPixmap(":/pictures/img/logo logoff.png").scaled(24*_width, 72*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+    int widthButton = 16*_width;
+    int heightButton = 36*_height;
 
+    ui->btn_menu->setGeometry(8*_width, 34*_height, widthButton, heightButton);
+    ui->btn_menu->setIcon(QPixmap(":/pictures/img/logo accueil.png").scaled(widthButton, heightButton,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+    ui->btn_menu->setIconSize(QSize(widthButton, heightButton));
+    ui->btn_archive->setGeometry(32*_width, 34*_height, widthButton, heightButton);
+    ui->btn_archive->setIcon(QPixmap(":/pictures/img/logo archive.png").scaled(widthButton, heightButton,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+    ui->btn_archive->setIconSize(QSize(widthButton, heightButton));
+    ui->btn_messages->setGeometry(56*_width, 34*_height, widthButton, heightButton);
+    ui->btn_messages->setIcon(QPixmap(":/pictures/img/logo message.png").scaled(widthButton,heightButton,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+    ui->btn_messages->setIconSize(QSize(widthButton, heightButton));
+    ui->btn_alert->setGeometry(80*_width, 34*_height, widthButton, heightButton);
+    ui->btn_alert->setIcon(QPixmap(":/pictures/img/logo alert.png").scaled(widthButton,heightButton,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+    ui->btn_alert->setIconSize(QSize(widthButton, heightButton));
+    ui->btn_logoff->setGeometry(104*_width, 34*_height, widthButton, heightButton);
+    ui->btn_logoff->setIcon(QPixmap(":/pictures/img/logo logoff.png").scaled(widthButton, heightButton,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+    ui->btn_logoff->setIconSize(QSize(widthButton, heightButton));
+    ui->btn_hide->setGeometry(55*_width, 12*_height, 20*_width, 20*_height);
+    ui->btn_hide->setIcon(QPixmap(":/pictures/img/logo_hide.png").scaled(20*_width, 20*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+    ui->btn_hide->setIconSize(QSize(20*_width, 20*_height));
+    ui->push_background->setGeometry(0*_width, 32*_height, 128*_width, 40*_height);
+    ui->push_background->setStyleSheet("QPushButton{color: white;border-radius: "+QString::number(ui->push_background->height()/2)+"px;background-color: rgb(93, 82, 82);}");
+
+
+
+}
+void menu_toolbar::on_btn_hide_clicked()
+{
+    _isHided = !_isHided;
+    if(_isHided){
+        ui->btn_hide->setGeometry(55*_width, 52*_height, 20*_width, 20*_height);
+        ui->btn_hide->setIcon(QPixmap(":/pictures/img/logo_show.png").scaled(20*_width, 20*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+        ui->btn_hide->setIconSize(QSize(20*_width, 20*_height));
+        ui->btn_menu->setVisible(false);
+        ui->btn_alert->setVisible(false);
+        ui->btn_logoff->setVisible(false);
+        ui->btn_archive->setVisible(false);
+        ui->btn_messages->setVisible(false);
+        ui->push_background->setVisible(false);
+
+    }else{
+        ui->btn_hide->setGeometry(55*_width, 12*_height, 20*_width, 20*_height);
+        ui->btn_hide->setIcon(QPixmap(":/pictures/img/logo_hide.png").scaled(20*_width, 20*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+        ui->btn_hide->setIconSize(QSize(20*_width, 20*_height));
+        ui->btn_menu->setVisible(true);
+        ui->btn_alert->setVisible(true);
+        ui->btn_logoff->setVisible(true);
+        ui->btn_archive->setVisible(true);
+        ui->btn_messages->setVisible(true);
+        ui->push_background->setVisible(true);
+
+    }
 }

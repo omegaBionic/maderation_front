@@ -14,8 +14,11 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: black;
-border-color: rgb(0, 0, 0);</string>
+   <string notr="true">QWidget {
+background-color: black;
+border-color: rgb(0, 0, 0);
+border-radius: 12px;
+}</string>
   </property>
   <widget class="QPushButton" name="btn_messages">
    <property name="geometry">
@@ -26,8 +29,18 @@ border-color: rgb(0, 0, 0);</string>
      <height>16</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+color: white;
+	background-color: rgb(93, 82, 82);
+border-radius: 0px;
+}</string>
+   </property>
    <property name="text">
-    <string>messages</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="btn_logoff">
@@ -39,8 +52,18 @@ border-color: rgb(0, 0, 0);</string>
      <height>16</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+color: white;
+	background-color: rgb(93, 82, 82);
+border-radius: 0px;
+}</string>
+   </property>
    <property name="text">
-    <string>logoff</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="btn_menu">
@@ -52,8 +75,18 @@ border-color: rgb(0, 0, 0);</string>
      <height>16</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+color: white;
+	background-color: rgb(93, 82, 82);
+border-radius: 0px;
+}</string>
+   </property>
    <property name="text">
-    <string>menu</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="btn_archive">
@@ -65,8 +98,17 @@ border-color: rgb(0, 0, 0);</string>
      <height>16</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+border-radius: 0px;
+	background-color: rgb(93, 82, 82);
+}</string>
+   </property>
    <property name="text">
-    <string>archive</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="btn_alert">
@@ -78,10 +120,73 @@ border-color: rgb(0, 0, 0);</string>
      <height>16</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+color: white;
+	background-color: rgb(93, 82, 82);
+border-radius: 0px;
+}</string>
+   </property>
    <property name="text">
-    <string>alert</string>
+    <string/>
    </property>
   </widget>
+  <widget class="QPushButton" name="push_background">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>250</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+color: white;
+border-radius: 20px;
+	background-color: rgb(93, 82, 82);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_hide">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>280</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+color: white;
+border-radius: 20px;
+background-color: rgba(0,0,0,0);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <zorder>btn_hide</zorder>
+  <zorder>push_background</zorder>
+  <zorder>btn_messages</zorder>
+  <zorder>btn_logoff</zorder>
+  <zorder>btn_menu</zorder>
+  <zorder>btn_archive</zorder>
+  <zorder>btn_alert</zorder>
  </widget>
  <resources/>
  <connections/>

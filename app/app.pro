@@ -26,6 +26,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     api_get_request.cpp \
     Init.cpp \
+    controller.cpp \
     dialog_critical.cpp \
     encryption.cpp \
     main.cpp \
@@ -37,6 +38,7 @@ SOURCES += \
 HEADERS += \
     api_get_request.h \
     Init.h \
+    controller.h \
     dialog_critical.h \
     encryption.h \
     main_menu.h \
