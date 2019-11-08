@@ -575,7 +575,7 @@ void test_app::controller_get_user()
 
 
 void test_app::main_menu_exist(){
-    Main_Menu *m = new Main_Menu();
+    Main_Menu *m = new Main_Menu(0,NULL);
     QVERIFY(m != NULL);
 }
 
