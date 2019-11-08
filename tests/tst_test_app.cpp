@@ -18,6 +18,8 @@
 #include <QMainWindow>
 //------------------------------------------------------
 #include "../app/main_login.h"
+#include "../app/menu_toolbar.h"
+#include "../app/controller.h"
 
 
 
@@ -39,7 +41,13 @@ private slots:
     void cleanupTestCase();
     void init();
     void cleanup();
-    void main_login_check_connexion();
+    void main_login_exist();
+    void menu_toolbar_exist();
+    void menu_toolbar_hide();
+    void menu_toolbar_show();
+    void controller_exist();
+    void controller_have_login();
+    void controller_get_user();
 
 //    void api_get_request_test_get_status();
 //    void api_get_request_test_get_table_user();
@@ -123,9 +131,10 @@ void test_app::cleanup()
 }
 
 //un exemple de test fonctionnel
-void test_app::main_login_check_connexion()
+void test_app::main_login_exist()
 {
-    QVERIFY(main->CheckConnexion());
+    main = new Main_Login(0);
+    QVERIFY(main != NULL);
 }
 
 
@@ -520,6 +529,47 @@ void test_app::main_login_check_connexion()
 //    }
 
 //}
+
+void test_app::menu_toolbar_exist()
+{
+    menu_toolbar* menu = new menu_toolbar(0);
+    QVERIFY(menu != NULL);
+}
+void test_app::menu_toolbar_hide()
+{
+    menu_toolbar* menu = new menu_toolbar(0);
+    menu->on_btn_hide_clicked();
+    QVERIFY(menu->_isHided == true);
+}
+void test_app::menu_toolbar_show()
+{
+    menu_toolbar* menu = new menu_toolbar(0);
+    QVERIFY(menu->_isHided == false);
+    menu->on_btn_hide_clicked();
+    QVERIFY(menu->_isHided == true);
+    menu->on_btn_hide_clicked();
+    QVERIFY(menu->_isHided == false);
+    menu->on_btn_hide_clicked();
+    QVERIFY(menu->_isHided == true);
+}
+
+void test_app::controller_exist()
+{
+    Controller* ct = new Controller(0);
+    QVERIFY(ct != NULL);
+}
+
+void test_app::controller_have_login()
+{
+    Controller* ct = new Controller(0);
+    QVERIFY(ct->getLogin() != NULL);
+}
+
+void test_app::controller_get_user()
+{
+    Controller* ct = new Controller(0);
+    QVERIFY(ct->getUser() != NULL);
+}
 
 //la définition de test
 QTEST_MAIN(test_app)

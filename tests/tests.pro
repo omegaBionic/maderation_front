@@ -17,6 +17,7 @@ SOURCES +=  tst_test_app.cpp \
             ../app/Init.cpp \
             ../app/dialog_critical.cpp \
             ../app/encryption.cpp \
+            ../app/controller.cpp \
             ../app/user.cpp
 
 HEADERS += \
@@ -25,6 +26,7 @@ HEADERS += \
     ../app/Init.h \
     ../app/dialog_critical.h \
     ../app/encryption.h \
+    ../app/controller.h \
     ../app/user.h \
     ../app/main_login.h
 
