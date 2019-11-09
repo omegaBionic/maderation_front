@@ -18,6 +18,7 @@
 #include <QMainWindow>
 //------------------------------------------------------
 #include "../app/main_login.h"
+#include "../app/Init.h"
 
 
 
@@ -41,7 +42,7 @@ private slots:
     void cleanupTestCase();
     void init();
     void cleanup();
-    void main_login_check_connexion();
+    void test_Init_connection();
 
     void test_Init1();
     void test_Init2();
@@ -131,9 +132,9 @@ void test_app::cleanup()
 }
 
 //un exemple de test fonctionnel
-void test_app::main_login_check_connexion()
+void test_app::test_Init_connection()
 {
-    QVERIFY(main->CheckConnexion());
+    QVERIFY(Init::CheckConnection());
 }
 
 

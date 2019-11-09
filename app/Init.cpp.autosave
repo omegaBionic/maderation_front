@@ -16,6 +16,7 @@
 #include "Init.h"
 #include <QCoreApplication>
 
+#include "api_get_request.h"
 
 
 Init::Init()
