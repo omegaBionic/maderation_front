@@ -1,47 +1,44 @@
-#ifndef USER_H
-#define USER_H
+#ifndef BDD_CLIENT_H
+#define BDD_CLIENT_H
 
 #include <QFile>
 
-class User
+
+class bdd_CLIENT
 {
     public:
-        User(QString username, QString phoneNumber, bool isActive, QString password, QString lastName, QString firstName, QString mail, int IDAdress);
-        ~User();
+        bdd_CLIENT(QString phoneNumber,QString idCLient, bool isActive, QString password, QString lastName, QString firstName, QString mail, int addressIdAddress);
+        ~bdd_CLIENT();
 
         void setPhoneNumber(QString);
+        void setIdClient(QString);
         void setPassword(QString);
         void setLastName(QString);
         void setMail(QString);
-        void setUsername(QString);
         void setFirstName(QString);
         void setIsActive(bool);
-        void setIdAddress(int);
+        void setAddressIdAddress(int);
 
         QString getPhoneNumber();
         QString getPassword();
         QString getLastName();
         QString getMail();
-        QString getUsername();
         QString getFirstName();
         bool getIsActive();
         int getAddressIdAddress();
+        QString getIdClient();
 
     private:
-        QString _username;
+        QString _idClient;
         QString _phoneNumber;
         QString _password;
         QString _firstname;
         QString _lastname;
         QString _mail;
         bool _isActive;
-        int _IDAdress;
+        int _addressIDAdress;
 
 
 };
 
-
-
-
-
-#endif // USER_H
+#endif // BDD_CLIENT_H

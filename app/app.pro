@@ -26,20 +26,60 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     api_get_request.cpp \
     Init.cpp \
+    bdd_address_client.cpp \
+    bdd_address_supplier.cpp \
+    bdd_category.cpp \
+    bdd_chat.cpp \
+    bdd_client.cpp \
+    bdd_component.cpp \
+    bdd_gamme.cpp \
+    bdd_invoice_quotation.cpp \
+    bdd_message.cpp \
+    bdd_product.cpp \
+    bdd_project.cpp \
+    bdd_promotion_cat.cpp \
+    bdd_promotion_comp.cpp \
+    bdd_quotation.cpp \
+    bdd_role.cpp \
+    bdd_shop.cpp \
+    bdd_status.cpp \
+    bdd_stock.cpp \
+    bdd_supplier.cpp \
+    bdd_user.cpp \
     dialog_critical.cpp \
     encryption.cpp \
     main.cpp \
     main_login.cpp \
     menu_toolbar.cpp \
-    user.cpp
+    uicontroller.cpp
 
 HEADERS += \
     api_get_request.h \
     Init.h \
+    bdd_address_client.h \
+    bdd_address_supplier.h \
+    bdd_category.h \
+    bdd_chat.h \
+    bdd_client.h \
+    bdd_component.h \
+    bdd_gamme.h \
+    bdd_invoice_quotation.h \
+    bdd_message.h \
+    bdd_product.h \
+    bdd_project.h \
+    bdd_promotion_cat.h \
+    bdd_promotion_comp.h \
+    bdd_quotation.h \
+    bdd_role.h \
+    bdd_shop.h \
+    bdd_status.h \
+    bdd_stock.h \
+    bdd_supplier.h \
+    bdd_user.h \
     dialog_critical.h \
     encryption.h \
     menu_toolbar.h \
-    user.h \
+    uicontroller.h \
     main_login.h
 
 FORMS += \

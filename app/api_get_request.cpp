@@ -3,25 +3,27 @@
 #include <QNetworkReply>
 #include <QDir>
 #include <fstream>
-#include <user>
-#include <client>
-#include <addressClient>
-#include <addressSupplier>
-#include <category>
-#include <chat>
-#include <component>
-#include <gamme>
-#include <invoiceQuotation>
-#include <message>
-#include <product>
-#include <project>
-#include <promotionCat>
-#include <promotionComp>
-#include <quotation>
-#include <role>
-#include <shop>
-#include <stock>
-#include <supplier>
+#include <QVector>
+#include "bdd_status.h"
+#include "bdd_user.h"
+#include "bdd_client.h"
+#include "bdd_address_client.h"
+#include "bdd_address_supplier.h"
+#include "bdd_category.h"
+#include "bdd_chat.h"
+#include "bdd_component.h"
+#include "bdd_gamme.h"
+#include "bdd_invoice_quotation.h"
+#include "bdd_message.h"
+#include "bdd_product.h"
+#include "bdd_project.h"
+#include "bdd_promotion_cat.h"
+#include "bdd_promotion_comp.h"
+#include "bdd_quotation.h"
+#include "bdd_role.h"
+#include "bdd_shop.h"
+#include "bdd_stock.h"
+#include "bdd_supplier.h"
 
 api_get_request::api_get_request(QObject *parent) : QObject(parent)
 {
@@ -62,9 +64,9 @@ void api_get_request::parse_file_status(){
 
     // Access properties
 
-    Status::status = json["status"].toInt();
+    QVector<bdd_STATUS>* listStatus = new QVector<bdd_STATUS>();
 
-    Status::datas = json["datas"].toString();
+    listStatus->append(bdd_STATUS(json["status"].toString(),json["datas"].toString()));
 
 }
 
@@ -102,21 +104,9 @@ void api_get_request::parse_file_user(){
 
     // Access properties
 
-    User::phoneNumber = json["phoneNumber"].toString();
+    QVector<bdd_USER>* listUser = new QVector<bdd_USER>();
 
-    User::mail = json["mail"].toBool();
-
-    User::password = json["password"].toString();
-
-    User::lastName = json["lastName"].toString();
-
-    User::mail = json["mail"].toString();
-
-    User::username = json["username"].toString();
-
-    User::firstName = json["firstName"].toString();
-
-    User::addressId = json["addressId"].toInt();
+    listUser->append(bdd_USER(json["username"].toString(), json["phoneNumber"].toString(), json["isActive"].toBool(), json["password"].toString(), json["lastName"].toString(), json["firstName"].toString(), json["mail"].toString(), json["addressId"].toInt()));
 
 }
 
@@ -154,21 +144,9 @@ void api_get_request::parse_file_client(){
 
     // Access properties
 
-    Client::phoneNumber = json["phoneNumber"].toString();
+    QVector<bdd_CLIENT>* listClient = new QVector<bdd_CLIENT>();
 
-    Client::mail = json["mail"].toBool();
-
-    Client::password = json["password"].toString();
-
-    Client::lastName = json["lastName"].toString();
-
-    Client::mail = json["mail"].toString();
-
-    Client::username = json["username"].toString();
-
-    Client::firstName = json["firstName"].toString();
-
-    Client::addressIdAddress = json["addressIdAddress"].toInt();
+    listClient->append(bdd_CLIENT(json["username"].toString(), json["phoneNumber"].toString(), json["isActive"].toBool(), json["password"].toString(), json["lastName"].toString(), json["firstName"].toString(), json["mail"].toString(), json["addressId"].toInt()));
 
 }
 
@@ -206,15 +184,10 @@ void api_get_request::parse_file_address_client(){
 
     // Access properties
 
-    addressClient::city = json["city"].toString();
+    QVector<bdd_ADDRESS_CLIENT>* listAddressClient = new QVector<bdd_ADDRESS_CLIENT>();
 
-    addressClient::idAddressClient = json["idAddressClient"].toString();
+    listAddressClient->append(bdd_ADDRESS_CLIENT(json["city"].toString(), json["idAddressClient"].toString(), json["country"].toString(), json["postalCode"].toInt(), json["street"].toString()));
 
-    addressClient::country = json["country"].toString();
-
-    addressClient::postalCode = json["postalCode"].toInt();
-
-    addressClient::street = json["street"].toString();
 
 }
 
@@ -252,15 +225,9 @@ void api_get_request::parse_file_address_supplier(){
 
     // Access properties
 
-    addressSupplier::city = json["city"].toString();
+    QVector<bdd_ADDRESS_SUPPLIER>* listAddressSupplier = new QVector<bdd_ADDRESS_SUPPLIER>();
 
-    addressSupplier::idAddressClient = json["idAddressClient"].toString();
-
-    addressSupplier::country = json["country"].toString();
-
-    addressSupplier::postalCode = json["postalCode"].toInt();
-
-    addressSupplier::street = json["street"].toString();
+    listAddressSupplier->append(bdd_ADDRESS_SUPPLIER(json["city"].toString(), json["idAddressClient"].toString(), json["country"].toString(), json["postalCode"].toInt(), json["street"].toString()));
 
 }
 
@@ -298,9 +265,9 @@ void api_get_request::parse_file_category(){
 
     // Access properties
 
-    category::idCategory = json["idCategory"].toString();
+    QVector<bdd_CATEGORY>* listCategory = new QVector<bdd_CATEGORY>();
 
-    category::label = json["label"].toString();
+    listCategory->append(bdd_CATEGORY(json["idCategory"].toString(), json["label"].toString()));
 
 }
 
@@ -338,15 +305,10 @@ void api_get_request::parse_file_chat(){
 
     // Access properties
 
-    chat::idChat = json["idChat"].toString();
+    QVector<bdd_CHAT>* listChat = new QVector<bdd_CHAT>();
 
-    chat::userUsernameAsReceiver = json["userUsernameAsReceiver"].toString();
+    listChat->append(bdd_CHAT(json["idChat"].toString(), json["userUsernameAsReceiver"].toString(), json["creationDate"].toString(), json["title"].toString()));
 
-    chat::creationDate = json["creationDate"].toString();
-
-    chat::userUsernameAsAutor = json["userUsernameAsAutor"].toString();
-
-    chat::title = json["title"].toString();
 }
 
 void api_get_request::get_table_component(){
@@ -383,13 +345,11 @@ void api_get_request::parse_file_component(){
 
     // Access properties
 
-    component::supplierIdSupplier = json["supplierIdSupplier"].toInt();
 
-    component::idComponent = json["idComponent"].toInt();
+    QVector<bdd_COMPONENT>* listComponent = new QVector<bdd_COMPONENT>();
 
-    component::categoryIdCategory = json["categoryIdCategory"].toString();
+    listComponent->append(bdd_COMPONENT(json["supplierIdSupplier"].toInt(), json["idComponent"].toString(), json["categoryIdCategory"].toInt(), json["label"].toString()));
 
-    component::label = json["label"].toString();
 }
 
 void api_get_request::get_table_gamme(){
@@ -426,13 +386,9 @@ void api_get_request::parse_file_gamme(){
 
     // Access properties
 
-    gamme::idGamme = json["idGamme"].toInt();
+    QVector<bdd_GAMME>* listGamme = new QVector<bdd_GAMME>();
 
-    gamme::productIdProduct = json["productIdProduct"].toInt();
-
-    gamme::categoryIdCategory = json["categoryIdCategory"].toString();
-
-    gamme::label = json["label"].toString();
+    listGamme->append(bdd_GAMME(json["idGamme"].toString(), json["productIdProduct"].toInt(), json["label"].toString()));
 }
 
 void api_get_request::get_table_invoice_quotation(){
@@ -469,17 +425,11 @@ void api_get_request::parse_file_invoice_quotation(){
 
     // Access properties
 
-    invoiceQuotation::transactionCode = json["transactionCode"].toString();
 
-    invoiceQuotation::totalAmount = json["totalAmount"].toInt();
+    QVector<bdd_INVOICE_QUOTATION>* listInvoiceQuotation = new QVector<bdd_INVOICE_QUOTATION>();
 
-    invoiceQuotation::categoryIdCategory = json["categoryIdCategory"].toString();
+    listInvoiceQuotation->append(bdd_INVOICE_QUOTATION(json["transactionCode"].toString(), json["idInvoiceQuotation"].toString(), json["totalAmount"].toInt(), json["payingMethod"].toString(), json["transactionType"].toString(), json["taxes"].toInt()));
 
-    invoiceQuotation::payingMethod = json["payingMethod"].toString();
-
-    invoiceQuotation::transactionType = json["transactionType"].toString();
-
-    invoiceQuotation::taxes = json["taxes"].toInt();
 }
 
 void api_get_request::get_table_message(){
@@ -516,15 +466,10 @@ void api_get_request::parse_file_message(){
 
     // Access properties
 
-    message::creationDate = json["creationDate"].toString();
+    QVector<bdd_MESSAGE>* listMessage = new QVector<bdd_MESSAGE>();
 
-    message::message = json["message"].toString();
+    listMessage->append(bdd_MESSAGE(json["creationDate"].toString(), json["message"].toString(), json["chatIoChat"].toString(), json["userUsername"].toString(), json["idMessage"].toString()));
 
-    message::chatIoChat = json["chatIoChat"].toString();
-
-    message::userUsername = json["userUsername"].toString();
-
-    message::idMessage = json["idMessage"].toString();
 }
 
 void api_get_request::get_table_product(){
@@ -561,27 +506,10 @@ void api_get_request::parse_file_product(){
 
     // Access properties
 
-    product::supplierIdSupplier = json["supplierIdSupplier"].toInt();
+    QVector<bdd_PRODUCT>* listProduct = new QVector<bdd_PRODUCT>();
 
-    product::idProduct = json["idProduct"].toString();
+    listProduct->append(bdd_PRODUCT(json["supplierIdSupplier"].toInt(), json["idProduct"].toString(), json["minWidth"].toInt(), json["defaultLength"].toInt(), json["label"].toString(), json["productCode"].toString(), json["defaultHeight"].toInt(), json["defaultWidth"].toInt(), json["material"].toString(), json["minLength"].toInt(), json["type"].toString()));
 
-    product::minWidth = json["minWidth"].toInt();
-
-    product::defaultLength = json["defaultLength"].toInt();
-
-    product::label = json["label"].toString();
-
-    product::productCode = json["productCode"].toString();
-
-    product::defaultHeight = json["defaultHeight"].toInt();
-
-    product::defaultWidth = json["defaultWidth"].toInt();
-
-    product::material = json["material"].toString();
-
-    product::minLength = json["minLength"].toInt();
-
-    product::type = json["type"].toString();
 }
 
 void api_get_request::get_table_project(){
@@ -618,17 +546,10 @@ void api_get_request::parse_file_project(){
 
     // Access properties
 
-    project::validationDate = json["supplierIdSupplier"].toString();
+    QVector<bdd_PROJECT>* listProject = new QVector<bdd_PROJECT>();
 
-    project::validation = json["validation"].toBool();
+    listProject->append(bdd_PROJECT(json["supplierIdSupplier"].toString(), json["validation"].toBool(), json["creationDate"].toString(), json["isTemplate"].toBool(), json["idProject"].toString(), json["userUsername"].toString()));
 
-    project::creationDate = json["creationDate"].toString();
-
-    project::isTemplate = json["isTemplate"].toBool();
-
-    project::idProject = json["idProject"].toString();
-
-    project::userUsername = json["userUsername"].toString();
 
 }
 
@@ -666,15 +587,10 @@ void api_get_request::parse_file_promotion_cat(){
 
     // Access properties
 
-    promotionCat::amount = json["amount"].toInt();
+    QVector<bdd_PROMOTION_CAT>* listPromotionCat = new QVector<bdd_PROMOTION_CAT>();
 
-    promotionCat::addToExistingProm = json["addToExistingProm"].toBool();
+    listPromotionCat->append(bdd_PROMOTION_CAT(json["amount"].toInt(), json["addToExistingProm"].toBool(), json["fromDate"].toString(), json["idPromotionCat"].toString(), json["toDate"].toString()));
 
-    promotionCat::fromDate = json["fromDate"].toString();
-
-    promotionCat::idPromotionCat = json["idPromotionCat"].toString();
-
-    promotionCat::toDate = json["toDate"].toString();
 
 }
 
@@ -712,13 +628,9 @@ void api_get_request::parse_file_promotion_comp(){
 
     // Access properties
 
-    promotionComp::amount = json["amount"].toInt();
+    QVector<bdd_PROMOTION_COMP>* listPromotionComp = new QVector<bdd_PROMOTION_COMP>();
 
-    promotionComp::fromDate = json["fromDate"].toString();
-
-    promotionComp::idPromotionComp = json["idPromotionCat"].toString();
-
-    promotionComp::toDate = json["toDate"].toString();
+    listPromotionComp->append(bdd_PROMOTION_COMP(json["amount"].toInt(), json["addToExistingProm"].toBool(), json["fromDate"].toString(), json["idPromotionComp"].toString(), json["toDate"].toString()));
 
 }
 
@@ -756,17 +668,10 @@ void api_get_request::parse_file_quotation(){
 
     // Access properties
 
-    quotation::validation = json["validation"].toBool();
+    QVector<bdd_QUOTATION>* listQuotation = new QVector<bdd_QUOTATION>();
 
-    quotation::idQuotation = json["idQuotation"].toString();
+    listQuotation->append(bdd_QUOTATION(json["validation"].toBool(), json["idQuotation"].toString(), json["creationDate"].toString(), json["isTemplate"].toBool(), json["userUsername"].toString(), json["valicationDate"].toString()));
 
-    quotation::creationDate = json["creationDate"].toString();
-
-    quotation::isTemplate = json["isTemplate"].toBool();
-
-    quotation::userUsername = json["userUsername"].toString();
-
-    quotation::valicationDate = json["valicationDate"].toString();
 
 }
 
@@ -804,11 +709,9 @@ void api_get_request::parse_file_role(){
 
     // Access properties
 
-    role::userUsername = json["userUsername"].toString();
+    QVector<bdd_ROLE>* listRole = new QVector<bdd_ROLE>();
 
-    role::idRole = json["idRole"].toString();
-
-    role::label = json["label"].toString();
+    listRole->append(bdd_ROLE(json["userUsername"].toString(), json["idRole"].toString(), json["label"].toString()));
 
 }
 
@@ -846,15 +749,9 @@ void api_get_request::parse_file_shop(){
 
     // Access properties
 
-    shop::city = json["city"].toString();
+    QVector<bdd_SHOP>* listShop = new QVector<bdd_SHOP>();
 
-    shop::idShop = json["idShop"].toString();
-
-    shop::country = json["country"].toString();
-
-    shop::postalCode = json["postalCode"].toInt();
-
-    shop::street = json["street"].toString();
+    listShop->append(bdd_SHOP(json["city"].toString(), json["idShop"].toString(), json["country"].toString(), json["postalCode"].toInt(), json["street"].toString()));
 
 }
 
@@ -892,13 +789,9 @@ void api_get_request::parse_file_stock(){
 
     // Access properties
 
-    stock::amount = json["amount"].toInt();
+    QVector<bdd_STOCK>* listStock = new QVector<bdd_STOCK>();
 
-    stock::idStock = json["idStock"].toString();
-
-    stock::productIdProduct = json["productIdProduct"].toInt();
-
-    stock::addressIdAddress = json["addressIdAddress"].toInt();
+    listStock->append(bdd_STOCK(json["amount"].toInt(), json["idStock"].toString(), json["productIdProduct"].toInt(), json["addressIdAddress"].toInt()));
 
 }
 
@@ -936,16 +829,8 @@ void api_get_request::parse_file_supplier(){
 
     // Access properties
 
-    supplier::phoneNumber = json["phoneNumber"].toString();
+    QVector<bdd_SUPPLIER>* listSupplier = new QVector<bdd_SUPPLIER>();
 
-    supplier::mail = json["mail"].toString();
-
-    supplier::description = json["description"].toString();
-
-    supplier::name = json["name"].toString();
-
-    supplier::isSupplier = json["isSupplier"].toString();
-
-    supplier::addressIdAddress = json["addressIdAddress"].toInt();
+    listSupplier->append(bdd_SUPPLIER(json["phoneNumber"].toString(), json["mail"].toString(), json["description"].toString(), json["name"].toString(), json["isSupplier"].toString(), json["addressIdAddress"].toInt()));
 
 }
