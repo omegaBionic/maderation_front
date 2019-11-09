@@ -7,7 +7,8 @@
 class bdd_STATUS
 {
     public:
-        bdd_STATUS(QString status, QString datas);
+    bdd_STATUS(QString status, QString datas);
+    bdd_STATUS();
         ~bdd_STATUS();
 
         void setStatus(QString);
