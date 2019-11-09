@@ -4,26 +4,6 @@
 #include <QDir>
 #include <fstream>
 #include <QVector>
-#include "bdd_status.h"
-#include "bdd_user.h"
-#include "bdd_client.h"
-#include "bdd_address_client.h"
-#include "bdd_address_supplier.h"
-#include "bdd_category.h"
-#include "bdd_chat.h"
-#include "bdd_component.h"
-#include "bdd_gamme.h"
-#include "bdd_invoice_quotation.h"
-#include "bdd_message.h"
-#include "bdd_product.h"
-#include "bdd_project.h"
-#include "bdd_promotion_cat.h"
-#include "bdd_promotion_comp.h"
-#include "bdd_quotation.h"
-#include "bdd_role.h"
-#include "bdd_shop.h"
-#include "bdd_stock.h"
-#include "bdd_supplier.h"
 
 api_get_request::api_get_request(QObject *parent) : QObject(parent)
 {
@@ -50,7 +30,7 @@ void api_get_request::get_status(){
     reply->deleteLater();
 }
 
-void api_get_request::parse_file_status(){
+QVector<bdd_STATUS> api_get_request::parse_file_status(){
 
     QFile file("data/jsonStatus.json");
     file.open(QIODevice::ReadOnly);
@@ -64,10 +44,11 @@ void api_get_request::parse_file_status(){
 
     // Access properties
 
-    QVector<bdd_STATUS>* listStatus = new QVector<bdd_STATUS>();
+    QVector<bdd_STATUS> listStatus;
 
-    listStatus->append(bdd_STATUS(json["status"].toString(),json["datas"].toString()));
+    listStatus.append(bdd_STATUS(json["status"].toString(),json["datas"].toString()));
 
+    return listStatus;
 }
 
 void api_get_request::get_table_user(){
@@ -90,7 +71,7 @@ void api_get_request::get_table_user(){
     reply->deleteLater();
 }
 
-void api_get_request::parse_file_user(){
+QVector<bdd_USER> api_get_request::parse_file_user(){
 
     QFile file("data/jsonUser.json");
     file.open(QIODevice::ReadOnly);
@@ -104,10 +85,11 @@ void api_get_request::parse_file_user(){
 
     // Access properties
 
-    QVector<bdd_USER>* listUser = new QVector<bdd_USER>();
+    QVector<bdd_USER> listUser;
 
-    listUser->append(bdd_USER(json["username"].toString(), json["phoneNumber"].toString(), json["isActive"].toBool(), json["password"].toString(), json["lastName"].toString(), json["firstName"].toString(), json["mail"].toString(), json["addressId"].toInt()));
+    listUser.append(bdd_USER(json["phoneNumber"].toString(), json["isActive"].toBool(), json["lastName"].toString(), json["password"].toString(), json["firstName"].toString(), json["addressId"].toInt(), json["mail"].toString(), json["username"].toString()));
 
+    return listUser;
 }
 
 void api_get_request::get_table_client(){
@@ -130,7 +112,7 @@ void api_get_request::get_table_client(){
     reply->deleteLater();
 }
 
-void api_get_request::parse_file_client(){
+QVector<bdd_CLIENT> api_get_request::parse_file_client(){
 
     QFile file("data/jsonClient.json");
     file.open(QIODevice::ReadOnly);
@@ -144,10 +126,11 @@ void api_get_request::parse_file_client(){
 
     // Access properties
 
-    QVector<bdd_CLIENT>* listClient = new QVector<bdd_CLIENT>();
+    QVector<bdd_CLIENT> listClient;
 
-    listClient->append(bdd_CLIENT(json["username"].toString(), json["phoneNumber"].toString(), json["isActive"].toBool(), json["password"].toString(), json["lastName"].toString(), json["firstName"].toString(), json["mail"].toString(), json["addressId"].toInt()));
+    listClient.append(bdd_CLIENT(json["username"].toString(), json["phoneNumber"].toString(), json["isActive"].toBool(), json["password"].toString(), json["lastName"].toString(), json["firstName"].toString(), json["mail"].toString(), json["addressId"].toInt()));
 
+    return listClient;
 }
 
 void api_get_request::get_table_address_client(){
@@ -170,7 +153,7 @@ void api_get_request::get_table_address_client(){
     reply->deleteLater();
 }
 
-void api_get_request::parse_file_address_client(){
+QVector<bdd_ADDRESS_CLIENT> api_get_request::parse_file_address_client(){
 
     QFile file("data/jsonAddressClient.json");
     file.open(QIODevice::ReadOnly);
@@ -184,10 +167,11 @@ void api_get_request::parse_file_address_client(){
 
     // Access properties
 
-    QVector<bdd_ADDRESS_CLIENT>* listAddressClient = new QVector<bdd_ADDRESS_CLIENT>();
+    QVector<bdd_ADDRESS_CLIENT> listAddressClient;
 
-    listAddressClient->append(bdd_ADDRESS_CLIENT(json["city"].toString(), json["idAddressClient"].toString(), json["country"].toString(), json["postalCode"].toInt(), json["street"].toString()));
+    listAddressClient.append(bdd_ADDRESS_CLIENT(json["city"].toString(), json["idAddressClient"].toString(), json["country"].toString(), json["postalCode"].toInt(), json["street"].toString()));
 
+    return listAddressClient;
 
 }
 
@@ -211,7 +195,7 @@ void api_get_request::get_table_address_supplier(){
     reply->deleteLater();
 }
 
-void api_get_request::parse_file_address_supplier(){
+QVector<bdd_ADDRESS_SUPPLIER> api_get_request::parse_file_address_supplier(){
 
     QFile file("data/jsonAddressSupplier.json");
     file.open(QIODevice::ReadOnly);
@@ -225,10 +209,11 @@ void api_get_request::parse_file_address_supplier(){
 
     // Access properties
 
-    QVector<bdd_ADDRESS_SUPPLIER>* listAddressSupplier = new QVector<bdd_ADDRESS_SUPPLIER>();
+    QVector<bdd_ADDRESS_SUPPLIER> listAddressSupplier;
 
-    listAddressSupplier->append(bdd_ADDRESS_SUPPLIER(json["city"].toString(), json["idAddressClient"].toString(), json["country"].toString(), json["postalCode"].toInt(), json["street"].toString()));
+    listAddressSupplier.append(bdd_ADDRESS_SUPPLIER(json["city"].toString(), json["idAddressClient"].toString(), json["country"].toString(), json["postalCode"].toInt(), json["street"].toString()));
 
+    return listAddressSupplier;
 }
 
 void api_get_request::get_table_category(){
@@ -251,7 +236,7 @@ void api_get_request::get_table_category(){
     reply->deleteLater();
 }
 
-void api_get_request::parse_file_category(){
+QVector<bdd_CATEGORY> api_get_request::parse_file_category(){
 
     QFile file("data/jsonCategory.json");
     file.open(QIODevice::ReadOnly);
@@ -265,9 +250,11 @@ void api_get_request::parse_file_category(){
 
     // Access properties
 
-    QVector<bdd_CATEGORY>* listCategory = new QVector<bdd_CATEGORY>();
+    QVector<bdd_CATEGORY> listCategory;
 
-    listCategory->append(bdd_CATEGORY(json["idCategory"].toString(), json["label"].toString()));
+    listCategory.append(bdd_CATEGORY(json["idCategory"].toString(), json["label"].toString()));
+
+    return listCategory;
 
 }
 
@@ -291,7 +278,7 @@ void api_get_request::get_table_chat(){
     reply->deleteLater();
 }
 
-void api_get_request::parse_file_chat(){
+QVector<bdd_CHAT> api_get_request::parse_file_chat(){
 
     QFile file("data/jsonChat.json");
     file.open(QIODevice::ReadOnly);
@@ -305,10 +292,11 @@ void api_get_request::parse_file_chat(){
 
     // Access properties
 
-    QVector<bdd_CHAT>* listChat = new QVector<bdd_CHAT>();
+    QVector<bdd_CHAT> listChat;
 
-    listChat->append(bdd_CHAT(json["idChat"].toString(), json["userUsernameAsReceiver"].toString(), json["creationDate"].toString(), json["title"].toString()));
+    listChat.append(bdd_CHAT(json["idChat"].toString(), json["userUsernameAsReceiver"].toString(), json["creationDate"].toString(), json["title"].toString()));
 
+    return listChat;
 }
 
 void api_get_request::get_table_component(){
@@ -331,7 +319,7 @@ void api_get_request::get_table_component(){
     reply->deleteLater();
 }
 
-void api_get_request::parse_file_component(){
+QVector<bdd_COMPONENT> api_get_request::parse_file_component(){
 
     QFile file("data/jsonComponent.json");
     file.open(QIODevice::ReadOnly);
@@ -346,10 +334,11 @@ void api_get_request::parse_file_component(){
     // Access properties
 
 
-    QVector<bdd_COMPONENT>* listComponent = new QVector<bdd_COMPONENT>();
+    QVector<bdd_COMPONENT> listComponent;
 
-    listComponent->append(bdd_COMPONENT(json["supplierIdSupplier"].toInt(), json["idComponent"].toString(), json["categoryIdCategory"].toInt(), json["label"].toString()));
+    listComponent.append(bdd_COMPONENT(json["supplierIdSupplier"].toInt(), json["idComponent"].toString(), json["categoryIdCategory"].toInt(), json["label"].toString()));
 
+    return listComponent;
 }
 
 void api_get_request::get_table_gamme(){
@@ -372,7 +361,7 @@ void api_get_request::get_table_gamme(){
     reply->deleteLater();
 }
 
-void api_get_request::parse_file_gamme(){
+QVector<bdd_GAMME> api_get_request::parse_file_gamme(){
 
     QFile file("data/jsonGamme.json");
     file.open(QIODevice::ReadOnly);
@@ -386,9 +375,11 @@ void api_get_request::parse_file_gamme(){
 
     // Access properties
 
-    QVector<bdd_GAMME>* listGamme = new QVector<bdd_GAMME>();
+    QVector<bdd_GAMME> listGamme;
 
-    listGamme->append(bdd_GAMME(json["idGamme"].toString(), json["productIdProduct"].toInt(), json["label"].toString()));
+    listGamme.append(bdd_GAMME(json["idGamme"].toString(), json["productIdProduct"].toInt(), json["label"].toString()));
+
+    return listGamme;
 }
 
 void api_get_request::get_table_invoice_quotation(){
@@ -411,7 +402,7 @@ void api_get_request::get_table_invoice_quotation(){
     reply->deleteLater();
 }
 
-void api_get_request::parse_file_invoice_quotation(){
+QVector<bdd_INVOICE_QUOTATION> api_get_request::parse_file_invoice_quotation(){
 
     QFile file("data/jsonInvoiceQuotation.json");
     file.open(QIODevice::ReadOnly);
@@ -426,10 +417,10 @@ void api_get_request::parse_file_invoice_quotation(){
     // Access properties
 
 
-    QVector<bdd_INVOICE_QUOTATION>* listInvoiceQuotation = new QVector<bdd_INVOICE_QUOTATION>();
+    QVector<bdd_INVOICE_QUOTATION> listInvoiceQuotation;
+    listInvoiceQuotation.append(bdd_INVOICE_QUOTATION(json["transactionCode"].toString(), json["idInvoiceQuotation"].toString(), json["totalAmount"].toInt(), json["payingMethod"].toString(), json["transactionType"].toString(), json["taxes"].toInt()));
 
-    listInvoiceQuotation->append(bdd_INVOICE_QUOTATION(json["transactionCode"].toString(), json["idInvoiceQuotation"].toString(), json["totalAmount"].toInt(), json["payingMethod"].toString(), json["transactionType"].toString(), json["taxes"].toInt()));
-
+    return listInvoiceQuotation;
 }
 
 void api_get_request::get_table_message(){
@@ -452,7 +443,7 @@ void api_get_request::get_table_message(){
     reply->deleteLater();
 }
 
-void api_get_request::parse_file_message(){
+QVector<bdd_MESSAGE> api_get_request::parse_file_message(){
 
     QFile file("data/jsonMessage.json");
     file.open(QIODevice::ReadOnly);
@@ -466,10 +457,11 @@ void api_get_request::parse_file_message(){
 
     // Access properties
 
-    QVector<bdd_MESSAGE>* listMessage = new QVector<bdd_MESSAGE>();
+    QVector<bdd_MESSAGE> listMessage;
 
-    listMessage->append(bdd_MESSAGE(json["creationDate"].toString(), json["message"].toString(), json["chatIoChat"].toString(), json["userUsername"].toString(), json["idMessage"].toString()));
+    listMessage.append(bdd_MESSAGE(json["creationDate"].toString(), json["message"].toString(), json["chatIoChat"].toString(), json["userUsername"].toString(), json["idMessage"].toString()));
 
+    return listMessage;
 }
 
 void api_get_request::get_table_product(){
@@ -492,7 +484,7 @@ void api_get_request::get_table_product(){
     reply->deleteLater();
 }
 
-void api_get_request::parse_file_product(){
+QVector<bdd_PRODUCT> api_get_request::parse_file_product(){
 
     QFile file("data/jsonProduct.json");
     file.open(QIODevice::ReadOnly);
@@ -506,10 +498,10 @@ void api_get_request::parse_file_product(){
 
     // Access properties
 
-    QVector<bdd_PRODUCT>* listProduct = new QVector<bdd_PRODUCT>();
+    QVector<bdd_PRODUCT> listProduct;
+    listProduct.append(bdd_PRODUCT(json["supplierIdSupplier"].toInt(), json["idProduct"].toString(), json["minWidth"].toInt(), json["defaultLength"].toInt(), json["label"].toString(), json["productCode"].toString(), json["defaultHeight"].toInt(), json["defaultWidth"].toInt(), json["material"].toString(), json["minLength"].toInt(), json["type"].toString()));
 
-    listProduct->append(bdd_PRODUCT(json["supplierIdSupplier"].toInt(), json["idProduct"].toString(), json["minWidth"].toInt(), json["defaultLength"].toInt(), json["label"].toString(), json["productCode"].toString(), json["defaultHeight"].toInt(), json["defaultWidth"].toInt(), json["material"].toString(), json["minLength"].toInt(), json["type"].toString()));
-
+    return listProduct;
 }
 
 void api_get_request::get_table_project(){
@@ -532,7 +524,7 @@ void api_get_request::get_table_project(){
     reply->deleteLater();
 }
 
-void api_get_request::parse_file_project(){
+QVector<bdd_PROJECT> api_get_request::parse_file_project(){
 
     QFile file("data/jsonProject.json");
     file.open(QIODevice::ReadOnly);
@@ -546,10 +538,11 @@ void api_get_request::parse_file_project(){
 
     // Access properties
 
-    QVector<bdd_PROJECT>* listProject = new QVector<bdd_PROJECT>();
+    QVector<bdd_PROJECT> listProject;
 
-    listProject->append(bdd_PROJECT(json["supplierIdSupplier"].toString(), json["validation"].toBool(), json["creationDate"].toString(), json["isTemplate"].toBool(), json["idProject"].toString(), json["userUsername"].toString()));
+    listProject.append(bdd_PROJECT(json["supplierIdSupplier"].toString(), json["validation"].toBool(), json["creationDate"].toString(), json["isTemplate"].toBool(), json["idProject"].toString(), json["userUsername"].toString()));
 
+    return listProject;
 
 }
 
@@ -573,7 +566,7 @@ void api_get_request::get_table_promotion_cat(){
     reply->deleteLater();
 }
 
-void api_get_request::parse_file_promotion_cat(){
+QVector<bdd_PROMOTION_CAT> api_get_request::parse_file_promotion_cat(){
 
     QFile file("data/jsonPromotionCat.json");
     file.open(QIODevice::ReadOnly);
@@ -587,10 +580,11 @@ void api_get_request::parse_file_promotion_cat(){
 
     // Access properties
 
-    QVector<bdd_PROMOTION_CAT>* listPromotionCat = new QVector<bdd_PROMOTION_CAT>();
+    QVector<bdd_PROMOTION_CAT> listPromotionCat;
 
-    listPromotionCat->append(bdd_PROMOTION_CAT(json["amount"].toInt(), json["addToExistingProm"].toBool(), json["fromDate"].toString(), json["idPromotionCat"].toString(), json["toDate"].toString()));
+    listPromotionCat.append(bdd_PROMOTION_CAT(json["amount"].toInt(), json["addToExistingProm"].toBool(), json["fromDate"].toString(), json["idPromotionCat"].toString(), json["toDate"].toString()));
 
+    return listPromotionCat;
 
 }
 
@@ -614,7 +608,7 @@ void api_get_request::get_table_promotion_comp(){
     reply->deleteLater();
 }
 
-void api_get_request::parse_file_promotion_comp(){
+QVector<bdd_PROMOTION_COMP> api_get_request::parse_file_promotion_comp(){
 
     QFile file("data/jsonPromotionComp.json");
     file.open(QIODevice::ReadOnly);
@@ -628,10 +622,11 @@ void api_get_request::parse_file_promotion_comp(){
 
     // Access properties
 
-    QVector<bdd_PROMOTION_COMP>* listPromotionComp = new QVector<bdd_PROMOTION_COMP>();
+    QVector<bdd_PROMOTION_COMP> listPromotionComp;
 
-    listPromotionComp->append(bdd_PROMOTION_COMP(json["amount"].toInt(), json["addToExistingProm"].toBool(), json["fromDate"].toString(), json["idPromotionComp"].toString(), json["toDate"].toString()));
+    listPromotionComp.append(bdd_PROMOTION_COMP(json["amount"].toInt(), json["addToExistingProm"].toBool(), json["fromDate"].toString(), json["idPromotionComp"].toString(), json["toDate"].toString()));
 
+    return listPromotionComp;
 }
 
 void api_get_request::get_table_quotation(){
@@ -654,7 +649,7 @@ void api_get_request::get_table_quotation(){
     reply->deleteLater();
 }
 
-void api_get_request::parse_file_quotation(){
+QVector<bdd_QUOTATION> api_get_request::parse_file_quotation(){
 
     QFile file("data/jsonQuotation.json");
     file.open(QIODevice::ReadOnly);
@@ -668,10 +663,11 @@ void api_get_request::parse_file_quotation(){
 
     // Access properties
 
-    QVector<bdd_QUOTATION>* listQuotation = new QVector<bdd_QUOTATION>();
+    QVector<bdd_QUOTATION> listQuotation;
 
-    listQuotation->append(bdd_QUOTATION(json["validation"].toBool(), json["idQuotation"].toString(), json["creationDate"].toString(), json["isTemplate"].toBool(), json["userUsername"].toString(), json["valicationDate"].toString()));
+    listQuotation.append(bdd_QUOTATION(json["validation"].toBool(), json["idQuotation"].toString(), json["creationDate"].toString(), json["isTemplate"].toBool(), json["userUsername"].toString(), json["valicationDate"].toString()));
 
+    return listQuotation;
 
 }
 
@@ -695,7 +691,7 @@ void api_get_request::get_table_role(){
     reply->deleteLater();
 }
 
-void api_get_request::parse_file_role(){
+QVector<bdd_ROLE> api_get_request::parse_file_role(){
 
     QFile file("data/jsonRole.json");
     file.open(QIODevice::ReadOnly);
@@ -709,9 +705,11 @@ void api_get_request::parse_file_role(){
 
     // Access properties
 
-    QVector<bdd_ROLE>* listRole = new QVector<bdd_ROLE>();
+    QVector<bdd_ROLE> listRole;
 
-    listRole->append(bdd_ROLE(json["userUsername"].toString(), json["idRole"].toString(), json["label"].toString()));
+    listRole.append(bdd_ROLE(json["userUsername"].toString(), json["idRole"].toString(), json["label"].toString()));
+
+    return listRole;
 
 }
 
@@ -735,7 +733,7 @@ void api_get_request::get_table_shop(){
     reply->deleteLater();
 }
 
-void api_get_request::parse_file_shop(){
+QVector<bdd_SHOP> api_get_request::parse_file_shop(){
 
     QFile file("data/jsonShop.json");
     file.open(QIODevice::ReadOnly);
@@ -749,10 +747,11 @@ void api_get_request::parse_file_shop(){
 
     // Access properties
 
-    QVector<bdd_SHOP>* listShop = new QVector<bdd_SHOP>();
+    QVector<bdd_SHOP> listShop;
 
-    listShop->append(bdd_SHOP(json["city"].toString(), json["idShop"].toString(), json["country"].toString(), json["postalCode"].toInt(), json["street"].toString()));
+    listShop.append(bdd_SHOP(json["city"].toString(), json["idShop"].toString(), json["country"].toString(), json["postalCode"].toInt(), json["street"].toString()));
 
+    return listShop;
 }
 
 void api_get_request::get_table_stock(){
@@ -775,7 +774,7 @@ void api_get_request::get_table_stock(){
     reply->deleteLater();
 }
 
-void api_get_request::parse_file_stock(){
+QVector<bdd_STOCK>api_get_request::parse_file_stock(){
 
     QFile file("data/jsonStock.json");
     file.open(QIODevice::ReadOnly);
@@ -789,10 +788,11 @@ void api_get_request::parse_file_stock(){
 
     // Access properties
 
-    QVector<bdd_STOCK>* listStock = new QVector<bdd_STOCK>();
+    QVector<bdd_STOCK> listStock;
 
-    listStock->append(bdd_STOCK(json["amount"].toInt(), json["idStock"].toString(), json["productIdProduct"].toInt(), json["addressIdAddress"].toInt()));
+    listStock.append(bdd_STOCK(json["amount"].toInt(), json["idStock"].toString(), json["productIdProduct"].toInt(), json["addressIdAddress"].toInt()));
 
+    return listStock;
 }
 
 void api_get_request::get_table_supplier(){
@@ -815,7 +815,7 @@ void api_get_request::get_table_supplier(){
     reply->deleteLater();
 }
 
-void api_get_request::parse_file_supplier(){
+QVector<bdd_SUPPLIER> api_get_request::parse_file_supplier(){
 
     QFile file("data/jsonSupplier.json");
     file.open(QIODevice::ReadOnly);
@@ -829,8 +829,10 @@ void api_get_request::parse_file_supplier(){
 
     // Access properties
 
-    QVector<bdd_SUPPLIER>* listSupplier = new QVector<bdd_SUPPLIER>();
+    QVector<bdd_SUPPLIER> listSupplier;
 
-    listSupplier->append(bdd_SUPPLIER(json["phoneNumber"].toString(), json["mail"].toString(), json["description"].toString(), json["name"].toString(), json["isSupplier"].toString(), json["addressIdAddress"].toInt()));
+    listSupplier.append(bdd_SUPPLIER(json["phoneNumber"].toString(), json["mail"].toString(), json["description"].toString(), json["name"].toString(), json["isSupplier"].toString(), json["addressIdAddress"].toInt()));
 
+    return listSupplier;
 }
+

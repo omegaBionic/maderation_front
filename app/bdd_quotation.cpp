@@ -1,6 +1,6 @@
 #include "bdd_quotation.h"
 
-bdd_QUOTATION::bdd_QUOTATION(bool validation, QString creationDate, bool isTemplate, QString idQuotation, QString userUsername, QString validationDate )
+bdd_QUOTATION::bdd_QUOTATION(bool validation, QString idQuotation, QString creationDate, bool isTemplate, QString userUsername, QString validationDate )
 {
     this->_validationDate = validationDate;
     this->_validation = validation;

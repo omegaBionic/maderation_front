@@ -5,16 +5,16 @@
 #include <QDebug>
 #include <QFile>
 #include <QObject>
-bdd_USER::bdd_USER(QString username, QString phoneNumber, bool isActive, QString password, QString lastName, QString firstName, QString mail, int IDAdress)
+bdd_USER::bdd_USER(QString phoneNumber, bool isActive, QString lastname, QString password, QString firstname, int idAddress, QString mail, QString username)
 {
     this->_username = username;
     this->_phoneNumber = phoneNumber;
     this->_isActive = isActive;
     this->_password = password;
-    this->_lastname = lastName;
-    this->_firstname = firstName;
+    this->_lastname = lastname;
+    this->_firstname = firstname;
     this->_mail = mail;
-    this->_IDAdress = IDAdress;
+    this->_IDAdress = idAddress;
 }
 void bdd_USER::setPhoneNumber(QString phoneNb){
     _phoneNumber = phoneNb;

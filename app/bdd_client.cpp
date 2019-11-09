@@ -6,14 +6,14 @@
 #include <QFile>
 #include <QObject>
 
-bdd_CLIENT::bdd_CLIENT(QString idClient, QString phoneNumber, bool isActive, QString password, QString lastName, QString firstName, QString mail, int addressIDAdress)
+bdd_CLIENT::bdd_CLIENT(QString idClient, QString phoneNumber, bool isActive, QString password, QString lastname, QString mail, QString firstname, int addressIDAdress)
 {
     this->_idClient = idClient;
     this->_phoneNumber = phoneNumber;
     this->_isActive = isActive;
     this->_password = password;
-    this->_lastname = lastName;
-    this->_firstname = firstName;
+    this->_lastname = lastname;
+    this->_firstname = firstname;
     this->_mail = mail;
     this->_addressIDAdress = addressIDAdress;
 }

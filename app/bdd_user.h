@@ -6,7 +6,7 @@
 class bdd_USER
 {
     public:
-        bdd_USER(QString username, QString phoneNumber, bool isActive, QString password, QString lastName, QString firstName, QString mail, int IDAdress);
+        bdd_USER(QString phoneNumber, bool isActive, QString lastname, QString password, QString firstname, int idAddress, QString mail, QString username);
         ~bdd_USER();
 
         void setPhoneNumber(QString);
