@@ -18,15 +18,19 @@ public:
     ~Main_Login();
     bool CheckConnexion();
 
+signals:
+    void check_login(QString user, QString pwd);
 
 private slots:
     void on_btn_login_clicked();
 
 private:
-    Ui::Main_Login *ui;
     void resizeEvent(QResizeEvent * event);
+
+    Ui::Main_Login *ui;
     int _width;
     int _height;
+
 
 };
 
