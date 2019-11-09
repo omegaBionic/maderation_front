@@ -4,6 +4,7 @@
 #include <QDir>
 #include <fstream>
 #include <QVector>
+
 #include "./database_classes/bdd_status.h"
 #include "./database_classes/bdd_user.h"
 #include "./database_classes/bdd_client.h"
