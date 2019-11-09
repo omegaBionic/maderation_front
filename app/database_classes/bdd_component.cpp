@@ -11,6 +11,9 @@ bdd_COMPONENT::bdd_COMPONENT(int supplierIdSupplier, QString idComponent, int ca
 bdd_COMPONENT::bdd_COMPONENT(){
 
 }
+bdd_COMPONENT::~bdd_COMPONENT(){
+
+}
 void bdd_COMPONENT::setSupplierIdSupplier(int idSupp){
     _supplierIdSupplier = idSupp;
 }

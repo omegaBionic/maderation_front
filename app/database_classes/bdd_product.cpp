@@ -18,6 +18,9 @@ this->_supplierIdSupplier = supplierIdsupplier;
 bdd_PRODUCT::bdd_PRODUCT(){
 
 }
+bdd_PRODUCT::~bdd_PRODUCT(){
+
+}
 void bdd_PRODUCT::setSupplierIdSupplier(int idSupp){
     _supplierIdSupplier = idSupp;
 }

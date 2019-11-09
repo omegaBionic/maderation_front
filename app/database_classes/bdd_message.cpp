@@ -12,6 +12,9 @@ bdd_MESSAGE::bdd_MESSAGE(QString creationDate, QString message, QString chatIoCh
 bdd_MESSAGE::bdd_MESSAGE(){
 
 }
+bdd_MESSAGE::~bdd_MESSAGE(){
+
+}
 void bdd_MESSAGE::setCreationDate(QString creaDat){
     _creationDate = creaDat;
 }

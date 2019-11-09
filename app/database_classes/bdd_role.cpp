@@ -9,6 +9,9 @@ bdd_ROLE::bdd_ROLE(QString userUsername, QString idRole, QString label)
 bdd_ROLE::bdd_ROLE(){
 
 }
+bdd_ROLE::~bdd_ROLE(){
+
+}
 void bdd_ROLE::setUserUsername(QString usrN){
     _userUserName = usrN;
 }

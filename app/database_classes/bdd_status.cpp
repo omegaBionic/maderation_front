@@ -10,6 +10,10 @@ bdd_STATUS::bdd_STATUS()
 {
 }
 
+bdd_STATUS::~bdd_STATUS()
+{
+}
+
 void bdd_STATUS::setStatus(QString sta){
     _status = sta;
 }

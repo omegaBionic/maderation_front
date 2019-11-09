@@ -12,6 +12,9 @@ bdd_QUOTATION::bdd_QUOTATION(bool validation, QString idQuotation, QString creat
 bdd_QUOTATION::bdd_QUOTATION(){
 
 }
+bdd_QUOTATION::~bdd_QUOTATION(){
+
+}
 void bdd_QUOTATION::setValidationDate(QString validD){
     _validationDate = validD;
 }

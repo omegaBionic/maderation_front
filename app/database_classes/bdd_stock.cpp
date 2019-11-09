@@ -10,6 +10,9 @@ bdd_STOCK::bdd_STOCK(int amount, QString idStock, int productIdProduct, int addr
 bdd_STOCK::bdd_STOCK(){
 
 }
+bdd_STOCK::~bdd_STOCK(){
+
+}
 void bdd_STOCK::setAmount(int amnt){
     _amount = amnt;
 }

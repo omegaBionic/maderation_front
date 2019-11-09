@@ -11,6 +11,9 @@ bdd_PROMOTION_CAT::bdd_PROMOTION_CAT(int amount, bool addToExistingProm, QString
 bdd_PROMOTION_CAT::bdd_PROMOTION_CAT(){
 
 }
+bdd_PROMOTION_CAT::~bdd_PROMOTION_CAT(){
+
+}
 void bdd_PROMOTION_CAT::setAmount(int amnt){
     _amount = amnt;
 }

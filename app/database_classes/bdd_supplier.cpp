@@ -12,6 +12,9 @@ bdd_SUPPLIER::bdd_SUPPLIER(QString phoneNumber, QString mail, QString descriptio
 bdd_SUPPLIER::bdd_SUPPLIER(){
 
 }
+bdd_SUPPLIER::~bdd_SUPPLIER(){
+
+}
 void bdd_SUPPLIER::setPhoneNumber(QString phoneN){
     _phoneNumber = phoneN;
 }

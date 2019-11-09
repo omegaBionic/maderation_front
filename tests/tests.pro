@@ -11,23 +11,23 @@ TEMPLATE = app
 
 
 SOURCES +=  tst_test_app.cpp \
+            ../app/database_classes/*.cpp \
             ../app/menu_toolbar.cpp \
             ../app/main_login.cpp \
             ../app/api_get_request.cpp \
             ../app/Init.cpp \
             ../app/dialog_critical.cpp \
             ../app/encryption.cpp \
-            ../app/controller.cpp \
-            ../app/user.cpp
+            ../app/controller.cpp
 
 HEADERS += \
+    ../app/database_classes/*.h \
     ../app/api_get_request.h \
     ../app/menu_toolbar.h \
     ../app/Init.h \
     ../app/dialog_critical.h \
     ../app/encryption.h \
     ../app/controller.h \
-    ../app/user.h \
     ../app/main_login.h
 
 FORMS += \

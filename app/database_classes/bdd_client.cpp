@@ -17,9 +17,15 @@ bdd_CLIENT::bdd_CLIENT(QString idClient, QString phoneNumber, bool isActive, QSt
     this->_mail = mail;
     this->_addressIDAdress = addressIDAdress;
 }
+
 bdd_CLIENT::bdd_CLIENT(){
 
 }
+
+bdd_CLIENT::~bdd_CLIENT(){
+
+}
+
 void bdd_CLIENT::setPhoneNumber(QString phoneNb){
     _phoneNumber = phoneNb;
 }

@@ -11,6 +11,9 @@ bdd_ADDRESS_SUPPLIER::bdd_ADDRESS_SUPPLIER(QString city, QString idAddressClient
 bdd_ADDRESS_SUPPLIER::bdd_ADDRESS_SUPPLIER(){
 
 }
+bdd_ADDRESS_SUPPLIER::~bdd_ADDRESS_SUPPLIER(){
+
+}
 void bdd_ADDRESS_SUPPLIER::setcity(QString cit){
     _city = cit;
 }

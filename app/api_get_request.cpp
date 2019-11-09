@@ -259,25 +259,25 @@ QVector<bdd_CATEGORY> api_get_request::parse_file_category(){
 
 }
 
-//void api_get_request::get_table_chat(){
+void api_get_request::get_table_chat(){
 
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/chat?key=80aacfbde81d03d20788f370417651cc"));
-//    QNetworkReply *reply = man.get(request);
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/chat?key=80aacfbde81d03d20788f370417651cc"));
+    QNetworkReply *reply = man.get(request);
 
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
 
-//    QByteArray response_data = reply->readAll();
+    QByteArray response_data = reply->readAll();
 
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
 
-//    QFile::rename("jsonChat.json","data/jsonChat.json");
+    QFile::rename("jsonChat.json","data/jsonChat.json");
 
-//    reply->deleteLater();
-//}
+    reply->deleteLater();
+}
 
 QVector<bdd_CHAT> api_get_request::parse_file_chat(){
 

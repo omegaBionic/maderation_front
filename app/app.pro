@@ -32,7 +32,6 @@ SOURCES += \
     encryption.cpp \
     main.cpp \
     main_login.cpp \
-    user.cpp \
     menu_toolbar.cpp
 
 HEADERS += \
@@ -42,7 +41,6 @@ HEADERS += \
     controller.h \
     dialog_critical.h \
     encryption.h \
-    user.h \
     main_login.h \
     menu_toolbar.h \
     main_login.h

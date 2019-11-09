@@ -11,6 +11,9 @@ bdd_PROMOTION_COMP::bdd_PROMOTION_COMP(int amount, bool addToExistingProm, QStri
 bdd_PROMOTION_COMP::bdd_PROMOTION_COMP(){
 
 }
+bdd_PROMOTION_COMP::~bdd_PROMOTION_COMP(){
+
+}
 void bdd_PROMOTION_COMP::setAmount(int amnt){
     _amount = amnt;
 }

@@ -12,6 +12,9 @@ bdd_SHOP::bdd_SHOP(QString city, QString idShop, QString country, int postalCode
 bdd_SHOP::bdd_SHOP(){
 
 }
+bdd_SHOP::~bdd_SHOP(){
+
+}
 void bdd_SHOP::setCity(QString cty){
     _city = cty;
 }

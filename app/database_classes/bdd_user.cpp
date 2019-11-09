@@ -19,6 +19,9 @@ bdd_USER::bdd_USER(QString phoneNumber, bool isActive, QString lastname, QString
 bdd_USER::bdd_USER(){
 
 }
+bdd_USER::~bdd_USER(){
+
+}
 void bdd_USER::setPhoneNumber(QString phoneNb){
     _phoneNumber = phoneNb;
 }
