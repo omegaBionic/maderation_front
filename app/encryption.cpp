@@ -16,7 +16,6 @@ Encryption::Encryption()
 
     for (qint32 i = 0; i < XorString.size(); i++)
     {
-
         Encryption += XorString[i] ^ (qint64(Key) + 1) %20;
     }
     qDebug()<< Encryption << endl;

@@ -24,6 +24,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    ./database_classes/*.cpp \
     api_get_request.cpp \
     Init.cpp \
     controller.cpp \
@@ -32,19 +33,19 @@ SOURCES += \
     main.cpp \
     main_login.cpp \
     main_menu.cpp \
-    user.cpp \
     menu_toolbar.cpp
 
 HEADERS += \
+    ./database_classes/*.h \
     api_get_request.h \
     Init.h \
     controller.h \
     dialog_critical.h \
     encryption.h \
     main_menu.h \
-    user.h \
     main_login.h \
-    menu_toolbar.h
+    menu_toolbar.h \
+    main_login.h
 
 FORMS += \
     dialog_critical.ui \

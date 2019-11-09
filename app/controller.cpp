@@ -3,7 +3,6 @@
 
 Controller::Controller(QObject *parent) : QObject(parent)
 {
-    _user = new User("test","0606060606",true,"test","test","test","test@test.test",0);
     _toolbar = new menu_toolbar();
     _login = NULL;
     _menu = NULL;
@@ -12,13 +11,14 @@ Controller::Controller(QObject *parent) : QObject(parent)
     QObject::connect(_toolbar, &menu_toolbar::menu, this, &Controller::toolbar_menu);
     QObject::connect(_toolbar, &menu_toolbar::archive, this, &Controller::toolbar_archive);
     QObject::connect(_toolbar, &menu_toolbar::messages, this, &Controller::toolbar_messages);
+    _user = new bdd_USER("test",true,"test","test","test",0,"test@test.com","test");
 }
 
 Main_Login* Controller::getLogin(){
     return _login;
 }
 
-User* Controller::getUser(){
+bdd_USER* Controller::getUser(){
     return _user;
 }
 

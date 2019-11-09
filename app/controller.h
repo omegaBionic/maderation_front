@@ -3,9 +3,9 @@
 
 #include <QObject>
 #include "main_login.h"
+#include "./database_classes/bdd_user.h"
 #include "main_menu.h"
 #include "menu_toolbar.h"
-#include "user.h"
 
 class Controller : public QObject
 {
@@ -15,7 +15,7 @@ public:
 
     int init();
     Main_Login* getLogin();
-    User* getUser();
+    bdd_USER* getUser();
 
 private slots:
     void login(QString user, QString pwd);
@@ -30,7 +30,7 @@ private:
     Main_Login * _login;
     menu_toolbar* _toolbar;
     Main_Menu* _menu;
-    User* _user;
+    bdd_USER* _user;
 };
 
 #endif // CONTROLLER_H

@@ -1,951 +1,839 @@
-//#include "api_get_request.h"
-//#include <QNetworkAccessManager>
-//#include <QNetworkReply>
-//#include <QDir>
-//#include <fstream>
-//#include <user>
-//#include <client>
-//#include <addressClient>
-//#include <addressSupplier>
-//#include <category>
-//#include <chat>
-//#include <component>
-//#include <gamme>
-//#include <invoiceQuotation>
-//#include <message>
-//#include <product>
-//#include <project>
-//#include <promotionCat>
-//#include <promotionComp>
-//#include <quotation>
-//#include <role>
-//#include <shop>
-//#include <stock>
-//#include <supplier>
+#include "api_get_request.h"
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QDir>
+#include <fstream>
+#include <QVector>
 
-//api_get_request::api_get_request(QObject *parent) : QObject(parent)
-//{
 
-//}
+api_get_request::api_get_request(QObject *parent) : QObject(parent)
+{
 
-//void api_get_request::get_status(){
+}
 
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/status?key=179616f1a4cecab2a7eab481b84d076c"));
-//    QNetworkReply *reply = man.get(request);
+void api_get_request::get_status(){
 
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/status?key=179616f1a4cecab2a7eab481b84d076c"));
+    QNetworkReply *reply = man.get(request);
 
-//    QByteArray response_data = reply->readAll();
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
 
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+    QByteArray response_data = reply->readAll();
 
-//    QFile::rename("jsonAll.json","data/jsonStatus.json");
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
 
-//    reply->deleteLater();
-//}
+    QFile::rename("jsonAll.json","data/jsonStatus.json");
 
-//void api_get_request::parse_file_status(){
+    reply->deleteLater();
+}
 
-//    QFile file("data/jsonStatus.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
+QVector<bdd_STATUS> api_get_request::parse_file_status(){
+
+    QFile file("data/jsonStatus.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
+
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+
+    // Get JSON object
+    QJsonObject json = doc.object();
+
+    // Access properties
+
+    QVector<bdd_STATUS> listStatus;
+
+    listStatus.append(bdd_STATUS(json["status"].toString(),json["datas"].toString()));
+
+    return listStatus;
+}
+
+void api_get_request::get_table_user(){
+
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/user?key=83c2c07ea1251a1a39ec46d52cbba19c"));
+    QNetworkReply *reply = man.get(request);
+
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
+
+    QByteArray response_data = reply->readAll();
+
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+
+    QFile::rename("jsonAll.json","data/jsonUser.json");
+
+    reply->deleteLater();
+}
+
+QVector<bdd_USER> api_get_request::parse_file_user(){
+
+    QFile file("data/jsonUser.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
+
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+
+    // Get JSON object
+    QJsonObject json = doc.object();
+
+    // Access properties
+
+    QVector<bdd_USER> listUser;
+
+    listUser.append(bdd_USER(json["phoneNumber"].toString(), json["isActive"].toBool(), json["lastName"].toString(), json["password"].toString(), json["firstName"].toString(), json["addressId"].toInt(), json["mail"].toString(), json["username"].toString()));
+
+    return listUser;
+}
+
+void api_get_request::get_table_client(){
+
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/client?key=9f15cb387f77c3284bd1bdc364a21eb7"));
+    QNetworkReply *reply = man.get(request);
+
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
+
+    QByteArray response_data = reply->readAll();
+
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+
+    QFile::rename("jsonClient.json","data/jsonClient.json");
+
+    reply->deleteLater();
+}
+
+QVector<bdd_CLIENT> api_get_request::parse_file_client(){
+
+    QFile file("data/jsonClient.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
+
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+
+    // Get JSON object
+    QJsonObject json = doc.object();
+
+    // Access properties
+
+    QVector<bdd_CLIENT> listClient;
+
+    listClient.append(bdd_CLIENT(json["username"].toString(), json["phoneNumber"].toString(), json["isActive"].toBool(), json["password"].toString(), json["lastName"].toString(), json["firstName"].toString(), json["mail"].toString(), json["addressId"].toInt()));
+
+    return listClient;
+}
+
+void api_get_request::get_table_address_client(){
+
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/address_client?key=28e60ed41c0a59a442cade866bff3a97"));
+    QNetworkReply *reply = man.get(request);
+
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
+
+    QByteArray response_data = reply->readAll();
+
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+
+    QFile::rename("jsonClient.json","data/jsonAddressClient.json");
+
+    reply->deleteLater();
+}
+
+QVector<bdd_ADDRESS_CLIENT> api_get_request::parse_file_address_client(){
+
+    QFile file("data/jsonAddressClient.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
+
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+
+    // Get JSON object
+    QJsonObject json = doc.object();
+
+    // Access properties
+
+    QVector<bdd_ADDRESS_CLIENT> listAddressClient;
+
+    listAddressClient.append(bdd_ADDRESS_CLIENT(json["city"].toString(), json["idAddressClient"].toString(), json["country"].toString(), json["postalCode"].toInt(), json["street"].toString()));
+
+    return listAddressClient;
+
+}
+
+void api_get_request::get_table_address_supplier(){
+
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/address_supplier?key=33f85cb0c62fc22f5c2ad0f067c5e83a"));
+    QNetworkReply *reply = man.get(request);
+
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
+
+    QByteArray response_data = reply->readAll();
+
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+
+    QFile::rename("jsonAddressSupplier.json","data/jsonAddressSupplier.json");
+
+    reply->deleteLater();
+}
+
+QVector<bdd_ADDRESS_SUPPLIER> api_get_request::parse_file_address_supplier(){
+
+    QFile file("data/jsonAddressSupplier.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
+
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+
+    // Get JSON object
+    QJsonObject json = doc.object();
+
+    // Access properties
+
+    QVector<bdd_ADDRESS_SUPPLIER> listAddressSupplier;
+
+    listAddressSupplier.append(bdd_ADDRESS_SUPPLIER(json["city"].toString(), json["idAddressClient"].toString(), json["country"].toString(), json["postalCode"].toInt(), json["street"].toString()));
+
+    return listAddressSupplier;
+}
+
+void api_get_request::get_table_category(){
+
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/category?key=182ea700442885f568585f374423073d"));
+    QNetworkReply *reply = man.get(request);
+
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
+
+    QByteArray response_data = reply->readAll();
+
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+
+    QFile::rename("jsonCategory.json","data/jsonCategory.json");
+
+    reply->deleteLater();
+}
+
+QVector<bdd_CATEGORY> api_get_request::parse_file_category(){
+
+    QFile file("data/jsonCategory.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
+
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+
+    // Get JSON object
+    QJsonObject json = doc.object();
+
+    // Access properties
+
+    QVector<bdd_CATEGORY> listCategory;
+
+    listCategory.append(bdd_CATEGORY(json["idCategory"].toString(), json["label"].toString()));
+
+    return listCategory;
+
+}
+
+void api_get_request::get_table_chat(){
+
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/chat?key=80aacfbde81d03d20788f370417651cc"));
+    QNetworkReply *reply = man.get(request);
+
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
+
+    QByteArray response_data = reply->readAll();
+
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+
+    QFile::rename("jsonChat.json","data/jsonChat.json");
+
+    reply->deleteLater();
+}
+
+QVector<bdd_CHAT> api_get_request::parse_file_chat(){
+
+    QFile file("data/jsonChat.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
 
 //    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
 
 //    // Get JSON object
-//    QJsonObject json = doc.object();
+    QJsonObject json = doc.object();
 
 //    // Access properties
 
-//    Status::status = json["status"].toInt();
+    QVector<bdd_CHAT> listChat;
 
-//    Status::datas = json["datas"].toString();
+    listChat.append(bdd_CHAT(json["idChat"].toString(), json["userUsernameAsReceiver"].toString(), json["creationDate"].toString(), json["title"].toString()));
 
-//}
+    return listChat;
+}
 
-//void api_get_request::get_table_user(){
+void api_get_request::get_table_component(){
 
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/user?key=83c2c07ea1251a1a39ec46d52cbba19c"));
-//    QNetworkReply *reply = man.get(request);
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/component?key=6400edeffb01785cb7426801619d8535"));
+    QNetworkReply *reply = man.get(request);
 
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
 
-//    QByteArray response_data = reply->readAll();
+    QByteArray response_data = reply->readAll();
 
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
 
-//    QFile::rename("jsonAll.json","data/jsonUser.json");
+    QFile::rename("jsonComponent.json","data/jsonComponent.json");
 
-//    reply->deleteLater();
-//}
+    reply->deleteLater();
+}
 
-//void api_get_request::parse_file_user(){
+QVector<bdd_COMPONENT> api_get_request::parse_file_component(){
 
-//    QFile file("data/jsonUser.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
+    QFile file("data/jsonComponent.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
 
-//    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
 
-//    // Get JSON object
-//    QJsonObject json = doc.object();
+    // Get JSON object
+    QJsonObject json = doc.object();
 
-//    // Access properties
+    // Access properties
 
-//    User::phoneNumber = json["phoneNumber"].toString();
 
-//    User::mail = json["mail"].toBool();
+    QVector<bdd_COMPONENT> listComponent;
 
-//    User::password = json["password"].toString();
+    listComponent.append(bdd_COMPONENT(json["supplierIdSupplier"].toInt(), json["idComponent"].toString(), json["categoryIdCategory"].toInt(), json["label"].toString()));
 
-//    User::lastName = json["lastName"].toString();
+    return listComponent;
+}
 
-//    User::mail = json["mail"].toString();
+void api_get_request::get_table_gamme(){
 
-//    User::username = json["username"].toString();
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/gamme?key=9af660ef63fbb9e5175d56f064d7a0db"));
+    QNetworkReply *reply = man.get(request);
 
-//    User::firstName = json["firstName"].toString();
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
 
-//    User::addressId = json["addressId"].toInt();
+    QByteArray response_data = reply->readAll();
 
-//}
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
 
-//void api_get_request::get_table_client(){
+    QFile::rename("jsonGamme.json","data/jsonGamme.json");
 
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/client?key=9f15cb387f77c3284bd1bdc364a21eb7"));
-//    QNetworkReply *reply = man.get(request);
+    reply->deleteLater();
+}
 
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
+QVector<bdd_GAMME> api_get_request::parse_file_gamme(){
 
-//    QByteArray response_data = reply->readAll();
+    QFile file("data/jsonGamme.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
 
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
 
-//    QFile::rename("jsonClient.json","data/jsonClient.json");
+    // Get JSON object
+    QJsonObject json = doc.object();
 
-//    reply->deleteLater();
-//}
+    // Access properties
 
-//void api_get_request::parse_file_client(){
+    QVector<bdd_GAMME> listGamme;
 
-//    QFile file("data/jsonClient.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
+    listGamme.append(bdd_GAMME(json["idGamme"].toString(), json["productIdProduct"].toInt(), json["label"].toString()));
 
-//    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+    return listGamme;
+}
 
-//    // Get JSON object
-//    QJsonObject json = doc.object();
+void api_get_request::get_table_invoice_quotation(){
 
-//    // Access properties
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/invoice_quotation?key=74cc360b19fc2a94ea620ef5803a381b"));
+    QNetworkReply *reply = man.get(request);
 
-//    Client::phoneNumber = json["phoneNumber"].toString();
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
 
-//    Client::mail = json["mail"].toBool();
+    QByteArray response_data = reply->readAll();
 
-//    Client::password = json["password"].toString();
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
 
-//    Client::lastName = json["lastName"].toString();
+    QFile::rename("jsonInvoiceQuotation.json","data/jsonInvoiceQuotation.json");
 
-//    Client::mail = json["mail"].toString();
+    reply->deleteLater();
+}
 
-//    Client::username = json["username"].toString();
+QVector<bdd_INVOICE_QUOTATION> api_get_request::parse_file_invoice_quotation(){
 
-//    Client::firstName = json["firstName"].toString();
+    QFile file("data/jsonInvoiceQuotation.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
 
-//    Client::addressIdAddress = json["addressIdAddress"].toInt();
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
 
-//}
+    // Get JSON object
+    QJsonObject json = doc.object();
 
-//void api_get_request::get_table_address_client(){
+    // Access properties
 
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/address_client?key=28e60ed41c0a59a442cade866bff3a97"));
-//    QNetworkReply *reply = man.get(request);
 
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
+    QVector<bdd_INVOICE_QUOTATION> listInvoiceQuotation;
+    listInvoiceQuotation.append(bdd_INVOICE_QUOTATION(json["transactionCode"].toString(), json["idInvoiceQuotation"].toString(), json["totalAmount"].toInt(), json["payingMethod"].toString(), json["transactionType"].toString(), json["taxes"].toInt()));
 
-//    QByteArray response_data = reply->readAll();
+    return listInvoiceQuotation;
+}
 
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+void api_get_request::get_table_message(){
 
-//    QFile::rename("jsonClient.json","data/jsonAddressClient.json");
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/message?key=a853ca2949386f7d527bf06117bda9e3"));
+    QNetworkReply *reply = man.get(request);
 
-//    reply->deleteLater();
-//}
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
 
-//void api_get_request::parse_file_address_client(){
+    QByteArray response_data = reply->readAll();
 
-//    QFile file("data/jsonAddressClient.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
 
-//    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+    QFile::rename("jsonMessage.json","data/jsonMessage.json");
 
-//    // Get JSON object
-//    QJsonObject json = doc.object();
+    reply->deleteLater();
+}
 
-//    // Access properties
+QVector<bdd_MESSAGE> api_get_request::parse_file_message(){
 
-//    addressClient::city = json["city"].toString();
+    QFile file("data/jsonMessage.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
 
-//    addressClient::idAddressClient = json["idAddressClient"].toString();
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
 
-//    addressClient::country = json["country"].toString();
+    // Get JSON object
+    QJsonObject json = doc.object();
 
-//    addressClient::postalCode = json["postalCode"].toInt();
+    // Access properties
 
-//    addressClient::street = json["street"].toString();
+    QVector<bdd_MESSAGE> listMessage;
 
-//}
+    listMessage.append(bdd_MESSAGE(json["creationDate"].toString(), json["message"].toString(), json["chatIoChat"].toString(), json["userUsername"].toString(), json["idMessage"].toString()));
 
-//void api_get_request::get_table_address_supplier(){
+    return listMessage;
+}
 
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/address_supplier?key=33f85cb0c62fc22f5c2ad0f067c5e83a"));
-//    QNetworkReply *reply = man.get(request);
+void api_get_request::get_table_product(){
 
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/product?key=4789725dd2d8061e7faf00fce9af48e1"));
+    QNetworkReply *reply = man.get(request);
 
-//    QByteArray response_data = reply->readAll();
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
 
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+    QByteArray response_data = reply->readAll();
 
-//    QFile::rename("jsonAddressSupplier.json","data/jsonAddressSupplier.json");
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
 
-//    reply->deleteLater();
-//}
+    QFile::rename("jsonProduct.json","data/jsonProduct.json");
 
-//void api_get_request::parse_file_address_supplier(){
+    reply->deleteLater();
+}
 
-//    QFile file("data/jsonAddressSupplier.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
+QVector<bdd_PRODUCT> api_get_request::parse_file_product(){
 
-//    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+    QFile file("data/jsonProduct.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
 
-//    // Get JSON object
-//    QJsonObject json = doc.object();
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
 
-//    // Access properties
+    // Get JSON object
+    QJsonObject json = doc.object();
 
-//    addressSupplier::city = json["city"].toString();
+    // Access properties
 
-//    addressSupplier::idAddressClient = json["idAddressClient"].toString();
+    QVector<bdd_PRODUCT> listProduct;
+    listProduct.append(bdd_PRODUCT(json["supplierIdSupplier"].toInt(), json["idProduct"].toString(), json["minWidth"].toInt(), json["defaultLength"].toInt(), json["label"].toString(), json["productCode"].toString(), json["defaultHeight"].toInt(), json["defaultWidth"].toInt(), json["material"].toString(), json["minLength"].toInt(), json["type"].toString()));
 
-//    addressSupplier::country = json["country"].toString();
+    return listProduct;
+}
 
-//    addressSupplier::postalCode = json["postalCode"].toInt();
+void api_get_request::get_table_project(){
 
-//    addressSupplier::street = json["street"].toString();
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/project?key=3f61093fa59c13f81fc8648a3d644e0b"));
+    QNetworkReply *reply = man.get(request);
 
-//}
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
 
-//void api_get_request::get_table_category(){
+    QByteArray response_data = reply->readAll();
 
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/category?key=182ea700442885f568585f374423073d"));
-//    QNetworkReply *reply = man.get(request);
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
 
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
+    QFile::rename("jsonProject.json","data/jsonProject.json");
 
-//    QByteArray response_data = reply->readAll();
+    reply->deleteLater();
+}
 
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+QVector<bdd_PROJECT> api_get_request::parse_file_project(){
 
-//    QFile::rename("jsonCategory.json","data/jsonCategory.json");
+    QFile file("data/jsonProject.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
 
-//    reply->deleteLater();
-//}
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
 
-//void api_get_request::parse_file_category(){
+    // Get JSON object
+    QJsonObject json = doc.object();
 
-//    QFile file("data/jsonCategory.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
+    // Access properties
 
-//    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+    QVector<bdd_PROJECT> listProject;
 
-//    // Get JSON object
-//    QJsonObject json = doc.object();
+    listProject.append(bdd_PROJECT(json["supplierIdSupplier"].toString(), json["validation"].toBool(), json["creationDate"].toString(), json["isTemplate"].toBool(), json["idProject"].toString(), json["userUsername"].toString()));
 
-//    // Access properties
+    return listProject;
 
-//    category::idCategory = json["idCategory"].toString();
+}
 
-//    category::label = json["label"].toString();
+void api_get_request::get_table_promotion_cat(){
 
-//}
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/promotion_cat?key=557c0271e30cf474e0f46f93721fd1ba"));
+    QNetworkReply *reply = man.get(request);
 
-//void api_get_request::get_table_chat(){
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
 
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/chat?key=80aacfbde81d03d20788f370417651cc"));
-//    QNetworkReply *reply = man.get(request);
+    QByteArray response_data = reply->readAll();
 
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
 
-//    QByteArray response_data = reply->readAll();
+    QFile::rename("jsonPromotionCat.json","data/jsonPromotionCat.json");
 
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+    reply->deleteLater();
+}
 
-//    QFile::rename("jsonChat.json","data/jsonChat.json");
+QVector<bdd_PROMOTION_CAT> api_get_request::parse_file_promotion_cat(){
 
-//    reply->deleteLater();
-//}
+    QFile file("data/jsonPromotionCat.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
 
-//void api_get_request::parse_file_chat(){
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
 
-//    QFile file("data/jsonChat.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
+    // Get JSON object
+    QJsonObject json = doc.object();
 
-//    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+    // Access properties
 
-//    // Get JSON object
-//    QJsonObject json = doc.object();
+    QVector<bdd_PROMOTION_CAT> listPromotionCat;
 
-//    // Access properties
+    listPromotionCat.append(bdd_PROMOTION_CAT(json["amount"].toInt(), json["addToExistingProm"].toBool(), json["fromDate"].toString(), json["idPromotionCat"].toString(), json["toDate"].toString()));
 
-//    chat::idChat = json["idChat"].toString();
+    return listPromotionCat;
 
-//    chat::userUsernameAsReceiver = json["userUsernameAsReceiver"].toString();
+}
 
-//    chat::creationDate = json["creationDate"].toString();
+void api_get_request::get_table_promotion_comp(){
 
-//    chat::userUsernameAsAutor = json["userUsernameAsAutor"].toString();
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/promotion_comp?key=2b11565d85da178b3a1942a22d20c624"));
+    QNetworkReply *reply = man.get(request);
 
-//    chat::title = json["title"].toString();
-//}
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
 
-//void api_get_request::get_table_component(){
+    QByteArray response_data = reply->readAll();
 
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/component?key=6400edeffb01785cb7426801619d8535"));
-//    QNetworkReply *reply = man.get(request);
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
 
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
+    QFile::rename("jsonPromotionComp.json","data/jsonPromotionComp.json");
 
-//    QByteArray response_data = reply->readAll();
+    reply->deleteLater();
+}
 
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+QVector<bdd_PROMOTION_COMP> api_get_request::parse_file_promotion_comp(){
 
-//    QFile::rename("jsonComponent.json","data/jsonComponent.json");
+    QFile file("data/jsonPromotionComp.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
 
-//    reply->deleteLater();
-//}
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
 
-//void api_get_request::parse_file_component(){
+    // Get JSON object
+    QJsonObject json = doc.object();
 
-//    QFile file("data/jsonComponent.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
+    // Access properties
 
-//    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+    QVector<bdd_PROMOTION_COMP> listPromotionComp;
 
-//    // Get JSON object
-//    QJsonObject json = doc.object();
+    listPromotionComp.append(bdd_PROMOTION_COMP(json["amount"].toInt(), json["addToExistingProm"].toBool(), json["fromDate"].toString(), json["idPromotionComp"].toString(), json["toDate"].toString()));
 
-//    // Access properties
+    return listPromotionComp;
+}
 
-//    component::supplierIdSupplier = json["supplierIdSupplier"].toInt();
+void api_get_request::get_table_quotation(){
 
-//    component::idComponent = json["idComponent"].toInt();
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/quotation?key=eb307516cffbc5e529cf9c7350ffc299"));
+    QNetworkReply *reply = man.get(request);
 
-//    component::categoryIdCategory = json["categoryIdCategory"].toString();
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
 
-//    component::label = json["label"].toString();
-//}
+    QByteArray response_data = reply->readAll();
 
-//void api_get_request::get_table_gamme(){
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
 
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/gamme?key=9af660ef63fbb9e5175d56f064d7a0db"));
-//    QNetworkReply *reply = man.get(request);
+    QFile::rename("jsonQuotation.json","data/jsonQuotation.json");
 
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
+    reply->deleteLater();
+}
 
-//    QByteArray response_data = reply->readAll();
+QVector<bdd_QUOTATION> api_get_request::parse_file_quotation(){
 
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+    QFile file("data/jsonQuotation.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
 
-//    QFile::rename("jsonGamme.json","data/jsonGamme.json");
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
 
-//    reply->deleteLater();
-//}
+    // Get JSON object
+    QJsonObject json = doc.object();
 
-//void api_get_request::parse_file_gamme(){
+    // Access properties
 
-//    QFile file("data/jsonGamme.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
+    QVector<bdd_QUOTATION> listQuotation;
 
-//    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+    listQuotation.append(bdd_QUOTATION(json["validation"].toBool(), json["idQuotation"].toString(), json["creationDate"].toString(), json["isTemplate"].toBool(), json["userUsername"].toString(), json["valicationDate"].toString()));
 
-//    // Get JSON object
-//    QJsonObject json = doc.object();
+    return listQuotation;
 
-//    // Access properties
+}
 
-//    gamme::idGamme = json["idGamme"].toInt();
+void api_get_request::get_table_role(){
 
-//    gamme::productIdProduct = json["productIdProduct"].toInt();
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/quotation?key=eb307516cffbc5e529cf9c7350ffc299"));
+    QNetworkReply *reply = man.get(request);
 
-//    gamme::categoryIdCategory = json["categoryIdCategory"].toString();
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
 
-//    gamme::label = json["label"].toString();
-//}
+    QByteArray response_data = reply->readAll();
 
-//void api_get_request::get_table_invoice_quotation(){
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
 
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/invoice_quotation?key=74cc360b19fc2a94ea620ef5803a381b"));
-//    QNetworkReply *reply = man.get(request);
+    QFile::rename("jsonRole.json","data/jsonRole.json");
 
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
+    reply->deleteLater();
+}
 
-//    QByteArray response_data = reply->readAll();
+QVector<bdd_ROLE> api_get_request::parse_file_role(){
 
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+    QFile file("data/jsonRole.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
 
-//    QFile::rename("jsonInvoiceQuotation.json","data/jsonInvoiceQuotation.json");
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
 
-//    reply->deleteLater();
-//}
+    // Get JSON object
+    QJsonObject json = doc.object();
 
-//void api_get_request::parse_file_invoice_quotation(){
+    // Access properties
 
-//    QFile file("data/jsonInvoiceQuotation.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
+    QVector<bdd_ROLE> listRole;
 
-//    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+    listRole.append(bdd_ROLE(json["userUsername"].toString(), json["idRole"].toString(), json["label"].toString()));
 
-//    // Get JSON object
-//    QJsonObject json = doc.object();
+    return listRole;
 
-//    // Access properties
+}
 
-//    invoiceQuotation::transactionCode = json["transactionCode"].toString();
+void api_get_request::get_table_shop(){
 
-//    invoiceQuotation::totalAmount = json["totalAmount"].toInt();
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/shop?key=p3f85cbdc62fc22f5c2ad0f067m5eldlda"));
+    QNetworkReply *reply = man.get(request);
 
-//    invoiceQuotation::categoryIdCategory = json["categoryIdCategory"].toString();
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
 
-//    invoiceQuotation::payingMethod = json["payingMethod"].toString();
+    QByteArray response_data = reply->readAll();
 
-//    invoiceQuotation::transactionType = json["transactionType"].toString();
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
 
-//    invoiceQuotation::taxes = json["taxes"].toInt();
-//}
+    QFile::rename("jsonShop.json","data/jsonShop.json");
 
-//void api_get_request::get_table_message(){
+    reply->deleteLater();
+}
 
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/message?key=a853ca2949386f7d527bf06117bda9e3"));
-//    QNetworkReply *reply = man.get(request);
+QVector<bdd_SHOP> api_get_request::parse_file_shop(){
 
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
+    QFile file("data/jsonShop.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
 
-//    QByteArray response_data = reply->readAll();
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
 
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+    // Get JSON object
+    QJsonObject json = doc.object();
 
-//    QFile::rename("jsonMessage.json","data/jsonMessage.json");
+    // Access properties
 
-//    reply->deleteLater();
-//}
+    QVector<bdd_SHOP> listShop;
 
-//void api_get_request::parse_file_message(){
+    listShop.append(bdd_SHOP(json["city"].toString(), json["idShop"].toString(), json["country"].toString(), json["postalCode"].toInt(), json["street"].toString()));
 
-//    QFile file("data/jsonMessage.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
+    return listShop;
+}
 
-//    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+void api_get_request::get_table_stock(){
 
-//    // Get JSON object
-//    QJsonObject json = doc.object();
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/stock?key=93f85cb0cc2fc22f5c2ad0f067c5e95116"));
+    QNetworkReply *reply = man.get(request);
 
-//    // Access properties
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
 
-//    message::creationDate = json["creationDate"].toString();
+    QByteArray response_data = reply->readAll();
 
-//    message::message = json["message"].toString();
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
 
-//    message::chatIoChat = json["chatIoChat"].toString();
+    QFile::rename("jsonStock.json","data/jsonStock.json");
 
-//    message::userUsername = json["userUsername"].toString();
+    reply->deleteLater();
+}
 
-//    message::idMessage = json["idMessage"].toString();
-//}
+QVector<bdd_STOCK>api_get_request::parse_file_stock(){
 
-//void api_get_request::get_table_product(){
+    QFile file("data/jsonStock.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
 
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/product?key=4789725dd2d8061e7faf00fce9af48e1"));
-//    QNetworkReply *reply = man.get(request);
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
 
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
+    // Get JSON object
+    QJsonObject json = doc.object();
 
-//    QByteArray response_data = reply->readAll();
+    // Access properties
 
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+    QVector<bdd_STOCK> listStock;
 
-//    QFile::rename("jsonProduct.json","data/jsonProduct.json");
+    listStock.append(bdd_STOCK(json["amount"].toInt(), json["idStock"].toString(), json["productIdProduct"].toInt(), json["addressIdAddress"].toInt()));
 
-//    reply->deleteLater();
-//}
+    return listStock;
+}
 
-//void api_get_request::parse_file_product(){
+void api_get_request::get_table_supplier(){
 
-//    QFile file("data/jsonProduct.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/supplier?key=3ff85cb0c62fc22z5c2adff067c5e83a"));
+    QNetworkReply *reply = man.get(request);
 
-//    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
 
-//    // Get JSON object
-//    QJsonObject json = doc.object();
+    QByteArray response_data = reply->readAll();
 
-//    // Access properties
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
 
-//    product::supplierIdSupplier = json["supplierIdSupplier"].toInt();
+    QFile::rename("jsonSupplier.json","data/jsonSupplier.json");
 
-//    product::idProduct = json["idProduct"].toString();
+    reply->deleteLater();
+}
 
-//    product::minWidth = json["minWidth"].toInt();
+QVector<bdd_SUPPLIER> api_get_request::parse_file_supplier(){
 
-//    product::defaultLength = json["defaultLength"].toInt();
+    QFile file("data/jsonSupplier.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
 
-//    product::label = json["label"].toString();
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
 
-//    product::productCode = json["productCode"].toString();
+    // Get JSON object
+    QJsonObject json = doc.object();
 
-//    product::defaultHeight = json["defaultHeight"].toInt();
+    // Access properties
 
-//    product::defaultWidth = json["defaultWidth"].toInt();
+    QVector<bdd_SUPPLIER> listSupplier;
 
-//    product::material = json["material"].toString();
+    listSupplier.append(bdd_SUPPLIER(json["phoneNumber"].toString(), json["mail"].toString(), json["description"].toString(), json["name"].toString(), json["isSupplier"].toString(), json["addressIdAddress"].toInt()));
 
-//    product::minLength = json["minLength"].toInt();
+    return listSupplier;
+}
 
-//    product::type = json["type"].toString();
-//}
-
-//void api_get_request::get_table_project(){
-
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/project?key=3f61093fa59c13f81fc8648a3d644e0b"));
-//    QNetworkReply *reply = man.get(request);
-
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
-
-//    QByteArray response_data = reply->readAll();
-
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-//    QFile::rename("jsonProject.json","data/jsonProject.json");
-
-//    reply->deleteLater();
-//}
-
-//void api_get_request::parse_file_project(){
-
-//    QFile file("data/jsonProject.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
-
-//    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-//    // Get JSON object
-//    QJsonObject json = doc.object();
-
-//    // Access properties
-
-//    project::validationDate = json["supplierIdSupplier"].toString();
-
-//    project::validation = json["validation"].toBool();
-
-//    project::creationDate = json["creationDate"].toString();
-
-//    project::isTemplate = json["isTemplate"].toBool();
-
-//    project::idProject = json["idProject"].toString();
-
-//    project::userUsername = json["userUsername"].toString();
-
-//}
-
-//void api_get_request::get_table_promotion_cat(){
-
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/promotion_cat?key=557c0271e30cf474e0f46f93721fd1ba"));
-//    QNetworkReply *reply = man.get(request);
-
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
-
-//    QByteArray response_data = reply->readAll();
-
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-//    QFile::rename("jsonPromotionCat.json","data/jsonPromotionCat.json");
-
-//    reply->deleteLater();
-//}
-
-//void api_get_request::parse_file_promotion_cat(){
-
-//    QFile file("data/jsonPromotionCat.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
-
-//    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-//    // Get JSON object
-//    QJsonObject json = doc.object();
-
-//    // Access properties
-
-//    promotionCat::amount = json["amount"].toInt();
-
-//    promotionCat::addToExistingProm = json["addToExistingProm"].toBool();
-
-//    promotionCat::fromDate = json["fromDate"].toString();
-
-//    promotionCat::idPromotionCat = json["idPromotionCat"].toString();
-
-//    promotionCat::toDate = json["toDate"].toString();
-
-//}
-
-//void api_get_request::get_table_promotion_comp(){
-
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/promotion_comp?key=2b11565d85da178b3a1942a22d20c624"));
-//    QNetworkReply *reply = man.get(request);
-
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
-
-//    QByteArray response_data = reply->readAll();
-
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-//    QFile::rename("jsonPromotionComp.json","data/jsonPromotionComp.json");
-
-//    reply->deleteLater();
-//}
-
-//void api_get_request::parse_file_promotion_comp(){
-
-//    QFile file("data/jsonPromotionComp.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
-
-//    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-//    // Get JSON object
-//    QJsonObject json = doc.object();
-
-//    // Access properties
-
-//    promotionComp::amount = json["amount"].toInt();
-
-//    promotionComp::fromDate = json["fromDate"].toString();
-
-//    promotionComp::idPromotionComp = json["idPromotionCat"].toString();
-
-//    promotionComp::toDate = json["toDate"].toString();
-
-//}
-
-//void api_get_request::get_table_quotation(){
-
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/quotation?key=eb307516cffbc5e529cf9c7350ffc299"));
-//    QNetworkReply *reply = man.get(request);
-
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
-
-//    QByteArray response_data = reply->readAll();
-
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-//    QFile::rename("jsonQuotation.json","data/jsonQuotation.json");
-
-//    reply->deleteLater();
-//}
-
-//void api_get_request::parse_file_quotation(){
-
-//    QFile file("data/jsonQuotation.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
-
-//    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-//    // Get JSON object
-//    QJsonObject json = doc.object();
-
-//    // Access properties
-
-//    quotation::validation = json["validation"].toBool();
-
-//    quotation::idQuotation = json["idQuotation"].toString();
-
-//    quotation::creationDate = json["creationDate"].toString();
-
-//    quotation::isTemplate = json["isTemplate"].toBool();
-
-//    quotation::userUsername = json["userUsername"].toString();
-
-//    quotation::valicationDate = json["valicationDate"].toString();
-
-//}
-
-//void api_get_request::get_table_role(){
-
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/quotation?key=eb307516cffbc5e529cf9c7350ffc299"));
-//    QNetworkReply *reply = man.get(request);
-
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
-
-//    QByteArray response_data = reply->readAll();
-
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-//    QFile::rename("jsonRole.json","data/jsonRole.json");
-
-//    reply->deleteLater();
-//}
-
-//void api_get_request::parse_file_role(){
-
-//    QFile file("data/jsonRole.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
-
-//    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-//    // Get JSON object
-//    QJsonObject json = doc.object();
-
-//    // Access properties
-
-//    role::userUsername = json["userUsername"].toString();
-
-//    role::idRole = json["idRole"].toString();
-
-//    role::label = json["label"].toString();
-
-//}
-
-//void api_get_request::get_table_shop(){
-
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/shop?key=p3f85cbdc62fc22f5c2ad0f067m5eldlda"));
-//    QNetworkReply *reply = man.get(request);
-
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
-
-//    QByteArray response_data = reply->readAll();
-
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-//    QFile::rename("jsonShop.json","data/jsonShop.json");
-
-//    reply->deleteLater();
-//}
-
-//void api_get_request::parse_file_shop(){
-
-//    QFile file("data/jsonShop.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
-
-//    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-//    // Get JSON object
-//    QJsonObject json = doc.object();
-
-//    // Access properties
-
-//    shop::city = json["city"].toString();
-
-//    shop::idShop = json["idShop"].toString();
-
-//    shop::country = json["country"].toString();
-
-//    shop::postalCode = json["postalCode"].toInt();
-
-//    shop::street = json["street"].toString();
-
-//}
-
-//void api_get_request::get_table_stock(){
-
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/stock?key=93f85cb0cc2fc22f5c2ad0f067c5e95116"));
-//    QNetworkReply *reply = man.get(request);
-
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
-
-//    QByteArray response_data = reply->readAll();
-
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-//    QFile::rename("jsonStock.json","data/jsonStock.json");
-
-//    reply->deleteLater();
-//}
-
-//void api_get_request::parse_file_stock(){
-
-//    QFile file("data/jsonStock.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
-
-//    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-//    // Get JSON object
-//    QJsonObject json = doc.object();
-
-//    // Access properties
-
-//    stock::amount = json["amount"].toInt();
-
-//    stock::idStock = json["idStock"].toString();
-
-//    stock::productIdProduct = json["productIdProduct"].toInt();
-
-//    stock::addressIdAddress = json["addressIdAddress"].toInt();
-
-//}
-
-//void api_get_request::get_table_supplier(){
-
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/supplier?key=3ff85cb0c62fc22z5c2adff067c5e83a"));
-//    QNetworkReply *reply = man.get(request);
-
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
-
-//    QByteArray response_data = reply->readAll();
-
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-//    QFile::rename("jsonSupplier.json","data/jsonSupplier.json");
-
-//    reply->deleteLater();
-//}
-
-//void api_get_request::parse_file_supplier(){
-
-//    QFile file("data/jsonSupplier.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
-
-//    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-//    // Get JSON object
-//    QJsonObject json = doc.object();
-
-//    // Access properties
-
-//    supplier::phoneNumber = json["phoneNumber"].toString();
-
-//    supplier::mail = json["mail"].toString();
-
-//    supplier::description = json["description"].toString();
-
-//    supplier::name = json["name"].toString();
-
-//    supplier::isSupplier = json["isSupplier"].toString();
-
-//    supplier::addressIdAddress = json["addressIdAddress"].toInt();
-
-//}
