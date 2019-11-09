@@ -67,89 +67,92 @@ bool Main_Login::CheckConnexion()
 
 void Main_Login::on_btn_login_clicked()
 {
-    QString key = "23";
-    Encryption *Chiffrement = new Encryption;// convertir le texte a chiffrer en QbyteArray avec : QString MonText = "test"; ---->  QByteArray MonText_converti = MonText.toUtf8(); avant .
+    //récupérée par le controleur
+    emit check_login(ui->lineEdit_user->text(), ui->lineEdit_pwd->text());
 
-    if(!CheckConnexion()==true)
-    {
-        qDebug("not connected");
-    }
-    else
-    {
-        qDebug("connected");
-    }
 
-       QString username= ui->lineEdit_user->text().toLower();
-       QString pwd= ui->lineEdit_pwd->text().toLower();
-       qDebug() << username;
-       qDebug() << pwd;
+//    QString key = "23";
+//    Encryption *Chiffrement = new Encryption;// convertir le texte a chiffrer en QbyteArray avec : QString MonText = "test"; ---->  QByteArray MonText_converti = MonText.toUtf8(); avant .
 
-       QString Pwd_encrypted;
-       QString Pwd_Json_Encrypted;
+//    if(!CheckConnexion()==true)
+//    {
+//        qDebug("not connected");
+//    }
+//    else
+//    {
+//        qDebug("connected");
+//    }
 
-       QString pwd_decrypted;
-       QString pwd_Json_Decrypted;
-       if(username != "" && pwd != ""){
+//       QString username= ui->lineEdit_user->text().toLower();
+//       QString pwd= ui->lineEdit_pwd->text().toLower();
+//       qDebug() << username;
+//       qDebug() << pwd;
 
-           //Chiffrement pwd de la form
+//       QString Pwd_encrypted;
+//       QString Pwd_Json_Encrypted;
 
-           Pwd_encrypted  = (Chiffrement->CypherEncrypt(pwd, &key)); //chiffrement
-           //pwd_decrypted = (Chiffrement->CypherDecrypt(Pwd_encrypted, &key));//dechiffrement
-            //------------------
+//       QString pwd_decrypted;
+//       QString pwd_Json_Decrypted;
+//       if(username != "" && pwd != ""){
 
-           QNetworkAccessManager manager;
-           QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/api/get/user?key=83c2c07ea1251a1a39ec46d52cbba19c")));
-           QEventLoop event;
-           connect(response,SIGNAL(finished()),&event,SLOT(quit()));
-           event.exec();
-           QString html = response->readAll();
-           QJsonObject jsonObject= QJsonDocument::fromJson(html.toUtf8()).object();
+//           //Chiffrement pwd de la form
 
-           //Chiffrement pwd du json
-           QString pwd_json = jsonObject.value("datas")["Items"]["password"]["S"].toString();
-           Pwd_Json_Encrypted  = (Chiffrement->CypherEncrypt(pwd_json, &key));
-          // pwd_Json_Decrypted = (Chiffrement->CypherDecrypt(Pwd_Json_Encrypted, &key));
-            //------------------
+//           Pwd_encrypted  = (Chiffrement->CypherEncrypt(pwd, &key)); //chiffrement
+//           //pwd_decrypted = (Chiffrement->CypherDecrypt(Pwd_encrypted, &key));//dechiffrement
+//            //------------------
 
-           //comparaison des deux mdp chiffré
-           if(Pwd_encrypted == Pwd_Json_Encrypted)
-           {
-               qDebug("identique");
-           }
-           else
-           {
-               qDebug("Differents");
-           }
-           qDebug() <<jsonObject.value("datas")["Items"][0]["username"]["S"].toString();
-           qDebug() <<jsonObject.value("datas")["Items"][0]["password"]["S"].toString();
-           if(username == jsonObject.value("datas")["Items"][0]["username"]["S"].toString() && pwd == jsonObject.value("datas")["Items"][0]["password"]["S"].toString()){
-               Dialog_Critical* d = new Dialog_Critical(this,"success", "connexion réussie", "information");
-               d->show();
-           }else{
-               Dialog_Critical* d = new Dialog_Critical(this,"Error", "connexion ratée, json is : "+jsonObject.value("datas")["Items"][0]["password"]["S"].toString(), "critical");
-               d->show();
-           }
+//           QNetworkAccessManager manager;
+//           QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/api/get/user?key=83c2c07ea1251a1a39ec46d52cbba19c")));
+//           QEventLoop event;
+//           connect(response,SIGNAL(finished()),&event,SLOT(quit()));
+//           event.exec();
+//           QString html = response->readAll();
+//           QJsonObject jsonObject= QJsonDocument::fromJson(html.toUtf8()).object();
 
-       }
-       else if(username != "" && pwd == "")
-       {
-           Dialog_Critical* d = new Dialog_Critical(this,"Error", "Vous devez rentrer votre mot de passe !","critical" );
-           d->show();
-       }
-       else if(username == "" && pwd != "")
-       {
-           Dialog_Critical* d = new Dialog_Critical(this,"Error","Vous devez rentrer votre identifiant !", "critical");
-           d->show();
-       }
-       else if(username == "" && pwd == "")
-       {
-           Dialog_Critical* d = new Dialog_Critical(this,"Error", "Vous devez rentrer vos identifiants de connexion !","critical");
-           d->show();
-       }
+//           //Chiffrement pwd du json
+//           QString pwd_json = jsonObject.value("datas")["Items"]["password"]["S"].toString();
+//           Pwd_Json_Encrypted  = (Chiffrement->CypherEncrypt(pwd_json, &key));
+//          // pwd_Json_Decrypted = (Chiffrement->CypherDecrypt(Pwd_Json_Encrypted, &key));
+//            //------------------
+
+//           //comparaison des deux mdp chiffré
+//           if(Pwd_encrypted == Pwd_Json_Encrypted)
+//           {
+//               qDebug("identique");
+//           }
+//           else
+//           {
+//               qDebug("Differents");
+//           }
+//           qDebug() <<jsonObject.value("datas")["Items"][0]["username"]["S"].toString();
+//           qDebug() <<jsonObject.value("datas")["Items"][0]["password"]["S"].toString();
+//           if(username == jsonObject.value("datas")["Items"][0]["username"]["S"].toString() && pwd == jsonObject.value("datas")["Items"][0]["password"]["S"].toString()){
+//               Dialog_Critical* d = new Dialog_Critical(this,"success", "connexion réussie", "information");
+//               d->show();
+//           }else{
+//               Dialog_Critical* d = new Dialog_Critical(this,"Error", "connexion ratée, json is : "+jsonObject.value("datas")["Items"][0]["password"]["S"].toString(), "critical");
+//               d->show();
+//           }
+
+//       }
+//       else if(username != "" && pwd == "")
+//       {
+//           Dialog_Critical* d = new Dialog_Critical(this,"Error", "Vous devez rentrer votre mot de passe !","critical" );
+//           d->show();
+//       }
+//       else if(username == "" && pwd != "")
+//       {
+//           Dialog_Critical* d = new Dialog_Critical(this,"Error","Vous devez rentrer votre identifiant !", "critical");
+//           d->show();
+//       }
+//       else if(username == "" && pwd == "")
+//       {
+//           Dialog_Critical* d = new Dialog_Critical(this,"Error", "Vous devez rentrer vos identifiants de connexion !","critical");
+//           d->show();
+//       }
 
 
 }
-
 
 
 
@@ -165,6 +168,7 @@ void Main_Login::resizeEvent(QResizeEvent *){
 
     _width = win.width()/128;
     _height = win.height()/72;
+
 
     ui->line->setGeometry(102*_width, 50*_height, 20*_width, 5*_height);
     ui->btn_login->setGeometry(100*_width, 45*_height, 24*_width, 3*_height);

@@ -4,3 +4,20 @@
 
 /.vs
 /.user
+app/debug/
+test/debug/
+.Debug
+.Release
+.bat
+Makefile
+.stash
+moc*
+*.Debug
+
+*.Release
+
+*.bat
+
+tests/debug/
+
+*.stash

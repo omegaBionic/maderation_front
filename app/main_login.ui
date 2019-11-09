@@ -14,11 +14,20 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">font-family:Futura LT;
+   <string notr="true">QMainWindow{
+font-family:Futura LT;
 font-size:24px;
-background-color: rgb(254, 254, 254);</string>
+background-color: rgb(254, 254, 254);
+}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">QWidget{
+font-family:Futura LT;
+font-size:24px;
+background-color: rgb(254, 254, 254);
+}</string>
+   </property>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
