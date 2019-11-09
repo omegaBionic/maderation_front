@@ -8,7 +8,9 @@ bdd_PROMOTION_COMP::bdd_PROMOTION_COMP(int amount, bool addToExistingProm, QStri
     this->_idPromotionComp = idPromotionComp;
     this->_toDate =toDate;
 }
+bdd_PROMOTION_COMP::bdd_PROMOTION_COMP(){
 
+}
 void bdd_PROMOTION_COMP::setAmount(int amnt){
     _amount = amnt;
 }

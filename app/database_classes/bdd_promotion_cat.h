@@ -6,6 +6,7 @@ class bdd_PROMOTION_CAT
 {
 public:
     bdd_PROMOTION_CAT(int amount, bool addToExistingProm, QString fromDate, QString idPromotionCat, QString toDate);
+    bdd_PROMOTION_CAT();
     ~bdd_PROMOTION_CAT();
 
     void setAmount(int);

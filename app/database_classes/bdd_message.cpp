@@ -9,7 +9,9 @@ bdd_MESSAGE::bdd_MESSAGE(QString creationDate, QString message, QString chatIoCh
     this->_userUsername = userUsername;
     this->_idMessage = idMessage;
 }
+bdd_MESSAGE::bdd_MESSAGE(){
 
+}
 void bdd_MESSAGE::setCreationDate(QString creaDat){
     _creationDate = creaDat;
 }

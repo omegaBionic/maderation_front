@@ -6,6 +6,7 @@ class bdd_INVOICE_QUOTATION
 {
 public:
     bdd_INVOICE_QUOTATION(QString transactionCode, QString idInvoiceQuotation, int totalAmount, QString payingMethod, QString transactionType, int taxes);
+    bdd_INVOICE_QUOTATION();
     ~bdd_INVOICE_QUOTATION();
 
     void setTransactionCode(QString);

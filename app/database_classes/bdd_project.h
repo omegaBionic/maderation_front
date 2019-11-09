@@ -6,6 +6,7 @@ class bdd_PROJECT
 {
 public:
     bdd_PROJECT(QString validationDate, bool validation, QString creationDate, bool isTemplate, QString idProject, QString userUsername);
+    bdd_PROJECT();
     ~bdd_PROJECT();
 
     void setValidationDate(QString);

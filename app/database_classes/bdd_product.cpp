@@ -15,7 +15,9 @@ this->_supplierIdSupplier = supplierIdsupplier;
     this->_minLength = minLength;
     this->_type = type;
 }
+bdd_PRODUCT::bdd_PRODUCT(){
 
+}
 void bdd_PRODUCT::setSupplierIdSupplier(int idSupp){
     _supplierIdSupplier = idSupp;
 }

@@ -14,6 +14,9 @@ bdd_ADDRESS_CLIENT::bdd_ADDRESS_CLIENT(QString city, QString idAddressClient, QS
     this->_postalCod = postalCode;
     this->_street = street;
 }
+bdd_ADDRESS_CLIENT::bdd_ADDRESS_CLIENT()
+{
+}
 void bdd_ADDRESS_CLIENT::setcity(QString cit){
     _city = cit;
 }

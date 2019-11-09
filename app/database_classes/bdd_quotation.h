@@ -6,6 +6,7 @@ class bdd_QUOTATION
 {
 public:
     bdd_QUOTATION(bool validation, QString idQuotation, QString creationDate, bool isTemplate, QString userUsername, QString validationDate);
+    bdd_QUOTATION();
     ~bdd_QUOTATION();
 
     void setValidationDate(QString);

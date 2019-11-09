@@ -7,6 +7,7 @@ class bdd_CHAT
 {
 public:
     bdd_CHAT(QString idChat, QString userUsernameAsReceiver, QString creationDate, QString title);
+    bdd_CHAT();
     ~bdd_CHAT();
 
     void setIdChat(QString);

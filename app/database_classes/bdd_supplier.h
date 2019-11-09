@@ -6,6 +6,7 @@ class bdd_SUPPLIER
 {
 public:
     bdd_SUPPLIER(QString phoneNumber, QString mail, QString description, QString name, QString idSupplier, int addressIdAddress);
+    bdd_SUPPLIER();
     ~bdd_SUPPLIER();
 
     void setPhoneNumber(QString);

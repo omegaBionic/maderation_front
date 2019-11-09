@@ -7,6 +7,7 @@ class bdd_CATEGORY
 {
 public:
     bdd_CATEGORY(QString idCategory, QString label);
+    bdd_CATEGORY();
     ~bdd_CATEGORY();
 
     void setIdCategory(QString);

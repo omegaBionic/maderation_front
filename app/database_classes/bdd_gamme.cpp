@@ -7,6 +7,9 @@ bdd_GAMME::bdd_GAMME(QString idGamme, int productIdProduct, QString label)
     this->_productIdProduct = productIdProduct;
     this->_label = label;
 }
+bdd_GAMME::bdd_GAMME(){
+
+}
 
 void bdd_GAMME::setIdGamme(QString idGam){
     _idGamme = idGam;

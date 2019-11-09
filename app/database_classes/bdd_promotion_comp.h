@@ -6,6 +6,7 @@ class bdd_PROMOTION_COMP
 {
 public:
     bdd_PROMOTION_COMP(int amount, bool addToExistingProm, QString fromDate, QString idPromotionComp, QString toDate);
+    bdd_PROMOTION_COMP();
     ~bdd_PROMOTION_COMP();
 
     void setAmount(int);

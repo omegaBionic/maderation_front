@@ -6,6 +6,7 @@ class bdd_STOCK
 {
 public:
     bdd_STOCK(int amount, QString idStock, int productIdProduct, int addressIdAddress);
+    bdd_STOCK();
     ~bdd_STOCK();
 
     void setAmount(int);

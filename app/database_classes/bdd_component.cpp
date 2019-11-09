@@ -8,7 +8,9 @@ bdd_COMPONENT::bdd_COMPONENT(int supplierIdSupplier, QString idComponent, int ca
     this->_categoryIdCategory = categoryIdCategory;
     this->_label = label;
 }
+bdd_COMPONENT::bdd_COMPONENT(){
 
+}
 void bdd_COMPONENT::setSupplierIdSupplier(int idSupp){
     _supplierIdSupplier = idSupp;
 }
