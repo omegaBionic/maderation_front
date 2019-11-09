@@ -33,17 +33,24 @@ public:
     QPushButton *btn_login;
     QLabel *label_title;
     QPushButton *btn_forgot;
-    QLabel *background;
 
     void setupUi(QMainWindow *Main_Login)
     {
         if (Main_Login->objectName().isEmpty())
             Main_Login->setObjectName(QString::fromUtf8("Main_Login"));
         Main_Login->resize(857, 620);
-        Main_Login->setStyleSheet(QString::fromUtf8(""));
+        Main_Login->setStyleSheet(QString::fromUtf8("QMainWindow{\n"
+"font-family:Futura LT;\n"
+"font-size:24px;\n"
+"background-color: rgb(254, 254, 254);\n"
+"}"));
         centralwidget = new QWidget(Main_Login);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        centralwidget->setStyleSheet(QString::fromUtf8(""));
+        centralwidget->setStyleSheet(QString::fromUtf8("QWidget{\n"
+"font-family:Futura LT;\n"
+"font-size:24px;\n"
+"background-color: rgb(254, 254, 254);\n"
+"}"));
         label_2 = new QLabel(centralwidget);
         label_2->setObjectName(QString::fromUtf8("label_2"));
         label_2->setGeometry(QRect(0, 0, 531, 521));
@@ -55,16 +62,14 @@ public:
         lineEdit_user->setStyleSheet(QString::fromUtf8("background:none;\n"
 "border:none;\n"
 "border-bottom:1px solid black;\n"
-"font-size:18px;\n"
-"background-color: #00000000;"));
+"font-size:18px;"));
         lineEdit_pwd = new QLineEdit(centralwidget);
         lineEdit_pwd->setObjectName(QString::fromUtf8("lineEdit_pwd"));
         lineEdit_pwd->setGeometry(QRect(230, 250, 251, 31));
         lineEdit_pwd->setStyleSheet(QString::fromUtf8("background:none;\n"
 "border:none;\n"
 "border-bottom:1px solid black;\n"
-"font-size:18px;\n"
-"background-color: #00000000;"));
+"font-size:18px;"));
         lineEdit_pwd->setEchoMode(QLineEdit::Password);
         chk_remember = new QCheckBox(centralwidget);
         chk_remember->setObjectName(QString::fromUtf8("chk_remember"));
@@ -118,19 +123,7 @@ public:
 "border: 0px solid black;\n"
 "color:black;\n"
 "}"));
-        background = new QLabel(centralwidget);
-        background->setObjectName(QString::fromUtf8("background"));
-        background->setGeometry(QRect(550, 160, 121, 121));
         Main_Login->setCentralWidget(centralwidget);
-        background->raise();
-        label_2->raise();
-        lineEdit_user->raise();
-        lineEdit_pwd->raise();
-        chk_remember->raise();
-        line->raise();
-        btn_login->raise();
-        label_title->raise();
-        btn_forgot->raise();
 
         retranslateUi(Main_Login);
 
@@ -149,7 +142,6 @@ public:
         btn_login->setText(QApplication::translate("Main_Login", "Log In", nullptr));
         label_title->setText(QApplication::translate("Main_Login", "WOOD IN STOCK", nullptr));
         btn_forgot->setText(QApplication::translate("Main_Login", "Forgot Password ?", nullptr));
-        background->setText(QString());
     } // retranslateUi
 
 };

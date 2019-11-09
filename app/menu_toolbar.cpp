@@ -46,9 +46,9 @@ void menu_toolbar::resizeAll(){
         ui->btn_logoff->setGeometry(86*_width, 34*_height, widthButton, heightButton);
         ui->btn_logoff->setIcon(QPixmap(":/pictures/img/logo logoff.png").scaled(widthButton, heightButton,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
         ui->btn_logoff->setIconSize(QSize(widthButton, heightButton));
-        ui->btn_hide->setGeometry(56*_width, 12*_height, 20*_width, 20*_height);
-        ui->btn_hide->setIcon(QPixmap(":/pictures/img/logo_hide.png").scaled(20*_width, 20*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
-        ui->btn_hide->setIconSize(QSize(20*_width, 20*_height));
+        ui->btn_hide->setGeometry(56*_width, 16*_height, 16*_width, 16*_height);
+        ui->btn_hide->setIcon(QPixmap(":/pictures/img/logo_hide.png").scaled(16*_width, 16*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+        ui->btn_hide->setIconSize(QSize(16*_width, 16*_height));
         ui->push_background->setGeometry(16*_width, 32*_height, 96*_width, 40*_height);
         ui->push_background->setStyleSheet("QPushButton{color: white;border-radius: "+QString::number(ui->push_background->height()/2)+"px;background-color: rgb(93, 82, 82);}");
 

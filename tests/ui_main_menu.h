@@ -11,9 +11,8 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
-#include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -22,8 +21,7 @@ class Ui_Main_Menu
 {
 public:
     QWidget *centralwidget;
-    QMenuBar *menubar;
-    QStatusBar *statusbar;
+    QLabel *background;
 
     void setupUi(QMainWindow *Main_Menu)
     {
@@ -32,14 +30,10 @@ public:
         Main_Menu->resize(1254, 634);
         centralwidget = new QWidget(Main_Menu);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
+        background = new QLabel(centralwidget);
+        background->setObjectName(QString::fromUtf8("background"));
+        background->setGeometry(QRect(160, 60, 55, 16));
         Main_Menu->setCentralWidget(centralwidget);
-        menubar = new QMenuBar(Main_Menu);
-        menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1254, 26));
-        Main_Menu->setMenuBar(menubar);
-        statusbar = new QStatusBar(Main_Menu);
-        statusbar->setObjectName(QString::fromUtf8("statusbar"));
-        Main_Menu->setStatusBar(statusbar);
 
         retranslateUi(Main_Menu);
 
@@ -49,6 +43,7 @@ public:
     void retranslateUi(QMainWindow *Main_Menu)
     {
         Main_Menu->setWindowTitle(QApplication::translate("Main_Menu", "MainWindow", nullptr));
+        background->setText(QString());
     } // retranslateUi
 
 };

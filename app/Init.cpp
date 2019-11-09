@@ -1,5 +1,4 @@
 #include "main_login.h"
-#include "ui_main_login.h"
 #include <QDesktopServices>
 #include <QUrl>
 #include <QProcess>

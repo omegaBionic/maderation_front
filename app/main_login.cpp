@@ -163,6 +163,8 @@ void Main_Login::resizeEvent(QResizeEvent *){
     _width = win.width()/128;
     _height = win.height()/72;
 
+    ui->background->setGeometry(0*_width, 0*_height, 128*_width, 72*_height);
+    ui->background->setPixmap(QPixmap(":/pictures/img/background_login.png").scaled(128*_width, 72*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
 
     ui->line->setGeometry(102*_width, 50*_height, 20*_width, 5*_height);
     ui->btn_login->setGeometry(100*_width, 45*_height, 24*_width, 3*_height);
