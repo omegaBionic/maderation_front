@@ -1,12 +1,8 @@
 #include "main_login.h"
 #include "ui_main_login.h"
-<<<<<<< Updated upstream
-#include "user.h"
-=======
 #include "ui_menu_toolbar.h"
 #include "menu_toolbar.h"
-#include "bdd_user.h"
->>>>>>> Stashed changes
+#include "./database_classes/bdd_user.h"
 #include <QDesktopServices>
 #include <QUrl>
 #include <QProcess>
