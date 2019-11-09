@@ -1,6 +1,8 @@
 #include "main_login.h"
 #include "ui_main_login.h"
-#include "user.h"
+#include "ui_menu_toolbar.h"
+#include "menu_toolbar.h"
+#include "./database_classes/bdd_user.h"
 #include <QDesktopServices>
 #include <QUrl>
 #include <QProcess>

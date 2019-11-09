@@ -13,12 +13,14 @@ Dialog_Critical::Dialog_Critical(QWidget *parent, QString title, QString text,QS
     ui->label_text->setText(text);
     ui->cancel->hide();
     QIcon icon_button;
-    if(icon=="critical")
+    if(icon=="critical"){
         icon_button = QIcon(":/pictures/gui_resources/critical.png");
         ui->icon->setIcon(icon_button);
-    if(icon=="information")
+    }
+    if(icon=="information"){
         icon_button = QIcon(":/pictures/gui_resources/information.png");
         ui->icon->setIcon(icon_button);
+    }
     if(icon=="question"){
         icon_button = QIcon(":/pictures/gui_resources/question.ico");
         ui->icon->setIcon(icon_button);
