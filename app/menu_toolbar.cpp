@@ -19,6 +19,8 @@ void menu_toolbar::setWindow(int win){
     _window = win;
 }
 
+
+
 void menu_toolbar::resizeAll(){
     QRect win = this->geometry();
 
@@ -46,9 +48,9 @@ void menu_toolbar::resizeAll(){
         ui->btn_logoff->setGeometry(86*_width, 34*_height, widthButton, heightButton);
         ui->btn_logoff->setIcon(QPixmap(":/pictures/img/logo logoff.png").scaled(widthButton, heightButton,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
         ui->btn_logoff->setIconSize(QSize(widthButton, heightButton));
-        ui->btn_hide->setGeometry(56*_width, 16*_height, 16*_width, 16*_height);
-        ui->btn_hide->setIcon(QPixmap(":/pictures/img/logo_hide.png").scaled(16*_width, 16*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
-        ui->btn_hide->setIconSize(QSize(16*_width, 16*_height));
+        ui->btn_hide->setGeometry(56*_width, 14*_height, 18*_width, 18*_height);
+        ui->btn_hide->setIcon(QPixmap(":/pictures/img/logo_hide.png").scaled(18*_width, 18*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+        ui->btn_hide->setIconSize(QSize(18*_width, 18*_height));
         ui->push_background->setGeometry(16*_width, 32*_height, 96*_width, 40*_height);
         ui->push_background->setStyleSheet("QPushButton{color: white;border-radius: "+QString::number(ui->push_background->height()/2)+"px;background-color: rgb(93, 82, 82);}");
 
@@ -68,9 +70,9 @@ void menu_toolbar::resizeAll(){
         ui->btn_logoff->setGeometry(104*_width, 34*_height, widthButton, heightButton);
         ui->btn_logoff->setIcon(QPixmap(":/pictures/img/logo logoff.png").scaled(widthButton, heightButton,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
         ui->btn_logoff->setIconSize(QSize(widthButton, heightButton));
-        ui->btn_hide->setGeometry(55*_width, 12*_height, 20*_width, 20*_height);
-        ui->btn_hide->setIcon(QPixmap(":/pictures/img/logo_hide.png").scaled(20*_width, 20*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
-        ui->btn_hide->setIconSize(QSize(20*_width, 20*_height));
+        ui->btn_hide->setGeometry(55*_width, 14*_height, 18*_width, 18*_height);
+        ui->btn_hide->setIcon(QPixmap(":/pictures/img/logo_hide.png").scaled(18*_width, 18*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+        ui->btn_hide->setIconSize(QSize(18*_width, 18*_height));
         ui->push_background->setGeometry(0*_width, 32*_height, 128*_width, 40*_height);
         ui->push_background->setStyleSheet("QPushButton{color: white;border-radius: "+QString::number(ui->push_background->height()/2)+"px;background-color: rgb(93, 82, 82);}");
     }
@@ -86,9 +88,9 @@ void menu_toolbar::on_btn_hide_clicked()
 {
     _isHided = !_isHided;
     if(_isHided){
-        ui->btn_hide->setGeometry(55*_width, 52*_height, 20*_width, 20*_height);
-        ui->btn_hide->setIcon(QPixmap(":/pictures/img/logo_show.png").scaled(20*_width, 20*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
-        ui->btn_hide->setIconSize(QSize(20*_width, 20*_height));
+        ui->btn_hide->setGeometry(55*_width, 52*_height, 22*_width, 22*_height);
+        ui->btn_hide->setIcon(QPixmap(":/pictures/img/logo_show.png").scaled(22*_width, 22*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+        ui->btn_hide->setIconSize(QSize(22*_width, 22*_height));
         ui->btn_menu->setVisible(false);
         ui->btn_alert->setVisible(false);
         ui->btn_logoff->setVisible(false);
@@ -97,9 +99,9 @@ void menu_toolbar::on_btn_hide_clicked()
         ui->push_background->setVisible(false);
 
     }else{
-        ui->btn_hide->setGeometry(55*_width, 12*_height, 20*_width, 20*_height);
-        ui->btn_hide->setIcon(QPixmap(":/pictures/img/logo_hide.png").scaled(20*_width, 20*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
-        ui->btn_hide->setIconSize(QSize(20*_width, 20*_height));
+        ui->btn_hide->setGeometry(55*_width, 14*_height, 18*_width, 18*_height);
+        ui->btn_hide->setIcon(QPixmap(":/pictures/img/logo_hide.png").scaled(18*_width, 18*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+        ui->btn_hide->setIconSize(QSize(18*_width, 18*_height));
         ui->btn_menu->setVisible(true);
         ui->btn_alert->setVisible(true);
         ui->btn_logoff->setVisible(true);

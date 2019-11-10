@@ -21,11 +21,26 @@ Main_Login::Main_Login(QWidget *parent) :
     ui(new Ui::Main_Login)
 {
     ui->setupUi(this);
+//    this->setWindowState(Qt::WindowFullScreen);
 }
 
 Main_Login::~Main_Login()
 {
     delete ui;
+}
+
+bool Main_Login::event(QEvent * e)
+{
+    if(e->type() == QEvent::HoverEnter){
+        emit Initialized(0);
+    }
+
+    return QMainWindow::event(e) ;
+}
+
+void Main_Login::showFull(){
+    qDebug() << "affichage de la login";
+    this->showFullScreen();
 }
 
 bool Main_Login::CheckConnexion()
@@ -59,6 +74,12 @@ bool Main_Login::CheckConnexion()
      }else {
          return false;
      }
+}
+
+
+void Main_Login::on_btn_forgot_clicked()
+{
+    emit forgot_password();
 }
 
 void Main_Login::on_btn_login_clicked()
@@ -180,3 +201,4 @@ void Main_Login::resizeEvent(QResizeEvent *){
     ui->label_2->setPixmap(QPixmap(":/pictures/img/house.jpg").scaled(95*_width, 72*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
 
 }
+

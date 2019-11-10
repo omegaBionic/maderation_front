@@ -1,5 +1,7 @@
 #include "main_menu.h"
 #include "ui_main_menu.h"
+#include <QDebug>
+#include <QThread>
 
 Main_Menu::Main_Menu(QWidget *parent) :
     QMainWindow(parent),
@@ -16,6 +18,7 @@ Main_Menu::Main_Menu(QWidget *parent, menu_toolbar* m) :
     ui->setupUi(this);
     _menu = m;
     _menu->setParent(this);
+//    this->setWindowState(Qt::WindowFullScreen);
 }
 
 Main_Menu::~Main_Menu()
@@ -23,6 +26,20 @@ Main_Menu::~Main_Menu()
     delete ui;
 }
 
+bool Main_Menu::event(QEvent * e)
+{
+    if(e->type() == QEvent::HoverEnter){
+        emit Initialized(1);
+    }
+
+    return QMainWindow::event(e) ;
+}
+
+void Main_Menu::showFull(){
+    qDebug() << "affichage de la menu";
+    this->showFullScreen();
+    qDebug() << "emited de la menu";
+}
 
 void Main_Menu::resizeEvent(QResizeEvent *){
     // format 16:9 only for the moment

@@ -19,14 +19,15 @@ public:
 
 private slots:
     void login(QString user, QString pwd);
+    void login_forgot_password();
     void toolbar_alert();
     void toolbar_logoff();
     void toolbar_messages();
     void toolbar_menu();
     void toolbar_archive();
+    void cleanup(int win);
 
 private:
-    void cleanup();
     Main_Login * _login;
     menu_toolbar* _toolbar;
     Main_Menu* _menu;

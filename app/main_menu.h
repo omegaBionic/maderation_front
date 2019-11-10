@@ -16,9 +16,14 @@ public:
     explicit Main_Menu(QWidget *parent = nullptr);
     explicit Main_Menu(QWidget *parent = nullptr, menu_toolbar* menu = NULL);
     ~Main_Menu();
+    void showFull();
+
+signals:
+    void Initialized(int window);
 
 private:
     void resizeEvent(QResizeEvent * event);
+    bool event(QEvent *event);
 
     int _width;
     int _height;

@@ -17,15 +17,21 @@ public:
     explicit Main_Login(QWidget *parent = nullptr);
     ~Main_Login();
     bool CheckConnexion();
+    void showFull();
 
 signals:
     void check_login(QString user, QString pwd);
+    void forgot_password();
+    void Initialized(int window);
 
 private slots:
     void on_btn_login_clicked();
 
+    void on_btn_forgot_clicked();
+
 private:
     void resizeEvent(QResizeEvent * event);
+    bool event(QEvent *event);
 
     Ui::Main_Login *ui;
     int _width;
