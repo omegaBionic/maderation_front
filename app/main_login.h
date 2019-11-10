@@ -16,7 +16,7 @@ class Main_Login : public QMainWindow
 public:
     explicit Main_Login(QWidget *parent = nullptr);
     ~Main_Login();
-    bool CheckConnexion();
+
 
 signals:
     void check_login(QString user, QString pwd);
