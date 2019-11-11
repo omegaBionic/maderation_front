@@ -1,6 +1,6 @@
 #include <QtTest>
 #include <QCoreApplication>
-#include <../app/api_get_request.h>
+#include <../app/CORE/api_get_request.h>
 
 //pour quentin -----------------------------------------
 #include <QDesktopServices>
@@ -17,9 +17,11 @@
 #include <QDir>
 #include <QMainWindow>
 //------------------------------------------------------
-#include "../app/main_login.h"
-#include "../app/menu_toolbar.h"
-#include "../app/controller.h"
+#include "../app/UI/main_login.h"
+#include "../app/UI/menu_toolbar.h"
+#include "../app/CONTROLLER/controller.h"
+#include "../app/UI/main_menu.h"
+#include "../app/UI/button_quotation.h"
 
 
 
@@ -48,6 +50,7 @@ private slots:
     void controller_exist();
     void controller_have_login();
     void controller_get_user();
+    void main_menu_exist();
 
     void api_get_request_test_get_status();
     void api_get_request_test_get_table_user();
@@ -90,6 +93,10 @@ private slots:
     void api_get_request_test_parse_file_shop();
     void api_get_request_test_parse_file_stock();
     void api_get_request_test_parse_file_supplier();
+
+    void button_quotation_exist();
+    void button_quotation_have_ID();
+
 
 };
 
@@ -569,6 +576,22 @@ void test_app::controller_get_user()
 {
     Controller* ct = new Controller(0);
     QVERIFY(ct->getUser() != NULL);
+}
+
+
+void test_app::main_menu_exist(){
+    Main_Menu *m = new Main_Menu(0,NULL);
+    QVERIFY(m != NULL);
+}
+
+void test_app::button_quotation_exist(){
+    button_quotation *m = new button_quotation(nullptr, 5);
+    QVERIFY(m != NULL);
+}
+
+void test_app::button_quotation_have_ID(){
+    button_quotation *m = new button_quotation(nullptr, 5);
+    QVERIFY(m->getID() == 5);
 }
 
 //la définition de test

@@ -12,5 +12,8 @@
         <file>img/logo accueil.png</file>
         <file>img/logo_hide.png</file>
         <file>img/logo_show.png</file>
+        <file>img/background_1920.png</file>
+        <file>img/background_login.png</file>
+        <file>img/trash_logo.png</file>
     </qresource>
 </RCC>
