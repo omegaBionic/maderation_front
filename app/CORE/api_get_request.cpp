@@ -4,6 +4,7 @@
 #include <QDir>
 #include <fstream>
 #include <QVector>
+#include <QTextStream>
 
 
 api_get_request::api_get_request(QObject *parent) : QObject(parent)
@@ -22,11 +23,15 @@ void api_get_request::get_status(){
         qApp->processEvents();
     }
 
+    //QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
     QByteArray response_data = reply->readAll();
 
-    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-    QFile::rename("jsonAll.json","data/jsonStatus.json");
+    QFile file("DATA/jsonStatus.json");
+    file.open(QIODevice::ReadWrite);
+    QTextStream out(&file);
+    out << response_data;
+    file.flush();
+    file.close();
 
     reply->deleteLater();
 }
@@ -65,9 +70,12 @@ void api_get_request::get_table_user(){
 
     QByteArray response_data = reply->readAll();
 
-    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-    QFile::rename("jsonAll.json","data/jsonUser.json");
+    QFile file("DATA/jsonUser.json");
+    file.open(QIODevice::ReadWrite);
+    QTextStream out(&file);
+    out << response_data;
+    file.flush();
+    file.close();
 
     reply->deleteLater();
 }
@@ -106,9 +114,12 @@ void api_get_request::get_table_client(){
 
     QByteArray response_data = reply->readAll();
 
-    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-    QFile::rename("jsonClient.json","data/jsonClient.json");
+    QFile file("DATA/jsonClient.json");
+    file.open(QIODevice::ReadWrite);
+    QTextStream out(&file);
+    out << response_data;
+    file.flush();
+    file.close();
 
     reply->deleteLater();
 }
@@ -147,9 +158,12 @@ void api_get_request::get_table_address_client(){
 
     QByteArray response_data = reply->readAll();
 
-    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-    QFile::rename("jsonClient.json","data/jsonAddressClient.json");
+    QFile file("DATA/jsonAddressClient.json");
+    file.open(QIODevice::ReadWrite);
+    QTextStream out(&file);
+    out << response_data;
+    file.flush();
+    file.close();
 
     reply->deleteLater();
 }
@@ -189,9 +203,12 @@ void api_get_request::get_table_address_supplier(){
 
     QByteArray response_data = reply->readAll();
 
-    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-    QFile::rename("jsonAddressSupplier.json","data/jsonAddressSupplier.json");
+    QFile file("DATA/jsonAddressSupplier.json");
+    file.open(QIODevice::ReadWrite);
+    QTextStream out(&file);
+    out << response_data;
+    file.flush();
+    file.close();
 
     reply->deleteLater();
 }
@@ -230,9 +247,12 @@ void api_get_request::get_table_category(){
 
     QByteArray response_data = reply->readAll();
 
-    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-    QFile::rename("jsonCategory.json","data/jsonCategory.json");
+    QFile file("DATA/jsonCategory.json");
+    file.open(QIODevice::ReadWrite);
+    QTextStream out(&file);
+    out << response_data;
+    file.flush();
+    file.close();
 
     reply->deleteLater();
 }
@@ -272,9 +292,13 @@ void api_get_request::get_table_chat(){
 
     QByteArray response_data = reply->readAll();
 
-    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-    QFile::rename("jsonChat.json","data/jsonChat.json");
+    QFile file("DATA/jsonChat.json");
+    file.open(QIODevice::ReadWrite);
+    QTextStream out(&file);
+    out << response_data;
+    file.flush();
+    file.close();
+    //QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
 
     reply->deleteLater();
 }
@@ -313,9 +337,12 @@ void api_get_request::get_table_component(){
 
     QByteArray response_data = reply->readAll();
 
-    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-    QFile::rename("jsonComponent.json","data/jsonComponent.json");
+    QFile file("DATA/jsonComponent.json");
+    file.open(QIODevice::ReadWrite);
+    QTextStream out(&file);
+    out << response_data;
+    file.flush();
+    file.close();
 
     reply->deleteLater();
 }
@@ -355,9 +382,12 @@ void api_get_request::get_table_gamme(){
 
     QByteArray response_data = reply->readAll();
 
-    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-    QFile::rename("jsonGamme.json","data/jsonGamme.json");
+    QFile file("DATA/jsonGamme.json");
+    file.open(QIODevice::ReadWrite);
+    QTextStream out(&file);
+    out << response_data;
+    file.flush();
+    file.close();
 
     reply->deleteLater();
 }
@@ -396,9 +426,12 @@ void api_get_request::get_table_invoice_quotation(){
 
     QByteArray response_data = reply->readAll();
 
-    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-    QFile::rename("jsonInvoiceQuotation.json","data/jsonInvoiceQuotation.json");
+    QFile file("DATA/jsonInvoiceQuotation.json");
+    file.open(QIODevice::ReadWrite);
+    QTextStream out(&file);
+    out << response_data;
+    file.flush();
+    file.close();
 
     reply->deleteLater();
 }
@@ -437,9 +470,12 @@ void api_get_request::get_table_message(){
 
     QByteArray response_data = reply->readAll();
 
-    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-    QFile::rename("jsonMessage.json","data/jsonMessage.json");
+    QFile file("DATA/jsonMessage.json");
+    file.open(QIODevice::ReadWrite);
+    QTextStream out(&file);
+    out << response_data;
+    file.flush();
+    file.close();
 
     reply->deleteLater();
 }
@@ -478,9 +514,12 @@ void api_get_request::get_table_product(){
 
     QByteArray response_data = reply->readAll();
 
-    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-    QFile::rename("jsonProduct.json","data/jsonProduct.json");
+    QFile file("DATA/jsonProduct.json");
+    file.open(QIODevice::ReadWrite);
+    QTextStream out(&file);
+    out << response_data;
+    file.flush();
+    file.close();
 
     reply->deleteLater();
 }
@@ -518,9 +557,12 @@ void api_get_request::get_table_project(){
 
     QByteArray response_data = reply->readAll();
 
-    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-    QFile::rename("jsonProject.json","data/jsonProject.json");
+    QFile file("DATA/jsonProject.json");
+    file.open(QIODevice::ReadWrite);
+    QTextStream out(&file);
+    out << response_data;
+    file.flush();
+    file.close();
 
     reply->deleteLater();
 }
@@ -560,9 +602,12 @@ void api_get_request::get_table_promotion_cat(){
 
     QByteArray response_data = reply->readAll();
 
-    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-    QFile::rename("jsonPromotionCat.json","data/jsonPromotionCat.json");
+    QFile file("DATA/jsonPromotionCat.json");
+    file.open(QIODevice::ReadWrite);
+    QTextStream out(&file);
+    out << response_data;
+    file.flush();
+    file.close();
 
     reply->deleteLater();
 }
@@ -602,9 +647,12 @@ void api_get_request::get_table_promotion_comp(){
 
     QByteArray response_data = reply->readAll();
 
-    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-    QFile::rename("jsonPromotionComp.json","data/jsonPromotionComp.json");
+    QFile file("DATA/jsonPromotionComp.json");
+    file.open(QIODevice::ReadWrite);
+    QTextStream out(&file);
+    out << response_data;
+    file.flush();
+    file.close();
 
     reply->deleteLater();
 }
@@ -643,9 +691,12 @@ void api_get_request::get_table_quotation(){
 
     QByteArray response_data = reply->readAll();
 
-    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-    QFile::rename("jsonQuotation.json","data/jsonQuotation.json");
+    QFile file("DATA/jsonQuotation.json");
+    file.open(QIODevice::ReadWrite);
+    QTextStream out(&file);
+    out << response_data;
+    file.flush();
+    file.close();
 
     reply->deleteLater();
 }
@@ -685,9 +736,12 @@ void api_get_request::get_table_role(){
 
     QByteArray response_data = reply->readAll();
 
-    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-    QFile::rename("jsonRole.json","data/jsonRole.json");
+    QFile file("DATA/jsonRole.json");
+    file.open(QIODevice::ReadWrite);
+    QTextStream out(&file);
+    out << response_data;
+    file.flush();
+    file.close();
 
     reply->deleteLater();
 }
@@ -727,9 +781,12 @@ void api_get_request::get_table_shop(){
 
     QByteArray response_data = reply->readAll();
 
-    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-    QFile::rename("jsonShop.json","data/jsonShop.json");
+    QFile file("DATA/jsonShop.json");
+    file.open(QIODevice::ReadWrite);
+    QTextStream out(&file);
+    out << response_data;
+    file.flush();
+    file.close();
 
     reply->deleteLater();
 }
@@ -768,9 +825,12 @@ void api_get_request::get_table_stock(){
 
     QByteArray response_data = reply->readAll();
 
-    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-    QFile::rename("jsonStock.json","data/jsonStock.json");
+    QFile file("DATA/jsonStock.json");
+    file.open(QIODevice::ReadWrite);
+    QTextStream out(&file);
+    out << response_data;
+    file.flush();
+    file.close();
 
     reply->deleteLater();
 }
@@ -809,9 +869,12 @@ void api_get_request::get_table_supplier(){
 
     QByteArray response_data = reply->readAll();
 
-    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
-
-    QFile::rename("jsonSupplier.json","data/jsonSupplier.json");
+    QFile file("DATA/jsonSupplier.json");
+    file.open(QIODevice::ReadWrite);
+    QTextStream out(&file);
+    out << response_data;
+    file.flush();
+    file.close();
 
     reply->deleteLater();
 }
