@@ -17,6 +17,7 @@ class Init: public QObject
     Init();
     void Check_folder();
     void Transfert_Tables();
+    bool checkConnection();
 
     ~Init();
 

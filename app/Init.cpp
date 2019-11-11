@@ -17,6 +17,7 @@
 #include <QCoreApplication>
 
 //classe des tables
+#include "api_get_request.h"
 
 #include "../app/database_classes/bdd_address_client.h"
 #include "../app/database_classes/bdd_address_supplier.h"
@@ -103,24 +104,73 @@ bool Init::checkConnection()
 
 void Init::Transfert_Tables()
 {
-    QDir T_jsonUser("../app/DATA/jsonUser.json");
-    QDir T_jsonClient("../app/DATA/jsonClient.json");
-    QDir T_jsonAddressClient("../app/DATA/jsonAddressClient.json");
-    QDir T_jsonCategory("../app/DATA/jsonCategory.json");
-    QDir T_jsonChat("../app/DATA/jsonChat.json");
-    QDir T_jsonComponent("../app/DATA/jsonComponent.json");
-    QDir T_jsonGamme("../app/DATA/jsonGamme.json");
-    QDir T_jsonInvoiceQuotation("../app/DATA/jsonInvoiceQuotation.json");
-    QDir T_jsonMessage("../app/DATA/jsonMessage.json");
-    QDir T_jsonProduct("../app/DATA/jsonProduct.json");
-    QDir T_jsonProject("../app/DATA/jsonProject.json");
-    QDir T_jsonPromotionCat("../app/DATA/jsonPromotionCat.json");
-    QDir T_jsonPromotionComp("../app/DATA/jsonPromotionComp.json");
-    QDir T_jsonQuotation("../app/DATA/jsonQuotation.json");
-    QDir T_jsonRole("../app/DATA/jsonRole.json");
-    QDir T_jsonShop("../app/DATA/jsonShop.json");
-    QDir T_jsonStock("../app/DATA/jsonStock.json");
-    QDir T_jsonSupplier("../app/DATA/jsonSupplier.json");
+    QFile T_jsonUser("../app/DATA/jsonUser.json");
+    QFile T_jsonClient("../app/DATA/jsonClient.json");
+    QFile T_jsonAddressClient("../app/DATA/jsonAddressClient.json");
+    QFile T_jsonCategory("../app/DATA/jsonCategory.json");
+    QFile T_jsonChat("../app/DATA/jsonChat.json");
+    QFile T_jsonComponent("../app/DATA/jsonComponent.json");
+    QFile T_jsonGamme("../app/DATA/jsonGamme.json");
+    QFile T_jsonInvoiceQuotation("../app/DATA/jsonInvoiceQuotation.json");
+    QFile T_jsonMessage("../app/DATA/jsonMessage.json");
+    QFile T_jsonProduct("../app/DATA/jsonProduct.json");
+    QFile T_jsonProject("../app/DATA/jsonProject.json");
+    QFile T_jsonPromotionCat("../app/DATA/jsonPromotionCat.json");
+    QFile T_jsonPromotionComp("../app/DATA/jsonPromotionComp.json");
+    QFile T_jsonQuotation("../app/DATA/jsonQuotation.json");
+    QFile T_jsonRole("../app/DATA/jsonRole.json");
+    QFile T_jsonShop("../app/DATA/jsonShop.json");
+    QFile T_jsonStock("../app/DATA/jsonStock.json");
+    QFile T_jsonSupplier("../app/DATA/jsonSupplier.json");
+
+    api_get_request *getTables = new api_get_request;
+
+    QTextStream outUser(&T_jsonUser);
+    QTextStream outClient(&T_jsonClient);
+    QTextStream outAdressClient(&T_jsonAddressClient);
+    QTextStream outCategory(&T_jsonCategory);
+    QTextStream outChat(&T_jsonChat);
+    QTextStream outComponent(&T_jsonComponent);
+    QTextStream outGamme(&T_jsonGamme);
+    QTextStream outInvoiceQuotation(&T_jsonInvoiceQuotation);
+    QTextStream outMessage(&T_jsonMessage);
+    QTextStream outProduct(&T_jsonProduct);
+    QTextStream outProject(&T_jsonProject);
+    QTextStream outPromotionCat(&T_jsonPromotionCat);
+    QTextStream outPromotionComp(&T_jsonPromotionComp);
+    QTextStream outQuotation(&T_jsonQuotation);
+    QTextStream outRole(&T_jsonRole);
+    QTextStream outShop(&T_jsonShop);
+    QTextStream outStock(&T_jsonStock);
+    QTextStream outSupplier(&T_jsonSupplier);
+
+
+    if(!T_jsonUser.open(QIODevice::Append | QIODevice::Text))
+        return;
+
+    QTextStream out(&T_jsonUser);
+
+    getTables->get_table_user();
+    getTables->get_table_client();
+    getTables->get_table_address_client();
+    getTables->get_table_category();
+    getTables->get_table_chat();
+    getTables->get_table_component();
+    getTables->get_table_gamme();
+    getTables->get_table_invoice_quotation();
+    getTables->get_table_message();
+    getTables->get_table_product();
+    getTables->get_table_project();
+    getTables->get_table_promotion_cat();
+    getTables->get_table_promotion_comp();
+    getTables->get_table_quotation();
+    getTables->get_table_role();
+    getTables->get_table_shop();
+    getTables->get_table_stock();
+    getTables->get_table_supplier();
+    getTables->get_table_address_supplier();
+
+
 
 }
 
