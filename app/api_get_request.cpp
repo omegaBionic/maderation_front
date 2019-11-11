@@ -5,26 +5,6 @@
 #include <fstream>
 #include <QVector>
 
-#include "./database_classes/bdd_status.h"
-#include "./database_classes/bdd_user.h"
-#include "./database_classes/bdd_client.h"
-#include "./database_classes/bdd_address_client.h"
-#include "./database_classes/bdd_address_supplier.h"
-#include "./database_classes/bdd_category.h"
-#include "./database_classes/bdd_chat.h"
-#include "./database_classes/bdd_component.h"
-#include "./database_classes/bdd_gamme.h"
-#include "./database_classes/bdd_invoice_quotation.h"
-#include "./database_classes/bdd_message.h"
-#include "./database_classes/bdd_product.h"
-#include "./database_classes/bdd_project.h"
-#include "./database_classes/bdd_promotion_cat.h"
-#include "./database_classes/bdd_promotion_comp.h"
-#include "./database_classes/bdd_quotation.h"
-#include "./database_classes/bdd_role.h"
-#include "./database_classes/bdd_shop.h"
-#include "./database_classes/bdd_stock.h"
-#include "./database_classes/bdd_supplier.h"
 
 api_get_request::api_get_request(QObject *parent) : QObject(parent)
 {
@@ -279,37 +259,40 @@ QVector<bdd_CATEGORY> api_get_request::parse_file_category(){
 
 }
 
-//void api_get_request::get_table_chat(){
+void api_get_request::get_table_chat(){
 
-//    QNetworkAccessManager man;
-//    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/chat?key=80aacfbde81d03d20788f370417651cc"));
-//    QNetworkReply *reply = man.get(request);
+    QNetworkAccessManager man;
+    QNetworkRequest request(QUrl("http://madera-api.maderation.net:8080/api/get/chat?key=80aacfbde81d03d20788f370417651cc"));
+    QNetworkReply *reply = man.get(request);
 
-//    while (!reply->isFinished())
-//    {
-//        qApp->processEvents();
-//    }
+    while (!reply->isFinished())
+    {
+        qApp->processEvents();
+    }
 
-//    QByteArray response_data = reply->readAll();
+    QByteArray response_data = reply->readAll();
 
-//    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+    QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
 
-//    QFile::rename("jsonChat.json","data/jsonChat.json");
+    QFile::rename("jsonChat.json","data/jsonChat.json");
 
-//    reply->deleteLater();
-//}
+    reply->deleteLater();
+}
+
+   reply->deleteLater();
+}
 
 QVector<bdd_CHAT> api_get_request::parse_file_chat(){
 
-//    QFile file("data/jsonChat.json");
-//    file.open(QIODevice::ReadOnly);
-//    QByteArray rawData = file.readAll();
+    QFile file("data/jsonChat.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
 
 //    // Parse document
-//    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
 
 //    // Get JSON object
-//    QJsonObject json = doc.object();
+    QJsonObject json = doc.object();
 
 //    // Access properties
 
@@ -334,6 +317,8 @@ void api_get_request::get_table_component(){
     QByteArray response_data = reply->readAll();
 
     QJsonDocument jsonUser = QJsonDocument::fromJson(response_data);
+
+
 
     QFile::rename("jsonComponent.json","data/jsonComponent.json");
 

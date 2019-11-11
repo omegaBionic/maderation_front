@@ -7,6 +7,7 @@ class bdd_COMPONENT
 {
 public:
     bdd_COMPONENT(int supplierIdSupplier, QString idComponent, int categoryIdCategory, QString label);
+    bdd_COMPONENT();
     ~bdd_COMPONENT();
 
     void setSupplierIdSupplier(int);

@@ -7,6 +7,9 @@ class bdd_USER
 {
     public:
         bdd_USER(QString phoneNumber, bool isActive, QString lastname, QString password, QString firstname, int idAddress, QString mail, QString username);
+        bdd_USER();
+
+        //destructeur
         ~bdd_USER();
 
         void setPhoneNumber(QString);

@@ -7,6 +7,7 @@ class bdd_ADDRESS_SUPPLIER
 {
 public:
     bdd_ADDRESS_SUPPLIER(QString city, QString idAddressClient, QString country, int postalCode, QString street);
+    bdd_ADDRESS_SUPPLIER();
     ~bdd_ADDRESS_SUPPLIER();
 
     void setcity(QString);

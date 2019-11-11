@@ -6,6 +6,7 @@ class bdd_ROLE
 {
 public:
     bdd_ROLE(QString userUsernqme, QString idRole, QString label);
+    bdd_ROLE();
     ~bdd_ROLE();
 
     void setUserUsername(QString);

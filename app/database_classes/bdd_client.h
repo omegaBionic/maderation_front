@@ -8,6 +8,7 @@ class bdd_CLIENT
 {
     public:
         bdd_CLIENT(QString idClient, QString phoneNumber, bool isActive, QString password, QString lastname, QString mail, QString firstname, int addressIDAdress);
+        bdd_CLIENT();
         ~bdd_CLIENT();
 
         void setPhoneNumber(QString);

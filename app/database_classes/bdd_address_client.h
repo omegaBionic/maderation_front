@@ -7,6 +7,7 @@ class bdd_ADDRESS_CLIENT
 {
 public:
     bdd_ADDRESS_CLIENT(QString city, QString idAddressClient, QString country, int postalCode, QString street);
+    bdd_ADDRESS_CLIENT();
     ~bdd_ADDRESS_CLIENT();
 
     void setcity(QString);

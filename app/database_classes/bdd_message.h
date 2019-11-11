@@ -6,6 +6,7 @@ class bdd_MESSAGE
 {
 public:
     bdd_MESSAGE(QString creationDate, QString message, QString chatIoChat, QString userUsername, QString idMessage);
+    bdd_MESSAGE();
     ~bdd_MESSAGE();
 
     void setCreationDate(QString);

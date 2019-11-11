@@ -27,22 +27,22 @@ SOURCES += \
     ./database_classes/*.cpp \
     api_get_request.cpp \
     Init.cpp \
+    api_post_request.cpp \
     controller.cpp \
     dialog_critical.cpp \
     encryption.cpp \
     main.cpp \
     main_login.cpp \
-    user.cpp \
     menu_toolbar.cpp
 
 HEADERS += \
     ./database_classes/*.h \
     api_get_request.h \
     Init.h \
+    api_post_request.h \
     controller.h \
     dialog_critical.h \
     encryption.h \
-    user.h \
     main_login.h \
     menu_toolbar.h \
     main_login.h

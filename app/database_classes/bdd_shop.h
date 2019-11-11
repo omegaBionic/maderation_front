@@ -6,6 +6,7 @@ class bdd_SHOP
 {
 public:
     bdd_SHOP(QString city, QString idShop, QString country, int postalCode, QString street);
+    bdd_SHOP();
     ~bdd_SHOP();
 
     void setCity(QString);

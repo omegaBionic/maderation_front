@@ -10,6 +10,12 @@ bdd_INVOICE_QUOTATION::bdd_INVOICE_QUOTATION(QString transactionCode, QString id
     this->_transactionType = transactionType;
     this->_taxes = taxes;
 }
+bdd_INVOICE_QUOTATION::bdd_INVOICE_QUOTATION(){
+
+}
+bdd_INVOICE_QUOTATION::~bdd_INVOICE_QUOTATION(){
+
+}
 
 void bdd_INVOICE_QUOTATION::setTransactionCode(QString transCod){
     _transactionCode = transCod;

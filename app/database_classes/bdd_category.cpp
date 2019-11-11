@@ -8,6 +8,13 @@ this->_idIdCategory = idCategory;
 this->_Label = label;
 }
 
+bdd_CATEGORY::bdd_CATEGORY(){
+
+}
+bdd_CATEGORY::~bdd_CATEGORY(){
+
+}
+
 void bdd_CATEGORY::setIdCategory(QString idCat){
     _idIdCategory = idCat;
 }

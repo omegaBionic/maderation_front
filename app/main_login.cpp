@@ -15,6 +15,7 @@
 #include <QJsonValue>
 #include <QDebug>
 #include "encryption.h"
+#include "api_get_request.h"
 
 Main_Login::Main_Login(QWidget *parent) :
     QMainWindow(parent),
@@ -66,7 +67,7 @@ void Main_Login::on_btn_login_clicked()
     //récupérée par le controleur
     emit check_login(ui->lineEdit_user->text(), ui->lineEdit_pwd->text());
 
-
+    api_get_request::parse_file_chat();
 //    QString key = "23";
 //    Encryption *Chiffrement = new Encryption;// convertir le texte a chiffrer en QbyteArray avec : QString MonText = "test"; ---->  QByteArray MonText_converti = MonText.toUtf8(); avant .
 

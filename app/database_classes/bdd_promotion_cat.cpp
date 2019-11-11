@@ -8,7 +8,12 @@ bdd_PROMOTION_CAT::bdd_PROMOTION_CAT(int amount, bool addToExistingProm, QString
     this->_idPromotionCat = idPromotionCat;
     this->_toDate =toDate;
 }
+bdd_PROMOTION_CAT::bdd_PROMOTION_CAT(){
 
+}
+bdd_PROMOTION_CAT::~bdd_PROMOTION_CAT(){
+
+}
 void bdd_PROMOTION_CAT::setAmount(int amnt){
     _amount = amnt;
 }

@@ -9,6 +9,13 @@ bdd_CHAT::bdd_CHAT(QString idChat, QString userUsernaleAsReceiver, QString creat
     this->_title = title;
 }
 
+bdd_CHAT::bdd_CHAT(){
+
+}
+bdd_CHAT::~bdd_CHAT(){
+
+}
+
 void bdd_CHAT::setIdChat(QString idCh){
     _idChat = idCh;
 }

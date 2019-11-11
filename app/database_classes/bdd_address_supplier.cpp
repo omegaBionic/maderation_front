@@ -8,6 +8,12 @@ bdd_ADDRESS_SUPPLIER::bdd_ADDRESS_SUPPLIER(QString city, QString idAddressClient
     this->_postalCod = postalCode;
     this->_street = street;
 }
+bdd_ADDRESS_SUPPLIER::bdd_ADDRESS_SUPPLIER(){
+
+}
+bdd_ADDRESS_SUPPLIER::~bdd_ADDRESS_SUPPLIER(){
+
+}
 void bdd_ADDRESS_SUPPLIER::setcity(QString cit){
     _city = cit;
 }

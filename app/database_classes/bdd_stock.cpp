@@ -7,7 +7,12 @@ bdd_STOCK::bdd_STOCK(int amount, QString idStock, int productIdProduct, int addr
     this->_productIdProduct = productIdProduct;
     this->_addressIdAddress = addressIdAddress;
 }
+bdd_STOCK::bdd_STOCK(){
 
+}
+bdd_STOCK::~bdd_STOCK(){
+
+}
 void bdd_STOCK::setAmount(int amnt){
     _amount = amnt;
 }

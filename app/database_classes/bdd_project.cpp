@@ -9,7 +9,12 @@ bdd_PROJECT::bdd_PROJECT(QString validationDate, bool validation, QString creati
     this->_idProject = idProject;
     this->_userUserName = userUsername;
 }
+bdd_PROJECT::bdd_PROJECT(){
 
+}
+bdd_PROJECT::~bdd_PROJECT(){
+
+}
 void bdd_PROJECT::setValidationDate(QString validD){
     _validationDate = validD;
 }

@@ -6,6 +6,7 @@ class bdd_GAMME
 {
 public:
     bdd_GAMME(QString idGamme, int productIdProduct, QString label);
+    bdd_GAMME();
     ~bdd_GAMME();
 
     void setIdGamme(QString);

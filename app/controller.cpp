@@ -4,7 +4,7 @@
 Controller::Controller(QObject *parent) : QObject(parent)
 {
     _login = new Main_Login();
-    _user = new bdd_USER("test", "0606060606",true,"test","test","test","test@test.com",0);
+    //_user = new bdd_USER("test", "0606060606",true,"test","test","test","test@test.com",0);
     QObject::connect(_login, &Main_Login::check_login, this, &Controller::login);
 }
 

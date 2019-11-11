@@ -6,7 +6,8 @@ class bdd_PRODUCT
 {
 public:
     bdd_PRODUCT(int supplierIdsupplier, QString idProduct, int minWidth, int defaultLength, QString label, QString productCode, int defaultHeight, int defaultWidth, QString material, int minLength, QString type);
-     ~bdd_PRODUCT();
+    bdd_PRODUCT();
+    ~bdd_PRODUCT();
 
     void setSupplierIdSupplier(int);
     void setIdProduct(QString);
