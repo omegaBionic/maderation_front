@@ -104,6 +104,7 @@ bool Init::checkConnection()
 
 void Init::Transfert_Tables()
 {
+    //creation des object table de type qfile et de leur chemin
     QFile T_jsonUser("../app/DATA/jsonUser.json");
     QFile T_jsonClient("../app/DATA/jsonClient.json");
     QFile T_jsonAddressClient("../app/DATA/jsonAddressClient.json");
@@ -127,7 +128,7 @@ void Init::Transfert_Tables()
 
     api_get_request *getTables = new api_get_request;
 
-    //---
+    //varification de leur existance dans le dossier
     if(T_jsonUser.exists())
     {
         //existe
