@@ -1,6 +1,12 @@
 #include <QtTest>
 #include <QCoreApplication>
+<<<<<<< Updated upstream
 #include <../app/api_get_request.h>
+=======
+#include <../app/CORE/api_get_request.h>
+#include <../app/CORE/api_post_request.h>
+#include <../app/CORE/core_login.h>
+>>>>>>> Stashed changes
 
 //pour quentin -----------------------------------------
 #include <QDesktopServices>
@@ -91,6 +97,16 @@ private slots:
     void api_get_request_test_parse_file_stock();
     void api_get_request_test_parse_file_supplier();
 
+<<<<<<< Updated upstream
+=======
+    void button_quotation_exist();
+    void button_quotation_have_ID();
+
+    void api_post_request_test_pushData();
+    void api_post_request_test_modifyData();
+
+    void core_login_get_user();
+>>>>>>> Stashed changes
 };
 
 test_app::test_app()
@@ -571,6 +587,73 @@ void test_app::controller_get_user()
     QVERIFY(ct->getUser() != NULL);
 }
 
+<<<<<<< Updated upstream
+=======
+
+void test_app::main_menu_exist(){
+    Main_Menu *m = new Main_Menu(0,NULL);
+    QVERIFY(m != NULL);
+}
+
+void test_app::button_quotation_exist(){
+    button_quotation *m = new button_quotation(nullptr, 5);
+    QVERIFY(m != NULL);
+}
+
+void test_app::button_quotation_have_ID(){
+    button_quotation *m = new button_quotation(nullptr, 5);
+    QVERIFY(m->getID() == 5);
+}
+
+bool waitForSignal(QObject *sender, const char *signal, int timeout = 1000) {
+    QEventLoop loop;
+    QTimer timer;
+    timer.setInterval(timeout);
+    timer.setSingleShot(true);
+
+    loop.connect(sender, signal, SLOT(quit()));
+    loop.connect(&timer, SIGNAL(timeout()), SLOT(quit()));
+    timer.start();
+    loop.exec();
+
+    return timer.isActive();
+}
+
+void test_app::api_post_request_test_pushData(){
+     QNetworkAccessManager *nam =  new QNetworkAccessManager(this);
+     QUrl url("http://madera-api.maderation.net:8080/api/push");
+     QNetworkRequest req(url);
+
+     this->connect(nam, SIGNAL(finished(QNetworkReply*)), this, SLOT(reqFinished(QNetworkReply *)));
+     QNetworkReply *rep = nam->get(req);
+     QVERIFY(waitForSignal(nam, SIGNAL(finished(QNetworkReply*)), 5000));
+}
+
+void test_app::api_post_request_test_modifyData(){
+    QString jsonFile = "jsonUser.json";
+    QString id = "1";
+    QString key = "username";
+    QString modify = "jhon";
+    try {
+        api_post_request::modifyData(jsonFile, id, key, modify);
+    }catch (int e) {
+        qDebug()<<e;
+     }
+}
+
+void test_app::core_login_get_user(){
+    try {
+        QString username = "jacky";
+        QString password = "4l";
+        core_login::getUser(username, password);
+    } catch (int e) {
+        qDebug()<<e;
+    }
+}
+
+
+
+>>>>>>> Stashed changes
 //la définition de test
 QTEST_MAIN(test_app)
 #include "tst_test_app.moc"
