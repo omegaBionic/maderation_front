@@ -1,6 +1,5 @@
-#include "Init.h"
-#include "controller.h"
-#include "encryption.h"
+#include "./CORE/Init.h"
+#include "./CONTROLLER/controller.h"
 #include <QApplication>
 #include <QObject>
 
@@ -10,8 +9,6 @@
 
 int main(int argc, char *argv[])
 {
-
-
 
    Init *Initializer = new Init;
 
