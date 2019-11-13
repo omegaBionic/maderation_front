@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
    Init *Initializer = new Init;
 
    Initializer->Check_folder();
+   Initializer->Transfert_Tables();
 
     QApplication a(argc, argv);
     Controller ct;

@@ -98,6 +98,9 @@ private slots:
     void button_quotation_have_ID();
 
 
+    void test_Init1();
+    void test_Init2();
+
 };
 
 test_app::test_app()
@@ -592,6 +595,57 @@ void test_app::button_quotation_exist(){
 void test_app::button_quotation_have_ID(){
     button_quotation *m = new button_quotation(nullptr, 5);
     QVERIFY(m->getID() == 5);
+}
+
+void test_app::test_Init1()
+{
+
+    QString path("../app/DATA");
+    QDir folder(path);
+    QVERIFY((folder.exists()));
+}
+
+void test_app::test_Init2()
+{
+
+    QDir T_jsonUser("../app/data/jsonUser.json");
+    QDir T_jsonClient("../app/data/jsonClient.json");
+    QDir T_jsonAddressClient("../app/data/jsonAddressClient.json");
+    QDir T_jsonCategory("../app/data/jsonCategory.json");
+    QDir T_jsonChat("../app/data/jsonChat.json");
+    QDir T_jsonComponent("../app/data/jsonComponent.json");
+    QDir T_jsonGamme("../app/data/jsonGamme.json");
+    QDir T_jsonInvoiceQuotation("../app/data/jsonInvoiceQuotation.json");
+    QDir T_jsonMessage("../app/data/jsonMessage.json");
+    QDir T_jsonProduct("../app/data/jsonProduct.json");
+    QDir T_jsonProject("../app/data/jsonProject.json");
+    QDir T_jsonPromotionCat("../app/data/jsonPromotionCat.json");
+    QDir T_jsonPromotionComp("../app/data/jsonPromotionComp.json");
+    QDir T_jsonQuotation("../app/data/jsonQuotation.json");
+    QDir T_jsonRole("../app/data/jsonRole.json");
+    QDir T_jsonShop("../app/data/jsonShop.json");
+    QDir T_jsonStock("../app/data/jsonStock.json");
+    QDir T_jsonSupplier("../app/data/jsonSupplier.json");
+
+    QVERIFY((T_jsonUser.exists()));
+    QVERIFY((T_jsonClient.exists()));
+    QVERIFY((T_jsonAddressClient.exists()));
+    QVERIFY((T_jsonCategory.exists()));
+    QVERIFY((T_jsonChat.exists()));
+    QVERIFY((T_jsonComponent.exists()));
+    QVERIFY((T_jsonGamme.exists()));
+    QVERIFY((T_jsonInvoiceQuotation.exists()));
+    QVERIFY((T_jsonMessage.exists()));
+    QVERIFY((T_jsonProduct.exists()));
+    QVERIFY((T_jsonProject.exists()));
+    QVERIFY((T_jsonPromotionCat.exists()));
+    QVERIFY((T_jsonPromotionComp.exists()));
+    QVERIFY((T_jsonQuotation.exists()));
+    QVERIFY((T_jsonRole.exists()));
+    QVERIFY((T_jsonShop.exists()));
+    QVERIFY((T_jsonStock.exists()));
+    QVERIFY((T_jsonSupplier.exists()));
+
 }
 
 //la définition de test
