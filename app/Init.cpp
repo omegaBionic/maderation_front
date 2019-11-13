@@ -19,7 +19,7 @@
 //classe des tables
 #include "api_get_request.h"
 
-#include "../app/database_classes/bdd_address_client.h"
+/*#include "../app/database_classes/bdd_address_client.h"
 #include "../app/database_classes/bdd_address_supplier.h"
 #include "../app/database_classes/bdd_category.h"
 #include "../app/database_classes/bdd_chat.h"
@@ -37,7 +37,7 @@
 #include "../app/database_classes/bdd_status.h"
 #include "../app/database_classes/bdd_stock.h"
 #include "../app/database_classes/bdd_supplier.h"
-#include "../app/database_classes/bdd_user.h"
+#include "../app/database_classes/bdd_user.h"*/
 
 Init::Init()
 {
@@ -118,57 +118,246 @@ void Init::Transfert_Tables()
     QFile T_jsonPromotionCat("../app/DATA/jsonPromotionCat.json");
     QFile T_jsonPromotionComp("../app/DATA/jsonPromotionComp.json");
     QFile T_jsonQuotation("../app/DATA/jsonQuotation.json");
+
     QFile T_jsonRole("../app/DATA/jsonRole.json");
     QFile T_jsonShop("../app/DATA/jsonShop.json");
     QFile T_jsonStock("../app/DATA/jsonStock.json");
     QFile T_jsonSupplier("../app/DATA/jsonSupplier.json");
+     QFile T_jsonAdressSupplier("../app/DATA/jsonAddressSupplier.json");
 
     api_get_request *getTables = new api_get_request;
 
-    QTextStream outUser(&T_jsonUser);
-    QTextStream outClient(&T_jsonClient);
-    QTextStream outAdressClient(&T_jsonAddressClient);
-    QTextStream outCategory(&T_jsonCategory);
-    QTextStream outChat(&T_jsonChat);
-    QTextStream outComponent(&T_jsonComponent);
-    QTextStream outGamme(&T_jsonGamme);
-    QTextStream outInvoiceQuotation(&T_jsonInvoiceQuotation);
-    QTextStream outMessage(&T_jsonMessage);
-    QTextStream outProduct(&T_jsonProduct);
-    QTextStream outProject(&T_jsonProject);
-    QTextStream outPromotionCat(&T_jsonPromotionCat);
-    QTextStream outPromotionComp(&T_jsonPromotionComp);
-    QTextStream outQuotation(&T_jsonQuotation);
-    QTextStream outRole(&T_jsonRole);
-    QTextStream outShop(&T_jsonShop);
-    QTextStream outStock(&T_jsonStock);
-    QTextStream outSupplier(&T_jsonSupplier);
+    //---
+    if(T_jsonUser.exists())
+    {
+        //existe
+        qDebug("table T_jsonUser exist");
+    }
+    else if (!T_jsonUser.exists())
+    {
+        //existe pas
+         getTables->get_table_user(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
+        qDebug("created");
+    }
+    //---
+    if(T_jsonClient.exists())
+    {
+        //existe
+        qDebug("table T_jsonClient exist");
+    }
+    else if (!T_jsonClient.exists())
+    {
+        //existe pas
+        getTables->get_table_client(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
+        qDebug("created");
+    }
+    //---
+    if(T_jsonAddressClient.exists())
+    {
+        //existe
+        qDebug("table T_jsonAddressClient exist");
+    }
+    else if (!T_jsonAddressClient.exists())
+    {
+        //existe pas
+       getTables->get_table_address_client(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
+        qDebug("created");
+    }
+    //---
+    if(T_jsonCategory.exists())
+    {
+        //existe
+        qDebug("table T_jsonCategory  exist");
+    }
+    else if (!T_jsonCategory.exists())
+    {
+        //existe pas
+       getTables->get_table_category(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
+        qDebug("created");
+    }
+    //---
+    if(T_jsonChat.exists())
+    {
+        //existe
+        qDebug("table T_jsonChat exist");
+    }
+    else if (!T_jsonChat.exists())
+    {
+        //existe pas
+      getTables->get_table_chat(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
+        qDebug("created");
+    }
+    //---
+    if(T_jsonComponent.exists())
+    {
+        //existe
+        qDebug("table T_jsonComponent exist");
+    }
+    else if (!T_jsonComponent.exists())
+    {
+        //existe pas
+      getTables->get_table_component(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
+        qDebug("created");
+    }
+    //---
+    if(T_jsonGamme.exists())
+    {
+        //existe
+        qDebug("table T_jsonGamme exist");
+    }
+    else if (!T_jsonGamme.exists())
+    {
+        //existe pas
+      getTables->get_table_gamme(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
+        qDebug("created");
+    }
+    //---
+    if(T_jsonInvoiceQuotation.exists())
+    {
+        //existe
+        qDebug("table T_jsonInvoiceQuotation exist");
+    }
+    else if (!T_jsonInvoiceQuotation.exists())
+    {
+        //existe pas
+       getTables->get_table_invoice_quotation(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
+        qDebug("created");
+    }
+    //---
+    if(T_jsonMessage.exists())
+    {
+        //existe
+        qDebug("table T_jsonMessage exist");
+    }
+    else if (!T_jsonMessage.exists())
+    {
+        //existe pas
+       getTables->get_table_message(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
+        qDebug("created");
+    }
+    //---
+    if(T_jsonProduct.exists())
+    {
+        //existe
+        qDebug("table T_jsonProduct exist");
+    }
+    else if (!T_jsonProduct.exists())
+    {
+        //existe pas
+       getTables->get_table_product(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
+        qDebug("created");
+    }
+    //---
+    if(T_jsonProject.exists())
+    {
+        //existe
+        qDebug("table T_jsonProject exist");
+    }
+    else if (!T_jsonProject.exists())
+    {
+        //existe pas
+        getTables->get_table_project(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
+        qDebug("created");
+    }
+    //---
+    if(T_jsonPromotionCat.exists())
+    {
+        //existe
+        qDebug("table T_jsonPromotionCat exist");
+    }
+    else if (!T_jsonPromotionCat.exists())
+    {
+        //existe pas
+        getTables->get_table_promotion_cat(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
+        qDebug("created");
+    }
+    //---
+    if(T_jsonPromotionComp.exists())
+    {
+        //existe
+        qDebug("table T_jsonPromotionComp exist");
+    }
+    else if (!T_jsonPromotionComp.exists())
+    {
+        //existe pas
+         getTables->get_table_promotion_comp(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
+        qDebug("created");
+    }
+    //---
+    if(T_jsonQuotation.exists())
+    {
+        //existe
+        qDebug("table T_jsonQuotation exist");
+    }
+    else if (!T_jsonQuotation.exists())
+    {
+        //existe pas
+          getTables->get_table_quotation(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
+        qDebug("created");
+    }
+    //---
+    if(T_jsonRole.exists())
+    {
+        //existe
+        qDebug("table T_jsonRole exist");
+    }
+    else if (!T_jsonRole.exists())
+    {
+        //existe pas
+          getTables->get_table_role(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
+        qDebug("created");
+    }
+    //---
+    if(T_jsonShop.exists())
+    {
+        //existe
+        qDebug("table T_jsonShop exist");
+    }
+    else if (!T_jsonShop.exists())
+    {
+        //existe pas
+           getTables->get_table_shop(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
+        qDebug("created");
+    }
+    //---
+    if(T_jsonStock.exists())
+    {
+        //existe
+        qDebug("table T_jsonStock exist");
+    }
+    else if (!T_jsonStock.exists())
+    {
+        //existe pas
+           getTables->get_table_stock(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
+        qDebug("created");
+    }
+    //---
+    if(T_jsonSupplier.exists())
+    {
+        //existe
+        qDebug("table T_jsonSupplier exist");
+    }
+    else if (!T_jsonSupplier.exists())
+    {
+        //existe pas
+           getTables->get_table_supplier(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
+        qDebug("created");
+    }
+    //---
+    if(T_jsonAdressSupplier.exists())
+    {
+        //existe
+        qDebug("table T_jsonAdressSupplier exist");
+    }
+    else if (!T_jsonAdressSupplier.exists())
+    {
+        //existe pas
+           getTables->get_table_address_supplier(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
+        qDebug("created");
+    }
+    //---
 
 
-    if(!T_jsonUser.open(QIODevice::Append | QIODevice::Text))
-        return;
-
-    QTextStream out(&T_jsonUser);
-
-    getTables->get_table_user();
-    getTables->get_table_client();
-    getTables->get_table_address_client();
-    getTables->get_table_category();
-    getTables->get_table_chat();
-    getTables->get_table_component();
-    getTables->get_table_gamme();
-    getTables->get_table_invoice_quotation();
-    getTables->get_table_message();
-    getTables->get_table_product();
-    getTables->get_table_project();
-    getTables->get_table_promotion_cat();
-    getTables->get_table_promotion_comp();
-    getTables->get_table_quotation();
-    getTables->get_table_role();
-    getTables->get_table_shop();
-    getTables->get_table_stock();
-    getTables->get_table_supplier();
-    getTables->get_table_address_supplier();
 
 
 
