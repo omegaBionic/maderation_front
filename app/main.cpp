@@ -1,7 +1,5 @@
-#include "main_login.h"
-#include "Init.h"
-#include "menu_toolbar.h"
-#include "encryption.h"
+#include "./CORE/Init.h"
+#include "./CONTROLLER/controller.h"
 #include <QApplication>
 #include <QObject>
 
@@ -12,20 +10,15 @@
 int main(int argc, char *argv[])
 {
 
-
-
    Init *Initializer = new Init;
 
    Initializer->Check_folder();
+   Initializer->Transfert_Tables();
 
-  //  Initializer->Network_Connection();
-
-    //Network_Connection();
     QApplication a(argc, argv);
-    Main_Login w;
+    Controller ct;
 
-
-    w.showFullScreen();
+    ct.init();
 
     return a.exec();
 

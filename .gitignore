@@ -12,3 +12,12 @@ test/debug/
 Makefile
 .stash
 moc*
+*.Debug
+
+*.Release
+
+*.bat
+
+tests/debug/
+
+*.stash

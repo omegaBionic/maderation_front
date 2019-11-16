@@ -1,6 +1,6 @@
 #include <QtTest>
 #include <QCoreApplication>
-#include <../app/api_get_request.h>
+#include <../app/CORE/api_get_request.h>
 
 //pour quentin -----------------------------------------
 #include <QDesktopServices>
@@ -17,8 +17,11 @@
 #include <QDir>
 #include <QMainWindow>
 //------------------------------------------------------
-#include "../app/main_login.h"
-#include "../app/menu_toolbar.h"
+#include "../app/UI/main_login.h"
+#include "../app/UI/menu_toolbar.h"
+#include "../app/CONTROLLER/controller.h"
+#include "../app/UI/main_menu.h"
+#include "../app/UI/button_quotation.h"
 
 
 
@@ -40,52 +43,63 @@ private slots:
     void cleanupTestCase();
     void init();
     void cleanup();
-    void main_login_check_connexion();
+    void main_login_exist();
     void menu_toolbar_exist();
     void menu_toolbar_hide();
     void menu_toolbar_show();
+    void controller_exist();
+    void controller_have_login();
+    void controller_get_user();
+    void main_menu_exist();
 
-//    void api_get_request_test_get_status();
-//    void api_get_request_test_get_table_user();
-//    void api_get_request_test_get_table_client();
-//    void api_get_request_test_get_table_address_client();
-//    void api_get_request_test_get_table_address_supplier();
-//    void api_get_request_test_get_table_category();
-//    void api_get_request_test_get_table_chat();
-//    void api_get_request_test_get_table_component();
-//    void api_get_request_test_get_table_gamme();
-//    void api_get_request_test_get_table_invoice_quotation();
-//    void api_get_request_test_get_table_message();
-//    void api_get_request_test_get_table_product();
-//    void api_get_request_test_get_table_project();
-//    void api_get_request_test_get_table_promotion_cat();
-//    void api_get_request_test_get_table_promotion_comp();
-//    void api_get_request_test_get_table_quotation();
-//    void api_get_request_test_get_table_role();
-//    void api_get_request_test_get_table_shop();
-//    void api_get_request_test_get_table_stock();
-//    void api_get_request_test_get_table_supplier();
+    void api_get_request_test_get_status();
+    void api_get_request_test_get_table_user();
+    void api_get_request_test_get_table_client();
+    void api_get_request_test_get_table_address_client();
+    void api_get_request_test_get_table_address_supplier();
+    void api_get_request_test_get_table_category();
+    void api_get_request_test_get_table_chat();
+    void api_get_request_test_get_table_component();
+    void api_get_request_test_get_table_gamme();
+    void api_get_request_test_get_table_invoice_quotation();
+    void api_get_request_test_get_table_message();
+    void api_get_request_test_get_table_product();
+    void api_get_request_test_get_table_project();
+    void api_get_request_test_get_table_promotion_cat();
+    void api_get_request_test_get_table_promotion_comp();
+    void api_get_request_test_get_table_quotation();
+    void api_get_request_test_get_table_role();
+    void api_get_request_test_get_table_shop();
+    void api_get_request_test_get_table_stock();
+    void api_get_request_test_get_table_supplier();
 
-//    void api_get_request_test_parse_file_status();
-//    void api_get_request_test_parse_file_user();
-//    void api_get_request_test_parse_file_client();
-//    void api_get_request_test_parse_file_address_client();
-//    void api_get_request_test_parse_file_address_supplier();
-//    void api_get_request_test_parse_file_category();
-//    void api_get_request_test_parse_file_chat();
-//    void api_get_request_test_parse_file_component();
-//    void api_get_request_test_parse_file_gamme();
-//    void api_get_request_test_parse_file_invoice_quotation();
-//    void api_get_request_test_parse_file_message();
-//    void api_get_request_test_parse_file_product();
-//    void api_get_request_test_parse_file_project();
-//    void api_get_request_test_parse_file_promotion_cat();
-//    void api_get_request_test_parse_file_promotion_comp();
-//    void api_get_request_test_parse_file_quotation();
-//    void api_get_request_test_parse_file_role();
-//    void api_get_request_test_parse_file_shop();
-//    void api_get_request_test_parse_file_stock();
-//    void api_get_request_test_parse_file_supplier();
+    void api_get_request_test_parse_file_status();
+    void api_get_request_test_parse_file_user();
+    void api_get_request_test_parse_file_client();
+    void api_get_request_test_parse_file_address_client();
+    void api_get_request_test_parse_file_address_supplier();
+    void api_get_request_test_parse_file_category();
+    void api_get_request_test_parse_file_chat();
+    void api_get_request_test_parse_file_component();
+    void api_get_request_test_parse_file_gamme();
+    void api_get_request_test_parse_file_invoice_quotation();
+    void api_get_request_test_parse_file_message();
+    void api_get_request_test_parse_file_product();
+    void api_get_request_test_parse_file_project();
+    void api_get_request_test_parse_file_promotion_cat();
+    void api_get_request_test_parse_file_promotion_comp();
+    void api_get_request_test_parse_file_quotation();
+    void api_get_request_test_parse_file_role();
+    void api_get_request_test_parse_file_shop();
+    void api_get_request_test_parse_file_stock();
+    void api_get_request_test_parse_file_supplier();
+
+    void button_quotation_exist();
+    void button_quotation_have_ID();
+
+
+    void test_Init1();
+    void test_Init2();
 
 };
 
@@ -127,403 +141,404 @@ void test_app::cleanup()
 }
 
 //un exemple de test fonctionnel
-void test_app::main_login_check_connexion()
+void test_app::main_login_exist()
 {
-    QVERIFY(main->CheckConnexion());
+    main = new Main_Login(0);
+    QVERIFY(main != NULL);
 }
 
 
-//void test_app::api_get_request_test_get_status(){
-//    try {
-//        api_get_request::get_status();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_get_table_user(){
-//    try {
-//        api_get_request::get_table_user();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_get_table_client(){
-//    try {
-//        api_get_request::get_table_client();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_get_table_address_client(){
-//    try {
-//        api_get_request::get_table_address_client();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_get_table_address_supplier(){
-//    try {
-//        api_get_request::get_table_address_supplier();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_get_table_category(){
-//    try {
-//        api_get_request::get_table_category();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_get_table_chat(){
-//    try {
-//        api_get_request::get_table_chat();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_get_table_component(){
-//    try {
-//        api_get_request::get_table_component();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_get_table_gamme(){
-//    try {
-//        api_get_request::get_table_gamme();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_get_table_invoice_quotation(){
-//    try {
-//        api_get_request::get_table_invoice_quotation();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_get_table_message(){
-//    try {
-//        api_get_request::get_table_message();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_get_table_product(){
-//    try {
-//        api_get_request::get_table_product();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_get_table_project(){
-//    try {
-//        api_get_request::get_table_project();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_get_table_promotion_cat(){
-//    try {
-//        api_get_request::get_table_promotion_cat();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_get_table_promotion_comp(){
-//    try {
-//        api_get_request::get_table_promotion_comp();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_get_table_quotation(){
-//    try {
-//        api_get_request::get_table_quotation();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-//void test_app::api_get_request_test_get_table_role(){
-//    try {
-//        api_get_request::get_table_role();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-//void test_app::api_get_request_test_get_table_shop(){
-//    try {
-//        api_get_request::get_table_shop();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-//void test_app::api_get_request_test_get_table_stock(){
-//    try {
-//        api_get_request::get_table_stock();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-//void test_app::api_get_request_test_get_table_supplier(){
-//    try {
-//        api_get_request::get_table_supplier();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_parse_file_status(){
-//    try {
-//        api_get_request::parse_file_status();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_parse_file_user(){
-//    try {
-//        api_get_request::parse_file_user();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_parse_file_client(){
-//    try {
-//        api_get_request::parse_file_client();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_parse_file_address_client(){
-//    try {
-//        api_get_request::parse_file_address_client();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_parse_file_address_supplier(){
-//    try {
-//        api_get_request::parse_file_address_supplier();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_parse_file_category(){
-//    try {
-//        api_get_request::parse_file_category();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_parse_file_chat(){
-//    try {
-//        api_get_request::parse_file_chat();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_parse_file_component(){
-//    try {
-//        api_get_request::parse_file_component();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_parse_file_gamme(){
-//    try {
-//        api_get_request::parse_file_gamme();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_parse_file_invoice_quotation(){
-//    try {
-//        api_get_request::parse_file_quotation();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_parse_file_message(){
-//    try {
-//        api_get_request::parse_file_message();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_parse_file_product(){
-//    try {
-//        api_get_request::parse_file_product();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_parse_file_project(){
-//    try {
-//        api_get_request::parse_file_project();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_parse_file_promotion_cat(){
-//    try {
-//        api_get_request::parse_file_promotion_cat();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_parse_file_promotion_comp(){
-//    try {
-//        api_get_request::parse_file_promotion_comp();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-
-//void test_app::api_get_request_test_parse_file_quotation(){
-//    try {
-//        api_get_request::parse_file_quotation();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-//void test_app::api_get_request_test_parse_file_role(){
-//    try {
-//        api_get_request::parse_file_role();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-//void test_app::api_get_request_test_parse_file_shop(){
-//    try {
-//        api_get_request::parse_file_shop();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-//void test_app::api_get_request_test_parse_file_stock(){
-//    try {
-//        api_get_request::parse_file_stock();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
-//void test_app::api_get_request_test_parse_file_supplier(){
-//    try {
-//        api_get_request::parse_file_supplier();
-//    }
-//    catch (int e) {
-//       qDebug()<<e;
-//    }
-
-//}
+void test_app::api_get_request_test_get_status(){
+    try {
+        api_get_request::get_status();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_get_table_user(){
+    try {
+        api_get_request::get_table_user();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_get_table_client(){
+    try {
+        api_get_request::get_table_client();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_get_table_address_client(){
+    try {
+        api_get_request::get_table_address_client();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_get_table_address_supplier(){
+    try {
+        api_get_request::get_table_address_supplier();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_get_table_category(){
+    try {
+        api_get_request::get_table_category();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_get_table_chat(){
+    try {
+        api_get_request::get_table_chat();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_get_table_component(){
+    try {
+        api_get_request::get_table_component();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_get_table_gamme(){
+    try {
+        api_get_request::get_table_gamme();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_get_table_invoice_quotation(){
+    try {
+        api_get_request::get_table_invoice_quotation();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_get_table_message(){
+    try {
+        api_get_request::get_table_message();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_get_table_product(){
+    try {
+        api_get_request::get_table_product();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_get_table_project(){
+    try {
+        api_get_request::get_table_project();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_get_table_promotion_cat(){
+    try {
+        api_get_request::get_table_promotion_cat();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_get_table_promotion_comp(){
+    try {
+        api_get_request::get_table_promotion_comp();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_get_table_quotation(){
+    try {
+        api_get_request::get_table_quotation();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+void test_app::api_get_request_test_get_table_role(){
+    try {
+        api_get_request::get_table_role();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+void test_app::api_get_request_test_get_table_shop(){
+    try {
+        api_get_request::get_table_shop();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+void test_app::api_get_request_test_get_table_stock(){
+    try {
+        api_get_request::get_table_stock();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+void test_app::api_get_request_test_get_table_supplier(){
+    try {
+        api_get_request::get_table_supplier();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_parse_file_status(){
+    try {
+        api_get_request::parse_file_status();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_parse_file_user(){
+    try {
+        api_get_request::parse_file_user();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_parse_file_client(){
+    try {
+        api_get_request::parse_file_client();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_parse_file_address_client(){
+    try {
+        api_get_request::parse_file_address_client();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_parse_file_address_supplier(){
+    try {
+        api_get_request::parse_file_address_supplier();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_parse_file_category(){
+    try {
+        api_get_request::parse_file_category();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_parse_file_chat(){
+    try {
+        api_get_request::parse_file_chat();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_parse_file_component(){
+    try {
+        api_get_request::parse_file_component();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_parse_file_gamme(){
+    try {
+        api_get_request::parse_file_gamme();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_parse_file_invoice_quotation(){
+    try {
+        api_get_request::parse_file_quotation();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_parse_file_message(){
+    try {
+        api_get_request::parse_file_message();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_parse_file_product(){
+    try {
+        api_get_request::parse_file_product();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_parse_file_project(){
+    try {
+        api_get_request::parse_file_project();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_parse_file_promotion_cat(){
+    try {
+        api_get_request::parse_file_promotion_cat();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_parse_file_promotion_comp(){
+    try {
+        api_get_request::parse_file_promotion_comp();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_parse_file_quotation(){
+    try {
+        api_get_request::parse_file_quotation();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+void test_app::api_get_request_test_parse_file_role(){
+    try {
+        api_get_request::parse_file_role();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+void test_app::api_get_request_test_parse_file_shop(){
+    try {
+        api_get_request::parse_file_shop();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+void test_app::api_get_request_test_parse_file_stock(){
+    try {
+        api_get_request::parse_file_stock();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+void test_app::api_get_request_test_parse_file_supplier(){
+    try {
+        api_get_request::parse_file_supplier();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
 
 void test_app::menu_toolbar_exist()
 {
@@ -546,6 +561,91 @@ void test_app::menu_toolbar_show()
     QVERIFY(menu->_isHided == false);
     menu->on_btn_hide_clicked();
     QVERIFY(menu->_isHided == true);
+}
+
+void test_app::controller_exist()
+{
+    Controller* ct = new Controller(0);
+    QVERIFY(ct != NULL);
+}
+
+void test_app::controller_have_login()
+{
+    Controller* ct = new Controller(0);
+    QVERIFY(ct->getLogin() != NULL);
+}
+
+void test_app::controller_get_user()
+{
+    Controller* ct = new Controller(0);
+    QVERIFY(ct->getUser() != NULL);
+}
+
+
+void test_app::main_menu_exist(){
+    Main_Menu *m = new Main_Menu(0,NULL);
+    QVERIFY(m != NULL);
+}
+
+void test_app::button_quotation_exist(){
+    button_quotation *m = new button_quotation(nullptr, 5);
+    QVERIFY(m != NULL);
+}
+
+void test_app::button_quotation_have_ID(){
+    button_quotation *m = new button_quotation(nullptr, 5);
+    QVERIFY(m->getID() == 5);
+}
+
+void test_app::test_Init1()
+{
+
+    QString path("../app/DATA");
+    QDir folder(path);
+    QVERIFY((folder.exists()));
+}
+
+void test_app::test_Init2()
+{
+
+    QDir T_jsonUser("../app/data/jsonUser.json");
+    QDir T_jsonClient("../app/data/jsonClient.json");
+    QDir T_jsonAddressClient("../app/data/jsonAddressClient.json");
+    QDir T_jsonCategory("../app/data/jsonCategory.json");
+    QDir T_jsonChat("../app/data/jsonChat.json");
+    QDir T_jsonComponent("../app/data/jsonComponent.json");
+    QDir T_jsonGamme("../app/data/jsonGamme.json");
+    QDir T_jsonInvoiceQuotation("../app/data/jsonInvoiceQuotation.json");
+    QDir T_jsonMessage("../app/data/jsonMessage.json");
+    QDir T_jsonProduct("../app/data/jsonProduct.json");
+    QDir T_jsonProject("../app/data/jsonProject.json");
+    QDir T_jsonPromotionCat("../app/data/jsonPromotionCat.json");
+    QDir T_jsonPromotionComp("../app/data/jsonPromotionComp.json");
+    QDir T_jsonQuotation("../app/data/jsonQuotation.json");
+    QDir T_jsonRole("../app/data/jsonRole.json");
+    QDir T_jsonShop("../app/data/jsonShop.json");
+    QDir T_jsonStock("../app/data/jsonStock.json");
+    QDir T_jsonSupplier("../app/data/jsonSupplier.json");
+
+    QVERIFY((T_jsonUser.exists()));
+    QVERIFY((T_jsonClient.exists()));
+    QVERIFY((T_jsonAddressClient.exists()));
+    QVERIFY((T_jsonCategory.exists()));
+    QVERIFY((T_jsonChat.exists()));
+    QVERIFY((T_jsonComponent.exists()));
+    QVERIFY((T_jsonGamme.exists()));
+    QVERIFY((T_jsonInvoiceQuotation.exists()));
+    QVERIFY((T_jsonMessage.exists()));
+    QVERIFY((T_jsonProduct.exists()));
+    QVERIFY((T_jsonProject.exists()));
+    QVERIFY((T_jsonPromotionCat.exists()));
+    QVERIFY((T_jsonPromotionComp.exists()));
+    QVERIFY((T_jsonQuotation.exists()));
+    QVERIFY((T_jsonRole.exists()));
+    QVERIFY((T_jsonShop.exists()));
+    QVERIFY((T_jsonStock.exists()));
+    QVERIFY((T_jsonSupplier.exists()));
+
 }
 
 //la définition de test

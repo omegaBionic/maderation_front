@@ -10,27 +10,22 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TEMPLATE = app
 
 
-SOURCES +=  tst_test_app.cpp \
-            ../app/menu_toolbar.cpp \
-            ../app/main_login.cpp \
-            ../app/api_get_request.cpp \
-            ../app/Init.cpp \
-            ../app/dialog_critical.cpp \
-            ../app/encryption.cpp \
-            ../app/user.cpp
+SOURCES +=  \
+            tst_test_app.cpp \
+            ../app/DB_CLASSES/*.cpp \
+            ../app/CORE/*.cpp \
+            ../app/UI/*.cpp \
+            ../app/CONTROLLER/*.cpp
 
 HEADERS += \
-    ../app/api_get_request.h \
-    ../app/menu_toolbar.h \
-    ../app/Init.h \
-    ../app/dialog_critical.h \
-    ../app/encryption.h \
-    ../app/user.h \
-    ../app/main_login.h
+            ../app/DB_CLASSES/*.h \
+            ../app/CORE/*.h \
+            ../app/UI/*.h \
+            ../app/CONTROLLER/*.h
+
 
 FORMS += \
-    ../app/main_login.ui \
-    ../app/dialog_critical.ui
+            ../app/UI/*.ui
 
 
 qnx: target.path = /tmp/$${TARGET}/bin
