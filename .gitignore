@@ -21,3 +21,5 @@ moc*
 tests/debug/
 
 *.stash
+
+Madera_Front.pro.user

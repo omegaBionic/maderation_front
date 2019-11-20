@@ -30,16 +30,17 @@ SOURCES += \
     ./UI/*.cpp \
     main.cpp
 
+
 HEADERS += \
     ./DB_CLASSES/*.h \
     ./CONTROLLER/*.h \
     ./CORE/*.h \
-    ./UI/*.h \
+    ./UI/*.h
+
 
 FORMS += \
-    dialog_critical.ui \
-    main_login.ui \
-    menu_toolbar.ui
+    ./UI/*.ui
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

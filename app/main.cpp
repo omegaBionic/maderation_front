@@ -1,6 +1,4 @@
-#include "Init.h"
-#include "controller.h"
-#include "encryption.h"
+#include "./CONTROLLER/controller.h"
 #include <QApplication>
 #include <QObject>
 
@@ -10,14 +8,10 @@
 
 int main(int argc, char *argv[])
 {
-
-
-
-   Init *Initializer = new Init;
-
-   Initializer->Check_folder();
-
     QApplication a(argc, argv);
+
+    QDir *file = new QDir("STATUS");
+    file->rmdir("STATUS");
     Controller ct;
 
     ct.init();
