@@ -3,12 +3,15 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QThread>
+#include <QCoreApplication>
+
 
 Controller::Controller(QObject *parent) : QObject(parent)
 {
     _toolbar = new menu_toolbar();
-    _login = NULL;
-    _menu = NULL;
+    _login = nullptr;
+    _init = nullptr;
+    _menu = nullptr;
     QObject::connect(_toolbar, &menu_toolbar::alerts, this, &Controller::toolbar_alert);
     QObject::connect(_toolbar, &menu_toolbar::logoff, this, &Controller::toolbar_logoff);
     QObject::connect(_toolbar, &menu_toolbar::menu, this, &Controller::toolbar_menu);
@@ -26,30 +29,78 @@ bdd_USER* Controller::getUser(){
 }
 
 void Controller::cleanup(int win){
-    qDebug() << "cleanup";
+    qDebug() << "--- cleanup ---";
     if(win == 0){
 
-        qDebug() << "effacage de la menu";
-        if(_menu != NULL){
-            _menu->hide();
-            //_menu = NULL;
+        if(_menu != nullptr){
+            qDebug() << "effacage du menu";
+            _menu->close();
+            _menu = nullptr;
+        }
+        if(_init != nullptr){
+            qDebug() << "effacage du init";
+            _init->close();
+            _init = nullptr;
         }
     }else if(win == 1){
-        qDebug() << "effacage de la login";
-        if(_login != NULL){
-            _login->hide();
-            //_login = NULL;
+        if(_login != nullptr){
+            qDebug() << "effacage de la login";
+            _login->close();
+            _login = nullptr;
+        }
+        if(_init != nullptr){
+            qDebug() << "effacage du init";
+            _init->close();
+            _init = nullptr;
         }
     }
 }
 
+void Controller::init_folder(int step){
+    qDebug() << "step : "+QString::number(step);
+    if(step == 0){
+
+        qDebug() << "checking folder";
+        _init->Check_folder();
+    }else if(step == 1){
+
+        qDebug() << "checking connexion";
+        if( _init->checkConnection()){
+
+            this->init_folder(2);
+        }else{
+            //gestion offline a rajouter
+            //gestion offline a rajouter
+            //gestion offline a rajouter
+            this->init_folder(2);
+        }
+    }else if(step == 2){
+
+        qDebug() << "ending init";
+        _init->endInit();
+
+    }else if(step == 3){
+        this->launchLogin();
+    }
+}
+
+void Controller::launchLogin(){
+    _login = new Main_Login();
+    QObject::connect(_login, &Main_Login::check_login, this, &Controller::login);
+    QObject::connect(_login, &Main_Login::forgot_password, this, &Controller::login_forgot_password);
+    QObject::connect(_login, &Main_Login::Initialized, this, &Controller::cleanup);
+    _login->showFull();
+}
+
 int Controller::init(){
+
+
     try{
-        _login = new Main_Login();
-        QObject::connect(_login, &Main_Login::check_login, this, &Controller::login);
-        QObject::connect(_login, &Main_Login::forgot_password, this, &Controller::login_forgot_password);
-        QObject::connect(_login, &Main_Login::Initialized, this, &Controller::cleanup);
-        _login->showFull();
+
+        _init = new main_init();
+        QObject::connect(_init, &main_init::Initialized, this, &Controller::init_folder);
+        _init->showFullScreen();
+
         return 0;
     }
     catch( QString e){
@@ -98,7 +149,7 @@ void Controller::toolbar_messages(){
 
 void Controller::toolbar_logoff(){
 
-    this->init();
+    this->launchLogin();
 
 }
 

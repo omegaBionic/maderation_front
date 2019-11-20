@@ -1,4 +1,3 @@
-#include "./CORE/Init.h"
 #include "./CONTROLLER/controller.h"
 #include <QApplication>
 #include <QObject>
@@ -9,13 +8,10 @@
 
 int main(int argc, char *argv[])
 {
-
-   Init *Initializer = new Init;
-
-   Initializer->Check_folder();
-   Initializer->Transfert_Tables();
-
     QApplication a(argc, argv);
+
+    QDir *file = new QDir("STATUS");
+    file->rmdir("STATUS");
     Controller ct;
 
     ct.init();
