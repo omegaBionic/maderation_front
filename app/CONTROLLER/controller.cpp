@@ -12,7 +12,8 @@ Controller::Controller(QObject *parent) : QObject(parent)
     _login = nullptr;
     _init = nullptr;
     _menu = nullptr;
-    QObject::connect(_toolbar, &menu_toolbar::alerts, this, &Controller::toolbar_alert);
+    _chat = nullptr;
+    QObject::connect(_toolbar, &menu_toolbar::user_mgt, this, &Controller::toolbar_user_mgt);
     QObject::connect(_toolbar, &menu_toolbar::logoff, this, &Controller::toolbar_logoff);
     QObject::connect(_toolbar, &menu_toolbar::menu, this, &Controller::toolbar_menu);
     QObject::connect(_toolbar, &menu_toolbar::archive, this, &Controller::toolbar_archive);
@@ -30,7 +31,8 @@ bdd_USER* Controller::getUser(){
 
 void Controller::cleanup(int win){
     qDebug() << "--- cleanup ---";
-    if(win == 0){
+
+    if(win == 0){ //login page
 
         if(_menu != nullptr){
             qDebug() << "effacage du menu";
@@ -42,11 +44,37 @@ void Controller::cleanup(int win){
             _init->close();
             _init = nullptr;
         }
-    }else if(win == 1){
+        if(_chat != nullptr){
+            qDebug() << "effacage du chat";
+            _chat->close();
+            _chat = nullptr;
+        }
+    }else if(win == 1){ //menu page
         if(_login != nullptr){
             qDebug() << "effacage de la login";
             _login->close();
             _login = nullptr;
+        }
+        if(_chat != nullptr){
+            qDebug() << "effacage du chat";
+            _chat->close();
+            _chat = nullptr;
+        }
+        if(_init != nullptr){
+            qDebug() << "effacage du init";
+            _init->close();
+            _init = nullptr;
+        }
+    }else if(win == 2){ //chat page
+        if(_login != nullptr){
+            qDebug() << "effacage de la login";
+            _login->close();
+            _login = nullptr;
+        }
+        if(_menu != nullptr){
+            qDebug() << "effacage du menu";
+            _menu->close();
+            _menu = nullptr;
         }
         if(_init != nullptr){
             qDebug() << "effacage du init";
@@ -120,7 +148,7 @@ void Controller::login_forgot_password(){
 void Controller::login(QString user, QString pwd){
 
     qDebug() << user + " , "+ pwd;
-    _toolbar->setWindow(0);
+    _toolbar->setWindow("menu");
     _menu = new Main_Menu(0, _toolbar);
     QObject::connect(_menu, &Main_Menu::Initialized, this, &Controller::cleanup);
     _menu->showFull();
@@ -128,8 +156,10 @@ void Controller::login(QString user, QString pwd){
 
 void Controller::toolbar_menu(){
 
-    Main_Menu *m = new Main_Menu(0, _toolbar);
-    m->showFull();
+    _toolbar->setWindow("menu");
+    _menu = new Main_Menu(0, _toolbar);
+    QObject::connect(_menu, &Main_Menu::Initialized, this, &Controller::cleanup);
+    _menu->showFull();
 
 }
 
@@ -142,8 +172,18 @@ void Controller::toolbar_archive(){
 
 void Controller::toolbar_messages(){
 
-    Main_Menu *m = new Main_Menu(0, _toolbar);
-    m->showFull();
+    qDebug() << "ouverture du chat";
+    QVector<bdd_CHAT>* listChat = new QVector<bdd_CHAT>();
+    listChat->append(bdd_CHAT(0,"test","11 novembre 2019", "test"));
+    listChat->append(bdd_CHAT(0,"test","12 novembre 2019", "polop"));
+    listChat->append(bdd_CHAT(0,"test","13 novembre 2019", "test"));
+    listChat->append(bdd_CHAT(0,"test","14 novembre 2019", "polop"));
+    listChat->append(bdd_CHAT(0,"test","15 novembre 2019", "test"));
+
+    _chat = new main_chat(0, _toolbar, listChat, _user->getUsername());
+    _toolbar->setWindow("chat");
+    QObject::connect(_chat, &main_chat::Initialized, this, &Controller::cleanup);
+    _chat->showFullScreen();
 
 }
 
@@ -153,9 +193,6 @@ void Controller::toolbar_logoff(){
 
 }
 
-void Controller::toolbar_alert(){
-
-    Main_Menu *m = new Main_Menu(0, _toolbar);
-    m->showFull();
+void Controller::toolbar_user_mgt(){
 
 }

@@ -23,7 +23,7 @@ public:
     QPushButton *btn_logoff;
     QPushButton *btn_menu;
     QPushButton *btn_archive;
-    QPushButton *btn_alert;
+    QPushButton *btn_user;
     QPushButton *push_background;
     QPushButton *btn_hide;
 
@@ -72,11 +72,11 @@ public:
 "border-radius: 0px;\n"
 "	background-color: rgb(93, 82, 82);\n"
 "}"));
-        btn_alert = new QPushButton(menu_toolbar);
-        btn_alert->setObjectName(QString::fromUtf8("btn_alert"));
-        btn_alert->setGeometry(QRect(210, 180, 26, 16));
-        btn_alert->setCursor(QCursor(Qt::PointingHandCursor));
-        btn_alert->setStyleSheet(QString::fromUtf8("QPushButton{\n"
+        btn_user = new QPushButton(menu_toolbar);
+        btn_user->setObjectName(QString::fromUtf8("btn_user"));
+        btn_user->setGeometry(QRect(210, 180, 26, 16));
+        btn_user->setCursor(QCursor(Qt::PointingHandCursor));
+        btn_user->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "color: white;\n"
 "	background-color: rgb(93, 82, 82);\n"
 "border-radius: 0px;\n"
@@ -105,7 +105,7 @@ public:
         btn_logoff->raise();
         btn_menu->raise();
         btn_archive->raise();
-        btn_alert->raise();
+        btn_user->raise();
 
         retranslateUi(menu_toolbar);
 
@@ -119,7 +119,7 @@ public:
         btn_logoff->setText(QString());
         btn_menu->setText(QString());
         btn_archive->setText(QString());
-        btn_alert->setText(QString());
+        btn_user->setText(QString());
         push_background->setText(QString());
         btn_hide->setText(QString());
     } // retranslateUi

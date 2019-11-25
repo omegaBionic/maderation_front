@@ -17,5 +17,12 @@
         <file>img/trash_logo.png</file>
         <file>img/loading_leaf.png</file>
         <file>img/loading_leaf_grey.png</file>
+        <file>img/logo user.png</file>
+        <file>img/background_messages.png</file>
+        <file>img/tab_mid.png</file>
+        <file>img/tab_mid_hover.png</file>
+        <file>img/tab_selected.png</file>
+        <file>img/logo_send.png</file>
+        <file>img/bg_plaintext.png</file>
     </qresource>
 </RCC>
