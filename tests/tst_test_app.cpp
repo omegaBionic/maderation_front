@@ -22,6 +22,8 @@
 #include "../app/CONTROLLER/controller.h"
 #include "../app/UI/main_menu.h"
 #include "../app/UI/button_quotation.h"
+#include "../app/UI/main_chat.h"
+#include "../app/UI/form_messages.h"
 
 
 
@@ -97,6 +99,8 @@ private slots:
     void button_quotation_exist();
     void button_quotation_have_ID();
 
+    void main_chat_exist();
+    void form_messages_exist();
 
     void test_Init1();
     void test_Init2();
@@ -667,6 +671,16 @@ void test_app::main_menu_exist(){
 
 void test_app::button_quotation_exist(){
     button_quotation *m = new button_quotation(nullptr, 5);
+    QVERIFY(m != NULL);
+}
+
+void test_app::main_chat_exist(){
+    main_chat *m = new main_chat(0,nullptr,nullptr,"toto");
+    QVERIFY(m != NULL);
+}
+
+void test_app::form_messages_exist(){
+    Form_messages *m = new Form_messages(nullptr, nullptr, "testTitle","author");
     QVERIFY(m != NULL);
 }
 
