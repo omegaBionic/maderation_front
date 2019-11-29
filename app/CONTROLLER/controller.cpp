@@ -13,6 +13,7 @@ Controller::Controller(QObject *parent) : QObject(parent)
     _init = nullptr;
     _menu = nullptr;
     _chat = nullptr;
+    _main_user = nullptr;
     QObject::connect(_toolbar, &menu_toolbar::user_mgt, this, &Controller::toolbar_user_mgt);
     QObject::connect(_toolbar, &menu_toolbar::logoff, this, &Controller::toolbar_logoff);
     QObject::connect(_toolbar, &menu_toolbar::menu, this, &Controller::toolbar_menu);
@@ -49,7 +50,14 @@ void Controller::cleanup(int win){
             _chat->close();
             _chat = nullptr;
         }
-    }else if(win == 1){ //menu page
+        if(_main_user != nullptr){
+            qDebug() << "effacage du main_user";
+            _main_user->close();
+            _main_user = nullptr;
+        }
+
+    }
+    else if(win == 1){ //menu page
         if(_login != nullptr){
             qDebug() << "effacage de la login";
             _login->close();
@@ -65,7 +73,13 @@ void Controller::cleanup(int win){
             _init->close();
             _init = nullptr;
         }
-    }else if(win == 2){ //chat page
+        if(_main_user != nullptr){
+            qDebug() << "effacage du main_user";
+            _main_user->close();
+            _main_user = nullptr;
+        }
+    }
+    else if(win == 2){ //chat page
         if(_login != nullptr){
             qDebug() << "effacage de la login";
             _login->close();
@@ -80,6 +94,33 @@ void Controller::cleanup(int win){
             qDebug() << "effacage du init";
             _init->close();
             _init = nullptr;
+        }
+        if(_main_user != nullptr){
+            qDebug() << "effacage du main_user";
+            _main_user->close();
+            _main_user = nullptr;
+        }
+    }
+    else if(win == 3){ //user page
+        if(_login != nullptr){
+            qDebug() << "effacage de la login";
+            _login->close();
+            _login = nullptr;
+        }
+        if(_menu != nullptr){
+            qDebug() << "effacage du menu";
+            _menu->close();
+            _menu = nullptr;
+        }
+        if(_init != nullptr){
+            qDebug() << "effacage du init";
+            _init->close();
+            _init = nullptr;
+        }
+        if(_chat != nullptr){
+            qDebug() << "effacage du chat";
+            _chat->close();
+            _chat = nullptr;
         }
     }
 }
@@ -195,4 +236,17 @@ void Controller::toolbar_logoff(){
 
 void Controller::toolbar_user_mgt(){
 
+    qDebug() << "ouverture du user_management";
+    QVector<bdd_USER>* listUser = new QVector<bdd_USER>();
+    listUser->append(bdd_USER("0606060606",true,"polop","test","polop",0,"polop@polop.polop","polop"));
+    listUser->append(bdd_USER("1111111111",false,"test","test","polop",0,"polop@polop.polop","polop"));
+    listUser->append(bdd_USER("9999999999",true,"truc","test","polop",0,"polop@polop.polop","polop"));
+    listUser->append(bdd_USER("2222222222",false,"polop","test","polop",0,"polop@polop.polop","polop"));
+    listUser->append(bdd_USER("0685485241",true,"machin","test","polop",0,"polop@polop.polop","polop"));
+    listUser->append(bdd_USER("7582410522",false,"polop","test","polop",0,"polop@polop.polop","polop"));
+
+    _toolbar->setWindow("user");
+    _main_user = new main_user(0, _toolbar, listUser);
+    QObject::connect(_main_user, &main_user::Initialized, this, &Controller::cleanup);
+    _main_user->showFullScreen();
 }

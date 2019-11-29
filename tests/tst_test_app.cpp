@@ -24,6 +24,8 @@
 #include "../app/UI/button_quotation.h"
 #include "../app/UI/main_chat.h"
 #include "../app/UI/form_messages.h"
+#include "../app/UI/main_user.h"
+#include "../app/UI/form_users.h"
 
 
 
@@ -101,6 +103,10 @@ private slots:
 
     void main_chat_exist();
     void form_messages_exist();
+
+
+    void main_user_exist();
+    void form_user_exist();
 
     void test_Init1();
     void test_Init2();
@@ -743,6 +749,19 @@ void test_app::test_Init2()
     QVERIFY((T_jsonSupplier.exists()));
 
 }
+
+void test_app::main_user_exist(){
+    QVector<bdd_USER>* user = new QVector<bdd_USER>();
+    user->append(bdd_USER("0606060606",true,"polop","polop", "test",0,"polop@polop.com", "polop"));
+    main_user *m = new main_user(0, nullptr, user);
+    QVERIFY(m != NULL);
+}
+
+void test_app::form_user_exist(){
+    Form_users *m = new Form_users(0, new bdd_USER("0606060606",true,"polop","polop", "test",0,"polop@polop.com", "polop"));
+    QVERIFY(m != NULL);
+}
+
 
 //la définition de test
 QTEST_MAIN(test_app)

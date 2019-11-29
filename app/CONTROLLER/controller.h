@@ -7,6 +7,7 @@
 #include "../UI/menu_toolbar.h"
 #include "../UI/main_init.h"
 #include "../UI/main_chat.h"
+#include "../UI/main_user.h"
 #include "../DB_CLASSES/bdd_user.h"
 
 class Controller : public QObject
@@ -33,6 +34,7 @@ private slots:
 private:
     Main_Login * _login;
     main_init * _init;
+    main_user * _main_user;
     main_chat * _chat;
     menu_toolbar* _toolbar;
     Main_Menu* _menu;
