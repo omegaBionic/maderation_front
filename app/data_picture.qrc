@@ -1,0 +1,49 @@
+<RCC>
+    <qresource prefix="/pictures">
+        <file>gui_resources/critical.png</file>
+        <file>gui_resources/information.png</file>
+        <file>gui_resources/question.ico</file>
+        <file>img/house.jpg</file>
+        <file>img/logo madera.png</file>
+        <file>img/logo alert.png</file>
+        <file>img/logo archive.png</file>
+        <file>img/logo logoff.png</file>
+        <file>img/logo message.png</file>
+        <file>img/logo accueil.png</file>
+        <file>img/logo_hide.png</file>
+        <file>img/logo_show.png</file>
+        <file>img/background_1920.png</file>
+        <file>img/background_login.png</file>
+        <file>img/trash_logo.png</file>
+        <file>img/loading_leaf.png</file>
+        <file>img/loading_leaf_grey.png</file>
+        <file>img/logo user.png</file>
+        <file>img/background_messages.png</file>
+        <file>img/tab_mid.png</file>
+        <file>img/tab_mid_hover.png</file>
+        <file>img/tab_selected.png</file>
+        <file>img/logo_send.png</file>
+        <file>img/bg_plaintext.png</file>
+        <file>img/background_users.png</file>
+        <file>img/down_arrow.png</file>
+        <file>img/down_arrow_hover.png</file>
+        <file>img/checkBox_checked.png</file>
+        <file>img/checkBox_checked_hover.png</file>
+        <file>img/checkBox_unchecked.png</file>
+        <file>img/checkBox_unchecked_hover.png</file>
+        <file>img/reset.png</file>
+        <file>img/reset_password.png</file>
+        <file>img/validate_user.png</file>
+        <file>img/button_trash.png</file>
+        <file>img/button_trash_hover.png</file>
+        <file>img/button_trash_pressed.png</file>
+        <file>img/reset_hover.png</file>
+        <file>img/reset_pressed.png</file>
+        <file>img/reset_pwd_hover.png</file>
+        <file>img/reset_pwd_pressed.png</file>
+        <file>img/validate_user_hover.png</file>
+        <file>img/validate_user_pressed.png</file>
+        <file>img/checkBox_checked_disabled.png</file>
+        <file>img/checkBox_disabled.png</file>
+    </qresource>
+</RCC>
