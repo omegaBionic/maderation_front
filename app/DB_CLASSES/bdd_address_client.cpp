@@ -51,3 +51,4 @@ int bdd_ADDRESS_CLIENT::getPostalCode(){
 QString bdd_ADDRESS_CLIENT::getStreet(){
    return _street;
 }
+

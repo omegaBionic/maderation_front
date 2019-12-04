@@ -1,9 +1,9 @@
 #ifndef BDD_ADDRESS_CLIENT_H
 #define BDD_ADDRESS_CLIENT_H
-
+#include "bdd_global.h"
 #include <QFile>
 
-class bdd_ADDRESS_CLIENT
+class bdd_ADDRESS_CLIENT : public bdd_global
 {
 public:
     bdd_ADDRESS_CLIENT(QString city, QString idAddressClient, QString country, int postalCode, QString street);
