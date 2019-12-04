@@ -17,7 +17,7 @@ class menu_toolbar : public QWidget
 public:
     explicit menu_toolbar(QWidget *parent = nullptr);
     ~menu_toolbar();
-    void setWindow(int win);
+    void setWindow(QString win);
     bool _isHided;
 
 
@@ -25,7 +25,7 @@ signals:
     void menu();
     void archive();
     void messages();
-    void alerts();
+    void user_mgt();
     void logoff();
 
 
@@ -35,13 +35,13 @@ public slots:
 private slots:
     void on_btn_archive_clicked();
 
-    void on_btn_alert_clicked();
-
     void on_btn_logoff_clicked();
 
     void on_btn_messages_clicked();
 
     void on_btn_menu_clicked();
+
+    void on_btn_user_clicked();
 
 private:
     Ui::menu_toolbar *ui;

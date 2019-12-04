@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>main_chat</class>
+ <widget class="QMainWindow" name="main_chat">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1090</width>
+    <height>634</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label_bg">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>10</y>
+      <width>55</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>20</y>
+      <width>1011</width>
+      <height>351</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QTabWidget{
+border-color: #00000000;
+background-color: #00000000;
+}
+
+QTabWidget::pane{
+background-color: #00000000;
+border:1px;
+}
+
+QTabWidget::tab-bar:top {
+    top: 1px;
+}
+
+QTabWidget::tab-bar:bottom {
+    bottom: 1px;
+}
+
+QTabWidget::tab-bar:left {
+    right: 1px;
+}
+
+QTabWidget::tab-bar:right {
+    left: 1px;
+}
+
+QTabBar::tab {
+}
+
+QTabBar::tab:selected {
+	border-image: url(:/pictures/img/tab_selected.png);
+}
+
+QTabBar::tab:!selected {
+	border-image: url(:/pictures/img/tab_mid.png);
+}
+
+QTabBar::tab:!selected:hover {
+	border-image: url(:/pictures/img/tab_mid_hover.png);
+}
+
+QTabBar::tab:top:!selected {
+    margin-top: 3px;
+}
+
+QTabBar::tab:bottom:!selected {
+    margin-bottom: 3px;
+}
+
+QTabBar::tab:top, QTabBar::tab:bottom {
+	
+    min-width: 8ex;
+    margin-right: -1px;
+    padding: 5px 10px 5px 10px;
+}
+
+
+QTabBar::tab:top:selected {
+    border-bottom-color: none;
+}
+
+QTabBar::tab:bottom:selected {
+	border-image: url(:/pictures/img/tab_last_hover.png);
+    border-top-color: none;
+}
+
+QTabBar::tab:top:last, QTabBar::tab:bottom:last,
+QTabBar::tab:top:only-one, QTabBar::tab:bottom:only-one {
+
+    margin-right: 0;
+}
+
+QTabBar::tab:left:!selected {
+    margin-right: 3px;
+}
+
+QTabBar::tab:right:!selected {
+    margin-left: 3px;
+}
+
+QTabBar::tab:left, QTabBar::tab:right {
+    min-height: 8ex;
+    margin-bottom: -1px;
+    padding: 10px 5px 10px 5px;
+}
+
+QTabBar::tab:left:selected {
+    border-left-color: none;
+}
+
+QTabBar::tab:right:selected {
+    border-right-color: none;
+}
+
+QTabBar::tab:left:last, QTabBar::tab:right:last,
+QTabBar::tab:left:only-one, QTabBar::tab:right:only-one {
+    margin-bottom: 0;
+}</string>
+    </property>
+    <property name="currentIndex">
+     <number>-1</number>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
