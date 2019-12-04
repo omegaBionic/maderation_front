@@ -1,6 +1,8 @@
 #include <QtTest>
 #include <QCoreApplication>
 #include <../app/CORE/api_get_request.h>
+#include <../app/CORE/api_post_request.h>
+#include <../app/CORE/core_login.h>
 
 //pour quentin -----------------------------------------
 #include <QDesktopServices>
@@ -110,6 +112,10 @@ private slots:
 
     void test_Init1();
     void test_Init2();
+
+    void api_post_request_test_pushData();
+    void api_post_request_test_modifyData();
+    void core_login_get_user();
 
 };
 
@@ -761,6 +767,70 @@ void test_app::form_user_exist(){
     Form_users *m = new Form_users(0, new bdd_USER("0606060606",true,"polop","polop", "test",0,"polop@polop.com", "polop"));
     QVERIFY(m != NULL);
 }
+
+
+
+void test_app::main_menu_exist(){
+    Main_Menu *m = new Main_Menu(0,NULL);
+    QVERIFY(m != NULL);
+}
+
+void test_app::button_quotation_exist(){
+    button_quotation *m = new button_quotation(nullptr, 5);
+    QVERIFY(m != NULL);
+}
+
+void test_app::button_quotation_have_ID(){
+    button_quotation *m = new button_quotation(nullptr, 5);
+    QVERIFY(m->getID() == 5);
+}
+
+bool waitForSignal(QObject *sender, const char *signal, int timeout = 1000) {
+    QEventLoop loop;
+    QTimer timer;
+    timer.setInterval(timeout);
+    timer.setSingleShot(true);
+
+    loop.connect(sender, signal, SLOT(quit()));
+    loop.connect(&timer, SIGNAL(timeout()), SLOT(quit()));
+    timer.start();
+    loop.exec();
+
+    return timer.isActive();
+}
+
+void test_app::api_post_request_test_pushData(){
+     QNetworkAccessManager *nam =  new QNetworkAccessManager(this);
+     QUrl url("http://madera-api.maderation.net:8080/api/push");
+     QNetworkRequest req(url);
+
+     this->connect(nam, SIGNAL(finished(QNetworkReply*)), this, SLOT(reqFinished(QNetworkReply *)));
+     QNetworkReply *rep = nam->get(req);
+     QVERIFY(waitForSignal(nam, SIGNAL(finished(QNetworkReply*)), 5000));
+}
+
+void test_app::api_post_request_test_modifyData(){
+    QString jsonFile = "jsonUser.json";
+    QString id = "1";
+    QString key = "username";
+    QString modify = "jhon";
+    try {
+        api_post_request::modifyData(jsonFile, id, key, modify);
+    }catch (int e) {
+        qDebug()<<e;
+     }
+}
+
+void test_app::core_login_get_user(){
+    try {
+        QString username = "jacky";
+        QString password = "4l";
+        core_login::getUser(username, password);
+    } catch (int e) {
+        qDebug()<<e;
+    }
+}
+
 
 
 //la définition de test
