@@ -52,3 +52,28 @@ QString bdd_ADDRESS_CLIENT::getStreet(){
    return _street;
 }
 
+QString bdd_global::getId(){
+    return "idAddressClient";
+}
+QString bdd_global::getTable(){
+    return "address_client";
+}
+
+QMap<QString, QString> bdd_global::getDict(){
+
+    QFile file;
+    file.setFileName("DATA/jsonAddress_client.json");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+
+    QJsonParseError jsonError;
+    QJsonDocument flowerJson = QJsonDocument::fromJson(file.readAll(),&jsonError);
+    if (jsonError.error != QJsonParseError::NoError){
+    qDebug() << jsonError.errorString();
+    }
+    QList<QVariant> list = flowerJson.toVariant().toList();
+    QMap<QString, QVariant> map = list[0].toMap();
+    qDebug() << map["name"].toString();
+
+    return map;
+}
