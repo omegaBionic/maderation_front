@@ -39,7 +39,7 @@ void api_post_request::pushData(){
 
     QNetworkAccessManager *manager = new QNetworkAccessManager;     //using qnetwork access manager for post data
 
-    connect(manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(erroron_filesend(QNetworkReply*)));    //connecting manager object for errors here
+    //connect(manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(erroron_filesend(QNetworkReply*)));    //connecting manager object for errors here
     manager->post(req,datas); //send all data
 
 
@@ -73,7 +73,7 @@ void api_post_request::modifyData(QString jsonFile, QString id, QString key, QSt
             }
         }
     }
-    modif = json[key] + "\r\n\r\n";
+    //modif = json[key] + "\r\n\r\n";
     out << modif;
     fileModif.flush();
     fileModif.close();
