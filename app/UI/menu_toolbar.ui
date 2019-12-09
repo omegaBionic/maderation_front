@@ -111,7 +111,7 @@ border-radius: 0px;
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn_alert">
+  <widget class="QPushButton" name="btn_user">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -186,7 +186,7 @@ background-color: rgba(0,0,0,0);
   <zorder>btn_logoff</zorder>
   <zorder>btn_menu</zorder>
   <zorder>btn_archive</zorder>
-  <zorder>btn_alert</zorder>
+  <zorder>btn_user</zorder>
  </widget>
  <resources/>
  <connections/>

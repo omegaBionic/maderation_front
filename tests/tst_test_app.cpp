@@ -1,6 +1,8 @@
 #include <QtTest>
 #include <QCoreApplication>
 #include <../app/CORE/api_get_request.h>
+#include <../app/CORE/api_post_request.h>
+//#include <../app/CORE/core_login.h>
 
 //pour quentin -----------------------------------------
 #include <QDesktopServices>
@@ -22,6 +24,10 @@
 #include "../app/CONTROLLER/controller.h"
 #include "../app/UI/main_menu.h"
 #include "../app/UI/button_quotation.h"
+#include "../app/UI/main_chat.h"
+#include "../app/UI/form_messages.h"
+#include "../app/UI/main_user.h"
+#include "../app/UI/form_users.h"
 
 
 
@@ -97,9 +103,19 @@ private slots:
     void button_quotation_exist();
     void button_quotation_have_ID();
 
+    void main_chat_exist();
+    void form_messages_exist();
+
+
+    void main_user_exist();
+    void form_user_exist();
 
     void test_Init1();
     void test_Init2();
+
+    void api_post_request_test_pushData();
+    void api_post_request_test_modifyData();
+    void core_login_get_user();
 
 };
 
@@ -150,7 +166,8 @@ void test_app::main_login_exist()
 
 void test_app::api_get_request_test_get_status(){
     try {
-        api_get_request::get_status();
+        api_get_request* api = new api_get_request();
+        api->get_status();
     }
     catch (int e) {
        qDebug()<<e;
@@ -160,7 +177,8 @@ void test_app::api_get_request_test_get_status(){
 
 void test_app::api_get_request_test_get_table_user(){
     try {
-        api_get_request::get_table_user();
+        api_get_request* api = new api_get_request();
+        api->get_table_user();
     }
     catch (int e) {
        qDebug()<<e;
@@ -170,7 +188,9 @@ void test_app::api_get_request_test_get_table_user(){
 
 void test_app::api_get_request_test_get_table_client(){
     try {
-        api_get_request::get_table_client();
+
+        api_get_request* api = new api_get_request();
+        api->get_table_client();
     }
     catch (int e) {
        qDebug()<<e;
@@ -180,7 +200,9 @@ void test_app::api_get_request_test_get_table_client(){
 
 void test_app::api_get_request_test_get_table_address_client(){
     try {
-        api_get_request::get_table_address_client();
+
+        api_get_request* api = new api_get_request();
+        api->get_table_address_client();
     }
     catch (int e) {
        qDebug()<<e;
@@ -190,7 +212,9 @@ void test_app::api_get_request_test_get_table_address_client(){
 
 void test_app::api_get_request_test_get_table_address_supplier(){
     try {
-        api_get_request::get_table_address_supplier();
+
+        api_get_request* api = new api_get_request();
+        api->get_table_address_supplier();
     }
     catch (int e) {
        qDebug()<<e;
@@ -200,7 +224,9 @@ void test_app::api_get_request_test_get_table_address_supplier(){
 
 void test_app::api_get_request_test_get_table_category(){
     try {
-        api_get_request::get_table_category();
+
+        api_get_request* api = new api_get_request();
+        api->get_table_category();
     }
     catch (int e) {
        qDebug()<<e;
@@ -210,7 +236,9 @@ void test_app::api_get_request_test_get_table_category(){
 
 void test_app::api_get_request_test_get_table_chat(){
     try {
-        api_get_request::get_table_chat();
+
+        api_get_request* api = new api_get_request();
+        api->get_table_chat();
     }
     catch (int e) {
        qDebug()<<e;
@@ -220,7 +248,9 @@ void test_app::api_get_request_test_get_table_chat(){
 
 void test_app::api_get_request_test_get_table_component(){
     try {
-        api_get_request::get_table_component();
+
+        api_get_request* api = new api_get_request();
+        api->get_table_component();
     }
     catch (int e) {
        qDebug()<<e;
@@ -230,7 +260,9 @@ void test_app::api_get_request_test_get_table_component(){
 
 void test_app::api_get_request_test_get_table_gamme(){
     try {
-        api_get_request::get_table_gamme();
+
+        api_get_request* api = new api_get_request();
+        api->get_table_gamme();
     }
     catch (int e) {
        qDebug()<<e;
@@ -240,7 +272,9 @@ void test_app::api_get_request_test_get_table_gamme(){
 
 void test_app::api_get_request_test_get_table_invoice_quotation(){
     try {
-        api_get_request::get_table_invoice_quotation();
+
+        api_get_request* api = new api_get_request();
+        api->get_table_invoice_quotation();
     }
     catch (int e) {
        qDebug()<<e;
@@ -250,7 +284,9 @@ void test_app::api_get_request_test_get_table_invoice_quotation(){
 
 void test_app::api_get_request_test_get_table_message(){
     try {
-        api_get_request::get_table_message();
+
+        api_get_request* api = new api_get_request();
+        api->get_table_message();
     }
     catch (int e) {
        qDebug()<<e;
@@ -260,7 +296,9 @@ void test_app::api_get_request_test_get_table_message(){
 
 void test_app::api_get_request_test_get_table_product(){
     try {
-        api_get_request::get_table_product();
+
+        api_get_request* api = new api_get_request();
+        api->get_table_product();
     }
     catch (int e) {
        qDebug()<<e;
@@ -270,7 +308,9 @@ void test_app::api_get_request_test_get_table_product(){
 
 void test_app::api_get_request_test_get_table_project(){
     try {
-        api_get_request::get_table_project();
+
+        api_get_request* api = new api_get_request();
+        api->get_table_project();
     }
     catch (int e) {
        qDebug()<<e;
@@ -280,7 +320,9 @@ void test_app::api_get_request_test_get_table_project(){
 
 void test_app::api_get_request_test_get_table_promotion_cat(){
     try {
-        api_get_request::get_table_promotion_cat();
+
+        api_get_request* api = new api_get_request();
+        api->get_table_promotion_cat();
     }
     catch (int e) {
        qDebug()<<e;
@@ -290,7 +332,9 @@ void test_app::api_get_request_test_get_table_promotion_cat(){
 
 void test_app::api_get_request_test_get_table_promotion_comp(){
     try {
-        api_get_request::get_table_promotion_comp();
+
+        api_get_request* api = new api_get_request();
+        api->get_table_promotion_comp();
     }
     catch (int e) {
        qDebug()<<e;
@@ -300,7 +344,9 @@ void test_app::api_get_request_test_get_table_promotion_comp(){
 
 void test_app::api_get_request_test_get_table_quotation(){
     try {
-        api_get_request::get_table_quotation();
+
+        api_get_request* api = new api_get_request();
+        api->get_table_quotation();
     }
     catch (int e) {
        qDebug()<<e;
@@ -309,7 +355,9 @@ void test_app::api_get_request_test_get_table_quotation(){
 }
 void test_app::api_get_request_test_get_table_role(){
     try {
-        api_get_request::get_table_role();
+
+        api_get_request* api = new api_get_request();
+        api->get_table_role();
     }
     catch (int e) {
        qDebug()<<e;
@@ -318,7 +366,9 @@ void test_app::api_get_request_test_get_table_role(){
 }
 void test_app::api_get_request_test_get_table_shop(){
     try {
-        api_get_request::get_table_shop();
+
+        api_get_request* api = new api_get_request();
+        api->get_table_shop();
     }
     catch (int e) {
        qDebug()<<e;
@@ -327,7 +377,9 @@ void test_app::api_get_request_test_get_table_shop(){
 }
 void test_app::api_get_request_test_get_table_stock(){
     try {
-        api_get_request::get_table_stock();
+
+        api_get_request* api = new api_get_request();
+        api->get_table_stock();
     }
     catch (int e) {
        qDebug()<<e;
@@ -336,7 +388,9 @@ void test_app::api_get_request_test_get_table_stock(){
 }
 void test_app::api_get_request_test_get_table_supplier(){
     try {
-        api_get_request::get_table_supplier();
+
+        api_get_request* api = new api_get_request();
+        api->get_table_supplier();
     }
     catch (int e) {
        qDebug()<<e;
@@ -346,7 +400,9 @@ void test_app::api_get_request_test_get_table_supplier(){
 
 void test_app::api_get_request_test_parse_file_status(){
     try {
-        api_get_request::parse_file_status();
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_status();
     }
     catch (int e) {
        qDebug()<<e;
@@ -356,7 +412,9 @@ void test_app::api_get_request_test_parse_file_status(){
 
 void test_app::api_get_request_test_parse_file_user(){
     try {
-        api_get_request::parse_file_user();
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_user();
     }
     catch (int e) {
        qDebug()<<e;
@@ -366,7 +424,9 @@ void test_app::api_get_request_test_parse_file_user(){
 
 void test_app::api_get_request_test_parse_file_client(){
     try {
-        api_get_request::parse_file_client();
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_client();
     }
     catch (int e) {
        qDebug()<<e;
@@ -376,7 +436,9 @@ void test_app::api_get_request_test_parse_file_client(){
 
 void test_app::api_get_request_test_parse_file_address_client(){
     try {
-        api_get_request::parse_file_address_client();
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_address_client();
     }
     catch (int e) {
        qDebug()<<e;
@@ -386,7 +448,9 @@ void test_app::api_get_request_test_parse_file_address_client(){
 
 void test_app::api_get_request_test_parse_file_address_supplier(){
     try {
-        api_get_request::parse_file_address_supplier();
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_address_supplier();
     }
     catch (int e) {
        qDebug()<<e;
@@ -396,7 +460,9 @@ void test_app::api_get_request_test_parse_file_address_supplier(){
 
 void test_app::api_get_request_test_parse_file_category(){
     try {
-        api_get_request::parse_file_category();
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_category();
     }
     catch (int e) {
        qDebug()<<e;
@@ -406,7 +472,9 @@ void test_app::api_get_request_test_parse_file_category(){
 
 void test_app::api_get_request_test_parse_file_chat(){
     try {
-        api_get_request::parse_file_chat();
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_chat();
     }
     catch (int e) {
        qDebug()<<e;
@@ -416,7 +484,9 @@ void test_app::api_get_request_test_parse_file_chat(){
 
 void test_app::api_get_request_test_parse_file_component(){
     try {
-        api_get_request::parse_file_component();
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_component();
     }
     catch (int e) {
        qDebug()<<e;
@@ -426,7 +496,9 @@ void test_app::api_get_request_test_parse_file_component(){
 
 void test_app::api_get_request_test_parse_file_gamme(){
     try {
-        api_get_request::parse_file_gamme();
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_gamme();
     }
     catch (int e) {
        qDebug()<<e;
@@ -436,7 +508,9 @@ void test_app::api_get_request_test_parse_file_gamme(){
 
 void test_app::api_get_request_test_parse_file_invoice_quotation(){
     try {
-        api_get_request::parse_file_quotation();
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_quotation();
     }
     catch (int e) {
        qDebug()<<e;
@@ -446,7 +520,9 @@ void test_app::api_get_request_test_parse_file_invoice_quotation(){
 
 void test_app::api_get_request_test_parse_file_message(){
     try {
-        api_get_request::parse_file_message();
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_message();
     }
     catch (int e) {
        qDebug()<<e;
@@ -456,7 +532,9 @@ void test_app::api_get_request_test_parse_file_message(){
 
 void test_app::api_get_request_test_parse_file_product(){
     try {
-        api_get_request::parse_file_product();
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_product();
     }
     catch (int e) {
        qDebug()<<e;
@@ -466,7 +544,9 @@ void test_app::api_get_request_test_parse_file_product(){
 
 void test_app::api_get_request_test_parse_file_project(){
     try {
-        api_get_request::parse_file_project();
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_project();
     }
     catch (int e) {
        qDebug()<<e;
@@ -476,7 +556,9 @@ void test_app::api_get_request_test_parse_file_project(){
 
 void test_app::api_get_request_test_parse_file_promotion_cat(){
     try {
-        api_get_request::parse_file_promotion_cat();
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_promotion_cat();
     }
     catch (int e) {
        qDebug()<<e;
@@ -486,7 +568,9 @@ void test_app::api_get_request_test_parse_file_promotion_cat(){
 
 void test_app::api_get_request_test_parse_file_promotion_comp(){
     try {
-        api_get_request::parse_file_promotion_comp();
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_promotion_comp();
     }
     catch (int e) {
        qDebug()<<e;
@@ -496,7 +580,9 @@ void test_app::api_get_request_test_parse_file_promotion_comp(){
 
 void test_app::api_get_request_test_parse_file_quotation(){
     try {
-        api_get_request::parse_file_quotation();
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_quotation();
     }
     catch (int e) {
        qDebug()<<e;
@@ -505,7 +591,9 @@ void test_app::api_get_request_test_parse_file_quotation(){
 }
 void test_app::api_get_request_test_parse_file_role(){
     try {
-        api_get_request::parse_file_role();
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_role();
     }
     catch (int e) {
        qDebug()<<e;
@@ -514,7 +602,9 @@ void test_app::api_get_request_test_parse_file_role(){
 }
 void test_app::api_get_request_test_parse_file_shop(){
     try {
-        api_get_request::parse_file_shop();
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_shop();
     }
     catch (int e) {
        qDebug()<<e;
@@ -523,7 +613,9 @@ void test_app::api_get_request_test_parse_file_shop(){
 }
 void test_app::api_get_request_test_parse_file_stock(){
     try {
-        api_get_request::parse_file_stock();
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_stock();
     }
     catch (int e) {
        qDebug()<<e;
@@ -532,7 +624,9 @@ void test_app::api_get_request_test_parse_file_stock(){
 }
 void test_app::api_get_request_test_parse_file_supplier(){
     try {
-        api_get_request::parse_file_supplier();
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_supplier();
     }
     catch (int e) {
        qDebug()<<e;
@@ -592,6 +686,16 @@ void test_app::button_quotation_exist(){
     QVERIFY(m != NULL);
 }
 
+void test_app::main_chat_exist(){
+    main_chat *m = new main_chat(0,nullptr,nullptr,"toto");
+    QVERIFY(m != NULL);
+}
+
+void test_app::form_messages_exist(){
+    Form_messages *m = new Form_messages(nullptr, nullptr, "testTitle","author");
+    QVERIFY(m != NULL);
+}
+
 void test_app::button_quotation_have_ID(){
     button_quotation *m = new button_quotation(nullptr, 5);
     QVERIFY(m->getID() == 5);
@@ -599,7 +703,9 @@ void test_app::button_quotation_have_ID(){
 
 void test_app::test_Init1()
 {
-
+    main_init* m = new main_init();
+    m->blockSignals(true);
+    m->Check_folder();
     QString path("../app/DATA");
     QDir folder(path);
     QVERIFY((folder.exists()));
@@ -607,25 +713,27 @@ void test_app::test_Init1()
 
 void test_app::test_Init2()
 {
-
-    QDir T_jsonUser("../app/data/jsonUser.json");
-    QDir T_jsonClient("../app/data/jsonClient.json");
-    QDir T_jsonAddressClient("../app/data/jsonAddressClient.json");
-    QDir T_jsonCategory("../app/data/jsonCategory.json");
-    QDir T_jsonChat("../app/data/jsonChat.json");
-    QDir T_jsonComponent("../app/data/jsonComponent.json");
-    QDir T_jsonGamme("../app/data/jsonGamme.json");
-    QDir T_jsonInvoiceQuotation("../app/data/jsonInvoiceQuotation.json");
-    QDir T_jsonMessage("../app/data/jsonMessage.json");
-    QDir T_jsonProduct("../app/data/jsonProduct.json");
-    QDir T_jsonProject("../app/data/jsonProject.json");
-    QDir T_jsonPromotionCat("../app/data/jsonPromotionCat.json");
-    QDir T_jsonPromotionComp("../app/data/jsonPromotionComp.json");
-    QDir T_jsonQuotation("../app/data/jsonQuotation.json");
-    QDir T_jsonRole("../app/data/jsonRole.json");
-    QDir T_jsonShop("../app/data/jsonShop.json");
-    QDir T_jsonStock("../app/data/jsonStock.json");
-    QDir T_jsonSupplier("../app/data/jsonSupplier.json");
+    main_init* m = new main_init();
+    m->blockSignals(true);
+    m->Check_folder();
+    QDir T_jsonUser("../app/DATA/jsonUser.json");
+    QDir T_jsonClient("../app/DATA/jsonClient.json");
+    QDir T_jsonAddressClient("../app/DATA/jsonAddressClient.json");
+    QDir T_jsonCategory("../app/DATA/jsonCategory.json");
+    QDir T_jsonChat("../app/DATA/jsonChat.json");
+    QDir T_jsonComponent("../app/DATA/jsonComponent.json");
+    QDir T_jsonGamme("../app/DATA/jsonGamme.json");
+    QDir T_jsonInvoiceQuotation("../app/DATA/jsonInvoiceQuotation.json");
+    QDir T_jsonMessage("../app/DATA/jsonMessage.json");
+    QDir T_jsonProduct("../app/DATA/jsonProduct.json");
+    QDir T_jsonProject("../app/DATA/jsonProject.json");
+    QDir T_jsonPromotionCat("../app/DATA/jsonPromotionCat.json");
+    QDir T_jsonPromotionComp("../app/DATA/jsonPromotionComp.json");
+    QDir T_jsonQuotation("../app/DATA/jsonQuotation.json");
+    QDir T_jsonRole("../app/DATA/jsonRole.json");
+    QDir T_jsonShop("../app/DATA/jsonShop.json");
+    QDir T_jsonStock("../app/DATA/jsonStock.json");
+    QDir T_jsonSupplier("../app/DATA/jsonSupplier.json");
 
     QVERIFY((T_jsonUser.exists()));
     QVERIFY((T_jsonClient.exists()));
@@ -647,6 +755,83 @@ void test_app::test_Init2()
     QVERIFY((T_jsonSupplier.exists()));
 
 }
+
+void test_app::main_user_exist(){
+    QVector<bdd_USER>* user = new QVector<bdd_USER>();
+    user->append(bdd_USER("0606060606",true,"polop","polop", "test",0,"polop@polop.com", "polop"));
+    main_user *m = new main_user(0, nullptr, user);
+    QVERIFY(m != NULL);
+}
+
+void test_app::form_user_exist(){
+    Form_users *m = new Form_users(0, new bdd_USER("0606060606",true,"polop","polop", "test",0,"polop@polop.com", "polop"));
+    QVERIFY(m != NULL);
+}
+
+
+
+/*void test_app::main_menu_exist(){
+    Main_Menu *m = new Main_Menu(0,NULL);
+    QVERIFY(m != NULL);
+}
+
+void test_app::button_quotation_exist(){
+    button_quotation *m = new button_quotation(nullptr, 5);
+    QVERIFY(m != NULL);
+}
+
+void test_app::button_quotation_have_ID(){
+    button_quotation *m = new button_quotation(nullptr, 5);
+    QVERIFY(m->getID() == 5);
+}*/
+
+bool waitForSignal(QObject *sender, const char *signal, int timeout = 1000) {
+    QEventLoop loop;
+    QTimer timer;
+    timer.setInterval(timeout);
+    timer.setSingleShot(true);
+
+    loop.connect(sender, signal, SLOT(quit()));
+    loop.connect(&timer, SIGNAL(timeout()), SLOT(quit()));
+    timer.start();
+    loop.exec();
+
+    return timer.isActive();
+}
+
+void test_app::api_post_request_test_pushData(){
+     QNetworkAccessManager *nam =  new QNetworkAccessManager(this);
+     QUrl url("http://madera-api.maderation.net:8080/api/push");
+     QNetworkRequest req(url);
+
+     this->connect(nam, SIGNAL(finished(QNetworkReply*)), this, SLOT(reqFinished(QNetworkReply *)));
+     QNetworkReply *rep = nam->get(req);
+     QVERIFY(waitForSignal(nam, SIGNAL(finished(QNetworkReply*)), 5000));
+}
+
+void test_app::api_post_request_test_modifyData(){
+    QString jsonFile = "jsonUser.json";
+    QString id = "1";
+    QString key = "username";
+    QString modify = "jhon";
+    try {
+        api_post_request::modifyData(jsonFile, id, key, modify);
+    }catch (int e) {
+        qDebug()<<e;
+     }
+}
+
+void test_app::core_login_get_user(){
+    try {
+        QString username = "jacky";
+        QString password = "4l";
+        //core_login::getUser(username, password);
+    } catch (int e) {
+        qDebug()<<e;
+    }
+}
+
+
 
 //la définition de test
 QTEST_MAIN(test_app)

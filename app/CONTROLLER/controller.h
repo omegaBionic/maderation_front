@@ -5,6 +5,9 @@
 #include "../UI/main_login.h"
 #include "../UI/main_menu.h"
 #include "../UI/menu_toolbar.h"
+#include "../UI/main_init.h"
+#include "../UI/main_chat.h"
+#include "../UI/main_user.h"
 #include "../DB_CLASSES/bdd_user.h"
 
 class Controller : public QObject
@@ -20,18 +23,23 @@ public:
 private slots:
     void login(QString user, QString pwd);
     void login_forgot_password();
-    void toolbar_alert();
+    void toolbar_user_mgt();
     void toolbar_logoff();
     void toolbar_messages();
     void toolbar_menu();
     void toolbar_archive();
     void cleanup(int win);
+    void init_folder(int step);
 
 private:
     Main_Login * _login;
+    main_init * _init;
+    main_user * _main_user;
+    main_chat * _chat;
     menu_toolbar* _toolbar;
     Main_Menu* _menu;
     bdd_USER* _user;
+    void launchLogin();
 };
 
 #endif // CONTROLLER_H

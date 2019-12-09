@@ -52,25 +52,34 @@ public:
         lineEdit_user = new QLineEdit(centralwidget);
         lineEdit_user->setObjectName(QString::fromUtf8("lineEdit_user"));
         lineEdit_user->setGeometry(QRect(230, 190, 251, 31));
+        QFont font;
+        font.setFamily(QString::fromUtf8("Futura LT"));
+        font.setBold(false);
+        font.setItalic(false);
+        font.setWeight(50);
+        lineEdit_user->setFont(font);
         lineEdit_user->setStyleSheet(QString::fromUtf8("background:none;\n"
 "border:none;\n"
 "border-bottom:1px solid black;\n"
-"font-size:18px;\n"
-"background-color: #00000000;"));
+"background-color: #00000000;\n"
+"font: 18px \"Futura LT\";\n"
+""));
         lineEdit_pwd = new QLineEdit(centralwidget);
         lineEdit_pwd->setObjectName(QString::fromUtf8("lineEdit_pwd"));
         lineEdit_pwd->setGeometry(QRect(230, 250, 251, 31));
+        lineEdit_pwd->setFont(font);
         lineEdit_pwd->setStyleSheet(QString::fromUtf8("background:none;\n"
 "border:none;\n"
 "border-bottom:1px solid black;\n"
-"font-size:18px;\n"
+"font: 18px \"Futura LT\";\n"
 "background-color: #00000000;"));
         lineEdit_pwd->setEchoMode(QLineEdit::Password);
         chk_remember = new QCheckBox(centralwidget);
         chk_remember->setObjectName(QString::fromUtf8("chk_remember"));
         chk_remember->setGeometry(QRect(230, 310, 111, 17));
+        chk_remember->setFont(font);
         chk_remember->setCursor(QCursor(Qt::PointingHandCursor));
-        chk_remember->setStyleSheet(QString::fromUtf8("font-size:12px;"));
+        chk_remember->setStyleSheet(QString::fromUtf8("font: 14px \"Futura LT\";"));
         line = new QFrame(centralwidget);
         line->setObjectName(QString::fromUtf8("line"));
         line->setGeometry(QRect(257, 420, 211, 20));
@@ -79,9 +88,10 @@ public:
         btn_login = new QPushButton(centralwidget);
         btn_login->setObjectName(QString::fromUtf8("btn_login"));
         btn_login->setGeometry(QRect(250, 370, 221, 31));
+        btn_login->setFont(font);
         btn_login->setCursor(QCursor(Qt::PointingHandCursor));
         btn_login->setStyleSheet(QString::fromUtf8("QPushButton{\n"
-"font-size:12px;\n"
+"font: 14px \"Futura LT\";\n"
 "background:#11b91c;\n"
 "Border-radius:12px;\n"
 "border: 2px solid black;\n"
@@ -103,6 +113,13 @@ public:
         palette.setBrush(QPalette::Disabled, QPalette::Base, brush);
         palette.setBrush(QPalette::Disabled, QPalette::Window, brush);
         label_title->setPalette(palette);
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("Futura LT"));
+        font1.setPointSize(24);
+        font1.setBold(false);
+        font1.setItalic(false);
+        font1.setWeight(50);
+        label_title->setFont(font1);
         label_title->setLayoutDirection(Qt::LeftToRight);
         label_title->setStyleSheet(QString::fromUtf8("font: 24pt \"Futura LT\";\n"
 ""));
@@ -110,9 +127,10 @@ public:
         btn_forgot = new QPushButton(centralwidget);
         btn_forgot->setObjectName(QString::fromUtf8("btn_forgot"));
         btn_forgot->setGeometry(QRect(300, 450, 131, 41));
+        btn_forgot->setFont(font);
         btn_forgot->setCursor(QCursor(Qt::PointingHandCursor));
         btn_forgot->setStyleSheet(QString::fromUtf8("QPushButton{\n"
-"font-size:12px;\n"
+"font: 14px \"Futura LT\";\n"
 "background:rgba(0,0,0,0);\n"
 "Border-radius:12px;\n"
 "border: 0px solid black;\n"

@@ -48,12 +48,22 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Futura LT</family>
+      <pointsize>-1</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">background:none;
 border:none;
 border-bottom:1px solid black;
-font-size:18px;
-background-color: #00000000;</string>
+background-color: #00000000;
+font: 18px &quot;Futura LT&quot;;
+</string>
     </property>
     <property name="text">
      <string/>
@@ -71,11 +81,20 @@ background-color: #00000000;</string>
       <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Futura LT</family>
+      <pointsize>-1</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">background:none;
 border:none;
 border-bottom:1px solid black;
-font-size:18px;
+font: 18px &quot;Futura LT&quot;;
 background-color: #00000000;</string>
     </property>
     <property name="text">
@@ -97,11 +116,20 @@ background-color: #00000000;</string>
       <height>17</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Futura LT</family>
+      <pointsize>-1</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
-     <string notr="true">font-size:12px;</string>
+     <string notr="true">font: 14px &quot;Futura LT&quot;;</string>
     </property>
     <property name="text">
      <string>Remember me</string>
@@ -129,12 +157,21 @@ background-color: #00000000;</string>
       <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Futura LT</family>
+      <pointsize>-1</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
-font-size:12px;
+font: 14px &quot;Futura LT&quot;;
 background:#11b91c;
 Border-radius:12px;
 border: 2px solid black;
@@ -245,6 +282,15 @@ color:white;
       </disabled>
      </palette>
     </property>
+    <property name="font">
+     <font>
+      <family>Futura LT</family>
+      <pointsize>24</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
     <property name="layoutDirection">
      <enum>Qt::LeftToRight</enum>
     </property>
@@ -268,12 +314,21 @@ color:white;
       <height>41</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Futura LT</family>
+      <pointsize>-1</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
-font-size:12px;
+font: 14px &quot;Futura LT&quot;;
 background:rgba(0,0,0,0);
 Border-radius:12px;
 border: 0px solid black;
