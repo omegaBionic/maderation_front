@@ -8,7 +8,7 @@ class core_user_management
 public:
     core_user_management();
     QVector<bdd_USER> getUsers();
-    bool modifyUser(bdd_USER modified);
+    bool modifyUser(bdd_USER modify);
     bool addUser(bdd_USER u);
 };
 

@@ -18,6 +18,7 @@
 #include <sys/stat.h>
 #include <QDir>
 #include <QMainWindow>
+#include <../app/CORE/core_user_management.h>
 //------------------------------------------------------
 #include "../app/UI/main_login.h"
 #include "../app/UI/menu_toolbar.h"
@@ -116,6 +117,8 @@ private slots:
     void api_post_request_test_pushData();
     void api_post_request_test_modifyData();
     void core_login_get_user();
+    void test_core_user_management_add();
+    void test_core_user_management_modify();
 
 };
 
@@ -829,6 +832,40 @@ void test_app::core_login_get_user(){
     } catch (int e) {
         qDebug()<<e;
     }
+}
+
+void test_app::test_core_user_management_add()
+{
+   bdd_USER u;
+   u.setMail("testMail");
+   u.setIsActive(true);
+   u.setLastName("testLastName");
+   u.setPassword("testPassword");
+   u.setUsername("testUsername");
+   u.setFirstName("testFirstName");
+   u.setIdAddress(1);
+   u.setPhoneNumber("testPhoneNumber");
+   core_user_management *test_core_user_management = new core_user_management();
+   QVERIFY(!test_core_user_management->addUser(u) == NULL);
+
+}
+
+void test_app::test_core_user_management_modify()
+{
+    bdd_USER m;
+    m.setMail("testMail");
+    m.setIsActive(true);
+    m.setLastName("testLastName");
+    m.setPassword("testPassword");
+    m.setUsername("testUsername");
+    m.setFirstName("testFirstName");
+    m.setIdAddress(1);
+    m.setPhoneNumber("testPhoneNumber");
+    core_user_management *test_core_user_management = new core_user_management();
+    QVERIFY(!test_core_user_management->modifyUser(m)==NULL);
+
+
+
 }
 
 
