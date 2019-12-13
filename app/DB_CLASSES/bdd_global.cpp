@@ -6,8 +6,22 @@ bdd_global::bdd_global(QString id, QString table)
     _Table = table;
 }
 
+bdd_global::bdd_global()
+{
+
+}
+
+bdd_global::~bdd_global()
+{
+
+}
+
 void bdd_global::setId(QString Id){
     _Id = Id;
+}
+
+QString bdd_global::getTable() {
+    return _Table;
 }
 
 QString bdd_global::getId(){
