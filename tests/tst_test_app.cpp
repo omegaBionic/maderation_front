@@ -2,7 +2,7 @@
 #include <QCoreApplication>
 #include <../app/CORE/api_get_request.h>
 #include <../app/CORE/api_post_request.h>
-#include <../app/CORE/core_login.h>
+//#include <../app/CORE/core_login.h>
 
 //pour quentin -----------------------------------------
 #include <QDesktopServices>
@@ -18,6 +18,8 @@
 #include <sys/stat.h>
 #include <QDir>
 #include <QMainWindow>
+
+
 //------------------------------------------------------
 #include "../app/UI/main_login.h"
 #include "../app/UI/menu_toolbar.h"
@@ -29,7 +31,7 @@
 #include "../app/UI/main_user.h"
 #include "../app/UI/form_users.h"
 
-
+#include "../app/CORE/core_messages.h"
 
 // add necessary includes here
 
@@ -112,6 +114,11 @@ private slots:
 
     void test_Init1();
     void test_Init2();
+
+    void test_coreMessagesGetChats();
+    void test_coreMessageGetMessages();
+    void test_coreMessageAddMessages();
+    void test_coreMessageAddChat();
 
     void api_post_request_test_pushData();
     void api_post_request_test_modifyData();
@@ -756,6 +763,73 @@ void test_app::test_Init2()
 
 }
 
+void test_app::test_coreMessagesGetChats()
+{
+   core_messages* testChats = new core_messages();
+
+   QVERIFY(!testChats->getChats("qcordiero").isEmpty());
+
+
+}
+
+void test_app::test_coreMessageGetMessages()
+{
+    core_messages* testChats = new core_messages();
+
+    QVERIFY(!testChats->getMessages("1").isEmpty());
+
+}
+
+void test_app::test_coreMessageAddMessages()
+{
+    core_messages *testAddMessages = new core_messages();
+    bdd_USER u;
+    u.setMail("Mail");
+    u.setIsActive(false);
+    u.setLastName("LastName");
+    u.setPassword("PassWord");
+    u.setUsername("Username");
+    u.setFirstName("Firstname");
+    u.setIdAddress(2);
+    u.setPhoneNumber("PhoneNumber");
+
+
+    bdd_CHAT c;
+    c.setTitle("testTitle");
+    c.setIdChat("testIdChat");
+    c.setCreationDate("testCreationDate");
+    c.setUserUsernameAsReceiver("testUserUsernameAsReceiver");
+    QVERIFY(!testAddMessages->addMessage(u,c) == false);
+
+}
+
+void test_app::test_coreMessageAddChat()
+{
+    bdd_USER s;
+    s.setMail("Mail_s");
+    s.setIsActive(false);
+    s.setLastName("LastName_s");
+    s.setPassword("PassWord_s");
+    s.setUsername("Username_s");
+    s.setFirstName("Firstname_s");
+    s.setIdAddress(2);
+    s.setPhoneNumber("PhoneNumber_s");
+
+    bdd_USER r;
+    r.setMail("Mail_r");
+    r.setIsActive(false);
+    r.setLastName("LastName_r");
+    r.setPassword("PassWord_r");
+    r.setUsername("Username_r");
+    r.setFirstName("Firstname_r");
+    r.setIdAddress(2);
+    r.setPhoneNumber("PhoneNumber_r");
+
+    core_messages *testAddChat = new core_messages();
+    QVERIFY(!testAddChat->addChat(s, r)== false);
+
+}
+
 void test_app::main_user_exist(){
     QVector<bdd_USER>* user = new QVector<bdd_USER>();
     user->append(bdd_USER("0606060606",true,"polop","polop", "test",0,"polop@polop.com", "polop"));
@@ -770,7 +844,7 @@ void test_app::form_user_exist(){
 
 
 
-void test_app::main_menu_exist(){
+/*void test_app::main_menu_exist(){
     Main_Menu *m = new Main_Menu(0,NULL);
     QVERIFY(m != NULL);
 }
@@ -783,7 +857,7 @@ void test_app::button_quotation_exist(){
 void test_app::button_quotation_have_ID(){
     button_quotation *m = new button_quotation(nullptr, 5);
     QVERIFY(m->getID() == 5);
-}
+}*/
 
 bool waitForSignal(QObject *sender, const char *signal, int timeout = 1000) {
     QEventLoop loop;
@@ -825,7 +899,7 @@ void test_app::core_login_get_user(){
     try {
         QString username = "jacky";
         QString password = "4l";
-        core_login::getUser(username, password);
+        //core_login::getUser(username, password);
     } catch (int e) {
         qDebug()<<e;
     }
