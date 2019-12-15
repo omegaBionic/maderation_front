@@ -71,6 +71,7 @@ bool Main_Menu::event(QEvent * e)
 
 void Main_Menu::getButton_clicked(int ID){
     qDebug()<< "button clicked : "+ QString::number(ID);
+    emit button_clicked(ID);
 }
 
 void Main_Menu::getButtonDel_clicked(int ID){
