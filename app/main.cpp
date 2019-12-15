@@ -13,7 +13,6 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     core_messages *testGetMessages = new core_messages();
 
-    testGetMessages->addMessage("qcordiero", "test");
 
     QDir *file = new QDir("STATUS");
     file->rmdir("STATUS");

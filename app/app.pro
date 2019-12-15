@@ -28,7 +28,6 @@ SOURCES += \
     ./CONTROLLER/*.cpp \
     ./CORE/*.cpp \
     ./UI/*.cpp \
-    CORE/core_user_management.cpp \
     main.cpp
 
 
@@ -36,8 +35,7 @@ HEADERS += \
     ./DB_CLASSES/*.h \
     ./CONTROLLER/*.h \
     ./CORE/*.h \
-    ./UI/*.h \
-    CORE/core_user_management.h
+    ./UI/*.h
 
 
 FORMS += \
