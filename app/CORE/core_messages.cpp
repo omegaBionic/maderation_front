@@ -1,8 +1,8 @@
 #include "core_messages.h"
-#include <../app/DB_CLASSES/bdd_chat.h>
-#include <../app/CORE/api_get_request.h>
-#include <../app/CORE/api_post_request.h>
-#include <../app/DB_CLASSES/bdd_message.h>
+#include "../app/DB_CLASSES/bdd_chat.h"
+#include "../app/CORE/api_get_request.h"
+#include "../app/CORE/api_post_request.h"
+#include "../app/DB_CLASSES/bdd_message.h"
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QDir>
@@ -131,9 +131,9 @@ bool core_messages::addMessage(bdd_USER u, bdd_CHAT c)
          bdd_MESSAGE *myBddMessage = new bdd_MESSAGE();
          myBddMessage->setMessage("text");
          myBddMessage->setIdMessage("42");
-         myBddMessage->setChatIoChat(c);
+         myBddMessage->setChatIoChat(c.getIdChat());
          myBddMessage->setCreationDate(currentDateTime);
-         myBddMessage->setUserUsername(u);
+         myBddMessage->setUserUsername(u.getUsername());
 
 
 
@@ -142,7 +142,7 @@ bool core_messages::addMessage(bdd_USER u, bdd_CHAT c)
 
             
             
-            api->modifyData(myBddMessage, "add");
+//            api->modifyData(myBddMessage, "add");
        
 
         return true;
@@ -160,7 +160,7 @@ bool core_messages::addChat(bdd_USER sender, bdd_USER receiver)
     QString currentDateTime = getTime();
     bdd_CHAT *myBddChat = new bdd_CHAT();
     myBddChat->setIdChat("1");
-    myBddChat->setUserUsernameAsReceiver(receiver);
+    myBddChat->setUserUsernameAsReceiver(receiver.getUsername());
     myBddChat->setCreationDate(currentDateTime);
     myBddChat->setTitle("test");
 
@@ -169,7 +169,7 @@ try {
 
 
 
-        api->modifyData(myBddChat, "add");
+//        api->modifyData(myBddChat, "add");
 
        return true;
     } catch (...)

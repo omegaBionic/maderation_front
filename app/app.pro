@@ -35,8 +35,7 @@ HEADERS += \
     ./DB_CLASSES/*.h \
     ./CONTROLLER/*.h \
     ./CORE/*.h \
-    ./UI/*.h \
-    CORE/core_user_management.h
+    ./UI/*.h
 
 
 FORMS += \

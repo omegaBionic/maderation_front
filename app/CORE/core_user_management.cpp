@@ -1,7 +1,7 @@
 #include "core_user_management.h"
-#include <../app/DB_CLASSES/bdd_user.h>
-#include <../app/CORE/api_get_request.h>
-#include <../app/CORE/api_post_request.h>
+#include "../app/DB_CLASSES/bdd_user.h"
+#include "../app/CORE/api_get_request.h"
+#include "../app/CORE/api_post_request.h"
 #include <QVector>
 
 core_user_management::core_user_management()
@@ -57,8 +57,8 @@ bool core_user_management::modifyUser(bdd_USER modify)
         myBddUser->setPhoneNumber(newPhoneNumber);
         myBddUser->setFirstName(newFirstname);
 
-        api_post_request *api_post_request = new api_post_request();
-        api_post_request->modifyData(myBddUser, "mod");
+//        api_post_request *api_post_request = new api_post_request();
+//        api_post_request->modifyData(myBddUser, "mod");
 
         return  true;
     } catch (...) {
@@ -80,7 +80,7 @@ bool core_user_management::addUser(bdd_USER u)
      myBddUser.setIdAddress(u.getAddressIdAddress());
      myBddUser.setPhoneNumber(u.getPhoneNumber());
     try {
-       api_post->modifyData(myBddUser, "add");
+//       api_post->modifyData(myBddUser, "add");
         return   true;
     } catch (...) {
         return   false;
