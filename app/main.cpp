@@ -1,7 +1,6 @@
-#include "main_login.h"
-#include "Init.h"
-#include "menu_toolbar.h"
-#include "encryption.h"
+#include "./CONTROLLER/controller.h"
+#include "./CORE/core_messages.h"
+#include "./CORE/api_get_request.h"
 #include <QApplication>
 #include <QObject>
 
@@ -11,24 +10,19 @@
 
 int main(int argc, char *argv[])
 {
-
-
-
-   Init *Initializer = new Init;
-
-   Initializer->Check_folder();
-
-  //  Initializer->Network_Connection();
-
-    //Network_Connection();
     QApplication a(argc, argv);
-    Main_Login w;
+    core_messages *testGetMessages = new core_messages();
 
+    testGetMessages->addMessage("qcordiero", "test");
 
-    w.showFullScreen();
+    QDir *file = new QDir("STATUS");
+    file->rmdir("STATUS");
+    Controller ct;
+
+    ct.init();
+
 
     return a.exec();
 
 }
-
 

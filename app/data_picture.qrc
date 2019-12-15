@@ -9,9 +9,11 @@
         <file>img/logo archive.png</file>
         <file>img/logo logoff.png</file>
         <file>img/logo message.png</file>
-        <file>C:/Users/Noctis/Pictures/logo accueil.png</file>
         <file>img/logo accueil.png</file>
         <file>img/logo_hide.png</file>
         <file>img/logo_show.png</file>
+        <file>img/background_1920.png</file>
+        <file>img/background_login.png</file>
+        <file>img/trash_logo.png</file>
     </qresource>
 </RCC>

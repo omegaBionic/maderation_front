@@ -24,28 +24,24 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    api_get_request.cpp \
-    Init.cpp \
-    dialog_critical.cpp \
-    encryption.cpp \
-    main.cpp \
-    main_login.cpp \
-    user.cpp \
-    menu_toolbar.cpp
+    ./DB_CLASSES/*.cpp \
+    ./CONTROLLER/*.cpp \
+    ./CORE/*.cpp \
+    ./UI/*.cpp \
+    main.cpp
+
 
 HEADERS += \
-    api_get_request.h \
-    Init.h \
-    dialog_critical.h \
-    encryption.h \
-    user.h \
-    main_login.h \
-    menu_toolbar.h
+    ./DB_CLASSES/*.h \
+    ./CONTROLLER/*.h \
+    ./CORE/*.h \
+    ./UI/*.h \
+    CORE/core_user_management.h
+
 
 FORMS += \
-    dialog_critical.ui \
-    main_login.ui \
-    menu_toolbar.ui
+    ./UI/*.ui
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
