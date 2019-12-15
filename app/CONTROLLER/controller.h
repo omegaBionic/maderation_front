@@ -30,6 +30,7 @@ private slots:
     void toolbar_archive();
     void cleanup(int win);
     void init_folder(int step);
+    void delete_project(int ID);
 
 private:
     Main_Login * _login;

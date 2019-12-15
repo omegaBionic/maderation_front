@@ -17,13 +17,14 @@ class Main_Menu : public QMainWindow
 
 public:
     explicit Main_Menu(QWidget *parent = nullptr);
-    explicit Main_Menu(QWidget *parent = nullptr, menu_toolbar* menu = nullptr, QVector<bdd_PROJECT*>* listProject = nullptr);
+    explicit Main_Menu(QWidget *parent = nullptr, menu_toolbar* menu = nullptr, QVector<bdd_PROJECT>* listProject = nullptr);
     ~Main_Menu();
     void showFull();
 
 signals:
     void Initialized(int window);
     void button_clicked(int ID);
+    void deleteProject(int ID);
 
 private slots:
     void getButton_clicked(int ID);

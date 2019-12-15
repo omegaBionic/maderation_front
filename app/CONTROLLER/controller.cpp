@@ -20,7 +20,7 @@ Controller::Controller(QObject *parent) : QObject(parent)
     QObject::connect(_toolbar, &menu_toolbar::menu, this, &Controller::toolbar_menu);
     QObject::connect(_toolbar, &menu_toolbar::archive, this, &Controller::toolbar_archive);
     QObject::connect(_toolbar, &menu_toolbar::messages, this, &Controller::toolbar_messages);
-    _user = new bdd_USER("polop",true,"test","test","test",0,"test@test.com","test");
+    _user = new bdd_USER("polop",true,"test","test","test",0,"test@test.com","polop");
 }
 
 Main_Login* Controller::getLogin(){
@@ -189,12 +189,13 @@ void Controller::login_forgot_password(){
 
 void Controller::login(QString user, QString pwd){
 
-    qDebug() << user + " , "+ pwd;
     _toolbar->setWindow("menu");
     core_menu* menu = new core_menu(this);
-    QVector<bdd_PROJECT*>* listProject = menu->getProject(*_user);
+    QVector<bdd_PROJECT>* listProject = menu->getProject(*_user);
+    qDebug() << "amount of project : " << listProject->count();
     _menu = new Main_Menu(0, _toolbar, listProject);
     QObject::connect(_menu, &Main_Menu::Initialized, this, &Controller::cleanup);
+    QObject::connect(_menu, &Main_Menu::deleteProject, this, &Controller::delete_project);
     _menu->showFull();
 }
 
@@ -252,4 +253,11 @@ void Controller::toolbar_user_mgt(){
     _main_user = new main_user(0, _toolbar, listUser);
     QObject::connect(_main_user, &main_user::Initialized, this, &Controller::cleanup);
     _main_user->showFullScreen();
+}
+
+
+void Controller::delete_project(int ID) {
+    core_menu* menu = new core_menu();
+    bdd_PROJECT project = menu->getProject(ID);
+    menu->deleteProject(project);
 }

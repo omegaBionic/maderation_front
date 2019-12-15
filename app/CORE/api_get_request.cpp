@@ -405,6 +405,8 @@ QVector<bdd_PRODUCT> api_get_request::parse_file_product(){
     // Access properties
 
     QVector<bdd_PRODUCT> listProduct;
+
+
     listProduct.append(bdd_PRODUCT(json["supplierIdSupplier"].toInt(), json["idProduct"].toString(), json["minWidth"].toInt(), json["defaultLength"].toInt(), json["label"].toString(), json["productCode"].toString(), json["defaultHeight"].toInt(), json["defaultWidth"].toInt(), json["material"].toString(), json["minLength"].toInt(), json["type"].toString()));
 
     return listProduct;
@@ -429,11 +431,17 @@ QVector<bdd_PROJECT> api_get_request::parse_file_project(){
     // Get JSON object
     QJsonObject json = doc.object();
 
+    QJsonValue itemsValues = json.value("datas");
+    QJsonArray itemsArray = itemsValues["Items"].toArray();
     // Access properties
 
     QVector<bdd_PROJECT> listProject;
 
-    listProject.append(bdd_PROJECT(json["supplierIdSupplier"].toString(), json["validation"].toBool(), json["creationDate"].toString(), json["isTemplate"].toBool(), json["idProject"].toString(), json["userUsername"].toString()));
+    foreach (const QJsonValue & v, itemsArray)
+    {
+        listProject.append(bdd_PROJECT(v.toObject().value("supplierIdSupplier")["S"].toString(), v.toObject().value("validation")["S"].toBool(), v.toObject().value("creationDate")["S"].toString(), v.toObject().value("isTemplate")["S"].toBool(), v.toObject().value("idProject")["S"].toString(), v.toObject().value("userUsername")["S"].toString()));
+    }
+    //listProject.append(bdd_PROJECT(json["supplierIdSupplier"]["S"].toString(), json["validation"].toBool(), json["creationDate"].toString(), json["isTemplate"].toBool(), json["idProject"].toString(), json["userUsername"].toString()));
 
     return listProject;
 

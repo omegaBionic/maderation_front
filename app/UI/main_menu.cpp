@@ -12,7 +12,7 @@ Main_Menu::Main_Menu(QWidget *parent) :
     _menu = new menu_toolbar(this);
 }
 
-Main_Menu::Main_Menu(QWidget *parent, menu_toolbar* m, QVector<bdd_PROJECT*>* listProject) :
+Main_Menu::Main_Menu(QWidget *parent, menu_toolbar* m, QVector<bdd_PROJECT>* listProject) :
     QMainWindow(parent),
     ui(new Ui::Main_Menu)
 {
@@ -29,12 +29,16 @@ Main_Menu::Main_Menu(QWidget *parent, menu_toolbar* m, QVector<bdd_PROJECT*>* li
     btn->hide();
     _listButton_del->append(btn);
     _listLabel_Button->append(new QLabel("New", ui->scrollAreaWidgetContents)); // new icon
-
     for(int i = 0; i<listProject->count(); i++){
-        bdd_PROJECT* project = listProject->at(i);
-        _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,project->getIdProject().toInt(), "DATA_IMG/quot_ex_1.png"));
-        _listButton_del->append(new button_quotation(ui->scrollAreaWidgetContents,project->getIdProject().toInt(), ":/pictures/img/trash_logo.png",true));
-        _listLabel_Button->append(new QLabel(project->getUserUserName(), ui->scrollAreaWidgetContents)); // new icon
+        bdd_PROJECT project = listProject->at(i);
+        qDebug() << "buttons added : ";
+        qDebug() << project.getIdProject();
+        int ID = project.getIdProject().toInt();
+        _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,ID, "./DATA_IMG/quot_ex_1.png"));
+        _listButton_del->append(new button_quotation(ui->scrollAreaWidgetContents,project.getIdProject().toInt(), ":/pictures/img/trash_logo.png",true));
+        qDebug() << "buttons added : " << project.getIdProject().toInt();
+        _listLabel_Button->append(new QLabel(project.getUserUserName(), ui->scrollAreaWidgetContents)); // new icon
+        qDebug() << "buttons added : " << project.getIdProject().toInt();
 
     }
 
@@ -71,6 +75,8 @@ void Main_Menu::getButton_clicked(int ID){
 
 void Main_Menu::getButtonDel_clicked(int ID){
     qDebug()<< "button delete clicked : "+ QString::number(ID);
+    emit deleteProject(ID);
+
 }
 
 void Main_Menu::showFull(){

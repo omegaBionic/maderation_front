@@ -7,6 +7,7 @@
 #include "../DB_CLASSES/bdd_user.h"
 
 #include "../CORE/api_get_request.h"
+#include "../CORE/api_post_request.h"
 
 
 class core_menu : public QObject
@@ -14,7 +15,8 @@ class core_menu : public QObject
     Q_OBJECT
 public:
     explicit core_menu(QObject *parent = nullptr);
-    QVector<bdd_PROJECT*>* getProject(bdd_USER user);
+    QVector<bdd_PROJECT>* getProject(bdd_USER user);
+    bdd_PROJECT getProject(int ID);
     void deleteProject(bdd_PROJECT project);
 
 signals:
