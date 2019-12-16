@@ -36,10 +36,10 @@ background-color: #00000000;
    <widget class="QScrollArea" name="scrollArea">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>260</y>
-      <width>120</width>
-      <height>80</height>
+      <x>0</x>
+      <y>0</y>
+      <width>371</width>
+      <height>541</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -57,12 +57,48 @@ border: 0px;
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>120</width>
-       <height>80</height>
+       <width>371</width>
+       <height>541</height>
       </rect>
      </property>
     </widget>
    </widget>
+   <widget class="QLabel" name="background_form">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>20</y>
+      <width>361</width>
+      <height>251</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/pictures/img/background_template.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="grey_screen">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>75</y>
+      <width>281</width>
+      <height>271</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(48, 48, 48, 150);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <zorder>background</zorder>
+   <zorder>scrollArea</zorder>
+   <zorder>grey_screen</zorder>
+   <zorder>background_form</zorder>
   </widget>
  </widget>
  <resources/>

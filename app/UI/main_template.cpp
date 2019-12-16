@@ -17,6 +17,15 @@ main_template::main_template(QWidget *parent, menu_toolbar* m, QVector<bdd_PROJE
     ui(new Ui::main_template)
 {
     ui->setupUi(this);
+
+    ui->background_form->hide();
+    ui->grey_screen->hide();
+
+    _tpl = new Form_template(this, "");
+    _tpl->hide();
+    QObject::connect(_tpl, &Form_template::cancelled, this, &main_template::tplCancelled);
+    QObject::connect(_tpl, &Form_template::validated, this, &main_template::tplValidated);
+
     _menu = m;
     _menu->setParent(this);
     _listButton_quot = new QVector<button_quotation*>;
@@ -71,6 +80,11 @@ bool main_template::event(QEvent * e)
 
 void main_template::getButton_clicked(int ID){
     qDebug()<< "button clicked : "+ QString::number(ID);
+    ui->grey_screen->show();
+    ui->background_form->show();
+    _tpl->setRessource("./DATA_IMG/quot_default.png");
+    _tpl->setGeometry(17*_width,7*_height,94*_width, 52*_height);
+    _tpl->show();
 }
 
 void main_template::getButtonDel_clicked(int ID){
@@ -114,6 +128,23 @@ void main_template::resizeEvent(QResizeEvent *){
 
     }
 
+    ui->grey_screen->setGeometry(0,0,128*_width, 72*_height);
+    ui->background_form->setGeometry(15*_width,5*_height,98*_width, 56*_height);
+
     _menu->setGeometry(42*_width, 62*_height, 48*_width, 12*_height);
+
+}
+
+void main_template::tplCancelled(){
+    _tpl->hide();
+    ui->background_form->hide();
+    ui->grey_screen->hide();
+
+}
+
+void main_template::tplValidated(){
+    _tpl->hide();
+    ui->background_form->hide();
+    ui->grey_screen->hide();
 
 }

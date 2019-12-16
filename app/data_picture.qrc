@@ -45,5 +45,12 @@
         <file>img/validate_user_pressed.png</file>
         <file>img/checkBox_checked_disabled.png</file>
         <file>img/checkBox_disabled.png</file>
+        <file>img/cancel.png</file>
+        <file>img/cancel_hover.png</file>
+        <file>img/cancel_pressed.png</file>
+        <file>img/validate.png</file>
+        <file>img/validate_hover.png</file>
+        <file>img/validate_pressed.png</file>
+        <file>img/background_template.png</file>
     </qresource>
 </RCC>

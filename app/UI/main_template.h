@@ -6,6 +6,7 @@
 #include "menu_toolbar.h"
 #include "../UI/button_quotation.h"
 #include "../DB_CLASSES/bdd_project.h"
+#include "form_template.h"
 
 namespace Ui {
 class main_template;
@@ -30,6 +31,8 @@ signals:
 private slots:
     void getButton_clicked(int ID);
     void getButtonDel_clicked(int ID);
+    void tplCancelled();
+    void tplValidated();
 
 private:
     void resizeEvent(QResizeEvent * event);
@@ -41,6 +44,7 @@ private:
     int _height;
     Ui::main_template *ui;
     menu_toolbar* _menu;
+    Form_template* _tpl;
 
 
 };

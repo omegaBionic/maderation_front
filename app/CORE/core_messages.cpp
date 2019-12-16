@@ -37,7 +37,7 @@ QVector<bdd_CHAT> core_messages::getChats(QString u)
 
     QJsonObject myObject;
 
-    for(qint32 i ; i < listChat.count(); i++)
+    for(int i = 0; i < listChat.count(); i++)
     {
         /*qDebug()<<listMessage.value(i).getUserUsername();
         qDebug()<<listMessage.value(i).getCreationDate();
@@ -73,7 +73,7 @@ QVector<bdd_MESSAGE> core_messages::getMessages(QString c)
 
     QJsonObject myObject;
 
-    for(qint32 i ; i < listMessage.count(); i++)
+    for(int i = 0; i < listMessage.count(); i++)
     {
         /*qDebug()<<listMessage.value(i).getUserUsername();
         qDebug()<<listMessage.value(i).getCreationDate();
