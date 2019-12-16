@@ -5,6 +5,8 @@
 #include <QThread>
 #include <QCoreApplication>
 #include "../CORE/core_menu.h"
+#include "../CORE/core_messages.h"
+#include "../CORE/core_user_management.h"
 
 
 Controller::Controller(QObject *parent) : QObject(parent)
@@ -274,14 +276,10 @@ void Controller::toolbar_archive(){
 void Controller::toolbar_messages(){
 
     qDebug() << "ouverture du chat";
-    QVector<bdd_CHAT>* listChat = new QVector<bdd_CHAT>();
-    listChat->append(bdd_CHAT(0,"test","11 novembre 2019", "test"));
-    listChat->append(bdd_CHAT(0,"test","12 novembre 2019", "polop"));
-    listChat->append(bdd_CHAT(0,"test","13 novembre 2019", "test"));
-    listChat->append(bdd_CHAT(0,"test","14 novembre 2019", "polop"));
-    listChat->append(bdd_CHAT(0,"test","15 novembre 2019", "test"));
+    core_messages* msg = new core_messages();
 
-    _chat = new main_chat(0, _toolbar, listChat, _user->getUsername());
+    QVector<bdd_CHAT> listChat = msg->getChats(_user->getUsername());
+    _chat = new main_chat(0, _toolbar, &listChat, _user->getUsername());
     _toolbar->setWindow("chat");
     QObject::connect(_chat, &main_chat::Initialized, this, &Controller::cleanup);
     _chat->showFullScreen();
@@ -297,16 +295,10 @@ void Controller::toolbar_logoff(){
 void Controller::toolbar_user_mgt(){
 
     qDebug() << "ouverture du user_management";
-    QVector<bdd_USER>* listUser = new QVector<bdd_USER>();
-    listUser->append(bdd_USER("0606060606",true,"polop","test","polop",0,"polop@polop.polop","polop"));
-    listUser->append(bdd_USER("1111111111",false,"test","test","polop",0,"polop@polop.polop","polop"));
-    listUser->append(bdd_USER("9999999999",true,"truc","test","polop",0,"polop@polop.polop","polop"));
-    listUser->append(bdd_USER("2222222222",false,"polop","test","polop",0,"polop@polop.polop","polop"));
-    listUser->append(bdd_USER("0685485241",true,"machin","test","polop",0,"polop@polop.polop","polop"));
-    listUser->append(bdd_USER("7582410522",false,"polop","test","polop",0,"polop@polop.polop","polop"));
-
+    core_user_management* mgt = new core_user_management();
+    QVector<bdd_USER> listUser = mgt->getUsers();
     _toolbar->setWindow("user");
-    _main_user = new main_user(0, _toolbar, listUser);
+    _main_user = new main_user(0, _toolbar, &listUser);
     QObject::connect(_main_user, &main_user::Initialized, this, &Controller::cleanup);
     _main_user->showFullScreen();
 }

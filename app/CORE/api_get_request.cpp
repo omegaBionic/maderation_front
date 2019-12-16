@@ -105,10 +105,19 @@ QVector<bdd_USER> api_get_request::parse_file_user(){
     QJsonObject json = doc.object();
 
     // Access properties
+    QJsonValue itemsValues = json.value("datas");
+    QJsonArray itemsArray = itemsValues["Items"].toArray();
 
     QVector<bdd_USER> listUser;
 
-    listUser.append(bdd_USER(json["phoneNumber"].toString(), json["isActive"].toBool(), json["lastName"].toString(), json["password"].toString(), json["firstName"].toString(), json["addressId"].toInt(), json["mail"].toString(), json["username"].toString()));
+    foreach (const QJsonValue & v, itemsArray)
+    {
+       listUser.append(bdd_USER(v.toObject().value("phoneNumber")["S"].toString(), v.toObject().value("isActive")["BOOL"].toBool(), v.toObject().value("lastname")["S"].toString(), v.toObject().value("password")["S"].toString(), v.toObject().value("firstname")["S"].toString(), v.toObject().value("idShop")["N"].toInt(), v.toObject().value("mail")["S"].toString(), v.toObject().value("username")["S"].toString()));
+
+    }
+
+
+//    listUser.append(bdd_USER(json["phoneNumber"].toString(), json["isActive"].toBool(), json["lastName"].toString(), json["password"].toString(), json["firstName"].toString(), json["addressId"].toInt(), json["mail"].toString(), json["username"].toString()));
 
     return listUser;
 }
@@ -255,7 +264,7 @@ QVector<bdd_CHAT> api_get_request::parse_file_chat(){
 
     foreach (const QJsonValue & v, itemsArray)
     {
-       listChat.append(bdd_CHAT(v.toObject().value("idChat")["S"].toString(), v.toObject().value("userUsernameAsReceiver")["S"].toString(), v.toObject().value("creationDate")["S"].toString(), v.toObject().value("title")["S"].toString()));
+       listChat.append(bdd_CHAT(v.toObject().value("idChat")["S"].toString(), v.toObject().value("userUsernameAsReceiver")["S"].toString(), v.toObject().value("userUsernameAsAutor")["S"].toString(), v.toObject().value("creationDate")["S"].toString(), v.toObject().value("title")["S"].toString()));
 
     }
 
@@ -439,7 +448,7 @@ QVector<bdd_PROJECT> api_get_request::parse_file_project(){
 
     foreach (const QJsonValue & v, itemsArray)
     {
-        listProject.append(bdd_PROJECT(v.toObject().value("supplierIdSupplier")["S"].toString(), v.toObject().value("validation")["S"].toBool(), v.toObject().value("creationDate")["S"].toString(), v.toObject().value("isTemplate")["S"].toBool(), v.toObject().value("idProject")["S"].toString(), v.toObject().value("userUsername")["S"].toString()));
+        listProject.append(bdd_PROJECT(v.toObject().value("supplierIdSupplier")["S"].toString(), v.toObject().value("validation")["BOOL"].toBool(), v.toObject().value("creationDate")["S"].toString(), v.toObject().value("isTemplate")["BOOL"].toBool(), v.toObject().value("idProject")["S"].toString(), v.toObject().value("userUsername")["S"].toString()));
     }
     //listProject.append(bdd_PROJECT(json["supplierIdSupplier"]["S"].toString(), json["validation"].toBool(), json["creationDate"].toString(), json["isTemplate"].toBool(), json["idProject"].toString(), json["userUsername"].toString()));
 

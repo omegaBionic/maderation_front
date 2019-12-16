@@ -29,7 +29,7 @@ QVector<bdd_CHAT> core_messages::getChats(QString u)
 {
     qDebug()<<u;
      api_get_request *parseChat = new api_get_request();
-
+    QVector<bdd_CHAT>* result = new QVector<bdd_CHAT>();
     QVector<bdd_CHAT> listChat = parseChat->parse_file_chat();
     qDebug()<<listChat.count();
 
@@ -39,16 +39,13 @@ QVector<bdd_CHAT> core_messages::getChats(QString u)
 
     for(int i = 0; i < listChat.count(); i++)
     {
-        /*qDebug()<<listMessage.value(i).getUserUsername();
-        qDebug()<<listMessage.value(i).getCreationDate();
-        qDebug()<<listMessage.value(i).getIdMessage();
-        qDebug()<<listMessage.value(i).getMessage();*/
-
-        if(listChat.value(i).getUserUsernameAsReceiver() != u)
+        bdd_CHAT chat = listChat.at(i);
+        qDebug() << "autor : " + chat.getUserUsernameAsAutor();
+        qDebug() << "receiver : " + chat.getUserUsernameAsReceiver();
+        if(chat.getUserUsernameAsReceiver() == u || chat.getUserUsernameAsAutor() == u)
         {
-            qDebug()<<"pas ok";
-            listChat.remove(i);
-            i = 0;
+            qDebug()<<"adding chat " + chat.getIdChat();
+            result->append(chat);
         }
         else
         {
@@ -58,7 +55,7 @@ QVector<bdd_CHAT> core_messages::getChats(QString u)
 
     }
 
-    return listChat;
+    return *result;
 }
 
 QVector<bdd_MESSAGE> core_messages::getMessages(QString c)
