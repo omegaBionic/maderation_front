@@ -24,6 +24,8 @@ void menu_toolbar::setWindow(QString win){
         _window = 2;
     }else if (win == "template"){
         _window = 3;
+    }else if (win == "quotation"){
+        _window = 4;
     }else{
         _window = 0;
     }

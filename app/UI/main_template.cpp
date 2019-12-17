@@ -147,4 +147,5 @@ void main_template::tplValidated(){
     ui->background_form->hide();
     ui->grey_screen->hide();
 
+    emit openProject(bdd_PROJECT("Tue Dec  2 00:00:00 PST 2014", "true", "Tue Dec  2 00:00:00 PST 2014", "true", "0", "omega"));
 }

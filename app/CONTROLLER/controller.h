@@ -9,6 +9,7 @@
 #include "../UI/main_chat.h"
 #include "../UI/main_user.h"
 #include "../UI/main_template.h"
+#include "../UI/main_quotation.h"
 #include "../DB_CLASSES/bdd_user.h"
 
 class Controller : public QObject
@@ -32,7 +33,8 @@ private slots:
     void cleanup(int win);
     void init_folder(int step);
     void delete_project(int ID);
-    void open_project(int ID);
+    void open_project_by_ID(int ID);
+    void open_project(bdd_PROJECT project);
 
 private:
     Main_Login * _login;
@@ -42,6 +44,7 @@ private:
     menu_toolbar* _toolbar;
     Main_Menu* _menu;
     main_template* _template;
+    Main_Quotation* _quotation;
     bdd_USER* _user;
     void launchLogin();
 };

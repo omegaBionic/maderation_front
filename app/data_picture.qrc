@@ -52,5 +52,16 @@
         <file>img/validate_hover.png</file>
         <file>img/validate_pressed.png</file>
         <file>img/background_template.png</file>
+        <file>img/btn_menu.png</file>
+        <file>img/btn_menu_hover.png</file>
+        <file>img/btn_menu_pressed.png</file>
+        <file>img/copy.png</file>
+        <file>img/copy_hover.png</file>
+        <file>img/copy_pressed.png</file>
+        <file>img/new_component.png</file>
+        <file>img/new_component_hover.png</file>
+        <file>img/new_component_pressed.png</file>
+        <file>img/up_arrow.png</file>
+        <file>img/up_arrow_hover.png</file>
     </qresource>
 </RCC>

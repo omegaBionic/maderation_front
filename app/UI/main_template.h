@@ -27,6 +27,7 @@ signals:
     void Initialized(int window);
     void button_clicked(int ID);
     void deleteProject(int ID);
+    void openProject(bdd_PROJECT project);
 
 private slots:
     void getButton_clicked(int ID);
