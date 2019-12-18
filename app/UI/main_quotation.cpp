@@ -100,6 +100,7 @@ void Main_Quotation::resizeEvent(QResizeEvent *){
     ui->label_Length->setGeometry(1*_widthGroup, 104*_heightGroup, 40*_widthGroup, 4*_heightGroup);
 
     ui->graphicsView->setGeometry(37*_width, 1*_height, 90*_width, 60*_height);
+    _scene->setSceneRect(ui->graphicsView->rect());
 
     _menu->setGeometry(42*_width, 62*_height, 48*_width, 12*_height);
 
