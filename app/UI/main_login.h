@@ -29,6 +29,8 @@ private slots:
 
     void on_btn_forgot_clicked();
 
+    void on_pushButton_power_clicked();
+
 private:
     void resizeEvent(QResizeEvent * event);
     bool event(QEvent *event);

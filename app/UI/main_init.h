@@ -22,6 +22,7 @@ public:
 signals:
     void Initialized(int window);
 
+
 private:
     void resize();
     void wait(int time, int interval);

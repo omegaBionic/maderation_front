@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <math.h>
 #include <QThread>
+#include "dialog_critical.h"
 
 Main_Menu::Main_Menu(QWidget *parent) :
     QMainWindow(parent),
@@ -115,6 +116,17 @@ void Main_Menu::resizeEvent(QResizeEvent *){
 
     }
 
+    ui->pushButton_power->setGeometry(124*_width, 0*_height ,4*_width, 4*_height);
     _menu->setGeometry(42*_width, 62*_height, 48*_width, 12*_height);
 
+}
+
+void Main_Menu::on_pushButton_power_clicked()
+{
+    Dialog_Critical *c = new Dialog_Critical(this,"Exit ?", "êtes vous sûr de vouloir quitter l'application ?", "question");
+    int result = c->exec();
+    qDebug() << "result du exit : "<< result;
+    if(result == QDialog::Accepted){
+        this->close();
+    }
 }

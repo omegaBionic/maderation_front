@@ -1056,6 +1056,34 @@ QPushButton::pressed {
      <string/>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_power">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>450</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-image: url(:/pictures/img/powerOff.png);
+}
+
+QPushButton::hover {
+	border-image: url(:/pictures/img/powerOff_hover.png);
+
+}
+
+QPushButton::pressed {
+	border-image: url(:/pictures/img/powerOff_pressed.png);
+
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

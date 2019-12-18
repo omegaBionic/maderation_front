@@ -32,6 +32,8 @@ private slots:
     void on_pushButton_menu_clicked();
     void Item_Updated(Rect_Custom* rect);
 
+    void on_pushButton_power_clicked();
+
 private:
     Ui::Main_Quotation *ui;
     void resizeEvent(QResizeEvent * event);
