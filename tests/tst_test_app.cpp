@@ -981,7 +981,31 @@ void test_app::test_core_quotation_getAttribut()
 }
 
 
-void test_core_quotation_getProduct();
+void test_app::test_core_quotation_getProduct()
+{
+    bdd_PRODUCT poutre;
+
+
+    poutre.setType("Poutre");
+    poutre.setLabel("Poutre bois 300/50");
+    poutre.setMaterial("bois");
+    poutre.setMinWidth(50);
+    poutre.setIdProduct("1");
+    poutre.setMinLength(100);
+    poutre.setProductCode("PB-300-50");
+    poutre.setDefaultWidth(50);
+    poutre.setDefaultHeight(50);
+    poutre.setDefaultLength(300);
+    poutre.setSupplierIdSupplier(42);
+
+
+    core_quotation *test_core_quotation = new core_quotation();
+    QVector<bdd_PRODUCT> listProduct;
+    listProduct = test_core_quotation->getProduct("Poutre", "Type");
+    QVERIFY(&listProduct != NULL);
+
+}
+
 void test_core_quotation_setAttribut();
 
 //la définition de test
