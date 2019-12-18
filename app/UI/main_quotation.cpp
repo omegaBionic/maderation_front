@@ -21,7 +21,6 @@ Main_Quotation::Main_Quotation(QWidget *parent, menu_toolbar* tool) :
     _menu->setParent(this);
     _isHided = false;
     _scene = new scene_custom(this);
-    _scene->setSceneRect(ui->graphicsView->rect());
     QObject::connect(_scene, &scene_custom::item_Selected, this, &Main_Quotation::Item_Updated);
     ui->graphicsView->setScene(_scene);
     _listRectangle = new QVector<Rect_Custom*>();
@@ -113,10 +112,12 @@ void Main_Quotation::on_pushButton_menu_clicked()
         ui->groupBox_data->hide();
         ui->groupBox_globale->hide();
         ui->graphicsView->setGeometry(8*_width, 1*_height, 120*_width, 60*_height);
+        _scene->setSceneRect(ui->graphicsView->rect());
     }else{
         ui->groupBox_data->show();
         ui->groupBox_globale->show();
         ui->graphicsView->setGeometry(37*_width, 1*_height, 90*_width, 60*_height);
+        _scene->setSceneRect(ui->graphicsView->rect());
 
     }
 }

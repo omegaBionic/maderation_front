@@ -37,206 +37,210 @@ bdd_USER* Controller::getUser(){
 
 void Controller::cleanup(int win){
     qDebug() << "--- cleanup ---";
+    try {
+        if(win == 0){ //login page
+            qDebug() << "from login";
+            if(_menu != nullptr){
+                qDebug() << "effacage du menu";
+                _menu->close();
+                _menu = nullptr;
+            }
+            if(_init != nullptr){
+                qDebug() << "effacage du init";
+                _init->close();
+                _init = nullptr;
+            }
+            if(_chat != nullptr){
+                qDebug() << "effacage du chat";
+                _chat->close();
+                _chat = nullptr;
+            }
+            if(_main_user != nullptr){
+                qDebug() << "effacage du main_user";
+                _main_user->close();
+                _main_user = nullptr;
+            }
+            if(_template != nullptr){
+                qDebug() << "effacage du main_template";
+                _template->close();
+                _template = nullptr;
+            }
+            if(_quotation != nullptr){
+                qDebug() << "effacage du quotation";
+                _quotation->close();
+                _quotation = nullptr;
+            }
 
-    if(win == 0){ //login page
-        qDebug() << "from login";
-        if(_menu != nullptr){
-            qDebug() << "effacage du menu";
-            _menu->close();
-            _menu = nullptr;
         }
-        if(_init != nullptr){
-            qDebug() << "effacage du init";
-            _init->close();
-            _init = nullptr;
+        else if(win == 1){ //menu page
+            qDebug() << "from menu";
+            if(_login != nullptr){
+                qDebug() << "effacage de la login";
+                _login->close();
+                _login = nullptr;
+            }
+            if(_chat != nullptr){
+                qDebug() << "effacage du chat";
+                _chat->close();
+                _chat = nullptr;
+            }
+            if(_init != nullptr){
+                qDebug() << "effacage du init";
+                _init->close();
+                _init = nullptr;
+            }
+            if(_main_user != nullptr){
+                qDebug() << "effacage du main_user";
+                _main_user->close();
+                _main_user = nullptr;
+            }
+            if(_template != nullptr){
+                qDebug() << "effacage du main_template";
+                _template->close();
+                _template = nullptr;
+            }
+            if(_quotation != nullptr){
+                qDebug() << "effacage du quotation";
+                _quotation->close();
+                _quotation = nullptr;
+            }
         }
-        if(_chat != nullptr){
-            qDebug() << "effacage du chat";
-            _chat->close();
-            _chat = nullptr;
+        else if(win == 2){ //chat page
+            qDebug() << "from chat";
+            if(_login != nullptr){
+                qDebug() << "effacage de la login";
+                _login->close();
+                _login = nullptr;
+            }
+            if(_menu != nullptr){
+                qDebug() << "effacage du menu";
+                _menu->close();
+                _menu = nullptr;
+            }
+            if(_init != nullptr){
+                qDebug() << "effacage du init";
+                _init->close();
+                _init = nullptr;
+            }
+            if(_main_user != nullptr){
+                qDebug() << "effacage du main_user";
+                _main_user->close();
+                _main_user = nullptr;
+            }
+            if(_template != nullptr){
+                qDebug() << "effacage du main_template";
+                _template->close();
+                _template = nullptr;
+            }
+            if(_quotation != nullptr){
+                qDebug() << "effacage du quotation";
+                _quotation->close();
+                _quotation = nullptr;
+            }
         }
-        if(_main_user != nullptr){
-            qDebug() << "effacage du main_user";
-            _main_user->close();
-            _main_user = nullptr;
+        else if(win == 3){ //user page
+            qDebug() << "from user mgt";
+            if(_login != nullptr){
+                qDebug() << "effacage de la login";
+                _login->close();
+                _login = nullptr;
+            }
+            if(_menu != nullptr){
+                qDebug() << "effacage du menu";
+                _menu->close();
+                _menu = nullptr;
+            }
+            if(_init != nullptr){
+                qDebug() << "effacage du init";
+                _init->close();
+                _init = nullptr;
+            }
+            if(_chat != nullptr){
+                qDebug() << "effacage du chat";
+                _chat->close();
+                _chat = nullptr;
+            }
+            if(_template != nullptr){
+                qDebug() << "effacage du main_template";
+                _template->close();
+                _template = nullptr;
+            }
+            if(_quotation != nullptr){
+                qDebug() << "effacage du quotation";
+                _quotation->close();
+                _quotation = nullptr;
+            }
         }
-        if(_template != nullptr){
-            qDebug() << "effacage du main_template";
-            _template->close();
-            _template = nullptr;
+        else if(win == 4){ //template page
+            qDebug() << "from template";
+            if(_login != nullptr){
+                qDebug() << "effacage de la login";
+                _login->close();
+                _login = nullptr;
+            }
+            if(_menu != nullptr){
+                qDebug() << "effacage du menu";
+                _menu->close();
+                _menu = nullptr;
+            }
+            if(_init != nullptr){
+                qDebug() << "effacage du init";
+                _init->close();
+                _init = nullptr;
+            }
+            if(_chat != nullptr){
+                qDebug() << "effacage du chat";
+                _chat->close();
+                _chat = nullptr;
+            }
+            if(_main_user != nullptr){
+                qDebug() << "effacage du main_user";
+                _main_user->close();
+                _main_user = nullptr;
+            }
+            if(_quotation != nullptr){
+                qDebug() << "effacage du quotation";
+                _quotation->close();
+                _quotation = nullptr;
+            }
         }
-        if(_quotation != nullptr){
-            qDebug() << "effacage du quotation";
-            _quotation->close();
-            _quotation = nullptr;
+        else if(win == 5){ //quotation page
+            qDebug() << "from quotation";
+            if(_login != nullptr){
+                qDebug() << "effacage de la login";
+                _login->close();
+                _login = nullptr;
+            }
+            if(_menu != nullptr){
+                qDebug() << "effacage du menu";
+                _menu->close();
+                _menu = nullptr;
+            }
+            if(_init != nullptr){
+                qDebug() << "effacage du init";
+                _init->close();
+                _init = nullptr;
+            }
+            if(_chat != nullptr){
+                qDebug() << "effacage du chat";
+                _chat->close();
+                _chat = nullptr;
+            }
+            if(_main_user != nullptr){
+                qDebug() << "effacage du main_user";
+                _main_user->close();
+                _main_user = nullptr;
+            }
+            if(_template != nullptr){
+                qDebug() << "effacage du main_template";
+                _template->close();
+                _template = nullptr;
+            }
         }
+    } catch (...) {
+        qDebug() << "Error : QwaitCondition probably";
+    }
 
-    }
-    else if(win == 1){ //menu page
-        qDebug() << "from menu";
-        if(_login != nullptr){
-            qDebug() << "effacage de la login";
-            _login->close();
-            _login = nullptr;
-        }
-        if(_chat != nullptr){
-            qDebug() << "effacage du chat";
-            _chat->close();
-            _chat = nullptr;
-        }
-        if(_init != nullptr){
-            qDebug() << "effacage du init";
-            _init->close();
-            _init = nullptr;
-        }
-        if(_main_user != nullptr){
-            qDebug() << "effacage du main_user";
-            _main_user->close();
-            _main_user = nullptr;
-        }
-        if(_template != nullptr){
-            qDebug() << "effacage du main_template";
-            _template->close();
-            _template = nullptr;
-        }
-        if(_quotation != nullptr){
-            qDebug() << "effacage du quotation";
-            _quotation->close();
-            _quotation = nullptr;
-        }
-    }
-    else if(win == 2){ //chat page
-        qDebug() << "from chat";
-        if(_login != nullptr){
-            qDebug() << "effacage de la login";
-            _login->close();
-            _login = nullptr;
-        }
-        if(_menu != nullptr){
-            qDebug() << "effacage du menu";
-            _menu->close();
-            _menu = nullptr;
-        }
-        if(_init != nullptr){
-            qDebug() << "effacage du init";
-            _init->close();
-            _init = nullptr;
-        }
-        if(_main_user != nullptr){
-            qDebug() << "effacage du main_user";
-            _main_user->close();
-            _main_user = nullptr;
-        }
-        if(_template != nullptr){
-            qDebug() << "effacage du main_template";
-            _template->close();
-            _template = nullptr;
-        }
-        if(_quotation != nullptr){
-            qDebug() << "effacage du quotation";
-            _quotation->close();
-            _quotation = nullptr;
-        }
-    }
-    else if(win == 3){ //user page
-        qDebug() << "from user mgt";
-        if(_login != nullptr){
-            qDebug() << "effacage de la login";
-            _login->close();
-            _login = nullptr;
-        }
-        if(_menu != nullptr){
-            qDebug() << "effacage du menu";
-            _menu->close();
-            _menu = nullptr;
-        }
-        if(_init != nullptr){
-            qDebug() << "effacage du init";
-            _init->close();
-            _init = nullptr;
-        }
-        if(_chat != nullptr){
-            qDebug() << "effacage du chat";
-            _chat->close();
-            _chat = nullptr;
-        }
-        if(_template != nullptr){
-            qDebug() << "effacage du main_template";
-            _template->close();
-            _template = nullptr;
-        }
-        if(_quotation != nullptr){
-            qDebug() << "effacage du quotation";
-            _quotation->close();
-            _quotation = nullptr;
-        }
-    }
-    else if(win == 4){ //template page
-        qDebug() << "from template";
-        if(_login != nullptr){
-            qDebug() << "effacage de la login";
-            _login->close();
-            _login = nullptr;
-        }
-        if(_menu != nullptr){
-            qDebug() << "effacage du menu";
-            _menu->close();
-            _menu = nullptr;
-        }
-        if(_init != nullptr){
-            qDebug() << "effacage du init";
-            _init->close();
-            _init = nullptr;
-        }
-        if(_chat != nullptr){
-            qDebug() << "effacage du chat";
-            _chat->close();
-            _chat = nullptr;
-        }
-        if(_main_user != nullptr){
-            qDebug() << "effacage du main_user";
-            _main_user->close();
-            _main_user = nullptr;
-        }
-        if(_quotation != nullptr){
-            qDebug() << "effacage du quotation";
-            _quotation->close();
-            _quotation = nullptr;
-        }
-    }
-    else if(win == 5){ //quotation page
-        qDebug() << "from quotation";
-        if(_login != nullptr){
-            qDebug() << "effacage de la login";
-            _login->close();
-            _login = nullptr;
-        }
-        if(_menu != nullptr){
-            qDebug() << "effacage du menu";
-            _menu->close();
-            _menu = nullptr;
-        }
-        if(_init != nullptr){
-            qDebug() << "effacage du init";
-            _init->close();
-            _init = nullptr;
-        }
-        if(_chat != nullptr){
-            qDebug() << "effacage du chat";
-            _chat->close();
-            _chat = nullptr;
-        }
-        if(_main_user != nullptr){
-            qDebug() << "effacage du main_user";
-            _main_user->close();
-            _main_user = nullptr;
-        }
-        if(_template != nullptr){
-            qDebug() << "effacage du main_template";
-            _template->close();
-            _template = nullptr;
-        }
-    }
 }
 
 void Controller::init_folder(int step){

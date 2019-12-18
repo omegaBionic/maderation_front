@@ -19,6 +19,7 @@ signals:
 private:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
     bool _SignalToSend;
     int _timerSending;
     QVector<Rect_Custom*>* _listRect;
