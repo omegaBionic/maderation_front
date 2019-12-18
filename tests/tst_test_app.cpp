@@ -29,6 +29,8 @@
 #include "../app/UI/form_messages.h"
 #include "../app/UI/main_user.h"
 #include "../app/UI/form_users.h"
+#include "../app/UI/main_template.h"
+#include "../app/UI/main_quotation.h"
 
 #include "../app/CORE/core_messages.h"
 #include "../app/CORE/core_quotation.h"
@@ -107,6 +109,8 @@ private slots:
 
     void main_chat_exist();
     void form_messages_exist();
+    void main_template_exist();
+    void main_quotation_exist();
 
 
     void main_user_exist();
@@ -846,6 +850,16 @@ void test_app::main_user_exist(){
 
 void test_app::form_user_exist(){
     Form_users *m = new Form_users(0, new bdd_USER("0606060606",true,"polop","polop", "test",0,"polop@polop.com", "polop"));
+    QVERIFY(m != NULL);
+}
+
+void test_app::main_template_exist(){
+    main_template *m = new main_template(0, nullptr, nullptr);
+    QVERIFY(m != NULL);
+}
+
+void test_app::main_quotation_exist(){
+    Main_Quotation *m = new Main_Quotation(nullptr, nullptr);
     QVERIFY(m != NULL);
 }
 
