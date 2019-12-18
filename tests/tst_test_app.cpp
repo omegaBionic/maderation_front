@@ -1006,7 +1006,35 @@ void test_app::test_core_quotation_getProduct()
 
 }
 
-void test_core_quotation_setAttribut();
+void test_app::test_core_quotation_setAttribut()
+{
+     bdd_ATTRIBUT poutreAttribut;
+     bdd_PROJECT Project1;
+
+     poutreAttribut.setLength(500)
+     poutreAttribut.setPositionY(240);
+     poutreAttribut.setWidth(50);
+     poutreAttribut.setHeight(50);
+     poutreAttribut.setProductIdProduct(1);
+     poutreAttribut.setOrderIdProject(20);
+     poutreAttribut.setPositionX(150);
+     poutreAttribut.setRotationY(0);
+     poutreAttribut.setPositionZ(0);
+     poutreAttribut.setRotationX(0);
+     poutreAttribut.setIdAttribut(1);
+
+     Project1.setIdProject("42");
+     Project1.setIsTemplate(false);
+     Project1.setValidation(false);
+     Project1.setuserUseName("Projet1 test");
+     Project1.setCreationDate("18/12/2019");
+     Project1.setValidationDate("00/00/0000");
+
+     core_quotation *test_core_quotation = new core_quotation();
+     QVERIFY(test_core_quotation->setAttribut(Project1,poutreAttribut));
+     QVERIFY(Project1.getIdProject() == poutreAttribut.setOrderIdProject(20));
+
+}
 
 //la définition de test
 QTEST_MAIN(test_app)
