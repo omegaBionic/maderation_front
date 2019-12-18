@@ -33,6 +33,7 @@
 #include "../app/UI/main_quotation.h"
 
 #include "../app/CORE/core_messages.h"
+#include "../app/CORE/core_quotation.h"
 
 // add necessary includes here
 
@@ -128,6 +129,11 @@ private slots:
     void core_login_get_user();
     void test_core_user_management_add();
     void test_core_user_management_modify();
+
+    void test_core_quotation_getAttribut();
+    void test_core_quotation_getProduct();
+    void test_core_quotation_setAttribut();
+
 
 };
 
@@ -954,7 +960,95 @@ void test_app::test_core_user_management_modify()
 
 }
 
+void test_app::test_core_quotation_getAttribut()
+{
+    bdd_PRODUCT poutre;
+    bdd_ATTRIBUT poutreAttribut;
 
+    poutre.setType("Poutre");
+    poutre.setLabel("Poutre bois 300/50");
+    poutre.setMaterial("bois");
+    poutre.setMinWidth(50);
+    poutre.setIdProduct("1");
+    poutre.setMinLength(100);
+    poutre.setProductCode("PB-300-50");
+    poutre.setDefaultWidth(50);
+    poutre.setDefaultHeight(50);
+    poutre.setDefaultLength(300);
+    poutre.setSupplierIdSupplier(42);
+
+    poutreAttribut.setLength(500)
+    poutreAttribut.setPositionY(240);
+    poutreAttribut.setWidth(50);
+    poutreAttribut.setHeight(50);
+    poutreAttribut.setProductIdProduct(1);
+    poutreAttribut.setOrderIdProject(42);
+    poutreAttribut.setPositionX(150);
+    poutreAttribut.setRotationY(0);
+    poutreAttribut.setPositionZ(0);
+    poutreAttribut.setRotationX(0);
+    poutreAttribut.setIdAttribut(1);
+
+    core_quotation *test_core_quotation = new core_quotation();
+    QVERIFY(!test_core_quotation->getAttributs(poutre) == NULL);
+
+}
+
+
+void test_app::test_core_quotation_getProduct()
+{
+    bdd_PRODUCT poutre;
+
+
+    poutre.setType("Poutre");
+    poutre.setLabel("Poutre bois 300/50");
+    poutre.setMaterial("bois");
+    poutre.setMinWidth(50);
+    poutre.setIdProduct("1");
+    poutre.setMinLength(100);
+    poutre.setProductCode("PB-300-50");
+    poutre.setDefaultWidth(50);
+    poutre.setDefaultHeight(50);
+    poutre.setDefaultLength(300);
+    poutre.setSupplierIdSupplier(42);
+
+
+    core_quotation *test_core_quotation = new core_quotation();
+    QVector<bdd_PRODUCT> listProduct;
+    listProduct = test_core_quotation->getProduct("Poutre", "Type");
+    QVERIFY(&listProduct != NULL);
+
+}
+
+void test_app::test_core_quotation_setAttribut()
+{
+     bdd_ATTRIBUT poutreAttribut;
+     bdd_PROJECT Project1;
+
+     poutreAttribut.setLength(500)
+     poutreAttribut.setPositionY(240);
+     poutreAttribut.setWidth(50);
+     poutreAttribut.setHeight(50);
+     poutreAttribut.setProductIdProduct(1);
+     poutreAttribut.setOrderIdProject(20);
+     poutreAttribut.setPositionX(150);
+     poutreAttribut.setRotationY(0);
+     poutreAttribut.setPositionZ(0);
+     poutreAttribut.setRotationX(0);
+     poutreAttribut.setIdAttribut(1);
+
+     Project1.setIdProject("42");
+     Project1.setIsTemplate(false);
+     Project1.setValidation(false);
+     Project1.setuserUseName("Projet1 test");
+     Project1.setCreationDate("18/12/2019");
+     Project1.setValidationDate("00/00/0000");
+
+     core_quotation *test_core_quotation = new core_quotation();
+     QVERIFY(test_core_quotation->setAttribut(Project1,poutreAttribut));
+     QVERIFY(Project1.getIdProject() == poutreAttribut.setOrderIdProject(20));
+
+}
 
 //la définition de test
 QTEST_MAIN(test_app)
