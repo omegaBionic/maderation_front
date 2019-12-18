@@ -35,6 +35,8 @@ private slots:
     void tplCancelled();
     void tplValidated();
 
+    void on_pushButton_power_clicked();
+
 private:
     void resizeEvent(QResizeEvent * event);
     bool event(QEvent *event);

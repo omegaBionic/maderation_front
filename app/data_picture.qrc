@@ -63,5 +63,9 @@
         <file>img/new_component_pressed.png</file>
         <file>img/up_arrow.png</file>
         <file>img/up_arrow_hover.png</file>
+        <file>img/powerOff.png</file>
+        <file>img/powerOff_hover.png</file>
+        <file>img/powerOff_pressed.png</file>
+        <file>img/background_dialog.png</file>
     </qresource>
 </RCC>

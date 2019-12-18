@@ -47,3 +47,9 @@ void Dialog_Critical::on_cancel_clicked()
     this->reject();
 }
 
+
+void Dialog_Critical::resizeEvent(QResizeEvent *){
+    // format 16:9 only for the moment
+    ui->verticalLayout->setGeometry(QRect(0,0,this->width(), this->height()));
+
+}

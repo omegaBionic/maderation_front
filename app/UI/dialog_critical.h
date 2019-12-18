@@ -19,6 +19,8 @@ private slots:
     void on_validate_clicked();
 
     void on_cancel_clicked();
+    void resizeEvent(QResizeEvent * event);
+
 
 private:
     Ui::Dialog_Critical *ui;

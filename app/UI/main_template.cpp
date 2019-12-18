@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <math.h>
 #include <QThread>
+#include "dialog_critical.h"
 
 main_template::main_template(QWidget *parent) :
     QMainWindow(parent),
@@ -128,6 +129,7 @@ void main_template::resizeEvent(QResizeEvent *){
 
     }
 
+    ui->pushButton_power->setGeometry(124*_width, 0*_height ,4*_width, 4*_height);
     ui->grey_screen->setGeometry(0,0,128*_width, 72*_height);
     ui->background_form->setGeometry(15*_width,5*_height,98*_width, 56*_height);
 
@@ -148,4 +150,14 @@ void main_template::tplValidated(){
     ui->grey_screen->hide();
 
     emit openProject(bdd_PROJECT("Tue Dec  2 00:00:00 PST 2014", "true", "Tue Dec  2 00:00:00 PST 2014", "true", "0", "omega"));
+}
+
+void main_template::on_pushButton_power_clicked()
+{
+    Dialog_Critical *c = new Dialog_Critical(this,"Exit ?", "êtes vous sûr de vouloir quitter l'application ?", "question");
+    int result = c->exec();
+    qDebug() << "result du exit : "<< result;
+    if(result == QDialog::Accepted){
+        this->close();
+    }
 }

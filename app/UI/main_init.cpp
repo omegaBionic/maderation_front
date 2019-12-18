@@ -14,6 +14,7 @@
 #include <QDebug>
 #include <QCoreApplication>
 #include <QDir>
+#include "dialog_critical.h"
 
 main_init::main_init(QWidget *parent) :
     QMainWindow(parent),
@@ -56,6 +57,7 @@ void main_init::resize(){
     ui->progressBar->setGeometry(40*_width, 30*_height, 42*_width, 8*_height);
     ui->progressBar->setStyleSheet("QProgressBar:horizontal { border: 1px solid gray; border-radius: 3px;background:#00000000;background-image: url(./DATA_IMG/loading_img/loading_leaf_grey.png);}QProgressBar::chunk:horizontal {background:#00000000;background-image: url(./DATA_IMG/loading_img/loading_leaf.png);}");
 
+    ui->pushButton_power->setGeometry(124*_width, 0*_height ,4*_width, 4*_height);
 
 }
 

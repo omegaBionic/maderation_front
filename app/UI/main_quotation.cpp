@@ -4,6 +4,7 @@
 #include <QMouseEvent>
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>
+#include "dialog_critical.h"
 
 Main_Quotation::Main_Quotation(QWidget *parent) :
     QMainWindow(parent),
@@ -102,6 +103,7 @@ void Main_Quotation::resizeEvent(QResizeEvent *){
     ui->graphicsView->setGeometry(37*_width, 1*_height, 90*_width, 60*_height);
     _scene->setSceneRect(ui->graphicsView->rect());
 
+    ui->pushButton_power->setGeometry(124*_width, 0*_height ,4*_width, 4*_height);
     _menu->setGeometry(42*_width, 62*_height, 48*_width, 12*_height);
 
 }
@@ -130,4 +132,14 @@ void Main_Quotation::Item_Updated(Rect_Custom* rect){
     ui->spinBox_Width->setValue(rect->getWidth());
     ui->spinBox_Length->setValue(rect->getLength());
 
+}
+
+void Main_Quotation::on_pushButton_power_clicked()
+{
+    Dialog_Critical *c = new Dialog_Critical(this,"Exit ?", "êtes vous sûr de vouloir quitter l'application ?", "question");
+    int result = c->exec();
+    qDebug() << "result du exit : "<< result;
+    if(result == QDialog::Accepted){
+        this->close();
+    }
 }

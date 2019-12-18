@@ -30,6 +30,8 @@ private slots:
     void getButton_clicked(int ID);
     void getButtonDel_clicked(int ID);
 
+    void on_pushButton_power_clicked();
+
 private:
     void resizeEvent(QResizeEvent * event);
     bool event(QEvent *event);
