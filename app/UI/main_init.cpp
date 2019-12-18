@@ -33,11 +33,16 @@ void main_init::resize(){
     QRect win = this->geometry();
     _width = win.width()/128;
     _height = win.height()/72;
+    QDir dir = QDir("./DATA_IMG");
+    if(!dir.exists()){
+        dir.mkpath(".");
+        dir.mkpath("./loading_img");
+    }
 
 
     QPixmap p = QPixmap(":/pictures/img/loading_leaf_grey.png");
     p = p.scaled(42*_width, 8*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
-    p.save("DATA_IMG/loading_img/loading_leaf_grey.png", "png");
+    bool test = p.save("DATA_IMG/loading_img/loading_leaf_grey.png", "png");
     p = QPixmap(":/pictures/img/loading_leaf.png");
     p = p.scaled(42*_width, 8*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
     p.save("DATA_IMG/loading_img/loading_leaf.png", "png");
@@ -49,7 +54,7 @@ void main_init::resize(){
     ui->label_titre->setGeometry(45*_width, 5*_height, 32*_width, 6*_height);
     ui->label_info->setGeometry(40*_width, 40*_height, 42*_width, 6*_height);
     ui->progressBar->setGeometry(40*_width, 30*_height, 42*_width, 8*_height);
-    ui->progressBar->setStyleSheet("QProgressBar:horizontal { border: 1px solid gray; border-radius: 3px;background:#00000000;background-image: url(DATA_IMG/loading_img/loading_leaf_grey.png);}QProgressBar::chunk:horizontal {background:#00000000;background-image: url(DATA_IMG/loading_img/loading_leaf.png);}");
+    ui->progressBar->setStyleSheet("QProgressBar:horizontal { border: 1px solid gray; border-radius: 3px;background:#00000000;background-image: url(./DATA_IMG/loading_img/loading_leaf_grey.png);}QProgressBar::chunk:horizontal {background:#00000000;background-image: url(./DATA_IMG/loading_img/loading_leaf.png);}");
 
 
 }
@@ -127,7 +132,7 @@ bool main_init::checkConnection()
                 qApp->processEvents();
                 if(clock()%120 == 0){
                     if(!hasUpgrade){
-                        if(QFile::exists("STATUS/jsonStatus.json")){
+                        if(QFile::exists("./STATUS/jsonStatus.json")){
                             qDebug() << "file exist";
                             break;
                         }
@@ -140,7 +145,7 @@ bool main_init::checkConnection()
                 }
             }
             this->wait(500,10);
-            if(QFile::exists("STATUS/jsonStatus.json")){
+            if(QFile::exists("./STATUS/jsonStatus.json")){
             bdd_STATUS status = api->parse_file_status().first();
             qDebug() << "data : "+status.getDatas();
                 if(status.getDatas() == "OK"){
@@ -173,11 +178,11 @@ void main_init::Check_folder()
 {
     // verification de lexistence du dossier DATA
     ui->label_info->setText("Vérification de la présence du dosier de donnée");
-    QDir stat("STATUS");
+    QDir stat("./STATUS");
     if(!stat.exists()){
         stat.mkpath(".");
     }
-    QDir folder("DATA");
+    QDir folder("./DATA");
     if(folder.exists())
     {
         //existe
@@ -210,26 +215,26 @@ void main_init::Transfert_Tables()
 
     ui->label_info->setText("téléchargement des données");
     //creation des object table de type qfile et de leur chemin
-    QFile T_jsonUser("../app/DATA/jsonUser.json");
-    QFile T_jsonClient("../app/DATA/jsonClient.json");
-    QFile T_jsonAddressClient("../app/DATA/jsonAddressClient.json");
-    QFile T_jsonCategory("../app/DATA/jsonCategory.json");
-    QFile T_jsonChat("../app/DATA/jsonChat.json");
-    QFile T_jsonComponent("../app/DATA/jsonComponent.json");
-    QFile T_jsonGamme("../app/DATA/jsonGamme.json");
-    QFile T_jsonInvoiceQuotation("../app/DATA/jsonInvoiceQuotation.json");
-    QFile T_jsonMessage("../app/DATA/jsonMessage.json");
-    QFile T_jsonProduct("../app/DATA/jsonProduct.json");
-    QFile T_jsonProject("../app/DATA/jsonProject.json");
-    QFile T_jsonPromotionCat("../app/DATA/jsonPromotionCat.json");
-    QFile T_jsonPromotionComp("../app/DATA/jsonPromotionComp.json");
-    QFile T_jsonQuotation("../app/DATA/jsonQuotation.json");
+    QFile T_jsonUser("./DATA/jsonUser.json");
+    QFile T_jsonClient("./DATA/jsonClient.json");
+    QFile T_jsonAddressClient("./DATA/jsonAddressClient.json");
+    QFile T_jsonCategory("./DATA/jsonCategory.json");
+    QFile T_jsonChat("./DATA/jsonChat.json");
+    QFile T_jsonComponent("./DATA/jsonComponent.json");
+    QFile T_jsonGamme("./DATA/jsonGamme.json");
+    QFile T_jsonInvoiceQuotation("./DATA/jsonInvoiceQuotation.json");
+    QFile T_jsonMessage("./DATA/jsonMessage.json");
+    QFile T_jsonProduct("./DATA/jsonProduct.json");
+    QFile T_jsonProject("./DATA/jsonProject.json");
+    QFile T_jsonPromotionCat("./DATA/jsonPromotionCat.json");
+    QFile T_jsonPromotionComp("./DATA/jsonPromotionComp.json");
+    QFile T_jsonQuotation("./DATA/jsonQuotation.json");
 
-    QFile T_jsonRole("../app/DATA/jsonRole.json");
-    QFile T_jsonShop("../app/DATA/jsonShop.json");
-    QFile T_jsonStock("../app/DATA/jsonStock.json");
-    QFile T_jsonSupplier("../app/DATA/jsonSupplier.json");
-    QFile T_jsonAdressSupplier("../app/DATA/jsonAddressSupplier.json");
+    QFile T_jsonRole("./DATA/jsonRole.json");
+    QFile T_jsonShop("./DATA/jsonShop.json");
+    QFile T_jsonStock("./DATA/jsonStock.json");
+    QFile T_jsonSupplier("./DATA/jsonSupplier.json");
+    QFile T_jsonAdressSupplier("./DATA/jsonAddressSupplier.json");
 
     //timeOut Variable
 

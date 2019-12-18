@@ -1,34 +1,39 @@
-#ifndef MAIN_MENU_H
-#define MAIN_MENU_H
+#ifndef MAIN_TEMPLATE_H
+#define MAIN_TEMPLATE_H
 
 #include <QMainWindow>
 #include <QLabel>
 #include "menu_toolbar.h"
 #include "../UI/button_quotation.h"
 #include "../DB_CLASSES/bdd_project.h"
+#include "form_template.h"
 
 namespace Ui {
-class Main_Menu;
+class main_template;
 }
 
-class Main_Menu : public QMainWindow
+class main_template : public QMainWindow
 {
     Q_OBJECT
 
+
 public:
-    explicit Main_Menu(QWidget *parent = nullptr);
-    explicit Main_Menu(QWidget *parent = nullptr, menu_toolbar* menu = nullptr, QVector<bdd_PROJECT>* listProject = nullptr);
-    ~Main_Menu();
+    explicit main_template(QWidget *parent = nullptr);
+    explicit main_template(QWidget *parent = nullptr, menu_toolbar* menu = nullptr, QVector<bdd_PROJECT>* listProject = nullptr);
+    ~main_template();
     void showFull();
 
 signals:
     void Initialized(int window);
     void button_clicked(int ID);
     void deleteProject(int ID);
+    void openProject(bdd_PROJECT project);
 
 private slots:
     void getButton_clicked(int ID);
     void getButtonDel_clicked(int ID);
+    void tplCancelled();
+    void tplValidated();
 
 private:
     void resizeEvent(QResizeEvent * event);
@@ -38,8 +43,11 @@ private:
     QVector<QLabel*>* _listLabel_Button;
     int _width;
     int _height;
-    Ui::Main_Menu *ui;
+    Ui::main_template *ui;
     menu_toolbar* _menu;
+    Form_template* _tpl;
+
+
 };
 
-#endif // MAIN_MENU_H
+#endif // MAIN_TEMPLATE_H

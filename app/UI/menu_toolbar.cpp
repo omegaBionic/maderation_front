@@ -22,6 +22,10 @@ void menu_toolbar::setWindow(QString win){
         _window = 1;
     }else if (win == "user"){
         _window = 2;
+    }else if (win == "template"){
+        _window = 3;
+    }else if (win == "quotation"){
+        _window = 4;
     }else{
         _window = 0;
     }
@@ -114,6 +118,12 @@ void menu_toolbar::resizeAll(){
         ui->push_background->setStyleSheet("QPushButton{color: white;border-radius: "+QString::number(ui->push_background->height()/2)+"px;background-color: rgb(93, 82, 82);}");
 
     }else{
+
+        ui->btn_menu->setVisible(true);
+        ui->btn_user->setVisible(true);
+        ui->btn_logoff->setVisible(true);
+        ui->btn_archive->setVisible(true);
+        ui->btn_messages->setVisible(true);
         ui->btn_menu->setGeometry(8*_width, 34*_height, widthButton, heightButton);
         ui->btn_menu->setIcon(QPixmap(":/pictures/img/logo accueil.png").scaled(widthButton, heightButton,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
         ui->btn_menu->setIconSize(QSize(widthButton, heightButton));

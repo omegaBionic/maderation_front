@@ -1,22 +1,31 @@
-#include "main_menu.h"
-#include "ui_main_menu.h"
+#include "main_template.h"
+#include "ui_main_template.h"
 #include <QDebug>
 #include <math.h>
 #include <QThread>
 
-Main_Menu::Main_Menu(QWidget *parent) :
+main_template::main_template(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::Main_Menu)
+    ui(new Ui::main_template)
 {
     ui->setupUi(this);
     _menu = new menu_toolbar(this);
 }
 
-Main_Menu::Main_Menu(QWidget *parent, menu_toolbar* m, QVector<bdd_PROJECT>* listProject) :
+main_template::main_template(QWidget *parent, menu_toolbar* m, QVector<bdd_PROJECT>* listProject) :
     QMainWindow(parent),
-    ui(new Ui::Main_Menu)
+    ui(new Ui::main_template)
 {
     ui->setupUi(this);
+
+    ui->background_form->hide();
+    ui->grey_screen->hide();
+
+    _tpl = new Form_template(this, "");
+    _tpl->hide();
+    QObject::connect(_tpl, &Form_template::cancelled, this, &main_template::tplCancelled);
+    QObject::connect(_tpl, &Form_template::validated, this, &main_template::tplValidated);
+
     _menu = m;
     _menu->setParent(this);
     _listButton_quot = new QVector<button_quotation*>;
@@ -28,7 +37,7 @@ Main_Menu::Main_Menu(QWidget *parent, menu_toolbar* m, QVector<bdd_PROJECT>* lis
     button_quotation* btn = new button_quotation(ui->scrollAreaWidgetContents,-1, ":/pictures/img/trash_logo.png",true);
     btn->hide();
     _listButton_del->append(btn);
-    _listLabel_Button->append(new QLabel("New", ui->scrollAreaWidgetContents)); // new icon
+    _listLabel_Button->append(new QLabel("New Empty Project", ui->scrollAreaWidgetContents)); // new icon
     for(int i = 0; i<listProject->count(); i++){
         bdd_PROJECT project = listProject->at(i);
         qDebug() << "buttons added : ";
@@ -46,47 +55,51 @@ Main_Menu::Main_Menu(QWidget *parent, menu_toolbar* m, QVector<bdd_PROJECT>* lis
     for(int i = 0; i< _listButton_quot->size(); i++){
         _listButton_quot->at(i)->setText("");
         _listButton_quot->at(i)->setStyleSheet("QPushButton {background-color: #00000000; border-radius: 30px; border: 10px solid #7f7f7f;}");
-        QObject::connect(_listButton_quot->at(i), &button_quotation::clicked_ID, this, &Main_Menu::getButton_clicked);
+        QObject::connect(_listButton_quot->at(i), &button_quotation::clicked_ID, this, &main_template::getButton_clicked);
         _listButton_del->at(i)->setText("");
         _listButton_del->at(i)->setStyleSheet("QPushButton {background-color: #00000000; border: 0px;}");
-        QObject::connect(_listButton_del->at(i), &button_quotation::clicked_ID, this, &Main_Menu::getButtonDel_clicked);
+        QObject::connect(_listButton_del->at(i), &button_quotation::clicked_ID, this, &main_template::getButtonDel_clicked);
         _listLabel_Button->at(i)->setAlignment(Qt::AlignmentFlag::AlignCenter);
         _listLabel_Button->at(i)->setStyleSheet("QLabel { font: 12pt 'Futura LT';}");
     }
 }
 
-Main_Menu::~Main_Menu()
+main_template::~main_template()
 {
     delete ui;
 }
 
-bool Main_Menu::event(QEvent * e)
+bool main_template::event(QEvent * e)
 {
     if(e->type() == QEvent::HoverEnter){
-        emit Initialized(1);
+        emit Initialized(4);
     }
 
     return QMainWindow::event(e) ;
 }
 
-void Main_Menu::getButton_clicked(int ID){
+void main_template::getButton_clicked(int ID){
     qDebug()<< "button clicked : "+ QString::number(ID);
-    emit button_clicked(ID);
+    ui->grey_screen->show();
+    ui->background_form->show();
+    _tpl->setRessource("./DATA_IMG/quot_default.png");
+    _tpl->setGeometry(17*_width,7*_height,94*_width, 52*_height);
+    _tpl->show();
 }
 
-void Main_Menu::getButtonDel_clicked(int ID){
+void main_template::getButtonDel_clicked(int ID){
     qDebug()<< "button delete clicked : "+ QString::number(ID);
     emit deleteProject(ID);
 
 }
 
-void Main_Menu::showFull(){
+void main_template::showFull(){
     qDebug() << "affichage de la menu";
     this->showFullScreen();
     qDebug() << "emited de la menu";
 }
 
-void Main_Menu::resizeEvent(QResizeEvent *){
+void main_template::resizeEvent(QResizeEvent *){
     // format 16:9 only for the moment
     QRect win = this->geometry();
 
@@ -115,6 +128,24 @@ void Main_Menu::resizeEvent(QResizeEvent *){
 
     }
 
+    ui->grey_screen->setGeometry(0,0,128*_width, 72*_height);
+    ui->background_form->setGeometry(15*_width,5*_height,98*_width, 56*_height);
+
     _menu->setGeometry(42*_width, 62*_height, 48*_width, 12*_height);
 
+}
+
+void main_template::tplCancelled(){
+    _tpl->hide();
+    ui->background_form->hide();
+    ui->grey_screen->hide();
+
+}
+
+void main_template::tplValidated(){
+    _tpl->hide();
+    ui->background_form->hide();
+    ui->grey_screen->hide();
+
+    emit openProject(bdd_PROJECT("Tue Dec  2 00:00:00 PST 2014", "true", "Tue Dec  2 00:00:00 PST 2014", "true", "0", "omega"));
 }
