@@ -14,6 +14,7 @@ main_user::main_user(QWidget *parent, menu_toolbar* menu, QVector<bdd_USER>* lis
 {
     ui->setupUi(this);
     _menu = menu;
+    _menu->setParent(this);
 
     _listUsers = list_User;
 
@@ -62,6 +63,7 @@ void main_user::resizeEvent(QResizeEvent *){
     int height_toolbox = ui->scrollArea->height() + (_height * ui->toolBox->count());
     ui->toolBox->setGeometry(0*_width, 0*_height, ui->scrollAreaWidgetContents->width() - _width, height_toolbox);
     ui->scrollAreaWidgetContents->setGeometry(13*_width, 11*_height, 100*_width, height_toolbox);
+
     _menu->setGeometry(42*_width, 62*_height, 48*_width, 12*_height);
 
 

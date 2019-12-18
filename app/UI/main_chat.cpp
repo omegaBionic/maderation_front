@@ -1,6 +1,7 @@
 #include "main_chat.h"
 #include "ui_main_chat.h"
 #include "form_messages.h"
+#include "../CORE/core_messages.h"
 #include <QDebug>
 
 main_chat::main_chat(QWidget *parent) :
@@ -21,13 +22,10 @@ main_chat::main_chat(QWidget *parent, menu_toolbar* m, QVector<bdd_CHAT>* listCh
     _user = username;
     for(int i = 0; i < listChat->count(); i++){
         bdd_CHAT chat = listChat->at(i);
-        QVector<bdd_MESSAGE>* listMessage = new QVector<bdd_MESSAGE>();
-        listMessage->append(bdd_MESSAGE("11 novembre 2100", "this is a message", chat.getIdChat(),"toto", "0"));
-        listMessage->append(bdd_MESSAGE("12 novembre 2100", "this is not a message", chat.getIdChat(),chat.getUserUsernameAsReceiver(), "0"));
-        listMessage->append(bdd_MESSAGE("13 novembre 2100", "this is maybe a message", chat.getIdChat(),"toto", "0"));
-        listMessage->append(bdd_MESSAGE("14 novembre 2100", "this is sometimes a message", chat.getIdChat(),chat.getUserUsernameAsReceiver(), "0"));
-        listMessage->append(bdd_MESSAGE("15 novembre 2100", "this is strangely a message", chat.getIdChat(),"toto", "0"));
-        ui->tabWidget->addTab(new Form_messages(this, listMessage, chat.getTitle(), _user),chat.getTitle() + "("+chat.getUserUsernameAsReceiver()+")");
+        core_messages* msg = new core_messages();
+
+        QVector<bdd_MESSAGE> listMessage = msg->getMessages(chat.getIdChat());
+        ui->tabWidget->addTab(new Form_messages(this, &listMessage, chat.getTitle(), _user),chat.getTitle() + "("+chat.getUserUsernameAsReceiver()+")");
     }
 
 }
