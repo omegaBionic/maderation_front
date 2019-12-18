@@ -15,5 +15,8 @@
         <file>img/background_1920.png</file>
         <file>img/background_login.png</file>
         <file>img/trash_logo.png</file>
+        <file>img/powerOff.png</file>
+        <file>img/powerOff_hover.png</file>
+        <file>img/powerOff_pressed.png</file>
     </qresource>
 </RCC>
