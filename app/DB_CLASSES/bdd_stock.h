@@ -1,13 +1,14 @@
 #ifndef BDD_STOCK_H
 #define BDD_STOCK_H
 #include <QFile>
+#include "bdd_global.h"
 
-class bdd_STOCK
+class bdd_STOCK : public bdd_global
 {
 public:
     bdd_STOCK(int amount, QString idStock, int productIdProduct, int addressIdAddress);
     bdd_STOCK();
-    ~bdd_STOCK();
+    virtual ~bdd_STOCK();
 
     void setAmount(int);
     void setIdStock(QString);
@@ -18,6 +19,10 @@ public:
     QString getIdStock();
     int getProductIdProduct();
     int getAddressIdAddress();
+
+    QString getId() override;
+    QString getTable() override;
+    QMap<QString, QString> getDict() override;
 
 private:
 

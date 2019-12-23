@@ -73,19 +73,45 @@ QString bdd_ADDRESS_CLIENT::getTable(){
 
 QMap<QString, QString> bdd_ADDRESS_CLIENT::getDict(){
 
-    QFile file;
-    file.setFileName("DATA/jsonAddress_client.json");
-    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    QFile file("data/jsonAddressClient.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
 
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
 
-    QJsonParseError jsonError;
-    QJsonDocument flowerJson = QJsonDocument::fromJson(file.readAll(),&jsonError);
-    if (jsonError.error != QJsonParseError::NoError){
-    qDebug() << jsonError.errorString();
-    }
-    QList<QVariant> list = flowerJson.toVariant().toList();
-    QMap<QString, QVariant> map = list[0].toMap();
-    qDebug() << map["name"].toString();
+    // Get JSON object
+    QJsonObject json = doc.object();
 
-    //return map;
+    QJsonObject sett3 = json["Dictionary"].toObject();
+
+    QMap<QString, QString> cAddressClient;
+
+    //cAddressClient.insert(sett3.keys(),sett3.value("Dictionary").toString());
+
+    return cAddressClient;
+
 }
+
+QMap<QStringList, QString> bdd_ADDRESS_CLIENT::TestDict(){
+
+    QFile file("data/jsonAddressClient.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
+
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+
+    // Get JSON object
+    QJsonObject json = doc.object();
+
+    QJsonObject sett3 = json["Dictionary"].toObject();
+
+    QMap<QStringList, QString> cAddressClient;
+
+    cAddressClient.insert(sett3.keys(),sett3.value("Dictionary").toString());
+
+    return cAddressClient;
+
+}
+

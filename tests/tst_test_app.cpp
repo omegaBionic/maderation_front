@@ -74,6 +74,7 @@ private slots:
     void api_get_request_test_get_table_shop();
     void api_get_request_test_get_table_stock();
     void api_get_request_test_get_table_supplier();
+    void api_get_request_test_get_table_attribut();
 
     void api_get_request_test_parse_file_status();
     void api_get_request_test_parse_file_user();
@@ -95,6 +96,7 @@ private slots:
     void api_get_request_test_parse_file_shop();
     void api_get_request_test_parse_file_stock();
     void api_get_request_test_parse_file_supplier();
+    void apit_get_request_test_parse_file_attribut();
 
     void button_quotation_exist();
     void button_quotation_have_ID();
@@ -124,7 +126,6 @@ void test_app::initTestCase()
 
 
 }
-
 
 void test_app::cleanupTestCase()
 {
@@ -379,6 +380,30 @@ void test_app::api_get_request_test_get_table_supplier(){
 
         api_get_request* api = new api_get_request();
         api->get_table_supplier();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::api_get_request_test_get_table_attribut(){
+    try {
+
+        api_get_request* api = new api_get_request();
+        api->get_table_attribut();
+    }
+    catch (int e) {
+       qDebug()<<e;
+    }
+
+}
+
+void test_app::apit_get_request_test_parse_file_attribut(){
+    try {
+
+        api_get_request* api = new api_get_request();
+        api->parse_file_attribut();
     }
     catch (int e) {
        qDebug()<<e;

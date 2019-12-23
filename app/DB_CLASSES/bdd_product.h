@@ -1,13 +1,14 @@
 #ifndef BDD_PRODUCT_H
 #define BDD_PRODUCT_H
 #include <QFile>
+#include "bdd_global.h"
 
-class bdd_PRODUCT
+class bdd_PRODUCT : public bdd_global
 {
 public:
     bdd_PRODUCT(int supplierIdsupplier, QString idProduct, int minWidth, int defaultLength, QString label, QString productCode, int defaultHeight, int defaultWidth, QString material, int minLength, QString type);
     bdd_PRODUCT();
-    ~bdd_PRODUCT();
+    virtual ~bdd_PRODUCT();
 
     void setSupplierIdSupplier(int);
     void setIdProduct(QString);
@@ -32,6 +33,10 @@ public:
     QString getMaterial();
     int getMinLength();
     QString getType();
+
+    QString getId() override;
+    QString getTable() override;
+    QMap<QString, QString> getDict() override;
 
 private:
     int _supplierIdSupplier;

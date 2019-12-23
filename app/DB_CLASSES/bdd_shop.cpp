@@ -1,6 +1,13 @@
 #include "bdd_shop.h"
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonValue>
+#include <QDebug>
+#include <QFile>
+#include <QObject>
+#include <QFile>
 
-bdd_SHOP::bdd_SHOP(QString city, QString idShop, QString country, int postalCode, QString street)
+bdd_SHOP::bdd_SHOP(QString city, QString idShop, QString country, int postalCode, QString street): bdd_global(QString("id"), QString("table"))
 {
     this->_city = city;
     this->_idShop = idShop;
@@ -9,7 +16,7 @@ bdd_SHOP::bdd_SHOP(QString city, QString idShop, QString country, int postalCode
     this->_street = street;
 
 }
-bdd_SHOP::bdd_SHOP(){
+bdd_SHOP::bdd_SHOP(): bdd_global(QString("id"), QString("table")){
 
 }
 bdd_SHOP::~bdd_SHOP(){
@@ -45,4 +52,30 @@ return _postalCode;
 }
 QString bdd_SHOP::getStreet(){
 return _street;
+}
+
+QString bdd_SHOP::getId(){
+    return "idRole";
+}
+QString bdd_SHOP::getTable(){
+    return "role";
+}
+
+QMap<QString, QString> bdd_SHOP::getDict(){
+
+    QFile file;
+    file.setFileName("DATA/jsonShop.json");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+
+    QJsonParseError jsonError;
+    QJsonDocument flowerJson = QJsonDocument::fromJson(file.readAll(),&jsonError);
+    if (jsonError.error != QJsonParseError::NoError){
+    qDebug() << jsonError.errorString();
+    }
+    QList<QVariant> list = flowerJson.toVariant().toList();
+    QMap<QString, QVariant> map = list[0].toMap();
+    qDebug() << map["name"].toString();
+
+    //return map;
 }

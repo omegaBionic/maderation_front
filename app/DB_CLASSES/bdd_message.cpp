@@ -1,7 +1,13 @@
 #include "bdd_message.h"
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonValue>
+#include <QDebug>
+#include <QFile>
+#include <QObject>
 #include <QFile>
 
-bdd_MESSAGE::bdd_MESSAGE(QString creationDate, QString message, QString chatIoChat, QString userUsername, QString idMessage)
+bdd_MESSAGE::bdd_MESSAGE(QString creationDate, QString message, QString chatIoChat, QString userUsername, QString idMessage): bdd_global(QString("id"), QString("table"))
 {
     this->_creationDate = creationDate;
     this->_message = message;
@@ -9,7 +15,7 @@ bdd_MESSAGE::bdd_MESSAGE(QString creationDate, QString message, QString chatIoCh
     this->_userUsername = userUsername;
     this->_idMessage = idMessage;
 }
-bdd_MESSAGE::bdd_MESSAGE(){
+bdd_MESSAGE::bdd_MESSAGE(): bdd_global(QString("id"), QString("table")){
 
 }
 bdd_MESSAGE::~bdd_MESSAGE(){
@@ -45,4 +51,30 @@ QString bdd_MESSAGE::getUserUsername(){
 }
 QString bdd_MESSAGE::getIdMessage(){
     return _idMessage;
+}
+
+QString bdd_MESSAGE::getId(){
+    return "idMessage";
+}
+QString bdd_MESSAGE::getTable(){
+    return "message";
+}
+
+QMap<QString, QString> bdd_MESSAGE::getDict(){
+
+    QFile file;
+    file.setFileName("DATA/jsonMessage.json");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+
+    QJsonParseError jsonError;
+    QJsonDocument flowerJson = QJsonDocument::fromJson(file.readAll(),&jsonError);
+    if (jsonError.error != QJsonParseError::NoError){
+    qDebug() << jsonError.errorString();
+    }
+    QList<QVariant> list = flowerJson.toVariant().toList();
+    QMap<QString, QVariant> map = list[0].toMap();
+    qDebug() << map["name"].toString();
+
+    //return map;
 }

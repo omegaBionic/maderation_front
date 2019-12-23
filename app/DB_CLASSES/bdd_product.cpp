@@ -1,7 +1,13 @@
 #include "bdd_product.h"
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonValue>
+#include <QDebug>
+#include <QFile>
+#include <QObject>
 #include <QFile>
 
-bdd_PRODUCT::bdd_PRODUCT(int supplierIdsupplier, QString idProduct, int minWidth, int defaultLength, QString label, QString productCode, int defaultHeight, int defaultWidth, QString material, int minLength, QString type)
+bdd_PRODUCT::bdd_PRODUCT(int supplierIdsupplier, QString idProduct, int minWidth, int defaultLength, QString label, QString productCode, int defaultHeight, int defaultWidth, QString material, int minLength, QString type): bdd_global(QString("id"), QString("table"))
 {
 this->_supplierIdSupplier = supplierIdsupplier;
     this->_idProduct = idProduct;
@@ -15,7 +21,7 @@ this->_supplierIdSupplier = supplierIdsupplier;
     this->_minLength = minLength;
     this->_type = type;
 }
-bdd_PRODUCT::bdd_PRODUCT(){
+bdd_PRODUCT::bdd_PRODUCT(): bdd_global(QString("id"), QString("table")){
 
 }
 bdd_PRODUCT::~bdd_PRODUCT(){
@@ -87,4 +93,30 @@ int bdd_PRODUCT::getMinLength(){
 }
 QString bdd_PRODUCT::getType(){
     return _type;
+}
+
+QString bdd_PRODUCT::getId(){
+    return "idProduct";
+}
+QString bdd_PRODUCT::getTable(){
+    return "product";
+}
+
+QMap<QString, QString> bdd_PRODUCT::getDict(){
+
+    QFile file;
+    file.setFileName("DATA/jsonProduct.json");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+
+    QJsonParseError jsonError;
+    QJsonDocument flowerJson = QJsonDocument::fromJson(file.readAll(),&jsonError);
+    if (jsonError.error != QJsonParseError::NoError){
+    qDebug() << jsonError.errorString();
+    }
+    QList<QVariant> list = flowerJson.toVariant().toList();
+    QMap<QString, QVariant> map = list[0].toMap();
+    qDebug() << map["name"].toString();
+
+    //return map;
 }

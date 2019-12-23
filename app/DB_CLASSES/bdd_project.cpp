@@ -1,6 +1,13 @@
 #include "bdd_project.h"
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonValue>
+#include <QDebug>
+#include <QFile>
+#include <QObject>
+#include <QFile>
 
-bdd_PROJECT::bdd_PROJECT(QString validationDate, bool validation, QString creationDate, bool isTemplate, QString idProject, QString userUsername)
+bdd_PROJECT::bdd_PROJECT(QString validationDate, bool validation, QString creationDate, bool isTemplate, QString idProject, QString userUsername): bdd_global(QString("id"), QString("table"))
 {
     this->_validationDate = validationDate;
     this->_validation = validation;
@@ -9,7 +16,7 @@ bdd_PROJECT::bdd_PROJECT(QString validationDate, bool validation, QString creati
     this->_idProject = idProject;
     this->_userUserName = userUsername;
 }
-bdd_PROJECT::bdd_PROJECT(){
+bdd_PROJECT::bdd_PROJECT(): bdd_global(QString("id"), QString("table")){
 
 }
 bdd_PROJECT::~bdd_PROJECT(){
@@ -51,4 +58,30 @@ QString bdd_PROJECT::getIdProject(){
 }
 QString bdd_PROJECT::getUserUserName(){
     return _userUserName;
+}
+
+QString bdd_PROJECT::getId(){
+    return "idProject";
+}
+QString bdd_PROJECT::getTable(){
+    return "project";
+}
+
+QMap<QString, QString> bdd_PROJECT::getDict(){
+
+    QFile file;
+    file.setFileName("DATA/jsonProject.json");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+
+    QJsonParseError jsonError;
+    QJsonDocument flowerJson = QJsonDocument::fromJson(file.readAll(),&jsonError);
+    if (jsonError.error != QJsonParseError::NoError){
+    qDebug() << jsonError.errorString();
+    }
+    QList<QVariant> list = flowerJson.toVariant().toList();
+    QMap<QString, QVariant> map = list[0].toMap();
+    qDebug() << map["name"].toString();
+
+    //return map;
 }

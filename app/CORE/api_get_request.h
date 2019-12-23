@@ -22,6 +22,7 @@
 #include "../DB_CLASSES/bdd_shop.h"
 #include "../DB_CLASSES/bdd_stock.h"
 #include "../DB_CLASSES/bdd_supplier.h"
+#include "../DB_CLASSES/bdd_attribut.h"
 
 
 class api_get_request : public QObject
@@ -89,6 +90,9 @@ public:
 
      void get_table_supplier();
      QVector<bdd_SUPPLIER> parse_file_supplier();
+
+     void get_table_attribut();
+     QVector<bdd_ATTRIBUT> parse_file_attribut();
 
 signals:
 

@@ -1,6 +1,13 @@
 #include "bdd_quotation.h"
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonValue>
+#include <QDebug>
+#include <QFile>
+#include <QObject>
+#include <QFile>
 
-bdd_QUOTATION::bdd_QUOTATION(bool validation, QString idQuotation, QString creationDate, bool isTemplate, QString userUsername, QString validationDate )
+bdd_QUOTATION::bdd_QUOTATION(bool validation, QString idQuotation, QString creationDate, bool isTemplate, QString userUsername, QString validationDate ): bdd_global(QString("id"), QString("table"))
 {
     this->_validationDate = validationDate;
     this->_validation = validation;
@@ -9,7 +16,7 @@ bdd_QUOTATION::bdd_QUOTATION(bool validation, QString idQuotation, QString creat
     this->_idQuotation = idQuotation;
     this->_userUserName = userUsername;
 }
-bdd_QUOTATION::bdd_QUOTATION(){
+bdd_QUOTATION::bdd_QUOTATION(): bdd_global(QString("id"), QString("table")){
 
 }
 bdd_QUOTATION::~bdd_QUOTATION(){
@@ -51,4 +58,30 @@ QString bdd_QUOTATION::getIdQuotation(){
 }
 QString bdd_QUOTATION::getUserUserName(){
     return _userUserName;
+}
+
+QString bdd_QUOTATION::getId(){
+    return "idQuotation";
+}
+QString bdd_QUOTATION::getTable(){
+    return "quotation";
+}
+
+QMap<QString, QString> bdd_QUOTATION::getDict(){
+
+    QFile file;
+    file.setFileName("DATA/jsonQuotation.json");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+
+    QJsonParseError jsonError;
+    QJsonDocument flowerJson = QJsonDocument::fromJson(file.readAll(),&jsonError);
+    if (jsonError.error != QJsonParseError::NoError){
+    qDebug() << jsonError.errorString();
+    }
+    QList<QVariant> list = flowerJson.toVariant().toList();
+    QMap<QString, QVariant> map = list[0].toMap();
+    qDebug() << map["name"].toString();
+
+    //return map;
 }

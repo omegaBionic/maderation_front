@@ -1,6 +1,13 @@
 #include "bdd_promotion_cat.h"
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonValue>
+#include <QDebug>
+#include <QFile>
+#include <QObject>
+#include <QFile>
 
-bdd_PROMOTION_CAT::bdd_PROMOTION_CAT(int amount, bool addToExistingProm, QString fromDate, QString idPromotionCat, QString toDate)
+bdd_PROMOTION_CAT::bdd_PROMOTION_CAT(int amount, bool addToExistingProm, QString fromDate, QString idPromotionCat, QString toDate): bdd_global(QString("id"), QString("table"))
 {
     this->_amount = amount;
     this->_addToExistingProm =addToExistingProm;
@@ -8,7 +15,7 @@ bdd_PROMOTION_CAT::bdd_PROMOTION_CAT(int amount, bool addToExistingProm, QString
     this->_idPromotionCat = idPromotionCat;
     this->_toDate =toDate;
 }
-bdd_PROMOTION_CAT::bdd_PROMOTION_CAT(){
+bdd_PROMOTION_CAT::bdd_PROMOTION_CAT(): bdd_global(QString("id"), QString("table")){
 
 }
 bdd_PROMOTION_CAT::~bdd_PROMOTION_CAT(){
@@ -44,4 +51,30 @@ QString bdd_PROMOTION_CAT::getIdPromotionCat(){
 }
 QString bdd_PROMOTION_CAT::getToDate(){
     return _toDate;
+}
+
+QString bdd_PROMOTION_CAT::getId(){
+    return "idPromotionCat";
+}
+QString bdd_PROMOTION_CAT::getTable(){
+    return "promotion_cat";
+}
+
+QMap<QString, QString> bdd_PROMOTION_CAT::getDict(){
+
+    QFile file;
+    file.setFileName("DATA/jsonPromotionCat.json");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+
+    QJsonParseError jsonError;
+    QJsonDocument flowerJson = QJsonDocument::fromJson(file.readAll(),&jsonError);
+    if (jsonError.error != QJsonParseError::NoError){
+    qDebug() << jsonError.errorString();
+    }
+    QList<QVariant> list = flowerJson.toVariant().toList();
+    QMap<QString, QVariant> map = list[0].toMap();
+    qDebug() << map["name"].toString();
+
+    //return map;
 }

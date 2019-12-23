@@ -1,6 +1,13 @@
 #include "bdd_supplier.h"
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonValue>
+#include <QDebug>
+#include <QFile>
+#include <QObject>
+#include <QFile>
 
-bdd_SUPPLIER::bdd_SUPPLIER(QString phoneNumber, QString mail, QString description, QString name, QString idSupplier, int addressIdAddress)
+bdd_SUPPLIER::bdd_SUPPLIER(QString phoneNumber, QString mail, QString description, QString name, QString idSupplier, int addressIdAddress): bdd_global(QString("id"), QString("table"))
 {
     this->_phoneNumber = phoneNumber;
     this->_mail = mail;
@@ -9,7 +16,7 @@ bdd_SUPPLIER::bdd_SUPPLIER(QString phoneNumber, QString mail, QString descriptio
     this->_idSupplier = idSupplier;
     this->_addressIdAddres = addressIdAddress;
 }
-bdd_SUPPLIER::bdd_SUPPLIER(){
+bdd_SUPPLIER::bdd_SUPPLIER(): bdd_global(QString("id"), QString("table")){
 
 }
 bdd_SUPPLIER::~bdd_SUPPLIER(){
@@ -51,4 +58,30 @@ QString bdd_SUPPLIER::getIdSupplier(){
 }
 int bdd_SUPPLIER::getAddressIdAddress(){
     return _addressIdAddres;
+}
+
+QString bdd_SUPPLIER::getId(){
+    return "idSupplier";
+}
+QString bdd_SUPPLIER::getTable(){
+    return "supplier";
+}
+
+QMap<QString, QString> bdd_SUPPLIER::getDict(){
+
+    QFile file;
+    file.setFileName("DATA/jsonSupplier.json");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+
+    QJsonParseError jsonError;
+    QJsonDocument flowerJson = QJsonDocument::fromJson(file.readAll(),&jsonError);
+    if (jsonError.error != QJsonParseError::NoError){
+    qDebug() << jsonError.errorString();
+    }
+    QList<QVariant> list = flowerJson.toVariant().toList();
+    QMap<QString, QVariant> map = list[0].toMap();
+    qDebug() << map["name"].toString();
+
+    //return map;
 }

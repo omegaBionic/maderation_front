@@ -1,7 +1,13 @@
 #include "bdd_invoice_quotation.h"
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonValue>
+#include <QDebug>
+#include <QFile>
+#include <QObject>
 #include <QFile>
 
-bdd_INVOICE_QUOTATION::bdd_INVOICE_QUOTATION(QString transactionCode, QString idInvoiceQuotation, int totalAmount, QString payingMethod, QString transactionType, int taxes)
+bdd_INVOICE_QUOTATION::bdd_INVOICE_QUOTATION(QString transactionCode, QString idInvoiceQuotation, int totalAmount, QString payingMethod, QString transactionType, int taxes): bdd_global(QString("id"), QString("table"))
 {
     this->_transactionCode = transactionCode;
     this->_idInvoinceQuotation = idInvoiceQuotation;
@@ -10,7 +16,7 @@ bdd_INVOICE_QUOTATION::bdd_INVOICE_QUOTATION(QString transactionCode, QString id
     this->_transactionType = transactionType;
     this->_taxes = taxes;
 }
-bdd_INVOICE_QUOTATION::bdd_INVOICE_QUOTATION(){
+bdd_INVOICE_QUOTATION::bdd_INVOICE_QUOTATION(): bdd_global(QString("id"), QString("table")){
 
 }
 bdd_INVOICE_QUOTATION::~bdd_INVOICE_QUOTATION(){
@@ -53,4 +59,30 @@ QString bdd_INVOICE_QUOTATION::getTransactionType(){
 }
 int bdd_INVOICE_QUOTATION::getTaxes(){
     return _taxes;
+}
+
+QString bdd_INVOICE_QUOTATION::getId(){
+    return "idInvoiceQuotation";
+}
+QString bdd_INVOICE_QUOTATION::getTable(){
+    return "invoice_quotation";
+}
+
+QMap<QString, QString> bdd_INVOICE_QUOTATION::getDict(){
+
+    QFile file;
+    file.setFileName("DATA/jsonInvoiceQuotation.json");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+
+    QJsonParseError jsonError;
+    QJsonDocument flowerJson = QJsonDocument::fromJson(file.readAll(),&jsonError);
+    if (jsonError.error != QJsonParseError::NoError){
+    qDebug() << jsonError.errorString();
+    }
+    QList<QVariant> list = flowerJson.toVariant().toList();
+    QMap<QString, QVariant> map = list[0].toMap();
+    qDebug() << map["name"].toString();
+
+    //return map;
 }

@@ -36,7 +36,6 @@ class dataUser
     private:
 
         QString _role;
-
         QString _username;
         QString _phoneNumber;
         QString _password;

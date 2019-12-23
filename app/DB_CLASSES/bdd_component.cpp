@@ -1,14 +1,20 @@
 #include "bdd_component.h"
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonValue>
+#include <QDebug>
+#include <QFile>
+#include <QObject>
 #include <QFile>
 
-bdd_COMPONENT::bdd_COMPONENT(int supplierIdSupplier, QString idComponent, int categoryIdCategory, QString label)
+bdd_COMPONENT::bdd_COMPONENT(int supplierIdSupplier, QString idComponent, int categoryIdCategory, QString label): bdd_global(QString("id"), QString("table"))
 {
     this->_supplierIdSupplier = supplierIdSupplier;
     this->_idComponent = idComponent;
     this->_categoryIdCategory = categoryIdCategory;
     this->_label = label;
 }
-bdd_COMPONENT::bdd_COMPONENT(){
+bdd_COMPONENT::bdd_COMPONENT(): bdd_global(QString("id"), QString("table")){
 
 }
 bdd_COMPONENT::~bdd_COMPONENT(){
@@ -38,4 +44,30 @@ int bdd_COMPONENT::getCategoryIdCategory(){
 }
 QString bdd_COMPONENT::getLabel(){
     return _label;
+}
+
+QString bdd_COMPONENT::getId(){
+    return "idComponent";
+}
+QString bdd_COMPONENT::getTable(){
+    return "component";
+}
+
+QMap<QString, QString> bdd_COMPONENT::getDict(){
+
+    QFile file;
+    file.setFileName("DATA/jsonComponent.json");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+
+    QJsonParseError jsonError;
+    QJsonDocument flowerJson = QJsonDocument::fromJson(file.readAll(),&jsonError);
+    if (jsonError.error != QJsonParseError::NoError){
+    qDebug() << jsonError.errorString();
+    }
+    QList<QVariant> list = flowerJson.toVariant().toList();
+    QMap<QString, QVariant> map = list[0].toMap();
+    qDebug() << map["name"].toString();
+
+    //return map;
 }

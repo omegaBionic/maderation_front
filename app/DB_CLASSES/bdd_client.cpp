@@ -6,7 +6,7 @@
 #include <QFile>
 #include <QObject>
 
-bdd_CLIENT::bdd_CLIENT(QString idClient, QString phoneNumber, bool isActive, QString password, QString lastname, QString mail, QString firstname, int addressIDAdress)
+bdd_CLIENT::bdd_CLIENT(QString idClient, QString phoneNumber, bool isActive, QString password, QString lastname, QString mail, QString firstname, int addressIDAdress): bdd_global(QString("id"), QString("table"))
 {
     this->_idClient = idClient;
     this->_phoneNumber = phoneNumber;
@@ -18,7 +18,7 @@ bdd_CLIENT::bdd_CLIENT(QString idClient, QString phoneNumber, bool isActive, QSt
     this->_addressIDAdress = addressIDAdress;
 }
 
-bdd_CLIENT::bdd_CLIENT(){
+bdd_CLIENT::bdd_CLIENT(): bdd_global(QString("id"), QString("table")){
 
 }
 
@@ -74,4 +74,30 @@ QString bdd_CLIENT::getFirstName(){
 }
 int bdd_CLIENT::getAddressIdAddress(){
     return _addressIDAdress;
+}
+
+QString bdd_CLIENT::getId(){
+    return "idClient";
+}
+QString bdd_CLIENT::getTable(){
+    return "client";
+}
+
+QMap<QString, QString> bdd_CLIENT::getDict(){
+
+    QFile file;
+    file.setFileName("DATA/jsonClient.json");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+
+
+    QJsonParseError jsonError;
+    QJsonDocument flowerJson = QJsonDocument::fromJson(file.readAll(),&jsonError);
+    if (jsonError.error != QJsonParseError::NoError){
+    qDebug() << jsonError.errorString();
+    }
+    QList<QVariant> list = flowerJson.toVariant().toList();
+    QMap<QString, QVariant> map = list[0].toMap();
+    qDebug() << map["name"].toString();
+
+    //return map;
 }

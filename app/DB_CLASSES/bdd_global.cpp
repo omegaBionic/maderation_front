@@ -1,4 +1,11 @@
 #include "bdd_global.h"
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonValue>
+#include <QDebug>
+#include <QFile>
+#include <QObject>
+#include <QFile>
 
 bdd_global::bdd_global(QString id, QString table)
 {
