@@ -80,13 +80,11 @@ QVector<bdd_STATUS> api_get_request::parse_file_status(){
 
     QVector<bdd_STATUS> listStatus;
 
-    QJsonValue itemsValues = json.value("datas");
-    QJsonArray itemsArray = itemsValues["Items"].toArray();
+    QString status = json.value("status").toString();
 
-    foreach (const QJsonValue & v, itemsArray)
-    {
-        listStatus.append(bdd_STATUS(v.toObject().value("status")["S"].toString(),v.toObject().value("datas")["S"].toString()));
-    }
+    QString datas = json.value("datas").toString();
+    listStatus.append(bdd_STATUS(status,datas));
+
     return listStatus;
 }
 
