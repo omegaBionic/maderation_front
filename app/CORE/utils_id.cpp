@@ -40,10 +40,8 @@ utils_id::utils_id()
             qDebug() << "[utils_id] failed to open file for write.";
         }
     }
+    qDebug() << "[utils_id] close file.";
     file.close();
-    qDebug() << "[utils_id] file close.";
-
-
 
     qDebug() << "[utils_id] id is: '" << id << "'";
 }
