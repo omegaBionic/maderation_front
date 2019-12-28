@@ -28,7 +28,6 @@ SOURCES += \
     ./CONTROLLER/*.cpp \
     ./CORE/*.cpp \
     ./UI/*.cpp \
-    CORE/utils_id.cpp \
     main.cpp
 
 
@@ -37,7 +36,6 @@ HEADERS += \
     ./CONTROLLER/*.h \
     ./CORE/*.h \
     ./UI/*.h \
-    CORE/utils_id.h
 
 
 FORMS += \
