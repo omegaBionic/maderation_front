@@ -27,3 +27,5 @@ Madera_Front.pro.user
 app/release/
 
 tests/release/
+
+*.o
