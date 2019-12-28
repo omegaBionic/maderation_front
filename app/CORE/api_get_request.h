@@ -95,8 +95,10 @@ public:
      void get_table_attribut();
      QVector<bdd_ATTRIBUT> parse_file_attribut();
 
-signals:
+private:
+     utils_id id;
 
+signals:
 public slots:
     void downloadFinished(QNetworkReply* reply);
 
