@@ -55,5 +55,5 @@ utils_id::~utils_id()
 
 QString utils_id::get_id()
 {
-    return QString("idExample");
+    return id;
 }
