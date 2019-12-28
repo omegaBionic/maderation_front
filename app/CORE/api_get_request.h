@@ -1,5 +1,6 @@
 #ifndef API_GET_REQUEST_H
 #define API_GET_REQUEST_H
+
 #include <QtNetwork>
 #include <QObject>
 #include "../DB_CLASSES/bdd_status.h"
