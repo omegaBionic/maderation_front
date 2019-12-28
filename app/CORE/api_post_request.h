@@ -2,6 +2,8 @@
 #define API_POST_REQUEST_H
 #include <QtNetwork>
 #include <QObject>
+#include "utils_id.h"
+
 
 class api_post_request : public QObject
 {

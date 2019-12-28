@@ -23,6 +23,7 @@
 #include "../DB_CLASSES/bdd_stock.h"
 #include "../DB_CLASSES/bdd_supplier.h"
 #include "../DB_CLASSES/bdd_attribut.h"
+#include "utils_id.h"
 
 
 class api_get_request : public QObject
