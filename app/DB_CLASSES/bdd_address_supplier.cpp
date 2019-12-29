@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QObject>
+#include <QJsonArray>
 
 bdd_ADDRESS_SUPPLIER::bdd_ADDRESS_SUPPLIER(QString city, QString idAddressSupplier, QString country, int postalCode, QString street): bdd_global(QString("id"), QString("table"))
 {
@@ -61,19 +62,30 @@ QString bdd_ADDRESS_SUPPLIER::getTable(){
 
 QMap<QString, QString> bdd_ADDRESS_SUPPLIER::getDict(){
 
-    QFile file;
-    file.setFileName("DATA/jsonAddress_Supplier.json");
-    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    QFile file("DATA/jsonAddress_supplier.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
 
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
 
-    QJsonParseError jsonError;
-    QJsonDocument flowerJson = QJsonDocument::fromJson(file.readAll(),&jsonError);
-    if (jsonError.error != QJsonParseError::NoError){
-    qDebug() << jsonError.errorString();
+    // Get JSON object
+    QJsonObject json = doc.object();
+
+    // Access properties
+
+    QMap<QString, QString> listAddressSupplier;
+
+    QJsonValue itemsValues = json.value("datas");
+    QJsonArray itemsArray = itemsValues["Items"].toArray();
+
+    int cpt = 0;
+
+    foreach(const QJsonValue &v, itemsArray)
+    {
+        listAddressSupplier.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
+        cpt += 1;
     }
-    QList<QVariant> list = flowerJson.toVariant().toList();
-    QMap<QString, QVariant> map = list[0].toMap();
-    qDebug() << map["name"].toString();
 
-    //return map;
+    return listAddressSupplier;
 }

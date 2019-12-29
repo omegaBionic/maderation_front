@@ -27,8 +27,6 @@ public:
     QString getTable() override;
     QMap<QString, QString> getDict() override;
 
-    QMap<QStringList, QString> TestDict();
-
 private:
 
     QString _city;
