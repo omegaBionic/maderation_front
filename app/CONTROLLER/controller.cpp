@@ -30,54 +30,54 @@ bdd_USER* Controller::getUser(){
 }
 
 void Controller::cleanup(int win){
-    qDebug() << "--- cleanup ---";
+    qDebug() << "[controller] --- cleanup ---";
 
     if(win == 0){ //login page
 
         if(_menu != nullptr){
-            qDebug() << "effacage du menu";
+            qDebug() << "[controller] effacage du menu";
             _menu->close();
             _menu = nullptr;
         }
         if(_init != nullptr){
-            qDebug() << "effacage du init";
+            qDebug() << "[controller] effacage du init";
             _init->close();
             _init = nullptr;
         }
         if(_chat != nullptr){
-            qDebug() << "effacage du chat";
+            qDebug() << "[controller] effacage du chat";
             _chat->close();
             _chat = nullptr;
         }
     }else if(win == 1){ //menu page
         if(_login != nullptr){
-            qDebug() << "effacage de la login";
+            qDebug() << "[controller] effacage de la login";
             _login->close();
             _login = nullptr;
         }
         if(_chat != nullptr){
-            qDebug() << "effacage du chat";
+            qDebug() << "[controller] effacage du chat";
             _chat->close();
             _chat = nullptr;
         }
         if(_init != nullptr){
-            qDebug() << "effacage du init";
+            qDebug() << "[controller] effacage du init";
             _init->close();
             _init = nullptr;
         }
     }else if(win == 2){ //chat page
         if(_login != nullptr){
-            qDebug() << "effacage de la login";
+            qDebug() << "[controller] effacage de la login";
             _login->close();
             _login = nullptr;
         }
         if(_menu != nullptr){
-            qDebug() << "effacage du menu";
+            qDebug() << "[controller] effacage du menu";
             _menu->close();
             _menu = nullptr;
         }
         if(_init != nullptr){
-            qDebug() << "effacage du init";
+            qDebug() << "[controller] effacage du init";
             _init->close();
             _init = nullptr;
         }
@@ -85,14 +85,14 @@ void Controller::cleanup(int win){
 }
 
 void Controller::init_folder(int step){
-    qDebug() << "step : "+QString::number(step);
+    qDebug() << "[controller] step : "+QString::number(step);
     if(step == 0){
 
-        qDebug() << "checking folder";
+        qDebug() << "[controller] checking folder";
         _init->Check_folder();
     }else if(step == 1){
 
-        qDebug() << "checking connexion";
+        qDebug() << "[controller] checking connexion";
         if( _init->checkConnection()){
 
             this->init_folder(2);
@@ -104,7 +104,7 @@ void Controller::init_folder(int step){
         }
     }else if(step == 2){
 
-        qDebug() << "ending init";
+        qDebug() << "[controller] ending init";
         _init->endInit();
 
     }else if(step == 3){
@@ -147,7 +147,7 @@ void Controller::login_forgot_password(){
 
 void Controller::login(QString user, QString pwd){
 
-    qDebug() << user + " , "+ pwd;
+    qDebug() << "[controller] " << user + " , "+ pwd;
     _toolbar->setWindow("menu");
     _menu = new Main_Menu(0, _toolbar);
     QObject::connect(_menu, &Main_Menu::Initialized, this, &Controller::cleanup);
@@ -172,7 +172,7 @@ void Controller::toolbar_archive(){
 
 void Controller::toolbar_messages(){
 
-    qDebug() << "ouverture du chat";
+    qDebug() << "[controller] ouverture du chat";
     QVector<bdd_CHAT>* listChat = new QVector<bdd_CHAT>();
     listChat->append(bdd_CHAT(0,"test","11 novembre 2019", "test"));
     listChat->append(bdd_CHAT(0,"test","12 novembre 2019", "polop"));
