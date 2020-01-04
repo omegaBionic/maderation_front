@@ -2,24 +2,28 @@
 #define BDD_STATUS_H
 
 #include <QFile>
+#include "bdd_global.h"
 
-
-class bdd_STATUS
+class bdd_STATUS : public bdd_global
 {
     public:
     bdd_STATUS(QString status, QString datas);
     bdd_STATUS();
-        ~bdd_STATUS();
+    virtual ~bdd_STATUS();
 
-        void setStatus(QString);
-        void setDatas(QString);
+    void setStatus(QString);
+    void setDatas(QString);
 
-        QString getStatus();
-        QString getDatas();
+    QString getStatus();
+    QString getDatas();
 
-    private:
-        QString _status;
-        QString _datas;
+    QString getId() override;
+    QString getTable() override;
+    QMap<QString, QString> getDict() override;
+
+private:
+    QString _status;
+    QString _datas;
 
 
 

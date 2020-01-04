@@ -9,8 +9,9 @@ class api_post_request : public QObject
 public:
     api_post_request();
 
-    static void modifyData(QString jsonFile, QString id, QString key, QString modify);
+    static void modifyData(QString jsonFile, QString idKey, QString id, QString key, QString modify);
     static void pushData();
+
 
 };
 

@@ -101,7 +101,7 @@ padding: 1px;
 }
 QProgressBar::chunk:horizontal {
 border-radius: 10%;
-border-image: url(DATA_IMG/loading_img/loading_leaf.png);
+border-image: url(./DATA_IMG/loading_img/loading_leaf.png);
 }</string>
     </property>
     <property name="maximum">

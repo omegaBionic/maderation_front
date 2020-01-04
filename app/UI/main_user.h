@@ -26,6 +26,9 @@ signals:
     void Initialized(int window);
 
 
+private slots:
+    void on_pushButton_power_clicked();
+
 private:
     QVector<Form_users*>* _listUIUsers;
     QVector<bdd_USER>* _listUsers;

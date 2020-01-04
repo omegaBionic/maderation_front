@@ -22,6 +22,9 @@ signals:
     void Initialized(int window);
 
 
+private slots:
+    void on_pushButton_power_clicked();
+
 private:
     void resizeEvent(QResizeEvent * event);
     bool event(QEvent *event);

@@ -5,6 +5,7 @@
 #include <QLabel>
 #include "menu_toolbar.h"
 #include "../UI/button_quotation.h"
+#include "../DB_CLASSES/bdd_project.h"
 
 namespace Ui {
 class Main_Menu;
@@ -16,17 +17,20 @@ class Main_Menu : public QMainWindow
 
 public:
     explicit Main_Menu(QWidget *parent = nullptr);
-    explicit Main_Menu(QWidget *parent = nullptr, menu_toolbar* menu = nullptr);
+    explicit Main_Menu(QWidget *parent = nullptr, menu_toolbar* menu = nullptr, QVector<bdd_PROJECT>* listProject = nullptr);
     ~Main_Menu();
     void showFull();
 
 signals:
     void Initialized(int window);
     void button_clicked(int ID);
+    void deleteProject(int ID);
 
 private slots:
     void getButton_clicked(int ID);
     void getButtonDel_clicked(int ID);
+
+    void on_pushButton_power_clicked();
 
 private:
     void resizeEvent(QResizeEvent * event);
