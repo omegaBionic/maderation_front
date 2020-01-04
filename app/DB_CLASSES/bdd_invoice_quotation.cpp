@@ -1,7 +1,14 @@
 #include "bdd_invoice_quotation.h"
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonValue>
+#include <QDebug>
 #include <QFile>
+#include <QObject>
+#include <QFile>
+#include <QJsonArray>
 
-bdd_INVOICE_QUOTATION::bdd_INVOICE_QUOTATION(QString transactionCode, QString idInvoiceQuotation, int totalAmount, QString payingMethod, QString transactionType, int taxes)
+bdd_INVOICE_QUOTATION::bdd_INVOICE_QUOTATION(QString transactionCode, QString idInvoiceQuotation, int totalAmount, QString payingMethod, QString transactionType, int taxes): bdd_global(QString("id"), QString("table"))
 {
     this->_transactionCode = transactionCode;
     this->_idInvoinceQuotation = idInvoiceQuotation;
@@ -10,7 +17,7 @@ bdd_INVOICE_QUOTATION::bdd_INVOICE_QUOTATION(QString transactionCode, QString id
     this->_transactionType = transactionType;
     this->_taxes = taxes;
 }
-bdd_INVOICE_QUOTATION::bdd_INVOICE_QUOTATION(){
+bdd_INVOICE_QUOTATION::bdd_INVOICE_QUOTATION(): bdd_global(QString("id"), QString("table")){
 
 }
 bdd_INVOICE_QUOTATION::~bdd_INVOICE_QUOTATION(){
@@ -53,4 +60,41 @@ QString bdd_INVOICE_QUOTATION::getTransactionType(){
 }
 int bdd_INVOICE_QUOTATION::getTaxes(){
     return _taxes;
+}
+
+QString bdd_INVOICE_QUOTATION::getId(){
+    return "idInvoiceQuotation";
+}
+QString bdd_INVOICE_QUOTATION::getTable(){
+    return "invoice_quotation";
+}
+
+QMap<QString, QString> bdd_INVOICE_QUOTATION::getDict(){
+
+    QFile file("DATA/jsonInvoice_quotation.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
+
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+
+    // Get JSON object
+    QJsonObject json = doc.object();
+
+    // Access properties
+
+    QMap<QString, QString> listGamme;
+
+    QJsonValue itemsValues = json.value("datas");
+    QJsonArray itemsArray = itemsValues["Items"].toArray();
+
+    int cpt = 0;
+
+    foreach(const QJsonValue &v, itemsArray)
+    {
+        listGamme.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
+        cpt += 1;
+    }
+
+    return listGamme;
 }

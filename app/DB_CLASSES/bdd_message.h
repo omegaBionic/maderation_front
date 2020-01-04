@@ -1,13 +1,14 @@
 #ifndef BDD_MESSAGE_H
 #define BDD_MESSAGE_H
 #include <QFile>
+#include "bdd_global.h"
 
-class bdd_MESSAGE
+class bdd_MESSAGE : public bdd_global
 {
 public:
     bdd_MESSAGE(QString creationDate, QString message, QString chatIoChat, QString userUsername, QString idMessage);
     bdd_MESSAGE();
-    ~bdd_MESSAGE();
+    virtual ~bdd_MESSAGE();
 
     void setCreationDate(QString);
     void setMessage(QString);
@@ -20,6 +21,12 @@ public:
     QString getChatIoChat();
     QString getUserUsername();
     QString getIdMessage();
+
+    QString getId() override;
+    QString getTable() override;
+    QMap<QString, QString> getDict() override;
+
+private:
 
     QString _creationDate;
     QString _message;

@@ -1,8 +1,9 @@
 #ifndef BDD_QUOTATION_H
 #define BDD_QUOTATION_H
 #include <QFile>
+#include "bdd_global.h"
 
-class bdd_QUOTATION
+class bdd_QUOTATION : public bdd_global
 {
 public:
     bdd_QUOTATION(bool validation, QString idQuotation, QString creationDate, bool isTemplate, QString userUsername, QString validationDate);
@@ -22,6 +23,10 @@ public:
     bool getIsTemplate();
     QString getIdQuotation();
     QString getUserUserName();
+
+    QString getId() override;
+    QString getTable() override;
+    QMap<QString, QString> getDict() override;
 
 private:
 

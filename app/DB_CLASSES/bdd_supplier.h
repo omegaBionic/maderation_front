@@ -1,13 +1,14 @@
 #ifndef BDD_SUPPLIER_H
 #define BDD_SUPPLIER_H
 #include <QFile>
+#include "bdd_global.h"
 
-class bdd_SUPPLIER
+class bdd_SUPPLIER : public bdd_global
 {
 public:
     bdd_SUPPLIER(QString phoneNumber, QString mail, QString description, QString name, QString idSupplier, int addressIdAddress);
     bdd_SUPPLIER();
-    ~bdd_SUPPLIER();
+    virtual ~bdd_SUPPLIER();
 
     void setPhoneNumber(QString);
     void setMail(QString);
@@ -22,6 +23,10 @@ public:
     QString getName();
     QString getIdSupplier();
     int getAddressIdAddress();
+
+    QString getId() override;
+    QString getTable() override;
+    QMap<QString, QString> getDict() override;
 
 private:
     QString _phoneNumber;

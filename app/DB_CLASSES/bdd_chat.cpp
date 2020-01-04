@@ -1,7 +1,14 @@
 #include "bdd_chat.h"
 #include <QFile>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonValue>
+#include <QDebug>
+#include <QFile>
+#include <QObject>
+#include <QJsonArray>
 
-bdd_CHAT::bdd_CHAT(QString idChat, QString userUsernaleAsReceiver,QString userUsernaleAsAutor, QString creationDate, QString title)
+bdd_CHAT::bdd_CHAT(QString idChat, QString userUsernaleAsReceiver, QString userUsernaleAsAutor, QString creationDate, QString title): bdd_global(QString("id"), QString("table"))
 {
     this->_idChat = idChat;
     this->_userUsernameAsReceiver = userUsernaleAsReceiver;
@@ -10,7 +17,7 @@ bdd_CHAT::bdd_CHAT(QString idChat, QString userUsernaleAsReceiver,QString userUs
     this->_title = title;
 }
 
-bdd_CHAT::bdd_CHAT(){
+bdd_CHAT::bdd_CHAT(): bdd_global(QString("id"), QString("table")){
 
 }
 bdd_CHAT::~bdd_CHAT(){
@@ -48,4 +55,41 @@ QString bdd_CHAT::getCreationDate(){
 }
 QString bdd_CHAT::getTitle(){
     return _title;
+}
+
+QString bdd_CHAT::getId(){
+    return "idChat";
+}
+QString bdd_CHAT::getTable(){
+    return "chat";
+}
+
+QMap<QString, QString> bdd_CHAT::getDict(){
+
+    QFile file("DATA/jsonChat.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
+
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+
+    // Get JSON object
+    QJsonObject json = doc.object();
+
+    // Access properties
+
+    QMap<QString, QString> listChat;
+
+    QJsonValue itemsValues = json.value("datas");
+    QJsonArray itemsArray = itemsValues["Items"].toArray();
+
+    int cpt = 0;
+
+    foreach(const QJsonValue &v, itemsArray)
+    {
+        listChat.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
+        cpt += 1;
+    }
+
+    return listChat;
 }

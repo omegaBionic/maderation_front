@@ -1,7 +1,14 @@
 #include "bdd_product.h"
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonValue>
+#include <QDebug>
 #include <QFile>
+#include <QObject>
+#include <QFile>
+#include <QJsonArray>
 
-bdd_PRODUCT::bdd_PRODUCT(int supplierIdsupplier, QString idProduct, int minWidth, int defaultLength, QString label, QString productCode, int defaultHeight, int defaultWidth, QString material, int minLength, QString type)
+bdd_PRODUCT::bdd_PRODUCT(int supplierIdsupplier, QString idProduct, int minWidth, int defaultLength, QString label, QString productCode, int defaultHeight, int defaultWidth, QString material, int minLength, QString type): bdd_global(QString("id"), QString("table"))
 {
 this->_supplierIdSupplier = supplierIdsupplier;
     this->_idProduct = idProduct;
@@ -15,7 +22,7 @@ this->_supplierIdSupplier = supplierIdsupplier;
     this->_minLength = minLength;
     this->_type = type;
 }
-bdd_PRODUCT::bdd_PRODUCT(){
+bdd_PRODUCT::bdd_PRODUCT(): bdd_global(QString("id"), QString("table")){
 
 }
 bdd_PRODUCT::~bdd_PRODUCT(){
@@ -87,4 +94,41 @@ int bdd_PRODUCT::getMinLength(){
 }
 QString bdd_PRODUCT::getType(){
     return _type;
+}
+
+QString bdd_PRODUCT::getId(){
+    return "idProduct";
+}
+QString bdd_PRODUCT::getTable(){
+    return "product";
+}
+
+QMap<QString, QString> bdd_PRODUCT::getDict(){
+
+    QFile file("DATA/jsonProduct.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
+
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+
+    // Get JSON object
+    QJsonObject json = doc.object();
+
+    // Access properties
+
+    QMap<QString, QString> listProduct;
+
+    QJsonValue itemsValues = json.value("datas");
+    QJsonArray itemsArray = itemsValues["Items"].toArray();
+
+    int cpt = 0;
+
+    foreach(const QJsonValue &v, itemsArray)
+    {
+        listProduct.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
+        cpt += 1;
+    }
+
+    return listProduct;
 }

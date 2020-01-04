@@ -1,15 +1,16 @@
 #ifndef BDD_CLIENT_H
 #define BDD_CLIENT_H
 
+#include "bdd_global.h"
 #include <QFile>
 
 
-class bdd_CLIENT
+class bdd_CLIENT : public bdd_global
 {
     public:
         bdd_CLIENT(QString idClient, QString phoneNumber, bool isActive, QString password, QString lastname, QString mail, QString firstname, int addressIDAdress);
         bdd_CLIENT();
-        ~bdd_CLIENT();
+        virtual ~bdd_CLIENT();
 
         void setPhoneNumber(QString);
         void setIdClient(QString);
@@ -28,6 +29,10 @@ class bdd_CLIENT
         bool getIsActive();
         int getAddressIdAddress();
         QString getIdClient();
+
+        QString getId() override;
+        QString getTable() override;
+        QMap<QString, QString> getDict() override;
 
     private:
         QString _idClient;
