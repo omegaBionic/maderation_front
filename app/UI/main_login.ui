@@ -352,6 +352,34 @@ color:black;
      <string/>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_power">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>110</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-image: url(:/pictures/img/powerOff.png);
+}
+
+QPushButton::hover {
+	border-image: url(:/pictures/img/powerOff_hover.png);
+
+}
+
+QPushButton::pressed {
+	border-image: url(:/pictures/img/powerOff_pressed.png);
+
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>background</zorder>
    <zorder>label_2</zorder>
    <zorder>lineEdit_user</zorder>
@@ -361,6 +389,7 @@ color:black;
    <zorder>btn_login</zorder>
    <zorder>label_title</zorder>
    <zorder>btn_forgot</zorder>
+   <zorder>pushButton_power</zorder>
   </widget>
  </widget>
  <resources/>

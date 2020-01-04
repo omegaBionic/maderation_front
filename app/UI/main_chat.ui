@@ -140,6 +140,34 @@ QTabBar::tab:left:only-one, QTabBar::tab:right:only-one {
      <number>-1</number>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_power">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>350</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-image: url(:/pictures/img/powerOff.png);
+}
+
+QPushButton::hover {
+	border-image: url(:/pictures/img/powerOff_hover.png);
+
+}
+
+QPushButton::pressed {
+	border-image: url(:/pictures/img/powerOff_pressed.png);
+
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

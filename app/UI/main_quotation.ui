@@ -1,0 +1,1091 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Main_Quotation</class>
+ <widget class="QMainWindow" name="Main_Quotation">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1194</width>
+    <height>752</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="background">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>55</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>70</y>
+      <width>521</width>
+      <height>401</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255, 255, 255, 100);
+border-radius: 10px;</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_globale">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>20</y>
+      <width>331</width>
+      <height>631</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox{
+border: 3px solid black;
+}</string>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <widget class="QGroupBox" name="groupBox_data">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>311</width>
+       <height>541</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: 0px;</string>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <widget class="QComboBox" name="comboBox_type">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>20</y>
+        <width>73</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura Lt BT</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox {
+  background-color: #00000000;
+  padding-top: 2px;
+  /* This QLineEdit fix  103, 111 */
+  padding-bottom: 2px;
+  /* This QLineEdit fix  103, 111 */
+  padding-left: 4px;
+  padding-right: 4px;
+  border-style: solid;
+  border-left: 2px solid rgb(141, 121, 99);
+  border-bottom: 2px solid rgb(141, 121, 99);
+  border-radius: 2%;
+}
+
+
+QComboBox QAbstractItemView {
+  background-color:  rgb(181, 163, 136);
+  border-radius: 4px;
+  border: 1px solid #32414B;
+  selection-color: #148CD2;
+  selection-background-color: rgb(255, 211, 179);
+}
+
+
+QComboBox::indicator {
+  background-color:transparent;
+  selection-background-color: transparent;
+  color: transparent;
+  selection-color: transparent;
+  /* Needed to remove indicator - fix #132 */
+}
+
+QComboBox::indicator:alternate {
+  background: #19232D;
+}
+
+QComboBox::item:alternate {
+  background: #19232D;
+}
+
+QComboBox::item:checked {
+  font-weight: bold;
+}
+
+QComboBox::item:selected {
+  border: 0px solid transparent;
+}
+
+QComboBox::drop-down {
+  subcontrol-origin: padding;
+  subcontrol-position: top right;
+  width: 20px;
+  border-left-width: 0px;
+  border-left-color: #32414B;
+  border-left-style: solid;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+QComboBox::down-arrow {
+  image:url(:/pictures/img/down_arrow.png);
+height: 20%;
+width: 20%;
+}
+
+QComboBox::down-arrow:on, QComboBox::down-arrow:hover, QComboBox::down-arrow:focus {
+  image: url(:/pictures/img/down_arrow_hover.png);
+height: 20%;
+width: 20%;
+}
+</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox_element">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>60</y>
+        <width>73</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura Lt BT</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox {
+  background-color: #00000000;
+  padding-top: 2px;
+  /* This QLineEdit fix  103, 111 */
+  padding-bottom: 2px;
+  /* This QLineEdit fix  103, 111 */
+  padding-left: 4px;
+  padding-right: 4px;
+  border-style: solid;
+  border-left: 2px solid rgb(141, 121, 99);
+  border-bottom: 2px solid rgb(141, 121, 99);
+  border-radius: 2%;
+}
+
+
+QComboBox QAbstractItemView {
+  background-color:  rgb(181, 163, 136);
+  border-radius: 4px;
+  border: 1px solid #32414B;
+  selection-color: #148CD2;
+  selection-background-color: rgb(255, 211, 179);
+}
+
+
+QComboBox::indicator {
+  background-color:transparent;
+  selection-background-color: transparent;
+  color: transparent;
+  selection-color: transparent;
+  /* Needed to remove indicator - fix #132 */
+}
+
+QComboBox::indicator:alternate {
+  background: #19232D;
+}
+
+QComboBox::item:alternate {
+  background: #19232D;
+}
+
+QComboBox::item:checked {
+  font-weight: bold;
+}
+
+QComboBox::item:selected {
+  border: 0px solid transparent;
+}
+
+QComboBox::drop-down {
+  subcontrol-origin: padding;
+  subcontrol-position: top right;
+  width: 20px;
+  border-left-width: 0px;
+  border-left-color: #32414B;
+  border-left-style: solid;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+QComboBox::down-arrow {
+  image:url(:/pictures/img/down_arrow.png);
+height: 20%;
+width: 20%;
+}
+
+QComboBox::down-arrow:on, QComboBox::down-arrow:hover, QComboBox::down-arrow:focus {
+  image: url(:/pictures/img/down_arrow_hover.png);
+height: 20%;
+width: 20%;
+}
+</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_new">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>10</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	
+	border-image: url(:/pictures/img/new_component.png);
+}
+
+QPushButton::hover {
+	border-image: url(:/pictures/img/new_component_hover.png);
+
+}
+
+QPushButton::pressed {
+	border-image: url(:/pictures/img/new_component_pressed.png);
+
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_Copy">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>50</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	
+	border-image: url(:/pictures/img/copy.png);
+}
+
+QPushButton::hover {
+	border-image: url(:/pictures/img/copy_hover.png);
+
+}
+
+QPushButton::pressed {
+	border-image: url(:/pictures/img/copy_pressed.png);
+
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_select">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>170</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura Lt BT</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QCheckBox::indicator {
+  margin-left: 4px;
+  height: 16px;
+  width: 16px;
+}
+
+QCheckBox::indicator:unchecked {
+  image: url(:/pictures/img/checkBox_unchecked.png);
+}
+
+QCheckBox::indicator:unchecked:hover, QCheckBox::indicator:unchecked:focus, QCheckBox::indicator:unchecked:pressed {
+  border: none;
+  image: url(:/pictures/img/checkBox_unchecked_hover.png);
+}
+
+QCheckBox::indicator:checked {
+  image: url(:/pictures/img/checkBox_checked.png);
+}
+
+QCheckBox::indicator:checked:hover, QCheckBox::indicator:checked:focus, QCheckBox::indicator:checked:pressed {
+  border: none;
+  image: url(:/pictures/img/checkBox_checked_hover.png);
+}
+
+QCheckBox::indicator:unchecked:disabled {
+  image: url(:/pictures/img/checkBox_disabled.png);
+}
+
+
+QCheckBox::indicator:checked:disabled {
+  image: url(:/pictures/img/checkBox_checked_disabled.png);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Selected</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_disable">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>210</y>
+        <width>81</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura Lt BT</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QCheckBox::indicator {
+  margin-left: 4px;
+  height: 16px;
+  width: 16px;
+}
+
+QCheckBox::indicator:unchecked {
+  image: url(:/pictures/img/checkBox_unchecked.png);
+}
+
+QCheckBox::indicator:unchecked:hover, QCheckBox::indicator:unchecked:focus, QCheckBox::indicator:unchecked:pressed {
+  border: none;
+  image: url(:/pictures/img/checkBox_unchecked_hover.png);
+}
+
+QCheckBox::indicator:checked {
+  image: url(:/pictures/img/checkBox_checked.png);
+}
+
+QCheckBox::indicator:checked:hover, QCheckBox::indicator:checked:focus, QCheckBox::indicator:checked:pressed {
+  border: none;
+  image: url(:/pictures/img/checkBox_checked_hover.png);
+}
+
+QCheckBox::indicator:unchecked:disabled {
+  image: url(:/pictures/img/checkBox_disabled.png);
+}
+
+
+QCheckBox::indicator:checked:disabled {
+  image: url(:/pictures/img/checkBox_checked_disabled.png);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Disabled</string>
+      </property>
+     </widget>
+     <widget class="Line" name="line">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>103</y>
+        <width>311</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgba(153, 119, 110, 200);</string>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <property name="lineWidth">
+       <number>20</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="Line" name="line_3">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>250</y>
+        <width>311</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgba(153, 119, 110, 200);</string>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <property name="lineWidth">
+       <number>20</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_X">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>330</y>
+        <width>121</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura Lt BT</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QSpinBox {
+  background-color: #00000000;
+  padding-top: 2px;
+  /* This QLineEdit fix  103, 111 */
+  padding-bottom: 2px;
+  /* This QLineEdit fix  103, 111 */
+  padding-left: 4px;
+  padding-right: 4px;
+  border-style: solid;
+  border-left: 2px solid rgb(141, 121, 99);
+  border-bottom: 2px solid rgb(141, 121, 99);
+  border-radius: 2%;
+}
+
+
+
+QSpinBox::down-arrow {
+  image:url(:/pictures/img/down_arrow.png);
+height: 20%;
+width: 20%;
+}
+
+QSpinBox::down-arrow:hover {
+  image: url(:/pictures/img/down_arrow_hover.png);
+height: 20%;
+width: 20%;
+}
+
+
+QSpinBox::up-arrow {
+  image:url(:/pictures/img/up_arrow.png);
+height: 20%;
+width: 20%;
+}
+
+QSpinBox::up-arrow:hover {
+  image: url(:/pictures/img/up_arrow_hover.png);
+height: 20%;
+width: 20%;
+}
+</string>
+      </property>
+      <property name="maximum">
+       <number>9999</number>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_Y">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>490</y>
+        <width>121</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura Lt BT</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QSpinBox {
+  background-color: #00000000;
+  padding-top: 2px;
+  /* This QLineEdit fix  103, 111 */
+  padding-bottom: 2px;
+  /* This QLineEdit fix  103, 111 */
+  padding-left: 4px;
+  padding-right: 4px;
+  border-style: solid;
+  border-left: 2px solid rgb(141, 121, 99);
+  border-bottom: 2px solid rgb(141, 121, 99);
+  border-radius: 2%;
+}
+
+
+
+QSpinBox::down-arrow {
+  image:url(:/pictures/img/down_arrow.png);
+height: 20%;
+width: 20%;
+}
+
+QSpinBox::down-arrow:hover {
+  image: url(:/pictures/img/down_arrow_hover.png);
+height: 20%;
+width: 20%;
+}
+
+
+QSpinBox::up-arrow {
+  image:url(:/pictures/img/up_arrow.png);
+height: 20%;
+width: 20%;
+}
+
+QSpinBox::up-arrow:hover {
+  image: url(:/pictures/img/up_arrow_hover.png);
+height: 20%;
+width: 20%;
+}
+</string>
+      </property>
+      <property name="maximum">
+       <number>9999</number>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_Z">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>490</y>
+        <width>121</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura Lt BT</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QSpinBox {
+  background-color: #00000000;
+  padding-top: 2px;
+  /* This QLineEdit fix  103, 111 */
+  padding-bottom: 2px;
+  /* This QLineEdit fix  103, 111 */
+  padding-left: 4px;
+  padding-right: 4px;
+  border-style: solid;
+  border-left: 2px solid rgb(141, 121, 99);
+  border-bottom: 2px solid rgb(141, 121, 99);
+  border-radius: 2%;
+}
+
+
+
+QSpinBox::down-arrow {
+  image:url(:/pictures/img/down_arrow.png);
+height: 20%;
+width: 20%;
+}
+
+QSpinBox::down-arrow:hover {
+  image: url(:/pictures/img/down_arrow_hover.png);
+height: 20%;
+width: 20%;
+}
+
+
+QSpinBox::up-arrow {
+  image:url(:/pictures/img/up_arrow.png);
+height: 20%;
+width: 20%;
+}
+
+QSpinBox::up-arrow:hover {
+  image: url(:/pictures/img/up_arrow_hover.png);
+height: 20%;
+width: 20%;
+}
+</string>
+      </property>
+      <property name="maximum">
+       <number>9999</number>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_Length">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>410</y>
+        <width>121</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura Lt BT</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QSpinBox {
+  background-color: #00000000;
+  padding-top: 2px;
+  /* This QLineEdit fix  103, 111 */
+  padding-bottom: 2px;
+  /* This QLineEdit fix  103, 111 */
+  padding-left: 4px;
+  padding-right: 4px;
+  border-style: solid;
+  border-left: 2px solid rgb(141, 121, 99);
+  border-bottom: 2px solid rgb(141, 121, 99);
+  border-radius: 2%;
+}
+
+
+
+QSpinBox::down-arrow {
+  image:url(:/pictures/img/down_arrow.png);
+height: 20%;
+width: 20%;
+}
+
+QSpinBox::down-arrow:hover {
+  image: url(:/pictures/img/down_arrow_hover.png);
+height: 20%;
+width: 20%;
+}
+
+
+QSpinBox::up-arrow {
+  image:url(:/pictures/img/up_arrow.png);
+height: 20%;
+width: 20%;
+}
+
+QSpinBox::up-arrow:hover {
+  image: url(:/pictures/img/up_arrow_hover.png);
+height: 20%;
+width: 20%;
+}
+</string>
+      </property>
+      <property name="maximum">
+       <number>9999</number>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_Height">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>410</y>
+        <width>121</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura Lt BT</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QSpinBox {
+  background-color: #00000000;
+  padding-top: 2px;
+  /* This QLineEdit fix  103, 111 */
+  padding-bottom: 2px;
+  /* This QLineEdit fix  103, 111 */
+  padding-left: 4px;
+  padding-right: 4px;
+  border-style: solid;
+  border-left: 2px solid rgb(141, 121, 99);
+  border-bottom: 2px solid rgb(141, 121, 99);
+  border-radius: 2%;
+}
+
+
+
+QSpinBox::down-arrow {
+  image:url(:/pictures/img/down_arrow.png);
+height: 20%;
+width: 20%;
+}
+
+QSpinBox::down-arrow:hover {
+  image: url(:/pictures/img/down_arrow_hover.png);
+height: 20%;
+width: 20%;
+}
+
+
+QSpinBox::up-arrow {
+  image:url(:/pictures/img/up_arrow.png);
+height: 20%;
+width: 20%;
+}
+
+QSpinBox::up-arrow:hover {
+  image: url(:/pictures/img/up_arrow_hover.png);
+height: 20%;
+width: 20%;
+}
+</string>
+      </property>
+      <property name="maximum">
+       <number>9999</number>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_Width">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>330</y>
+        <width>121</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura Lt BT</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QSpinBox {
+  background-color: #00000000;
+  padding-top: 2px;
+  /* This QLineEdit fix  103, 111 */
+  padding-bottom: 2px;
+  /* This QLineEdit fix  103, 111 */
+  padding-left: 4px;
+  padding-right: 4px;
+  border-style: solid;
+  border-left: 2px solid rgb(141, 121, 99);
+  border-bottom: 2px solid rgb(141, 121, 99);
+  border-radius: 2%;
+}
+
+
+
+QSpinBox::down-arrow {
+  image:url(:/pictures/img/down_arrow.png);
+height: 20%;
+width: 20%;
+}
+
+QSpinBox::down-arrow:hover {
+  image: url(:/pictures/img/down_arrow_hover.png);
+height: 20%;
+width: 20%;
+}
+
+
+QSpinBox::up-arrow {
+  image:url(:/pictures/img/up_arrow.png);
+height: 20%;
+width: 20%;
+}
+
+QSpinBox::up-arrow:hover {
+  image: url(:/pictures/img/up_arrow_hover.png);
+height: 20%;
+width: 20%;
+}
+</string>
+      </property>
+      <property name="maximum">
+       <number>9999</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_X">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>300</y>
+        <width>55</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura Lt BT</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>X</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_Length">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>310</y>
+        <width>55</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura Lt BT</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Length</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_Y">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>390</y>
+        <width>55</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura Lt BT</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Y</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_Height">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>380</y>
+        <width>55</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura Lt BT</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Height</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_Z">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>470</y>
+        <width>55</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura Lt BT</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Z</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_Width">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>460</y>
+        <width>55</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura Lt BT</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Width</string>
+      </property>
+     </widget>
+     <zorder>line_3</zorder>
+     <zorder>line</zorder>
+     <zorder>comboBox_type</zorder>
+     <zorder>comboBox_element</zorder>
+     <zorder>pushButton_new</zorder>
+     <zorder>pushButton_Copy</zorder>
+     <zorder>checkBox_select</zorder>
+     <zorder>checkBox_disable</zorder>
+     <zorder>spinBox_X</zorder>
+     <zorder>spinBox_Y</zorder>
+     <zorder>spinBox_Z</zorder>
+     <zorder>spinBox_Length</zorder>
+     <zorder>spinBox_Height</zorder>
+     <zorder>spinBox_Width</zorder>
+     <zorder>label_X</zorder>
+     <zorder>label_Length</zorder>
+     <zorder>label_Y</zorder>
+     <zorder>label_Height</zorder>
+     <zorder>label_Z</zorder>
+     <zorder>label_Width</zorder>
+    </widget>
+    <widget class="Line" name="line_globale">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>291</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:rgba(153, 119, 110, 200);</string>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="lineWidth">
+      <number>20</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <zorder>line_globale</zorder>
+    <zorder>groupBox_data</zorder>
+   </widget>
+   <widget class="QLabel" name="background_2">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>50</y>
+      <width>55</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_menu">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>40</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	
+	border-image: url(:/pictures/img/btn_menu.png);
+}
+
+QPushButton::hover {
+	border-image: url(:/pictures/img/btn_menu_hover.png);
+
+}
+
+QPushButton::pressed {
+	border-image: url(:/pictures/img/btn_menu_pressed.png);
+
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_power">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>450</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-image: url(:/pictures/img/powerOff.png);
+}
+
+QPushButton::hover {
+	border-image: url(:/pictures/img/powerOff_hover.png);
+
+}
+
+QPushButton::pressed {
+	border-image: url(:/pictures/img/powerOff_pressed.png);
+
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -108,6 +108,8 @@ QVector<bdd_USER> api_get_request::parse_file_user(){
     QJsonObject json = doc.object();
 
     // Access properties
+    QJsonValue itemsValues = json.value("datas");
+    QJsonArray itemsArray = itemsValues["Items"].toArray();
 
     QVector<bdd_USER> listUser;
 
@@ -276,6 +278,8 @@ QVector<bdd_CHAT> api_get_request::parse_file_chat(){
     QJsonObject json = doc.object();
 
 //    // Access properties
+    QJsonValue itemsValues = json.value("datas");
+    QJsonArray itemsArray = itemsValues["Items"].toArray();
 
     QVector<bdd_CHAT> listChat;
 
@@ -410,6 +414,9 @@ QVector<bdd_MESSAGE> api_get_request::parse_file_message(){
 
     // Access properties
 
+    QJsonValue itemsValues = json.value("datas");
+    QJsonArray itemsArray = itemsValues["Items"].toArray();
+
     QVector<bdd_MESSAGE> listMessage;
 
     QJsonValue itemsValues = json.value("datas");
@@ -474,6 +481,8 @@ QVector<bdd_PROJECT> api_get_request::parse_file_project(){
     // Get JSON object
     QJsonObject json = doc.object();
 
+    QJsonValue itemsValues = json.value("datas");
+    QJsonArray itemsArray = itemsValues["Items"].toArray();
     // Access properties
 
     QVector<bdd_PROJECT> listProject;
