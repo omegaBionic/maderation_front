@@ -109,7 +109,6 @@ QVector<bdd_USER> api_get_request::parse_file_user(){
     QJsonObject json = doc.object();
 
     // Access properties
-
     QVector<bdd_USER> listUser;
 
     QJsonValue itemsValues = json.value("datas");
@@ -277,15 +276,15 @@ QVector<bdd_CHAT> api_get_request::parse_file_chat(){
     QJsonObject json = doc.object();
 
 //    // Access properties
-
-    QVector<bdd_CHAT> listChat;
-
     QJsonValue itemsValues = json.value("datas");
     QJsonArray itemsArray = itemsValues["Items"].toArray();
 
+    QVector<bdd_CHAT> listChat;
+
+
     foreach (const QJsonValue & v, itemsArray)
     {
-        listChat.append(bdd_CHAT(v.toObject().value("idChat")["S"].toString(), v.toObject().value("userUsernameAsReceiver")["S"].toString(), v.toObject().value("creationDate")["S"].toString(), v.toObject().value("title")["S"].toString()));
+        listChat.append(bdd_CHAT(v.toObject().value("idChat")["S"].toString(), v.toObject().value("userUsernameAsReceiver")["S"].toString(), v.toObject().value("userUsernameAsAutor")["S"].toString(), v.toObject().value("creationDate")["S"].toString(), v.toObject().value("title")["S"].toString()));
     }
     return listChat;
 }
@@ -411,10 +410,10 @@ QVector<bdd_MESSAGE> api_get_request::parse_file_message(){
 
     // Access properties
 
-    QVector<bdd_MESSAGE> listMessage;
-
     QJsonValue itemsValues = json.value("datas");
     QJsonArray itemsArray = itemsValues["Items"].toArray();
+
+    QVector<bdd_MESSAGE> listMessage;
 
     foreach (const QJsonValue & v, itemsArray)
     {
@@ -475,12 +474,11 @@ QVector<bdd_PROJECT> api_get_request::parse_file_project(){
     // Get JSON object
     QJsonObject json = doc.object();
 
+    QJsonValue itemsValues = json.value("datas");
+    QJsonArray itemsArray = itemsValues["Items"].toArray();
     // Access properties
 
     QVector<bdd_PROJECT> listProject;
-
-    QJsonValue itemsValues = json.value("datas");
-    QJsonArray itemsArray = itemsValues["Items"].toArray();
 
     foreach (const QJsonValue & v, itemsArray)
     {

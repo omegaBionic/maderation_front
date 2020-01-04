@@ -1,7 +1,9 @@
 #include "main_chat.h"
 #include "ui_main_chat.h"
 #include "form_messages.h"
+#include "../CORE/core_messages.h"
 #include <QDebug>
+#include "dialog_critical.h"
 
 main_chat::main_chat(QWidget *parent) :
     QMainWindow(parent),
@@ -21,13 +23,10 @@ main_chat::main_chat(QWidget *parent, menu_toolbar* m, QVector<bdd_CHAT>* listCh
     _user = username;
     for(int i = 0; i < listChat->count(); i++){
         bdd_CHAT chat = listChat->at(i);
-        QVector<bdd_MESSAGE>* listMessage = new QVector<bdd_MESSAGE>();
-        listMessage->append(bdd_MESSAGE("11 novembre 2100", "this is a message", chat.getIdChat(),"toto", "0"));
-        listMessage->append(bdd_MESSAGE("12 novembre 2100", "this is not a message", chat.getIdChat(),chat.getUserUsernameAsReceiver(), "0"));
-        listMessage->append(bdd_MESSAGE("13 novembre 2100", "this is maybe a message", chat.getIdChat(),"toto", "0"));
-        listMessage->append(bdd_MESSAGE("14 novembre 2100", "this is sometimes a message", chat.getIdChat(),chat.getUserUsernameAsReceiver(), "0"));
-        listMessage->append(bdd_MESSAGE("15 novembre 2100", "this is strangely a message", chat.getIdChat(),"toto", "0"));
-        ui->tabWidget->addTab(new Form_messages(this, listMessage, chat.getTitle(), _user),chat.getTitle() + "("+chat.getUserUsernameAsReceiver()+")");
+        core_messages* msg = new core_messages();
+
+        QVector<bdd_MESSAGE> listMessage = msg->getMessages(chat.getIdChat());
+        ui->tabWidget->addTab(new Form_messages(this, &listMessage, chat.getTitle(), _user),chat.getTitle() + "("+chat.getUserUsernameAsReceiver()+")");
     }
 
 }
@@ -62,8 +61,19 @@ void main_chat::resizeEvent(QResizeEvent *){
 //    ui->scrollAreaWidgetContents->setGeometry(0*_width, 0*_height, 128*_width, ui->listWidget_title->height());
 //    ui->scrollArea->setGeometry(0*_width, 0*_height, 128*_width, 60*_height);
 //    ui->scrollArea->setWidget(ui->scrollAreaWidgetContents);
+    ui->pushButton_power->setGeometry(124*_width, 0*_height ,4*_width, 4*_height);
     _menu->setGeometry(42*_width, 62*_height, 48*_width, 12*_height);
 
 
 
+}
+
+void main_chat::on_pushButton_power_clicked()
+{
+    Dialog_Critical *c = new Dialog_Critical(this,"Exit ?", "êtes vous sûr de vouloir quitter l'application ?", "question");
+    int result = c->exec();
+    qDebug() << "result du exit : "<< result;
+    if(result == QDialog::Accepted){
+        this->close();
+    }
 }

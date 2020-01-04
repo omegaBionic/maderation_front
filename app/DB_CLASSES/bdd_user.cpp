@@ -5,6 +5,8 @@
 #include <QDebug>
 #include <QFile>
 #include <QObject>
+#include <QJsonArray>
+
 bdd_USER::bdd_USER(QString phoneNumber, bool isActive, QString lastname, QString password, QString firstname, int idAddress, QString mail, QString username): bdd_global(QString("id"), QString("table"))
 {
     this->_username = username;
@@ -81,19 +83,30 @@ QString bdd_USER::getTable(){
 
 QMap<QString, QString> bdd_USER::getDict(){
 
-    QFile file;
-    file.setFileName("DATA/jsonUser.json");
-    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    QFile file("DATA/jsonUser.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
 
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
 
-    QJsonParseError jsonError;
-    QJsonDocument flowerJson = QJsonDocument::fromJson(file.readAll(),&jsonError);
-    if (jsonError.error != QJsonParseError::NoError){
-    qDebug() << jsonError.errorString();
+    // Get JSON object
+    QJsonObject json = doc.object();
+
+    // Access properties
+
+    QMap<QString, QString> listUser;
+
+    QJsonValue itemsValues = json.value("datas");
+    QJsonArray itemsArray = itemsValues["Items"].toArray();
+
+    int cpt = 0;
+
+    foreach(const QJsonValue &v, itemsArray)
+    {
+        listUser.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
+        cpt += 1;
     }
-    QList<QVariant> list = flowerJson.toVariant().toList();
-    QMap<QString, QVariant> map = list[0].toMap();
-    qDebug() << map["name"].toString();
 
-    //return map;
+    return listUser;
 }

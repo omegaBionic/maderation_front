@@ -1,6 +1,8 @@
 #include <QtTest>
 #include <QCoreApplication>
 #include <../app/CORE/api_get_request.h>
+#include <../app/CORE/api_post_request.h>
+//#include <../app/CORE/core_login.h>
 
 //pour quentin -----------------------------------------
 #include <QDesktopServices>
@@ -16,6 +18,7 @@
 #include <sys/stat.h>
 #include <QDir>
 #include <QMainWindow>
+#include <../app/CORE/core_user_management.h>
 //------------------------------------------------------
 #include "../app/UI/main_login.h"
 #include "../app/UI/menu_toolbar.h"
@@ -24,8 +27,13 @@
 #include "../app/UI/button_quotation.h"
 #include "../app/UI/main_chat.h"
 #include "../app/UI/form_messages.h"
+#include "../app/UI/main_user.h"
+#include "../app/UI/form_users.h"
+#include "../app/UI/main_template.h"
+#include "../app/UI/main_quotation.h"
 
-
+#include "../app/CORE/core_messages.h"
+#include "../app/CORE/core_quotation.h"
 
 // add necessary includes here
 
@@ -103,9 +111,31 @@ private slots:
 
     void main_chat_exist();
     void form_messages_exist();
+    void main_template_exist();
+    void main_quotation_exist();
+
+
+    void main_user_exist();
+    void form_user_exist();
 
     void test_Init1();
     void test_Init2();
+
+    void test_coreMessagesGetChats();
+    void test_coreMessageGetMessages();
+    void test_coreMessageAddMessages();
+    void test_coreMessageAddChat();
+
+    void api_post_request_test_pushData();
+    void api_post_request_test_modifyData();
+    void core_login_get_user();
+    void test_core_user_management_add();
+    void test_core_user_management_modify();
+
+    void test_core_quotation_getAttribut();
+    void test_core_quotation_getProduct();
+    void test_core_quotation_setAttribut();
+
 
 };
 
@@ -766,6 +796,282 @@ void test_app::test_Init2()
     QVERIFY((T_jsonShop.exists()));
     QVERIFY((T_jsonStock.exists()));
     QVERIFY((T_jsonSupplier.exists()));
+
+}
+
+void test_app::test_coreMessagesGetChats()
+{
+   core_messages* testChats = new core_messages();
+
+   QVERIFY(!testChats->getChats("qcordiero").isEmpty());
+
+
+}
+
+void test_app::test_coreMessageGetMessages()
+{
+    core_messages* testChats = new core_messages();
+
+    QVERIFY(!testChats->getMessages("1").isEmpty());
+
+}
+
+void test_app::test_coreMessageAddMessages()
+{
+    core_messages *testAddMessages = new core_messages();
+    bdd_USER u;
+    u.setMail("Mail");
+    u.setIsActive(false);
+    u.setLastName("LastName");
+    u.setPassword("PassWord");
+    u.setUsername("Username");
+    u.setFirstName("Firstname");
+    u.setIdAddress(2);
+    u.setPhoneNumber("PhoneNumber");
+
+
+    bdd_CHAT c;
+    c.setTitle("testTitle");
+    c.setIdChat("testIdChat");
+    c.setCreationDate("testCreationDate");
+    c.setUserUsernameAsReceiver("testUserUsernameAsReceiver");
+    QVERIFY(!testAddMessages->addMessage(u,c) == false);
+
+}
+
+void test_app::test_coreMessageAddChat()
+{
+    bdd_USER s;
+    s.setMail("Mail_s");
+    s.setIsActive(false);
+    s.setLastName("LastName_s");
+    s.setPassword("PassWord_s");
+    s.setUsername("Username_s");
+    s.setFirstName("Firstname_s");
+    s.setIdAddress(2);
+    s.setPhoneNumber("PhoneNumber_s");
+
+    bdd_USER r;
+    r.setMail("Mail_r");
+    r.setIsActive(false);
+    r.setLastName("LastName_r");
+    r.setPassword("PassWord_r");
+    r.setUsername("Username_r");
+    r.setFirstName("Firstname_r");
+    r.setIdAddress(2);
+    r.setPhoneNumber("PhoneNumber_r");
+
+    core_messages *testAddChat = new core_messages();
+    QVERIFY(!testAddChat->addChat(s, r)== false);
+
+}
+
+void test_app::main_user_exist(){
+    QVector<bdd_USER>* user = new QVector<bdd_USER>();
+    user->append(bdd_USER("0606060606",true,"polop","polop", "test",0,"polop@polop.com", "polop"));
+    main_user *m = new main_user(0, nullptr, user);
+    QVERIFY(m != NULL);
+}
+
+void test_app::form_user_exist(){
+    Form_users *m = new Form_users(0, new bdd_USER("0606060606",true,"polop","polop", "test",0,"polop@polop.com", "polop"));
+    QVERIFY(m != NULL);
+}
+
+void test_app::main_template_exist(){
+    main_template *m = new main_template(0, nullptr, nullptr);
+    QVERIFY(m != NULL);
+}
+
+void test_app::main_quotation_exist(){
+    Main_Quotation *m = new Main_Quotation(nullptr, nullptr);
+    QVERIFY(m != NULL);
+}
+
+
+
+/*void test_app::main_menu_exist(){
+    Main_Menu *m = new Main_Menu(0,NULL);
+    QVERIFY(m != NULL);
+}
+
+void test_app::button_quotation_exist(){
+    button_quotation *m = new button_quotation(nullptr, 5);
+    QVERIFY(m != NULL);
+}
+
+void test_app::button_quotation_have_ID(){
+    button_quotation *m = new button_quotation(nullptr, 5);
+    QVERIFY(m->getID() == 5);
+}*/
+
+bool waitForSignal(QObject *sender, const char *signal, int timeout = 1000) {
+    QEventLoop loop;
+    QTimer timer;
+    timer.setInterval(timeout);
+    timer.setSingleShot(true);
+
+    loop.connect(sender, signal, SLOT(quit()));
+    loop.connect(&timer, SIGNAL(timeout()), SLOT(quit()));
+    timer.start();
+    loop.exec();
+
+    return timer.isActive();
+}
+
+void test_app::api_post_request_test_pushData(){
+     QNetworkAccessManager *nam =  new QNetworkAccessManager(this);
+     QUrl url("http://madera-api.maderation.net:8080/api/push");
+     QNetworkRequest req(url);
+
+     this->connect(nam, SIGNAL(finished(QNetworkReply*)), this, SLOT(reqFinished(QNetworkReply *)));
+     QNetworkReply *rep = nam->get(req);
+     QVERIFY(waitForSignal(nam, SIGNAL(finished(QNetworkReply*)), 5000));
+}
+
+void test_app::api_post_request_test_modifyData(){
+    QString jsonFile = "jsonUser.json";
+    QString id = "1";
+    QString key = "username";
+    QString modify = "jhon";
+    try {
+        api_post_request::modifyData(jsonFile, id, key, modify);
+    }catch (int e) {
+        qDebug()<<e;
+     }
+}
+
+void test_app::core_login_get_user(){
+    try {
+        QString username = "jacky";
+        QString password = "4l";
+        //core_login::getUser(username, password);
+    } catch (int e) {
+        qDebug()<<e;
+    }
+}
+
+void test_app::test_core_user_management_add()
+{
+   bdd_USER u;
+   u.setMail("testMail");
+   u.setIsActive(true);
+   u.setLastName("testLastName");
+   u.setPassword("testPassword");
+   u.setUsername("testUsername");
+   u.setFirstName("testFirstName");
+   u.setIdAddress(1);
+   u.setPhoneNumber("testPhoneNumber");
+   core_user_management *test_core_user_management = new core_user_management();
+   QVERIFY(!test_core_user_management->addUser(u) == NULL);
+
+}
+
+void test_app::test_core_user_management_modify()
+{
+    bdd_USER m;
+    m.setMail("testMail");
+    m.setIsActive(true);
+    m.setLastName("testLastName");
+    m.setPassword("testPassword");
+    m.setUsername("testUsername");
+    m.setFirstName("testFirstName");
+    m.setIdAddress(1);
+    m.setPhoneNumber("testPhoneNumber");
+    core_user_management *test_core_user_management = new core_user_management();
+    QVERIFY(!test_core_user_management->modifyUser(m)==NULL);
+
+
+
+}
+
+void test_app::test_core_quotation_getAttribut()
+{
+    bdd_PRODUCT poutre;
+    bdd_ATTRIBUT poutreAttribut;
+
+    poutre.setType("Poutre");
+    poutre.setLabel("Poutre bois 300/50");
+    poutre.setMaterial("bois");
+    poutre.setMinWidth(50);
+    poutre.setIdProduct("1");
+    poutre.setMinLength(100);
+    poutre.setProductCode("PB-300-50");
+    poutre.setDefaultWidth(50);
+    poutre.setDefaultHeight(50);
+    poutre.setDefaultLength(300);
+    poutre.setSupplierIdSupplier(42);
+
+    poutreAttribut.setLength(500)
+    poutreAttribut.setPositionY(240);
+    poutreAttribut.setWidth(50);
+    poutreAttribut.setHeight(50);
+    poutreAttribut.setProductIdProduct(1);
+    poutreAttribut.setOrderIdProject(42);
+    poutreAttribut.setPositionX(150);
+    poutreAttribut.setRotationY(0);
+    poutreAttribut.setPositionZ(0);
+    poutreAttribut.setRotationX(0);
+    poutreAttribut.setIdAttribut(1);
+
+    core_quotation *test_core_quotation = new core_quotation();
+    QVERIFY(!test_core_quotation->getAttributs(poutre) == NULL);
+
+}
+
+
+void test_app::test_core_quotation_getProduct()
+{
+    bdd_PRODUCT poutre;
+
+
+    poutre.setType("Poutre");
+    poutre.setLabel("Poutre bois 300/50");
+    poutre.setMaterial("bois");
+    poutre.setMinWidth(50);
+    poutre.setIdProduct("1");
+    poutre.setMinLength(100);
+    poutre.setProductCode("PB-300-50");
+    poutre.setDefaultWidth(50);
+    poutre.setDefaultHeight(50);
+    poutre.setDefaultLength(300);
+    poutre.setSupplierIdSupplier(42);
+
+
+    core_quotation *test_core_quotation = new core_quotation();
+    QVector<bdd_PRODUCT> listProduct;
+    listProduct = test_core_quotation->getProduct("Poutre", "Type");
+    QVERIFY(&listProduct != NULL);
+
+}
+
+void test_app::test_core_quotation_setAttribut()
+{
+     bdd_ATTRIBUT poutreAttribut;
+     bdd_PROJECT Project1;
+
+     poutreAttribut.setLength(500)
+     poutreAttribut.setPositionY(240);
+     poutreAttribut.setWidth(50);
+     poutreAttribut.setHeight(50);
+     poutreAttribut.setProductIdProduct(1);
+     poutreAttribut.setOrderIdProject(20);
+     poutreAttribut.setPositionX(150);
+     poutreAttribut.setRotationY(0);
+     poutreAttribut.setPositionZ(0);
+     poutreAttribut.setRotationX(0);
+     poutreAttribut.setIdAttribut(1);
+
+     Project1.setIdProject("42");
+     Project1.setIsTemplate(false);
+     Project1.setValidation(false);
+     Project1.setuserUseName("Projet1 test");
+     Project1.setCreationDate("18/12/2019");
+     Project1.setValidationDate("00/00/0000");
+
+     core_quotation *test_core_quotation = new core_quotation();
+     QVERIFY(test_core_quotation->setAttribut(Project1,poutreAttribut));
+     QVERIFY(Project1.getIdProject() == poutreAttribut.setOrderIdProject(20));
 
 }
 

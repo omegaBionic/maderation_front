@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QObject>
+#include <QJsonArray>
 
 bdd_ATTRIBUT::bdd_ATTRIBUT(int length, int positionY, int width, int height, int productIdProduct, int orderIdProject, int positionX, int rotationY, int positionZ, int rotationX, int idAttribut) : bdd_global(QString("id"), QString("table"))
 {
@@ -104,5 +105,32 @@ QString bdd_ATTRIBUT::getTable(){
 }
 
 QMap<QString, QString> bdd_ATTRIBUT::getDict(){
+
+    QFile file("DATA/jsonAttribut.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
+
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+
+    // Get JSON object
+    QJsonObject json = doc.object();
+
+    // Access properties
+
+    QMap<QString, QString> listAttribut;
+
+    QJsonValue itemsValues = json.value("datas");
+    QJsonArray itemsArray = itemsValues["Items"].toArray();
+
+    int cpt = 0;
+
+    foreach(const QJsonValue &v, itemsArray)
+    {
+        listAttribut.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
+        cpt += 1;
+    }
+
+    return listAttribut;
 
 }
