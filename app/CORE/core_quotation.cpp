@@ -122,7 +122,7 @@ bool core_quotation::setAttribut(bdd_PROJECT project, bdd_ATTRIBUT attribut)
     api_get_request *parseProject = new api_get_request();
     try
     {
-        //attribut.setIDOrder == project.getIdProject();
+        attribut.setOrderIdProject == project.getIdProject();
          return true;
     }
 

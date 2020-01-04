@@ -28,6 +28,7 @@ SOURCES += \
     ./CONTROLLER/*.cpp \
     ./CORE/*.cpp \
     ./UI/*.cpp \
+    CORE/core_post_mail_files.cpp \
     CORE/core_quotation.cpp \
     main.cpp
 
@@ -37,6 +38,7 @@ HEADERS += \
     ./CONTROLLER/*.h \
     ./CORE/*.h \
     ./UI/*.h \
+    CORE/core_post_mail_files.h \
     CORE/core_quotation.h
 
 
