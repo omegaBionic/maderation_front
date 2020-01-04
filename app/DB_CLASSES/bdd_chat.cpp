@@ -8,7 +8,7 @@
 #include <QObject>
 #include <QJsonArray>
 
-bdd_CHAT::bdd_CHAT(QString idChat, QString userUsernaleAsReceiver, QString creationDate, QString title): bdd_global(QString("id"), QString("table"))
+bdd_CHAT::bdd_CHAT(QString idChat, QString userUsernaleAsReceiver, QString userUsernaleAsAutor, QString creationDate, QString title): bdd_global(QString("id"), QString("table"))
 {
     this->_idChat = idChat;
     this->_userUsernameAsReceiver = userUsernaleAsReceiver;
