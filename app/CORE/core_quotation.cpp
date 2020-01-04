@@ -17,12 +17,12 @@ core_quotation::core_quotation()
 
      QJsonObject myObject;
 
-     for(int i ; i < listAttribut.count(); i++)
+     for(int i = 0 ; i < listAttribut.count(); i++)
      {
          //qDebug()<<listAttribut.value(i).getIDProject();
 
 
-         if(listAttribut.value(i).getOrderIdProject() != project.getIDProject)
+         if(listAttribut.value(i).getOrderIdProject() != project.getIdProject())
          {
              qDebug()<<"pas ok";
              listAttribut.remove(i);
@@ -122,7 +122,7 @@ bool core_quotation::setAttribut(bdd_PROJECT project, bdd_ATTRIBUT attribut)
     api_get_request *parseProject = new api_get_request();
     try
     {
-        attribut.setOrderIdProject == project.getIdProject();
+        attribut.setOrderIdProject(project.getIdProject().toInt());
          return true;
     }
 
