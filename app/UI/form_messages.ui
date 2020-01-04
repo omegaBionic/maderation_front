@@ -91,6 +91,9 @@ border: 2px;
    <property name="styleSheet">
     <string notr="true"/>
    </property>
+   <property name="placeholderText">
+    <string>max 240 characters...</string>
+   </property>
   </widget>
   <widget class="QScrollArea" name="scrollArea">
    <property name="geometry">

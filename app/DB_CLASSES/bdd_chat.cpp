@@ -6,11 +6,13 @@
 #include <QDebug>
 #include <QFile>
 #include <QObject>
+#include <QJsonArray>
 
-bdd_CHAT::bdd_CHAT(QString idChat, QString userUsernaleAsReceiver, QString creationDate, QString title): bdd_global(QString("id"), QString("table"))
+bdd_CHAT::bdd_CHAT(QString idChat, QString userUsernaleAsReceiver, QString userUsernaleAsAutor, QString creationDate, QString title): bdd_global(QString("id"), QString("table"))
 {
     this->_idChat = idChat;
     this->_userUsernameAsReceiver = userUsernaleAsReceiver;
+    this->_userUsernameAsAutor = userUsernaleAsAutor;
     this->_creationDate = creationDate;
     this->_title = title;
 }
@@ -28,6 +30,9 @@ void bdd_CHAT::setIdChat(QString idCh){
 void bdd_CHAT::setUserUsernameAsReceiver(QString userAsRecei){
     _userUsernameAsReceiver = userAsRecei;
 }
+void bdd_CHAT::setUserUsernameAsAutor(QString userAsRecei){
+    _userUsernameAsAutor = userAsRecei;
+}
 
 void bdd_CHAT::setCreationDate(QString crDat){
     _creationDate = crDat;
@@ -41,6 +46,9 @@ QString bdd_CHAT::getIdChat(){
 }
 QString bdd_CHAT::getUserUsernameAsReceiver(){
     return _userUsernameAsReceiver;
+}
+QString bdd_CHAT::getUserUsernameAsAutor(){
+    return _userUsernameAsAutor;
 }
 QString bdd_CHAT::getCreationDate(){
     return _creationDate;
@@ -58,19 +66,30 @@ QString bdd_CHAT::getTable(){
 
 QMap<QString, QString> bdd_CHAT::getDict(){
 
-    QFile file;
-    file.setFileName("DATA/jsonChat.json");
-    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    QFile file("DATA/jsonChat.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
 
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
 
-    QJsonParseError jsonError;
-    QJsonDocument flowerJson = QJsonDocument::fromJson(file.readAll(),&jsonError);
-    if (jsonError.error != QJsonParseError::NoError){
-    qDebug() << jsonError.errorString();
+    // Get JSON object
+    QJsonObject json = doc.object();
+
+    // Access properties
+
+    QMap<QString, QString> listChat;
+
+    QJsonValue itemsValues = json.value("datas");
+    QJsonArray itemsArray = itemsValues["Items"].toArray();
+
+    int cpt = 0;
+
+    foreach(const QJsonValue &v, itemsArray)
+    {
+        listChat.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
+        cpt += 1;
     }
-    QList<QVariant> list = flowerJson.toVariant().toList();
-    QMap<QString, QVariant> map = list[0].toMap();
-    qDebug() << map["name"].toString();
 
-    //return map;
+    return listChat;
 }

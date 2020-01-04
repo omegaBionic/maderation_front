@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QObject>
 #include <QFile>
+#include <QJsonArray>
 
 bdd_MESSAGE::bdd_MESSAGE(QString creationDate, QString message, QString chatIoChat, QString userUsername, QString idMessage): bdd_global(QString("id"), QString("table"))
 {
@@ -62,19 +63,30 @@ QString bdd_MESSAGE::getTable(){
 
 QMap<QString, QString> bdd_MESSAGE::getDict(){
 
-    QFile file;
-    file.setFileName("DATA/jsonMessage.json");
-    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    QFile file("DATA/jsonMessage.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
 
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
 
-    QJsonParseError jsonError;
-    QJsonDocument flowerJson = QJsonDocument::fromJson(file.readAll(),&jsonError);
-    if (jsonError.error != QJsonParseError::NoError){
-    qDebug() << jsonError.errorString();
+    // Get JSON object
+    QJsonObject json = doc.object();
+
+    // Access properties
+
+    QMap<QString, QString> listMessage;
+
+    QJsonValue itemsValues = json.value("datas");
+    QJsonArray itemsArray = itemsValues["Items"].toArray();
+
+    int cpt = 0;
+
+    foreach(const QJsonValue &v, itemsArray)
+    {
+        listMessage.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
+        cpt += 1;
     }
-    QList<QVariant> list = flowerJson.toVariant().toList();
-    QMap<QString, QVariant> map = list[0].toMap();
-    qDebug() << map["name"].toString();
 
-    //return map;
+    return listMessage;
 }
