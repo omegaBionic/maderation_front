@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <math.h>
 #include <QThread>
+#include "dialog_critical.h"
 
 Main_Menu::Main_Menu(QWidget *parent) :
     QMainWindow(parent),
@@ -12,7 +13,7 @@ Main_Menu::Main_Menu(QWidget *parent) :
     _menu = new menu_toolbar(this);
 }
 
-Main_Menu::Main_Menu(QWidget *parent, menu_toolbar* m) :
+Main_Menu::Main_Menu(QWidget *parent, menu_toolbar* m, QVector<bdd_PROJECT>* listProject) :
     QMainWindow(parent),
     ui(new Ui::Main_Menu)
 {
@@ -22,24 +23,26 @@ Main_Menu::Main_Menu(QWidget *parent, menu_toolbar* m) :
     _listButton_quot = new QVector<button_quotation*>;
     _listButton_del = new QVector<button_quotation*>;
     _listLabel_Button = new QVector<QLabel*>;
-    _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,0, "DATA_IMG/quot_new.png"));
-    _listButton_del->append(new button_quotation(ui->scrollAreaWidgetContents,0, ":/pictures/img/trash_logo.png",true));
+
+
+    _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,-1, "DATA_IMG/quot_new.png"));
+    button_quotation* btn = new button_quotation(ui->scrollAreaWidgetContents,-1, ":/pictures/img/trash_logo.png",true);
+    btn->hide();
+    _listButton_del->append(btn);
     _listLabel_Button->append(new QLabel("New", ui->scrollAreaWidgetContents)); // new icon
-    _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,1,"DATA_IMG/quot_ex_1.png"));
-    _listButton_del->append(new button_quotation(ui->scrollAreaWidgetContents,1, ":/pictures/img/trash_logo.png",true));
-    _listLabel_Button->append(new QLabel("premier", ui->scrollAreaWidgetContents));
-    _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,2, "DATA_IMG/quot_ex_2.png"));
-    _listButton_del->append(new button_quotation(ui->scrollAreaWidgetContents,2, ":/pictures/img/trash_logo.png",true));
-    _listLabel_Button->append(new QLabel("second", ui->scrollAreaWidgetContents));
-    _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,3));
-    _listButton_del->append(new button_quotation(ui->scrollAreaWidgetContents,3, ":/pictures/img/trash_logo.png",true));
-    _listLabel_Button->append(new QLabel("Null", ui->scrollAreaWidgetContents));
-    _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,4, "DATA_IMG/quot_ex_1.png"));
-    _listButton_del->append(new button_quotation(ui->scrollAreaWidgetContents,4, ":/pictures/img/trash_logo.png",true));
-    _listLabel_Button->append(new QLabel("4eme", ui->scrollAreaWidgetContents));
-    _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,5, "DATA_IMG/quot_ex_2.png"));
-    _listButton_del->append(new button_quotation(ui->scrollAreaWidgetContents,5, ":/pictures/img/trash_logo.png",true));
-    _listLabel_Button->append(new QLabel("5eme", ui->scrollAreaWidgetContents));
+    for(int i = 0; i<listProject->count(); i++){
+        bdd_PROJECT project = listProject->at(i);
+        qDebug() << "buttons added : ";
+        qDebug() << project.getIdProject();
+        int ID = project.getIdProject().toInt();
+        _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,ID, "./DATA_IMG/quot_ex_1.png"));
+        _listButton_del->append(new button_quotation(ui->scrollAreaWidgetContents,project.getIdProject().toInt(), ":/pictures/img/trash_logo.png",true));
+        qDebug() << "buttons added : " << project.getIdProject().toInt();
+        _listLabel_Button->append(new QLabel(project.getUserUserName(), ui->scrollAreaWidgetContents)); // new icon
+        qDebug() << "buttons added : " << project.getIdProject().toInt();
+
+    }
+
     ui->scrollArea->setWidgetResizable(false);
     for(int i = 0; i< _listButton_quot->size(); i++){
         _listButton_quot->at(i)->setText("");
@@ -69,10 +72,13 @@ bool Main_Menu::event(QEvent * e)
 
 void Main_Menu::getButton_clicked(int ID){
     qDebug()<< "button clicked : "+ QString::number(ID);
+    emit button_clicked(ID);
 }
 
 void Main_Menu::getButtonDel_clicked(int ID){
     qDebug()<< "button delete clicked : "+ QString::number(ID);
+    emit deleteProject(ID);
+
 }
 
 void Main_Menu::showFull(){
@@ -110,6 +116,17 @@ void Main_Menu::resizeEvent(QResizeEvent *){
 
     }
 
+    ui->pushButton_power->setGeometry(124*_width, 0*_height ,4*_width, 4*_height);
     _menu->setGeometry(42*_width, 62*_height, 48*_width, 12*_height);
 
+}
+
+void Main_Menu::on_pushButton_power_clicked()
+{
+    Dialog_Critical *c = new Dialog_Critical(this,"Exit ?", "êtes vous sûr de vouloir quitter l'application ?", "question");
+    int result = c->exec();
+    qDebug() << "result du exit : "<< result;
+    if(result == QDialog::Accepted){
+        this->close();
+    }
 }

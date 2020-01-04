@@ -2,15 +2,16 @@
 #define USER_H
 
 #include <QFile>
+#include "bdd_global.h"
 
-class bdd_USER
+class bdd_USER : public bdd_global
 {
     public:
         bdd_USER(QString phoneNumber, bool isActive, QString lastname, QString password, QString firstname, int idAddress, QString mail, QString username);
         bdd_USER();
 
         //destructeur
-        ~bdd_USER();
+        virtual ~bdd_USER();
 
         void setPhoneNumber(QString);
         void setPassword(QString);
@@ -29,6 +30,10 @@ class bdd_USER
         QString getFirstName();
         bool getIsActive();
         int getAddressIdAddress();
+
+        QString getId() override;
+        QString getTable() override;
+        QMap<QString, QString> getDict() override;
 
     private:
         QString _username;

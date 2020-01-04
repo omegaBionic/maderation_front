@@ -8,7 +8,7 @@
 #include <fstream>
 #include <QObject>
 #include <QTextStream>
-#include "datauser.h"
+#include "../DB_CLASSES/datauser.h"
 
 class core_login : public QObject
 {

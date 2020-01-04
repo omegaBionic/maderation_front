@@ -1,5 +1,7 @@
 #include "main_user.h"
 #include "ui_main_user.h"
+#include <QDebug>
+#include "dialog_critical.h"
 
 main_user::main_user(QWidget *parent) :
     QMainWindow(parent),
@@ -14,6 +16,7 @@ main_user::main_user(QWidget *parent, menu_toolbar* menu, QVector<bdd_USER>* lis
 {
     ui->setupUi(this);
     _menu = menu;
+    _menu->setParent(this);
 
     _listUsers = list_User;
 
@@ -62,7 +65,19 @@ void main_user::resizeEvent(QResizeEvent *){
     int height_toolbox = ui->scrollArea->height() + (_height * ui->toolBox->count());
     ui->toolBox->setGeometry(0*_width, 0*_height, ui->scrollAreaWidgetContents->width() - _width, height_toolbox);
     ui->scrollAreaWidgetContents->setGeometry(13*_width, 11*_height, 100*_width, height_toolbox);
+
+    ui->pushButton_power->setGeometry(124*_width, 0*_height ,4*_width, 4*_height);
     _menu->setGeometry(42*_width, 62*_height, 48*_width, 12*_height);
 
 
+}
+
+void main_user::on_pushButton_power_clicked()
+{
+    Dialog_Critical *c = new Dialog_Critical(this,"Exit ?", "êtes vous sûr de vouloir quitter l'application ?", "question");
+    int result = c->exec();
+    qDebug() << "result du exit : "<< result;
+    if(result == QDialog::Accepted){
+        this->close();
+    }
 }

@@ -27,3 +27,6 @@ Madera_Front.pro.user
 app/release/
 
 tests/release/
+
+*.o
+Madera_Front.pro.user.433dd51

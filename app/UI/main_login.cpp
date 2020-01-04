@@ -15,6 +15,7 @@
 #include <QJsonValue>
 #include <QDebug>
 #include "../CORE/encryption.h"
+#include "dialog_critical.h"
 
 Main_Login::Main_Login(QWidget *parent) :
     QMainWindow(parent),
@@ -88,86 +89,6 @@ void Main_Login::on_btn_login_clicked()
     emit check_login(ui->lineEdit_user->text(), ui->lineEdit_pwd->text());
 
 
-//    QString key = "23";
-//    Encryption *Chiffrement = new Encryption;// convertir le texte a chiffrer en QbyteArray avec : QString MonText = "test"; ---->  QByteArray MonText_converti = MonText.toUtf8(); avant .
-
-//    if(!CheckConnexion()==true)
-//    {
-//        qDebug("not connected");
-//    }
-//    else
-//    {
-//        qDebug("connected");
-//    }
-
-//       QString username= ui->lineEdit_user->text().toLower();
-//       QString pwd= ui->lineEdit_pwd->text().toLower();
-//       qDebug() << username;
-//       qDebug() << pwd;
-
-//       QString Pwd_encrypted;
-//       QString Pwd_Json_Encrypted;
-
-//       QString pwd_decrypted;
-//       QString pwd_Json_Decrypted;
-//       if(username != "" && pwd != ""){
-
-//           //Chiffrement pwd de la form
-
-//           Pwd_encrypted  = (Chiffrement->CypherEncrypt(pwd, &key)); //chiffrement
-//           //pwd_decrypted = (Chiffrement->CypherDecrypt(Pwd_encrypted, &key));//dechiffrement
-//            //------------------
-
-//           QNetworkAccessManager manager;
-//           QNetworkReply *response = manager.get(QNetworkRequest(QUrl("http://madera-api.maderation.net:8080/api/get/user?key=83c2c07ea1251a1a39ec46d52cbba19c")));
-//           QEventLoop event;
-//           connect(response,SIGNAL(finished()),&event,SLOT(quit()));
-//           event.exec();
-//           QString html = response->readAll();
-//           QJsonObject jsonObject= QJsonDocument::fromJson(html.toUtf8()).object();
-
-//           //Chiffrement pwd du json
-//           QString pwd_json = jsonObject.value("datas")["Items"]["password"]["S"].toString();
-//           Pwd_Json_Encrypted  = (Chiffrement->CypherEncrypt(pwd_json, &key));
-//          // pwd_Json_Decrypted = (Chiffrement->CypherDecrypt(Pwd_Json_Encrypted, &key));
-//            //------------------
-
-//           //comparaison des deux mdp chiffré
-//           if(Pwd_encrypted == Pwd_Json_Encrypted)
-//           {
-//               qDebug("identique");
-//           }
-//           else
-//           {
-//               qDebug("Differents");
-//           }
-//           qDebug() <<jsonObject.value("datas")["Items"][0]["username"]["S"].toString();
-//           qDebug() <<jsonObject.value("datas")["Items"][0]["password"]["S"].toString();
-//           if(username == jsonObject.value("datas")["Items"][0]["username"]["S"].toString() && pwd == jsonObject.value("datas")["Items"][0]["password"]["S"].toString()){
-//               Dialog_Critical* d = new Dialog_Critical(this,"success", "connexion réussie", "information");
-//               d->show();
-//           }else{
-//               Dialog_Critical* d = new Dialog_Critical(this,"Error", "connexion ratée, json is : "+jsonObject.value("datas")["Items"][0]["password"]["S"].toString(), "critical");
-//               d->show();
-//           }
-
-//       }
-//       else if(username != "" && pwd == "")
-//       {
-//           Dialog_Critical* d = new Dialog_Critical(this,"Error", "Vous devez rentrer votre mot de passe !","critical" );
-//           d->show();
-//       }
-//       else if(username == "" && pwd != "")
-//       {
-//           Dialog_Critical* d = new Dialog_Critical(this,"Error","Vous devez rentrer votre identifiant !", "critical");
-//           d->show();
-//       }
-//       else if(username == "" && pwd == "")
-//       {
-//           Dialog_Critical* d = new Dialog_Critical(this,"Error", "Vous devez rentrer vos identifiants de connexion !","critical");
-//           d->show();
-//       }
-
 
 }
 
@@ -200,5 +121,17 @@ void Main_Login::resizeEvent(QResizeEvent *){
     ui->label_2->setGeometry(0*_width, 0*_height, 95*_width, 72*_height);
     ui->label_2->setPixmap(QPixmap(":/pictures/img/house.jpg").scaled(95*_width, 72*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
 
+    ui->pushButton_power->setGeometry(124*_width, 0*_height ,4*_width, 4*_height);
+
 }
 
+
+void Main_Login::on_pushButton_power_clicked()
+{
+    Dialog_Critical *c = new Dialog_Critical(this,"Exit ?", "êtes vous sûr de vouloir quitter l'application ?", "question");
+    int result = c->exec();
+    qDebug() << "result du exit : "<< result;
+    if(result == QDialog::Accepted){
+        this->close();
+    }
+}

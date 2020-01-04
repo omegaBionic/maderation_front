@@ -1,13 +1,14 @@
 #ifndef BDD_INVOICE_QUOTATION_H
 #define BDD_INVOICE_QUOTATION_H
 #include <QFile>
+#include "bdd_global.h"
 
-class bdd_INVOICE_QUOTATION
+class bdd_INVOICE_QUOTATION : public bdd_global
 {
 public:
     bdd_INVOICE_QUOTATION(QString transactionCode, QString idInvoiceQuotation, int totalAmount, QString payingMethod, QString transactionType, int taxes);
     bdd_INVOICE_QUOTATION();
-    ~bdd_INVOICE_QUOTATION();
+    virtual ~bdd_INVOICE_QUOTATION();
 
     void setTransactionCode(QString);
     void setIdInvoiceQuotation(QString);
@@ -22,6 +23,10 @@ public:
     QString getPayingMethod();
     QString getTransactionType();
     int getTaxes();
+
+    QString getId() override;
+    QString getTable() override;
+    QMap<QString, QString> getDict() override;
 
 private:
 

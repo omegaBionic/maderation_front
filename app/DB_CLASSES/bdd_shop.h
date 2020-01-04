@@ -1,13 +1,14 @@
 #ifndef BDD_SHOP_H
 #define BDD_SHOP_H
 #include <QFile>
+#include "bdd_global.h"
 
-class bdd_SHOP
+class bdd_SHOP : public bdd_global
 {
 public:
     bdd_SHOP(QString city, QString idShop, QString country, int postalCode, QString street);
     bdd_SHOP();
-    ~bdd_SHOP();
+    virtual ~bdd_SHOP();
 
     void setCity(QString);
     void setIdShop(QString);
@@ -20,6 +21,10 @@ public:
     QString getCountry();
     int getPostalCode();
     QString getStreet();
+
+    QString getId() override;
+    QString getTable() override;
+    QMap<QString, QString> getDict() override;
 
 private:
 

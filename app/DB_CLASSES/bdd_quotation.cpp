@@ -1,6 +1,14 @@
 #include "bdd_quotation.h"
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonValue>
+#include <QDebug>
+#include <QFile>
+#include <QObject>
+#include <QFile>
+#include <QJsonArray>
 
-bdd_QUOTATION::bdd_QUOTATION(bool validation, QString idQuotation, QString creationDate, bool isTemplate, QString userUsername, QString validationDate )
+bdd_QUOTATION::bdd_QUOTATION(bool validation, QString idQuotation, QString creationDate, bool isTemplate, QString userUsername, QString validationDate ): bdd_global(QString("id"), QString("table"))
 {
     this->_validationDate = validationDate;
     this->_validation = validation;
@@ -9,7 +17,7 @@ bdd_QUOTATION::bdd_QUOTATION(bool validation, QString idQuotation, QString creat
     this->_idQuotation = idQuotation;
     this->_userUserName = userUsername;
 }
-bdd_QUOTATION::bdd_QUOTATION(){
+bdd_QUOTATION::bdd_QUOTATION(): bdd_global(QString("id"), QString("table")){
 
 }
 bdd_QUOTATION::~bdd_QUOTATION(){
@@ -51,4 +59,41 @@ QString bdd_QUOTATION::getIdQuotation(){
 }
 QString bdd_QUOTATION::getUserUserName(){
     return _userUserName;
+}
+
+QString bdd_QUOTATION::getId(){
+    return "idQuotation";
+}
+QString bdd_QUOTATION::getTable(){
+    return "quotation";
+}
+
+QMap<QString, QString> bdd_QUOTATION::getDict(){
+
+    QFile file("DATA/jsonQuotation.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
+
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+
+    // Get JSON object
+    QJsonObject json = doc.object();
+
+    // Access properties
+
+    QMap<QString, QString> listQuotation;
+
+    QJsonValue itemsValues = json.value("datas");
+    QJsonArray itemsArray = itemsValues["Items"].toArray();
+
+    int cpt = 0;
+
+    foreach(const QJsonValue &v, itemsArray)
+    {
+        listQuotation.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
+        cpt += 1;
+    }
+
+    return listQuotation;
 }

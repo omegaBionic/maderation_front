@@ -5,8 +5,9 @@
 #include <QDebug>
 #include <QFile>
 #include <QObject>
+#include <QJsonArray>
 
-bdd_CLIENT::bdd_CLIENT(QString idClient, QString phoneNumber, bool isActive, QString password, QString lastname, QString mail, QString firstname, int addressIDAdress)
+bdd_CLIENT::bdd_CLIENT(QString idClient, QString phoneNumber, bool isActive, QString password, QString lastname, QString mail, QString firstname, int addressIDAdress): bdd_global(QString("id"), QString("table"))
 {
     this->_idClient = idClient;
     this->_phoneNumber = phoneNumber;
@@ -18,7 +19,7 @@ bdd_CLIENT::bdd_CLIENT(QString idClient, QString phoneNumber, bool isActive, QSt
     this->_addressIDAdress = addressIDAdress;
 }
 
-bdd_CLIENT::bdd_CLIENT(){
+bdd_CLIENT::bdd_CLIENT(): bdd_global(QString("id"), QString("table")){
 
 }
 
@@ -74,4 +75,41 @@ QString bdd_CLIENT::getFirstName(){
 }
 int bdd_CLIENT::getAddressIdAddress(){
     return _addressIDAdress;
+}
+
+QString bdd_CLIENT::getId(){
+    return "idClient";
+}
+QString bdd_CLIENT::getTable(){
+    return "client";
+}
+
+QMap<QString, QString> bdd_CLIENT::getDict(){
+
+    QFile file("DATA/jsonClient.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
+
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+
+    // Get JSON object
+    QJsonObject json = doc.object();
+
+    // Access properties
+
+    QMap<QString, QString> listClient;
+
+    QJsonValue itemsValues = json.value("datas");
+    QJsonArray itemsArray = itemsValues["Items"].toArray();
+
+    int cpt = 0;
+
+    foreach(const QJsonValue &v, itemsArray)
+    {
+        listClient.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
+        cpt += 1;
+    }
+
+    return listClient;
 }

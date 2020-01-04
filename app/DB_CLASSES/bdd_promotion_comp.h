@@ -1,13 +1,14 @@
 #ifndef BDD_PROMOTION_COMP_H
 #define BDD_PROMOTION_COMP_H
 #include <QFile>
+#include "bdd_global.h"
 
-class bdd_PROMOTION_COMP
+class bdd_PROMOTION_COMP : public bdd_global
 {
 public:
     bdd_PROMOTION_COMP(int amount, bool addToExistingProm, QString fromDate, QString idPromotionComp, QString toDate);
     bdd_PROMOTION_COMP();
-    ~bdd_PROMOTION_COMP();
+    virtual ~bdd_PROMOTION_COMP();
 
     void setAmount(int);
     void setAddToExistingProm(bool);
@@ -20,6 +21,10 @@ public:
     QString getFromDate();
     QString getIdPromotionComp();
     QString getToDate();
+
+    QString getId() override;
+    QString getTable() override;
+    QMap<QString, QString> getDict() override;
 
 private:
     int _amount;

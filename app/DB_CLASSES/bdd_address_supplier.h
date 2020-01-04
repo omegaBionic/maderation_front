@@ -1,31 +1,36 @@
 #ifndef BDD_ADDRESS_SUPPLIER_H
 #define BDD_ADDRESS_SUPPLIER_H
 
+#include "bdd_global.h"
 #include <QFile>
 
-class bdd_ADDRESS_SUPPLIER
+class bdd_ADDRESS_SUPPLIER : public bdd_global
 {
 public:
-    bdd_ADDRESS_SUPPLIER(QString city, QString idAddressClient, QString country, int postalCode, QString street);
+    bdd_ADDRESS_SUPPLIER(QString city, QString idAddressSupplier, QString country, int postalCode, QString street);
     bdd_ADDRESS_SUPPLIER();
-    ~bdd_ADDRESS_SUPPLIER();
+    virtual ~bdd_ADDRESS_SUPPLIER();
 
     void setcity(QString);
-    void setidAddressClient(QString);
+    void setidAddressSupplier(QString);
     void setCountry(QString);
     void setPostalCode(int);
     void setStreet(QString);
 
     QString getCity();
-    QString getIdAddressClient();
+    QString getIdAddressSupplier();
     QString getCountry();
     int getPostalCode();
     QString getStreet();
 
+    QString getId() override;
+    QString getTable() override;
+    QMap<QString, QString> getDict() override;
+
 private:
 
     QString _city;
-    QString _idAddressClient;
+    QString _idAddressSupplier;
     QString _country;
     int _postalCod;
     QString _street;

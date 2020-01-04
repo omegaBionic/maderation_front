@@ -1,6 +1,14 @@
 #include "bdd_promotion_comp.h"
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonValue>
+#include <QDebug>
+#include <QFile>
+#include <QObject>
+#include <QFile>
+#include <QJsonArray>
 
-bdd_PROMOTION_COMP::bdd_PROMOTION_COMP(int amount, bool addToExistingProm, QString fromDate, QString idPromotionComp, QString toDate)
+bdd_PROMOTION_COMP::bdd_PROMOTION_COMP(int amount, bool addToExistingProm, QString fromDate, QString idPromotionComp, QString toDate): bdd_global(QString("id"), QString("table"))
 {
     this->_amount = amount;
     this->_addToExistingProm =addToExistingProm;
@@ -8,7 +16,7 @@ bdd_PROMOTION_COMP::bdd_PROMOTION_COMP(int amount, bool addToExistingProm, QStri
     this->_idPromotionComp = idPromotionComp;
     this->_toDate =toDate;
 }
-bdd_PROMOTION_COMP::bdd_PROMOTION_COMP(){
+bdd_PROMOTION_COMP::bdd_PROMOTION_COMP(): bdd_global(QString("id"), QString("table")){
 
 }
 bdd_PROMOTION_COMP::~bdd_PROMOTION_COMP(){
@@ -44,4 +52,41 @@ QString bdd_PROMOTION_COMP::getIdPromotionComp(){
 }
 QString bdd_PROMOTION_COMP::getToDate(){
     return _toDate;
+}
+
+QString bdd_PROMOTION_COMP::getId(){
+    return "idPromotionComp";
+}
+QString bdd_PROMOTION_COMP::getTable(){
+    return "promotion_comp";
+}
+
+QMap<QString, QString> bdd_PROMOTION_COMP::getDict(){
+
+    QFile file("DATA/jsonPromotion_comp.json");
+    file.open(QIODevice::ReadOnly);
+    QByteArray rawData = file.readAll();
+
+    // Parse document
+    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+
+    // Get JSON object
+    QJsonObject json = doc.object();
+
+    // Access properties
+
+    QMap<QString, QString> listPromotionComp;
+
+    QJsonValue itemsValues = json.value("datas");
+    QJsonArray itemsArray = itemsValues["Items"].toArray();
+
+    int cpt = 0;
+
+    foreach(const QJsonValue &v, itemsArray)
+    {
+        listPromotionComp.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
+        cpt += 1;
+    }
+
+    return listPromotionComp;
 }

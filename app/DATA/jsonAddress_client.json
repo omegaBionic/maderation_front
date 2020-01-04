@@ -1,1 +1,1 @@
-{"status":200,"datas":{"Items":[{"city":{"S":"dijon"},"idAddressClient":{"S":"0"},"country":{"S":"france"},"postalCode":{"N":"21000"},"street":{"S":"mirande"}}],"Count":1,"ScannedCount":1}}
+{"status":200,"datas":{"Items":[{"city":{"S":"dijon"},"idAddressClient":{"S":"1"},"country":{"S":"france"},"postalCode":{"N":"21000"},"street":{"S":"mirande"}},{"city":{"S":"dijon"},"idAddressClient":{"S":"0"},"country":{"S":"france"},"postalCode":{"N":"21000"},"street":{"S":"mirande"}}],"Count":2,"ScannedCount":2}}
