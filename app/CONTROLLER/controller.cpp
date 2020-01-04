@@ -36,6 +36,7 @@ bdd_USER* Controller::getUser(){
 }
 
 void Controller::cleanup(int win){
+    qDebug() << "[controller] --- cleanup ---";
     qDebug() << "--- cleanup ---";
     try {
         if(win == 0){ //login page
@@ -71,7 +72,10 @@ void Controller::cleanup(int win){
                 _quotation = nullptr;
             }
 
+
+            qDebug() << "[controller] effacage du menu";
         }
+            qDebug() << "[controller] effacage du init";
         else if(win == 1){ //menu page
             qDebug() << "from menu";
             if(_login != nullptr){
@@ -105,6 +109,7 @@ void Controller::cleanup(int win){
                 _quotation = nullptr;
             }
         }
+            qDebug() << "[controller] effacage du chat";
         else if(win == 2){ //chat page
             qDebug() << "from chat";
             if(_login != nullptr){
@@ -244,14 +249,14 @@ void Controller::cleanup(int win){
 }
 
 void Controller::init_folder(int step){
-    qDebug() << "step : "+QString::number(step);
+    qDebug() << "[controller] step : "+QString::number(step);
     if(step == 0){
 
-        qDebug() << "checking folder";
+        qDebug() << "[controller] checking folder";
         _init->Check_folder();
     }else if(step == 1){
 
-        qDebug() << "checking connexion";
+        qDebug() << "[controller] checking connexion";
         if( _init->checkConnection()){
 
             this->init_folder(2);
@@ -263,7 +268,7 @@ void Controller::init_folder(int step){
         }
     }else if(step == 2){
 
-        qDebug() << "ending init";
+        qDebug() << "[controller] ending init";
         _init->endInit();
 
     }else if(step == 3){
@@ -306,6 +311,7 @@ void Controller::login_forgot_password(){
 
 void Controller::login(QString user, QString pwd){
 
+    qDebug() << "[controller] " << user + " , "+ pwd;
     _toolbar->setWindow("menu");
     core_menu* menu = new core_menu();
     QVector<bdd_PROJECT>* listProject = menu->getProject(*_user);
@@ -338,8 +344,8 @@ void Controller::toolbar_archive(){
 
 void Controller::toolbar_messages(){
 
-    qDebug() << "ouverture du chat";
     core_messages* msg = new core_messages();
+    qDebug() << "[controller] ouverture du chat";
 
     QVector<bdd_CHAT> listChat = msg->getChats(_user->getUsername());
     _chat = new main_chat(0, _toolbar, &listChat, _user->getUsername());
