@@ -11,6 +11,7 @@
 
 api_get_request::api_get_request(QObject *parent) : QObject(parent)
 {
+    qDebug() << "[api_get_request] id.get_id(): '" << id.get_id() << "'";
 }
 
 //int load, int total
@@ -60,7 +61,7 @@ void api_get_request::get_table(QUrl url){
 void api_get_request::get_status(){
 
     qDebug() << "start of getting status";
-    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/status?key=179616f1a4cecab2a7eab481b84d076c"));
+    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/status?key=179616f1a4cecab2a7eab481b84d076c&id=" + id.get_id()));
 
 }
 
@@ -91,7 +92,7 @@ QVector<bdd_STATUS> api_get_request::parse_file_status(){
 void api_get_request::get_table_user(){
 
         qDebug() << "start of getting user";
-        this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/user?key=83c2c07ea1251a1a39ec46d52cbba19c"));
+        this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/user?key=83c2c07ea1251a1a39ec46d52cbba19c&id=" + id.get_id()));
 
 }
 
@@ -123,7 +124,7 @@ QVector<bdd_USER> api_get_request::parse_file_user(){
 void api_get_request::get_table_client(){
 
     qDebug() << "start of getting client";
-    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/client?key=9f15cb387f77c3284bd1bdc364a21eb7"));
+    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/client?key=9f15cb387f77c3284bd1bdc364a21eb7&id=" + id.get_id()));
 
 }
 
@@ -156,7 +157,7 @@ QVector<bdd_CLIENT> api_get_request::parse_file_client(){
 void api_get_request::get_table_address_client(){
 
     qDebug() << "start of getting address client";
-    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/address_client?key=28e60ed41c0a59a442cade866bff3a97"));
+    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/address_client?key=28e60ed41c0a59a442cade866bff3a97&id=" + id.get_id()));
 
 }
 
@@ -191,7 +192,7 @@ QVector<bdd_ADDRESS_CLIENT> api_get_request::parse_file_address_client(){
 void api_get_request::get_table_address_supplier(){
 
       qDebug() << "start of getting address supplier";
-    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/address_supplier?key=33f85cb0c62fc22f5c2ad0f067c5e83a"));
+    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/address_supplier?key=33f85cb0c62fc22f5c2ad0f067c5e83a&id=" + id.get_id()));
 
 }
 
@@ -224,7 +225,7 @@ QVector<bdd_ADDRESS_SUPPLIER> api_get_request::parse_file_address_supplier(){
 void api_get_request::get_table_category(){
 
     qDebug() << "start of getting category";
-    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/category?key=182ea700442885f568585f374423073d"));
+    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/category?key=182ea700442885f568585f374423073d&id=" + id.get_id()));
 
 }
 
@@ -258,7 +259,7 @@ QVector<bdd_CATEGORY> api_get_request::parse_file_category(){
 void api_get_request::get_table_chat(){
 
     qDebug() << "start of getting chat";
-    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/chat?key=80aacfbde81d03d20788f370417651cc"));
+    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/chat?key=80aacfbde81d03d20788f370417651cc&id=" + id.get_id()));
 
 }
 
@@ -291,7 +292,7 @@ QVector<bdd_CHAT> api_get_request::parse_file_chat(){
 void api_get_request::get_table_component(){
 
     qDebug() << "start of getting component";
-    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/component?key=6400edeffb01785cb7426801619d8535"));
+    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/component?key=6400edeffb01785cb7426801619d8535&id=" + id.get_id()));
 
 }
 
@@ -325,7 +326,7 @@ QVector<bdd_COMPONENT> api_get_request::parse_file_component(){
 void api_get_request::get_table_gamme(){
 
     qDebug() << "start of getting gamme";
-    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/gamme?key=9af660ef63fbb9e5175d56f064d7a0db"));
+    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/gamme?key=9af660ef63fbb9e5175d56f064d7a0db&id=" + id.get_id()));
 
 }
 
@@ -358,7 +359,7 @@ QVector<bdd_GAMME> api_get_request::parse_file_gamme(){
 void api_get_request::get_table_invoice_quotation(){
 
     qDebug() << "start of getting invoice quotation";
-    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/invoice_quotation?key=74cc360b19fc2a94ea620ef5803a381b"));
+    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/invoice_quotation?key=74cc360b19fc2a94ea620ef5803a381b&id=" + id.get_id()));
 
 }
 
@@ -391,7 +392,7 @@ QVector<bdd_INVOICE_QUOTATION> api_get_request::parse_file_invoice_quotation(){
 void api_get_request::get_table_message(){
 
     qDebug() << "start of getting message";
-    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/message?key=a853ca2949386f7d527bf06117bda9e3"));
+    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/message?key=a853ca2949386f7d527bf06117bda9e3&id=" + id.get_id()));
 
 }
 
@@ -424,7 +425,7 @@ QVector<bdd_MESSAGE> api_get_request::parse_file_message(){
 void api_get_request::get_table_product(){
 
     qDebug() << "start of getting product";
-    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/product?key=4789725dd2d8061e7faf00fce9af48e1"));
+    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/product?key=4789725dd2d8061e7faf00fce9af48e1&id=" + id.get_id()));
 
 }
 
@@ -457,7 +458,7 @@ QVector<bdd_PRODUCT> api_get_request::parse_file_product(){
 void api_get_request::get_table_project(){
 
     qDebug() << "start of getting project";
-    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/project?key=3f61093fa59c13f81fc8648a3d644e0b"));
+    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/project?key=3f61093fa59c13f81fc8648a3d644e0b&id=" + id.get_id()));
 
 }
 
@@ -490,7 +491,7 @@ QVector<bdd_PROJECT> api_get_request::parse_file_project(){
 void api_get_request::get_table_promotion_cat(){
 
     qDebug() << "start of getting promotion category";
-    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/promotion_cat?key=557c0271e30cf474e0f46f93721fd1ba"));
+    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/promotion_cat?key=557c0271e30cf474e0f46f93721fd1ba&id=" + id.get_id()));
 
 }
 
@@ -524,7 +525,7 @@ QVector<bdd_PROMOTION_CAT> api_get_request::parse_file_promotion_cat(){
 void api_get_request::get_table_promotion_comp(){
 
     qDebug() << "start of getting promotion component";
-    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/promotion_comp?key=2b11565d85da178b3a1942a22d20c624"));
+    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/promotion_comp?key=2b11565d85da178b3a1942a22d20c624&id=" + id.get_id()));
 
 }
 
@@ -557,7 +558,7 @@ QVector<bdd_PROMOTION_COMP> api_get_request::parse_file_promotion_comp(){
 void api_get_request::get_table_quotation(){
 
     qDebug() << "start of getting quotation";
-    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/quotation?key=eb307516cffbc5e529cf9c7350ffc299"));
+    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/quotation?key=eb307516cffbc5e529cf9c7350ffc299&id=" + id.get_id()));
 
 }
 
@@ -591,7 +592,7 @@ QVector<bdd_QUOTATION> api_get_request::parse_file_quotation(){
 void api_get_request::get_table_role(){
 
     qDebug() << "start of getting role";
-    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/role?key=33f85cb0c62f522f5c2ad09067c5e83a"));
+    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/role?key=33f85cb0c62f522f5c2ad09067c5e83a&id=" + id.get_id()));
 
 }
 
@@ -625,7 +626,7 @@ QVector<bdd_ROLE> api_get_request::parse_file_role(){
 void api_get_request::get_table_shop(){
 
     qDebug() << "start of getting shop";
-    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/shop?key=p3f85cbdc62fc22f5c2ad0f067m5eldlda"));
+    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/shop?key=p3f85cbdc62fc22f5c2ad0f067m5eldlda&id=" + id.get_id()));
 
 }
 
@@ -658,7 +659,7 @@ QVector<bdd_SHOP> api_get_request::parse_file_shop(){
 void api_get_request::get_table_stock(){
 
     qDebug() << "start of getting stock";
-    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/stock?key=93f85cb0cc2fc22f5c2ad0f067c5e95116"));
+    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/stock?key=93f85cb0cc2fc22f5c2ad0f067c5e95116&id=" + id.get_id()));
 
 }
 
@@ -691,7 +692,7 @@ QVector<bdd_STOCK>api_get_request::parse_file_stock(){
 void api_get_request::get_table_supplier(){
 
     qDebug() << "start of getting supplier";
-    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/supplier?key=3ff85cb0c62fc22z5c2adff067c5e83a"));
+    this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/supplier?key=3ff85cb0c62fc22z5c2adff067c5e83a&id=" + id.get_id()));
 
 }
 
@@ -724,7 +725,7 @@ QVector<bdd_SUPPLIER> api_get_request::parse_file_supplier(){
 void api_get_request::get_table_attribut(){
 
         qDebug() << "start of getting attribut";
-        this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/attribut?key=86ad7be9d92e838132c9c182554531e9&id=69"));
+        this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/attribut?key=86ad7be9d92e838132c9c182554531e9&id=69&id=" + id.get_id()));
 
 }
 

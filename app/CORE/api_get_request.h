@@ -1,5 +1,6 @@
 #ifndef API_GET_REQUEST_H
 #define API_GET_REQUEST_H
+
 #include <QtNetwork>
 #include <QObject>
 #include "../DB_CLASSES/bdd_status.h"
@@ -23,6 +24,7 @@
 #include "../DB_CLASSES/bdd_stock.h"
 #include "../DB_CLASSES/bdd_supplier.h"
 #include "../DB_CLASSES/bdd_attribut.h"
+#include "utils_id.h"
 
 
 class api_get_request : public QObject
@@ -94,8 +96,10 @@ public:
      void get_table_attribut();
      QVector<bdd_ATTRIBUT> parse_file_attribut();
 
-signals:
+private:
+     utils_id id;
 
+signals:
 public slots:
     void downloadFinished(QNetworkReply* reply);
 

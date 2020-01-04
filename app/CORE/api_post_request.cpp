@@ -2,14 +2,16 @@
 #include <QNetworkAccessManager>
 
 api_post_request::api_post_request(){
-
-    }
+    qDebug() << "[api_post_request] id.get_id(): '" << id.get_id() << "'";
+}
 
 void api_post_request::modifyData(QString jsonFile,QString idKey, QString id, QString key, QString modify){
 
 }
 
 void api_post_request::pushData(){
+
+    // TODO: add id.get_id() in id parameter on post request
 
     QFile file("DATA/modif.json");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
