@@ -7,7 +7,7 @@
 #include <QObject>
 #include <QJsonArray>
 
-bdd_CLIENT::bdd_CLIENT(QString idClient, QString phoneNumber, bool isActive, QString password, QString lastname, QString mail, QString firstname, int addressIDAdress): bdd_global(QString("id"), QString("table"))
+bdd_CLIENT::bdd_CLIENT(QString idClient, QString phoneNumber, bool isActive, QString password, QString lastname, QString mail, QString firstname, int addressIDAdress): bdd_global(QString("idClient"), QString("client"))
 {
     this->_idClient = idClient;
     this->_phoneNumber = phoneNumber;
@@ -19,7 +19,7 @@ bdd_CLIENT::bdd_CLIENT(QString idClient, QString phoneNumber, bool isActive, QSt
     this->_addressIDAdress = addressIDAdress;
 }
 
-bdd_CLIENT::bdd_CLIENT(): bdd_global(QString("id"), QString("table")){
+bdd_CLIENT::bdd_CLIENT(): bdd_global(QString("idClient"), QString("client")){
 
 }
 
@@ -84,32 +84,24 @@ QString bdd_CLIENT::getTable(){
     return "client";
 }
 
-QMap<QString, QString> bdd_CLIENT::getDict(){
+void bdd_CLIENT::addKey(QString key, QString value){
+    bdd_global::addKey(key, value);
+    _map.insert(key, value);
+}
 
-    QFile file("DATA/jsonClient.json");
-    file.open(QIODevice::ReadOnly);
-    QByteArray rawData = file.readAll();
-
-    // Parse document
-    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-    // Get JSON object
-    QJsonObject json = doc.object();
-
-    // Access properties
-
-    QMap<QString, QString> listClient;
-
-    QJsonValue itemsValues = json.value("datas");
-    QJsonArray itemsArray = itemsValues["Items"].toArray();
-
-    int cpt = 0;
-
-    foreach(const QJsonValue &v, itemsArray)
-    {
-        listClient.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
-        cpt += 1;
+QMap<QString, QString> bdd_CLIENT::getDict() {
+    this->addKey("idClient", "\"S\":\""+ this->_idClient + "\"");
+    this->addKey("phoneNumber", "\"S\":\""+ this->_phoneNumber + "\"");
+    this->addKey("password", "\"S\":\""+ this->_password + "\"");
+    this->addKey("lastname", "\"S\":\""+ this->_lastname + "\"");
+    this->addKey("mail", "\"S\":\""+ this->_mail + "\"");
+    this->addKey("firstname", "\"S\":\""+ this->_firstname + "\"");
+    if(this->_isActive){
+        this->addKey("isActive", "\"B\":\"true\"");
+    }else{
+        this->addKey("isActive", "\"B\":\"false\"");
     }
-
-    return listClient;
+    this->addKey("addressIDAddress", "\"N\":\""+ QString::number(this->_addressIDAdress) + "\"");
+    bdd_global::getDict();
+    return _map;
 }

@@ -8,13 +8,13 @@
 #include <QFile>
 #include <QJsonArray>
 
-bdd_ROLE::bdd_ROLE(QString userUsername, QString idRole, QString label): bdd_global(QString("id"), QString("table"))
+bdd_ROLE::bdd_ROLE(QString userUsername, QString idRole, QString label): bdd_global(QString("idRole"), QString("role"))
 {
     this->_userUserName =userUsername;
     this->_idRole = idRole;
     this->_label = label;
 }
-bdd_ROLE::bdd_ROLE(): bdd_global(QString("id"), QString("table")){
+bdd_ROLE::bdd_ROLE(): bdd_global(QString("idRole"), QString("role")){
 
 }
 bdd_ROLE::~bdd_ROLE(){
@@ -47,32 +47,16 @@ QString bdd_ROLE::getTable(){
     return "role";
 }
 
-QMap<QString, QString> bdd_ROLE::getDict(){
+void bdd_ROLE::addKey(QString key, QString value){
+    bdd_global::addKey(key, value);
+    _map.insert(key, value);
+}
 
-    QFile file("DATA/jsonRole.json");
-    file.open(QIODevice::ReadOnly);
-    QByteArray rawData = file.readAll();
-
-    // Parse document
-    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-    // Get JSON object
-    QJsonObject json = doc.object();
-
-    // Access properties
-
-    QMap<QString, QString> listRole;
-
-    QJsonValue itemsValues = json.value("datas");
-    QJsonArray itemsArray = itemsValues["Items"].toArray();
-
-    int cpt = 0;
-
-    foreach(const QJsonValue &v, itemsArray)
-    {
-        listRole.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
-        cpt += 1;
-    }
-
-    return listRole;
+//bool validation, QString idQuotation, QString creationDate, bool isTemplate, QString userUsername, QString validationDate
+QMap<QString, QString> bdd_ROLE::getDict() {
+    this->addKey("idRole", "\"S\":\""+ this->_idRole + "\"");
+    this->addKey("label", "\"S\":\""+ this->_label + "\"");
+    this->addKey("userUserName", "\"S\":\""+ this->_userUserName + "\"");
+    bdd_global::getDict();
+    return _map;
 }

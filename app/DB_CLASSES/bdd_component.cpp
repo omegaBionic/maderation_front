@@ -8,14 +8,14 @@
 #include <QFile>
 #include <QJsonArray>
 
-bdd_COMPONENT::bdd_COMPONENT(int supplierIdSupplier, QString idComponent, int categoryIdCategory, QString label): bdd_global(QString("id"), QString("table"))
+bdd_COMPONENT::bdd_COMPONENT(int supplierIdSupplier, QString idComponent, int categoryIdCategory, QString label): bdd_global(QString("idComponent"), QString("component"))
 {
     this->_supplierIdSupplier = supplierIdSupplier;
     this->_idComponent = idComponent;
     this->_categoryIdCategory = categoryIdCategory;
     this->_label = label;
 }
-bdd_COMPONENT::bdd_COMPONENT(): bdd_global(QString("id"), QString("table")){
+bdd_COMPONENT::bdd_COMPONENT(): bdd_global(QString("idComponent"), QString("component")){
 
 }
 bdd_COMPONENT::~bdd_COMPONENT(){
@@ -54,32 +54,17 @@ QString bdd_COMPONENT::getTable(){
     return "component";
 }
 
-QMap<QString, QString> bdd_COMPONENT::getDict(){
+void bdd_COMPONENT::addKey(QString key, QString value){
+    bdd_global::addKey(key, value);
+    _map.insert(key, value);
+}
 
-    QFile file("DATA/jsonComponent.json");
-    file.open(QIODevice::ReadOnly);
-    QByteArray rawData = file.readAll();
-
-    // Parse document
-    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-    // Get JSON object
-    QJsonObject json = doc.object();
-
-    // Access properties
-
-    QMap<QString, QString> listComponent;
-
-    QJsonValue itemsValues = json.value("datas");
-    QJsonArray itemsArray = itemsValues["Items"].toArray();
-
-    int cpt = 0;
-
-    foreach(const QJsonValue &v, itemsArray)
-    {
-        listComponent.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
-        cpt += 1;
-    }
-
-    return listComponent;
+//int supplierIdSupplier, QString idComponent, int categoryIdCategory, QString label
+QMap<QString, QString> bdd_COMPONENT::getDict() {
+    this->addKey("idComponent", "\"S\":\""+ this->_idComponent + "\"");
+    this->addKey("label", "\"S\":\""+ this->_label + "\"");
+    this->addKey("supplierIdSupplier", "\"N\":\""+ QString::number(this->_supplierIdSupplier) + "\"");
+    this->addKey("categoryIdCategory", "\"N\":\""+ QString::number(this->_categoryIdCategory) + "\"");
+    bdd_global::getDict();
+    return _map;
 }

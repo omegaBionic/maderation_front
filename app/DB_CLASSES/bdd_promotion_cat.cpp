@@ -8,7 +8,7 @@
 #include <QFile>
 #include <QJsonArray>
 
-bdd_PROMOTION_CAT::bdd_PROMOTION_CAT(int amount, bool addToExistingProm, QString fromDate, QString idPromotionCat, QString toDate): bdd_global(QString("id"), QString("table"))
+bdd_PROMOTION_CAT::bdd_PROMOTION_CAT(int amount, bool addToExistingProm, QString fromDate, QString idPromotionCat, QString toDate): bdd_global(QString("idPromotionCat"), QString("promotion_cat"))
 {
     this->_amount = amount;
     this->_addToExistingProm =addToExistingProm;
@@ -16,7 +16,7 @@ bdd_PROMOTION_CAT::bdd_PROMOTION_CAT(int amount, bool addToExistingProm, QString
     this->_idPromotionCat = idPromotionCat;
     this->_toDate =toDate;
 }
-bdd_PROMOTION_CAT::bdd_PROMOTION_CAT(): bdd_global(QString("id"), QString("table")){
+bdd_PROMOTION_CAT::bdd_PROMOTION_CAT(): bdd_global(QString("idPromotionCat"), QString("promotion_cat")){
 
 }
 bdd_PROMOTION_CAT::~bdd_PROMOTION_CAT(){
@@ -61,32 +61,23 @@ QString bdd_PROMOTION_CAT::getTable(){
     return "promotion_cat";
 }
 
-QMap<QString, QString> bdd_PROMOTION_CAT::getDict(){
-
-    QFile file("DATA/jsonPromotion_cat.json");
-    file.open(QIODevice::ReadOnly);
-    QByteArray rawData = file.readAll();
-
-    // Parse document
-    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-    // Get JSON object
-    QJsonObject json = doc.object();
-
-    // Access properties
-
-    QMap<QString, QString> listPromotionCat;
-
-    QJsonValue itemsValues = json.value("datas");
-    QJsonArray itemsArray = itemsValues["Items"].toArray();
-
-    int cpt = 0;
-
-    foreach(const QJsonValue &v, itemsArray)
-    {
-        listPromotionCat.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
-        cpt += 1;
-    }
-
-    return listPromotionCat;
+void bdd_PROMOTION_CAT::addKey(QString key, QString value){
+    bdd_global::addKey(key, value);
+    _map.insert(key, value);
 }
+
+//int amount, bool addToExistingProm, QString fromDate, QString idPromotionCat, QString toDate
+QMap<QString, QString> bdd_PROMOTION_CAT::getDict() {
+    this->addKey("amount", "\"N\":\""+ QString::number(this->_amount) + "\"");
+    this->addKey("fromDate", "\"S\":\""+ this->_fromDate + "\"");
+    this->addKey("toDate", "\"S\":\""+ this->_toDate + "\"");
+    this->addKey("idPromotionCat", "\"S\":\""+ this->_idPromotionCat + "\"");
+    if(this->_addToExistingProm){
+        this->addKey("addToExistingProm", "\"B\":\"true\"");
+    }else{
+        this->addKey("addToExistingProm", "\"B\":\"false\"");
+    }
+    bdd_global::getDict();
+    return _map;
+}
+

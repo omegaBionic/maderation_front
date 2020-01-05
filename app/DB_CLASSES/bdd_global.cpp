@@ -36,7 +36,10 @@ QString bdd_global::getId(){
 }
 
 QMap<QString, QString> bdd_global::getDict(){
-    QMap<QString, QString> map;
-    map.insert("key", "value");
-    return map;
+    return _map;
+}
+
+
+void bdd_global::addKey(QString key, QString value){
+    _map.insert(key, value);
 }

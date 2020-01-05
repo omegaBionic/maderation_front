@@ -11,6 +11,7 @@
 #include "../UI/main_template.h"
 #include "../UI/main_quotation.h"
 #include "../DB_CLASSES/bdd_user.h"
+#include "../DB_CLASSES/bdd_role.h"
 
 class Controller : public QObject
 {
@@ -46,6 +47,7 @@ private:
     main_template* _template;
     Main_Quotation* _quotation;
     bdd_USER* _user;
+    QVector<bdd_ROLE> _user_roles;
     void launchLogin();
 };
 

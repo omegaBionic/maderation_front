@@ -8,7 +8,7 @@
 #include <QFile>
 #include <QJsonArray>
 
-bdd_QUOTATION::bdd_QUOTATION(bool validation, QString idQuotation, QString creationDate, bool isTemplate, QString userUsername, QString validationDate ): bdd_global(QString("id"), QString("table"))
+bdd_QUOTATION::bdd_QUOTATION(bool validation, QString idQuotation, QString creationDate, bool isTemplate, QString userUsername, QString validationDate ): bdd_global(QString("idQuotation"), QString("quotation"))
 {
     this->_validationDate = validationDate;
     this->_validation = validation;
@@ -17,7 +17,7 @@ bdd_QUOTATION::bdd_QUOTATION(bool validation, QString idQuotation, QString creat
     this->_idQuotation = idQuotation;
     this->_userUserName = userUsername;
 }
-bdd_QUOTATION::bdd_QUOTATION(): bdd_global(QString("id"), QString("table")){
+bdd_QUOTATION::bdd_QUOTATION(): bdd_global(QString("idQuotation"), QString("quotation")){
 
 }
 bdd_QUOTATION::~bdd_QUOTATION(){
@@ -68,32 +68,29 @@ QString bdd_QUOTATION::getTable(){
     return "quotation";
 }
 
-QMap<QString, QString> bdd_QUOTATION::getDict(){
 
-    QFile file("DATA/jsonQuotation.json");
-    file.open(QIODevice::ReadOnly);
-    QByteArray rawData = file.readAll();
-
-    // Parse document
-    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-    // Get JSON object
-    QJsonObject json = doc.object();
-
-    // Access properties
-
-    QMap<QString, QString> listQuotation;
-
-    QJsonValue itemsValues = json.value("datas");
-    QJsonArray itemsArray = itemsValues["Items"].toArray();
-
-    int cpt = 0;
-
-    foreach(const QJsonValue &v, itemsArray)
-    {
-        listQuotation.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
-        cpt += 1;
-    }
-
-    return listQuotation;
+void bdd_QUOTATION::addKey(QString key, QString value){
+    bdd_global::addKey(key, value);
+    _map.insert(key, value);
 }
+
+//bool validation, QString idQuotation, QString creationDate, bool isTemplate, QString userUsername, QString validationDate
+QMap<QString, QString> bdd_QUOTATION::getDict() {
+    this->addKey("idQuotation", "\"S\":\""+ this->_idQuotation + "\"");
+    this->addKey("creationDate", "\"S\":\""+ this->_creationDate + "\"");
+    this->addKey("userUserName", "\"S\":\""+ this->_userUserName + "\"");
+    this->addKey("validationDate", "\"S\":\""+ this->_validationDate + "\"");
+    if(this->_validation){
+        this->addKey("validation", "\"B\":\"true\"");
+    }else{
+        this->addKey("validation", "\"B\":\"false\"");
+    }
+    if(this->_isTemplate){
+        this->addKey("isTemplate", "\"B\":\"true\"");
+    }else{
+        this->addKey("isTemplate", "\"B\":\"false\"");
+    }
+    bdd_global::getDict();
+    return _map;
+}
+

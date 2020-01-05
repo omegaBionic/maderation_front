@@ -8,7 +8,7 @@
 #include <QFile>
 #include <QJsonArray>
 
-bdd_SUPPLIER::bdd_SUPPLIER(QString phoneNumber, QString mail, QString description, QString name, QString idSupplier, int addressIdAddress): bdd_global(QString("id"), QString("table"))
+bdd_SUPPLIER::bdd_SUPPLIER(QString phoneNumber, QString mail, QString description, QString name, QString idSupplier, int addressIdAddress): bdd_global(QString("idSupplier"), QString("supplier"))
 {
     this->_phoneNumber = phoneNumber;
     this->_mail = mail;
@@ -17,7 +17,7 @@ bdd_SUPPLIER::bdd_SUPPLIER(QString phoneNumber, QString mail, QString descriptio
     this->_idSupplier = idSupplier;
     this->_addressIdAddres = addressIdAddress;
 }
-bdd_SUPPLIER::bdd_SUPPLIER(): bdd_global(QString("id"), QString("table")){
+bdd_SUPPLIER::bdd_SUPPLIER(): bdd_global(QString("idSupplier"), QString("supplier")){
 
 }
 bdd_SUPPLIER::~bdd_SUPPLIER(){
@@ -68,32 +68,19 @@ QString bdd_SUPPLIER::getTable(){
     return "supplier";
 }
 
-QMap<QString, QString> bdd_SUPPLIER::getDict(){
+void bdd_SUPPLIER::addKey(QString key, QString value){
+    bdd_global::addKey(key, value);
+    _map.insert(key, value);
+}
 
-    QFile file("DATA/jsonSupplier.json");
-    file.open(QIODevice::ReadOnly);
-    QByteArray rawData = file.readAll();
-
-    // Parse document
-    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-    // Get JSON object
-    QJsonObject json = doc.object();
-
-    // Access properties
-
-    QMap<QString, QString> listSupplier;
-
-    QJsonValue itemsValues = json.value("datas");
-    QJsonArray itemsArray = itemsValues["Items"].toArray();
-
-    int cpt = 0;
-
-    foreach(const QJsonValue &v, itemsArray)
-    {
-        listSupplier.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
-        cpt += 1;
-    }
-
-    return listSupplier;
+//QString phoneNumber, QString mail, QString description, QString name, QString idSupplier, int addressIdAddress
+QMap<QString, QString> bdd_SUPPLIER::getDict() {
+    this->addKey("phoneNumber", "\"S\":\""+ this->_phoneNumber + "\"");
+    this->addKey("mail", "\"S\":\""+ this->_mail + "\"");
+    this->addKey("description", "\"S\":\""+ this->_description + "\"");
+    this->addKey("name", "\"S\":\""+ this->_name + "\"");
+    this->addKey("idSupplier", "\"S\":\""+ this->_idSupplier + "\"");
+    this->addKey("addressIdAddress", "\"N\":\""+ QString::number(this->_addressIdAddres) + "\"");
+    bdd_global::getDict();
+    return _map;
 }

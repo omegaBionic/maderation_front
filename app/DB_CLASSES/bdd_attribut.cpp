@@ -7,7 +7,7 @@
 #include <QObject>
 #include <QJsonArray>
 
-bdd_ATTRIBUT::bdd_ATTRIBUT(int length, int positionY, int width, int height, int productIdProduct, int orderIdProject, int positionX, int rotationY, int positionZ, int rotationX, int idAttribut) : bdd_global(QString("id"), QString("table"))
+bdd_ATTRIBUT::bdd_ATTRIBUT(int length, int positionY, int width, int height, int productIdProduct, int orderIdProject, int positionX, int rotationY, int positionZ, int rotationX, int idAttribut) : bdd_global(QString("idAttribut"), QString("attribut"))
 {
     this->_length = length;
     this->_positionY = positionY;
@@ -22,7 +22,7 @@ bdd_ATTRIBUT::bdd_ATTRIBUT(int length, int positionY, int width, int height, int
     this->_idAttribut = idAttribut;
 }
 
-bdd_ATTRIBUT::bdd_ATTRIBUT(): bdd_global(QString("id"), QString("table")){
+bdd_ATTRIBUT::bdd_ATTRIBUT(): bdd_global(QString("idAttribut"), QString("attribut")){
 
 }
 bdd_ATTRIBUT::~bdd_ATTRIBUT(){
@@ -104,33 +104,26 @@ QString bdd_ATTRIBUT::getTable(){
     return "attribut";
 }
 
-QMap<QString, QString> bdd_ATTRIBUT::getDict(){
-
-    QFile file("DATA/jsonAttribut.json");
-    file.open(QIODevice::ReadOnly);
-    QByteArray rawData = file.readAll();
-
-    // Parse document
-    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-    // Get JSON object
-    QJsonObject json = doc.object();
-
-    // Access properties
-
-    QMap<QString, QString> listAttribut;
-
-    QJsonValue itemsValues = json.value("datas");
-    QJsonArray itemsArray = itemsValues["Items"].toArray();
-
-    int cpt = 0;
-
-    foreach(const QJsonValue &v, itemsArray)
-    {
-        listAttribut.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
-        cpt += 1;
-    }
-
-    return listAttribut;
-
+void bdd_ATTRIBUT::addKey(QString key, QString value){
+    bdd_global::addKey(key, value);
+    _map.insert(key, value);
 }
+
+
+QMap<QString, QString> bdd_ATTRIBUT::getDict() {
+    this->addKey("width", "\"N\":\""+ QString::number(this->_width) + "\"");
+    this->addKey("height", "\"N\":\""+ QString::number(this->_height) + "\"");
+    this->addKey("length", "\"N\":\""+ QString::number(this->_length) + "\"");
+    this->addKey("positionX", "\"N\":\""+ QString::number(this->_positionX) + "\"");
+    this->addKey("positionY", "\"N\":\""+ QString::number(this->_positionY) + "\"");
+    this->addKey("positionZ", "\"N\":\""+ QString::number(this->_positionZ) + "\"");
+    this->addKey("rotationX", "\"N\":\""+ QString::number(this->_rotationX) + "\"");
+    this->addKey("rotationY", "\"N\":\""+ QString::number(this->_rotationY) + "\"");
+    this->addKey("idAttribut", "\"N\":\""+ QString::number(this->_idAttribut) + "\"");
+    this->addKey("idProject", "\"N\":\""+ QString::number(this->_orderIdProject) + "\"");
+    this->addKey("idProduct", "\"N\":\""+ QString::number(this->_productIdProduct) + "\"");
+
+    bdd_global::getDict();
+    return _map;
+}
+

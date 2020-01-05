@@ -7,7 +7,7 @@
 #include <QFile>
 #include <QObject>
 
-bdd_ADDRESS_CLIENT::bdd_ADDRESS_CLIENT(QString city, QString idAddressClient, QString country, int postalCode, QString street) : bdd_global(QString("id"), QString("table"))
+bdd_ADDRESS_CLIENT::bdd_ADDRESS_CLIENT(QString city, QString idAddressClient, QString country, int postalCode, QString street) : bdd_global(QString("idAddressClient"), QString("address_client"))
 {
     this->_city = city;
     this->_idAddressClient = idAddressClient;
@@ -16,7 +16,7 @@ bdd_ADDRESS_CLIENT::bdd_ADDRESS_CLIENT(QString city, QString idAddressClient, QS
     this->_street = street;
 }
 
-bdd_ADDRESS_CLIENT::bdd_ADDRESS_CLIENT() : bdd_global(QString("id"), QString("table"))
+bdd_ADDRESS_CLIENT::bdd_ADDRESS_CLIENT() : bdd_global(QString("idAddressClient"), QString("address_client"))
 {
 
 }
@@ -72,36 +72,20 @@ QString bdd_ADDRESS_CLIENT::getTable(){
     return "address_client";
 }
 
-QMap<QString, QString> bdd_ADDRESS_CLIENT::getDict(){
-
-    QFile file("data/jsonAddress_client.json");
-    file.open(QIODevice::ReadOnly);
-    QByteArray rawData = file.readAll();
-
-    // Parse document
-    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-    // Get JSON object
-    QJsonObject json = doc.object();
-
-    // Access properties
-
-    QMap<QString, QString> listAddressClient;
-
-    QJsonValue itemsValues = json.value("datas");
-    QJsonArray itemsArray = itemsValues["Items"].toArray();
-
-    int cpt = 0;
-
-    foreach(const QJsonValue &v, itemsArray)
-    {
-        listAddressClient.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
-        cpt += 1;
-    }
-
-    return listAddressClient;
-
+void bdd_ADDRESS_CLIENT::addKey(QString key, QString value){
+    bdd_global::addKey(key, value);
+    _map.insert(key, value);
 }
 
 
+QMap<QString, QString> bdd_ADDRESS_CLIENT::getDict() {
+    this->addKey("city", "\"S\":\""+ this->_city + "\"");
+    this->addKey("street", "\"S\":\""+ this->_street + "\"");
+    this->addKey("country", "\"S\":\""+ this->_country + "\"");
+    this->addKey("postalCode", "\"N\":\""+ QString::number(this->_postalCod) + "\"");
+    this->addKey("idAddressClient", "\"S\":\""+ this->_idAddressClient + "\"");
+
+    bdd_global::getDict();
+    return _map;
+}
 

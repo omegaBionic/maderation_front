@@ -8,13 +8,13 @@
 #include <QFile>
 #include <QJsonArray>
 
-bdd_GAMME::bdd_GAMME(QString idGamme, int productIdProduct, QString label): bdd_global(QString("id"), QString("table"))
+bdd_GAMME::bdd_GAMME(QString idGamme, int productIdProduct, QString label): bdd_global(QString("idGamme"), QString("gamme"))
 {
     this->_idGamme = idGamme;
     this->_productIdProduct = productIdProduct;
     this->_label = label;
 }
-bdd_GAMME::bdd_GAMME(): bdd_global(QString("id"), QString("table")){
+bdd_GAMME::bdd_GAMME(): bdd_global(QString("idGamme"), QString("gamme")){
 
 }
 bdd_GAMME::~bdd_GAMME(){
@@ -48,32 +48,16 @@ QString bdd_GAMME::getTable(){
     return "gamme";
 }
 
-QMap<QString, QString> bdd_GAMME::getDict(){
+void bdd_GAMME::addKey(QString key, QString value){
+    bdd_global::addKey(key, value);
+    _map.insert(key, value);
+}
 
-    QFile file("DATA/jsonComponent.json");
-    file.open(QIODevice::ReadOnly);
-    QByteArray rawData = file.readAll();
-
-    // Parse document
-    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-    // Get JSON object
-    QJsonObject json = doc.object();
-
-    // Access properties
-
-    QMap<QString, QString> listGamme;
-
-    QJsonValue itemsValues = json.value("datas");
-    QJsonArray itemsArray = itemsValues["Items"].toArray();
-
-    int cpt = 0;
-
-    foreach(const QJsonValue &v, itemsArray)
-    {
-        listGamme.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
-        cpt += 1;
-    }
-
-    return listGamme;
+//QString idGamme, int productIdProduct, QString label
+QMap<QString, QString> bdd_GAMME::getDict() {
+    this->addKey("idComponent", "\"S\":\""+ this->_idGamme + "\"");
+    this->addKey("label", "\"S\":\""+ this->_label + "\"");
+    this->addKey("productIdProduct", "\"N\":\""+ QString::number(this->_productIdProduct) + "\"");
+    bdd_global::getDict();
+    return _map;
 }

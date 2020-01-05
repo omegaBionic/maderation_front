@@ -100,10 +100,9 @@ QVector<bdd_USER> api_get_request::parse_file_user(){
 
     QFile file("DATA/jsonUser.json");
     file.open(QIODevice::ReadOnly);
-    QByteArray rawData = file.readAll();
-
+    QString rawData = (QString) file.readAll();
     // Parse document
-    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+    QJsonDocument doc(QJsonDocument::fromJson(rawData.toUtf8()));
 
     // Get JSON object
     QJsonObject json = doc.object();
@@ -116,7 +115,8 @@ QVector<bdd_USER> api_get_request::parse_file_user(){
 
     foreach (const QJsonValue & v, itemsArray)
     {
-        listUser.append(bdd_USER(v.toObject().value("phoneNumber")["S"].toString(), v.toObject().value("isActive")["BOOL"].toBool(), v.toObject().value("lastName")["S"].toString(), v.toObject().value("password")["S"].toString(), v.toObject().value("firstName").toString(), v.toObject().value("addressId")["N"].toInt(), v.toObject().value("mail")["S"].toString(), v.toObject().value("username")["S"].toString()));
+        bdd_USER* user = new bdd_USER(v.toObject().value("phoneNumber")["S"].toString(), v.toObject().value("isActive")["BOOL"].toBool(), v.toObject().value("lastName")["S"].toString(), v.toObject().value("password")["S"].toString(), v.toObject().value("firstname").toString(), v.toObject().value("idShop")["N"].toInt(), v.toObject().value("mail")["S"].toString(), v.toObject().value("username")["S"].toString());
+        listUser.append(*user);
     }
     return listUser;
 }

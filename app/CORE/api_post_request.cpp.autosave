@@ -64,7 +64,6 @@ void api_post_request::pushData(){
     // TODO: add id.get_id() in id parameter on post request
 
 
-
     QFile fileFull("DATA/modif.json");
     fileFull.open(QIODevice::ReadOnly | QIODevice::Text);
     QByteArray line;   //a qbytearray object for read file line by line

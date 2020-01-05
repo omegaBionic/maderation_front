@@ -8,7 +8,7 @@
 #include <QFile>
 #include <QJsonArray>
 
-bdd_MESSAGE::bdd_MESSAGE(QString creationDate, QString message, QString chatIoChat, QString userUsername, QString idMessage): bdd_global(QString("id"), QString("table"))
+bdd_MESSAGE::bdd_MESSAGE(QString creationDate, QString message, QString chatIoChat, QString userUsername, QString idMessage): bdd_global(QString("idMessage"), QString("message"))
 {
     this->_creationDate = creationDate;
     this->_message = message;
@@ -16,7 +16,7 @@ bdd_MESSAGE::bdd_MESSAGE(QString creationDate, QString message, QString chatIoCh
     this->_userUsername = userUsername;
     this->_idMessage = idMessage;
 }
-bdd_MESSAGE::bdd_MESSAGE(): bdd_global(QString("id"), QString("table")){
+bdd_MESSAGE::bdd_MESSAGE(): bdd_global(QString("idMessage"), QString("message")){
 
 }
 bdd_MESSAGE::~bdd_MESSAGE(){
@@ -61,32 +61,18 @@ QString bdd_MESSAGE::getTable(){
     return "message";
 }
 
-QMap<QString, QString> bdd_MESSAGE::getDict(){
+void bdd_MESSAGE::addKey(QString key, QString value){
+    bdd_global::addKey(key, value);
+    _map.insert(key, value);
+}
 
-    QFile file("DATA/jsonMessage.json");
-    file.open(QIODevice::ReadOnly);
-    QByteArray rawData = file.readAll();
-
-    // Parse document
-    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-    // Get JSON object
-    QJsonObject json = doc.object();
-
-    // Access properties
-
-    QMap<QString, QString> listMessage;
-
-    QJsonValue itemsValues = json.value("datas");
-    QJsonArray itemsArray = itemsValues["Items"].toArray();
-
-    int cpt = 0;
-
-    foreach(const QJsonValue &v, itemsArray)
-    {
-        listMessage.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
-        cpt += 1;
-    }
-
-    return listMessage;
+//QString creationDate, QString message, QString chatIoChat, QString userUsername, QString idMessage
+QMap<QString, QString> bdd_MESSAGE::getDict() {
+    this->addKey("creationDate", "\"S\":\""+ this->_creationDate + "\"");
+    this->addKey("message", "\"S\":\""+ this->_message + "\"");
+    this->addKey("chatIoChat", "\"S\":\""+ this->_chatIoChat + "\"");
+    this->addKey("userUsername", "\"S\":\""+ this->_userUsername + "\"");
+    this->addKey("idMessage", "\"S\":\""+ this->_idMessage + "\"");
+    bdd_global::getDict();
+    return _map;
 }

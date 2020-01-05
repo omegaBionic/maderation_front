@@ -8,7 +8,7 @@
 #include <QObject>
 #include <QJsonArray>
 
-bdd_CHAT::bdd_CHAT(QString idChat, QString userUsernaleAsReceiver, QString userUsernaleAsAutor, QString creationDate, QString title): bdd_global(QString("id"), QString("table"))
+bdd_CHAT::bdd_CHAT(QString idChat, QString userUsernaleAsReceiver, QString userUsernaleAsAutor, QString creationDate, QString title): bdd_global(QString("idChat"), QString("chat"))
 {
     this->_idChat = idChat;
     this->_userUsernameAsReceiver = userUsernaleAsReceiver;
@@ -17,7 +17,7 @@ bdd_CHAT::bdd_CHAT(QString idChat, QString userUsernaleAsReceiver, QString userU
     this->_title = title;
 }
 
-bdd_CHAT::bdd_CHAT(): bdd_global(QString("id"), QString("table")){
+bdd_CHAT::bdd_CHAT(): bdd_global(QString("idChat"), QString("chat")){
 
 }
 bdd_CHAT::~bdd_CHAT(){
@@ -64,32 +64,18 @@ QString bdd_CHAT::getTable(){
     return "chat";
 }
 
-QMap<QString, QString> bdd_CHAT::getDict(){
+void bdd_CHAT::addKey(QString key, QString value){
+    bdd_global::addKey(key, value);
+    _map.insert(key, value);
+}
 
-    QFile file("DATA/jsonChat.json");
-    file.open(QIODevice::ReadOnly);
-    QByteArray rawData = file.readAll();
+QMap<QString, QString> bdd_CHAT::getDict() {
+    this->addKey("idChat", "\"S\":\""+ this->_idChat + "\"");
+    this->addKey("userUsernameAsAutor", "\"S\":\""+ this->_userUsernameAsAutor + "\"");
+    this->addKey("userUsernameAsReceiver", "\"S\":\""+ this->_userUsernameAsReceiver + "\"");
+    this->addKey("creationDate", "\"S\":\""+ this->_creationDate + "\"");
+    this->addKey("title", "\"S\":\""+ this->_title + "\"");
 
-    // Parse document
-    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-    // Get JSON object
-    QJsonObject json = doc.object();
-
-    // Access properties
-
-    QMap<QString, QString> listChat;
-
-    QJsonValue itemsValues = json.value("datas");
-    QJsonArray itemsArray = itemsValues["Items"].toArray();
-
-    int cpt = 0;
-
-    foreach(const QJsonValue &v, itemsArray)
-    {
-        listChat.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
-        cpt += 1;
-    }
-
-    return listChat;
+    bdd_global::getDict();
+    return _map;
 }

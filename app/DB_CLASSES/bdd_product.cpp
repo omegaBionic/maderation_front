@@ -8,7 +8,7 @@
 #include <QFile>
 #include <QJsonArray>
 
-bdd_PRODUCT::bdd_PRODUCT(int supplierIdsupplier, QString idProduct, int minWidth, int defaultLength, QString label, QString productCode, int defaultHeight, int defaultWidth, QString material, int minLength, QString type): bdd_global(QString("id"), QString("table"))
+bdd_PRODUCT::bdd_PRODUCT(int supplierIdsupplier, QString idProduct, int minWidth, int defaultLength, QString label, QString productCode, int defaultHeight, int defaultWidth, QString material, int minLength, QString type): bdd_global(QString("idProduct"), QString("product"))
 {
 this->_supplierIdSupplier = supplierIdsupplier;
     this->_idProduct = idProduct;
@@ -22,7 +22,7 @@ this->_supplierIdSupplier = supplierIdsupplier;
     this->_minLength = minLength;
     this->_type = type;
 }
-bdd_PRODUCT::bdd_PRODUCT(): bdd_global(QString("id"), QString("table")){
+bdd_PRODUCT::bdd_PRODUCT(): bdd_global(QString("idProduct"), QString("product")){
 
 }
 bdd_PRODUCT::~bdd_PRODUCT(){
@@ -103,32 +103,23 @@ QString bdd_PRODUCT::getTable(){
     return "product";
 }
 
-QMap<QString, QString> bdd_PRODUCT::getDict(){
+void bdd_PRODUCT::addKey(QString key, QString value){
+    bdd_global::addKey(key, value);
+    _map.insert(key, value);
+}
 
-    QFile file("DATA/jsonProduct.json");
-    file.open(QIODevice::ReadOnly);
-    QByteArray rawData = file.readAll();
-
-    // Parse document
-    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-    // Get JSON object
-    QJsonObject json = doc.object();
-
-    // Access properties
-
-    QMap<QString, QString> listProduct;
-
-    QJsonValue itemsValues = json.value("datas");
-    QJsonArray itemsArray = itemsValues["Items"].toArray();
-
-    int cpt = 0;
-
-    foreach(const QJsonValue &v, itemsArray)
-    {
-        listProduct.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
-        cpt += 1;
-    }
-
-    return listProduct;
+//int supplierIdsupplier, QString idProduct, int minWidth, int defaultLength, QString label, QString productCode, int defaultHeight, int defaultWidth, QString material, int minLength, QString type
+QMap<QString, QString> bdd_PRODUCT::getDict() {
+    this->addKey("supplierIdSupplier", "\"N\":\""+ QString::number(this->_supplierIdSupplier) + "\"");
+    this->addKey("minWidth", "\"N\":\""+ QString::number(this->_minWidth) + "\"");
+    this->addKey("defaultWidth", "\"N\":\""+ QString::number(this->_defaultWidth) + "\"");
+    this->addKey("defaultHeight", "\"N\":\""+ QString::number(this->_defaultHeight) + "\"");
+    this->addKey("defaultLength", "\"N\":\""+ QString::number(this->_defaultLength) + "\"");
+    this->addKey("minLength", "\"N\":\""+ QString::number(this->_minLength) + "\"");
+    this->addKey("idProduct", "\"S\":\""+ this->_idProduct + "\"");
+    this->addKey("label", "\"S\":\""+ this->_label + "\"");
+    this->addKey("productCode", "\"S\":\""+ this->_productCode + "\"");
+    this->addKey("type", "\"S\":\""+ this->_type + "\"");
+    bdd_global::getDict();
+    return _map;
 }

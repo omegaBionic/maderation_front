@@ -8,7 +8,8 @@
 #include <fstream>
 #include <QObject>
 #include <QTextStream>
-#include "../DB_CLASSES/datauser.h"
+#include "../DB_CLASSES/bdd_user.h"
+#include "../DB_CLASSES/bdd_role.h"
 
 class core_login : public QObject
 {
@@ -16,7 +17,8 @@ class core_login : public QObject
 public:
     core_login();
 
-    static QVector<dataUser>getUser(QString username, QString password);
+    bdd_USER getUser(QString username, QString password);
+    QVector<bdd_ROLE> getRoles(bdd_USER* user);
 
 };
 

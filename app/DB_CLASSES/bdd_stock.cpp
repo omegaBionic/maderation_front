@@ -8,14 +8,14 @@
 #include <QFile>
 #include <QJsonArray>
 
-bdd_STOCK::bdd_STOCK(int amount, QString idStock, int productIdProduct, int addressIdAddress): bdd_global(QString("id"), QString("table"))
+bdd_STOCK::bdd_STOCK(int amount, QString idStock, int productIdProduct, int addressIdAddress): bdd_global(QString("idStock"), QString("stock"))
 {
     this->_amount = amount;
     this->_idStock = idStock;
     this->_productIdProduct = productIdProduct;
     this->_addressIdAddress = addressIdAddress;
 }
-bdd_STOCK::bdd_STOCK(): bdd_global(QString("id"), QString("table")){
+bdd_STOCK::bdd_STOCK(): bdd_global(QString("idStock"), QString("stock")){
 
 }
 bdd_STOCK::~bdd_STOCK(){
@@ -54,32 +54,19 @@ QString bdd_STOCK::getTable(){
     return "stock";
 }
 
-QMap<QString, QString> bdd_STOCK::getDict(){
-
-    QFile file("DATA/jsonStock.json");
-    file.open(QIODevice::ReadOnly);
-    QByteArray rawData = file.readAll();
-
-    // Parse document
-    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-    // Get JSON object
-    QJsonObject json = doc.object();
-
-    // Access properties
-
-    QMap<QString, QString> listStock;
-
-    QJsonValue itemsValues = json.value("datas");
-    QJsonArray itemsArray = itemsValues["Items"].toArray();
-
-    int cpt = 0;
-
-    foreach(const QJsonValue &v, itemsArray)
-    {
-        listStock.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
-        cpt += 1;
-    }
-
-    return listStock;
+void bdd_STOCK::addKey(QString key, QString value){
+    bdd_global::addKey(key, value);
+    _map.insert(key, value);
 }
+
+//int amount, QString idStock, int productIdProduct, int addressIdAddress
+QMap<QString, QString> bdd_STOCK::getDict() {
+    this->addKey("idStock", "\"S\":\""+ this->_idStock + "\"");
+    this->addKey("amount", "\"N\":\""+ QString::number(this->_amount) + "\"");
+    this->addKey("productIdProduct", "\"N\":\""+ QString::number(this->_productIdProduct) + "\"");
+    this->addKey("addressIdAddress", "\"N\":\""+ QString::number(this->_addressIdAddress) + "\"");
+    bdd_global::getDict();
+    return _map;
+}
+
+

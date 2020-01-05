@@ -1,14 +1,6 @@
 #include <windows.h>
 
-<<<<<<< HEAD
 IDI_ICON1	ICON	DISCARDABLE	"D:\\projet_madera\\madera_front\\app\\icon\\logo.ico"
-=======
-<<<<<<< HEAD
-IDI_ICON1	ICON	DISCARDABLE	"C:\\Users\\James\\Projets\\maderation\\app\\icon\\logo.ico"
-=======
-IDI_ICON1	ICON	DISCARDABLE	"C:\\Users\\quent\\Documents\\GIT PROJECT\\maderation\\app\\icon\\logo.ico"
->>>>>>> develop
->>>>>>> fix_MDDEV-55
 
 VS_VERSION_INFO VERSIONINFO
 	FILEVERSION 0,0,0,0

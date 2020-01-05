@@ -34,8 +34,8 @@ class bdd_USER : public bdd_global
         QString getId() override;
         QString getTable() override;
         QMap<QString, QString> getDict() override;
+        void addKey(QString key, QString value) override;
 
-    private:
         QString _username;
         QString _phoneNumber;
         QString _password;
@@ -44,6 +44,7 @@ class bdd_USER : public bdd_global
         QString _mail;
         bool _isActive;
         int _IDAdress;
+    private:
 
 
 };

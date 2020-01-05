@@ -7,7 +7,7 @@
 #include <QObject>
 #include <QJsonArray>
 
-bdd_USER::bdd_USER(QString phoneNumber, bool isActive, QString lastname, QString password, QString firstname, int idAddress, QString mail, QString username): bdd_global(QString("id"), QString("table"))
+bdd_USER::bdd_USER(QString phoneNumber, bool isActive, QString lastname, QString password, QString firstname, int idAddress, QString mail, QString username): bdd_global(QString("username"), QString("user"))
 {
     this->_username = username;
     this->_phoneNumber = phoneNumber;
@@ -18,7 +18,7 @@ bdd_USER::bdd_USER(QString phoneNumber, bool isActive, QString lastname, QString
     this->_mail = mail;
     this->_IDAdress = idAddress;
 }
-bdd_USER::bdd_USER(): bdd_global(QString("id"), QString("table")){
+bdd_USER::bdd_USER(): bdd_global(QString("username"), QString("user")){
 
 }
 bdd_USER::~bdd_USER(){
@@ -81,32 +81,25 @@ QString bdd_USER::getTable(){
     return "user";
 }
 
-QMap<QString, QString> bdd_USER::getDict(){
+void bdd_USER::addKey(QString key, QString value){
+    bdd_global::addKey(key, value);
+    _map.insert(key, value);
+}
 
-    QFile file("DATA/jsonUser.json");
-    file.open(QIODevice::ReadOnly);
-    QByteArray rawData = file.readAll();
-
-    // Parse document
-    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-    // Get JSON object
-    QJsonObject json = doc.object();
-
-    // Access properties
-
-    QMap<QString, QString> listUser;
-
-    QJsonValue itemsValues = json.value("datas");
-    QJsonArray itemsArray = itemsValues["Items"].toArray();
-
-    int cpt = 0;
-
-    foreach(const QJsonValue &v, itemsArray)
-    {
-        listUser.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
-        cpt += 1;
+//QString phoneNumber, bool isActive, QString lastname, QString password, QString firstname, int idAddress, QString mail, QString username
+QMap<QString, QString> bdd_USER::getDict() {
+    this->addKey("phoneNumber", "\"S\":\""+ this->_phoneNumber + "\"");
+    this->addKey("mail", "\"S\":\""+ this->_mail + "\"");
+    this->addKey("lastname", "\"S\":\""+ this->_lastname + "\"");
+    this->addKey("password", "\"S\":\""+ this->_password + "\"");
+    this->addKey("firstname", "\"S\":\""+ this->_firstname + "\"");
+    this->addKey("username", "\"S\":\""+ this->_username + "\"");
+    this->addKey("idShop", "\"N\":\""+ QString::number(this->_IDAdress) + "\"");
+    if(this->_isActive){
+        this->addKey("isActive", "\"B\":\"true\"");
+    }else{
+        this->addKey("isActive", "\"B\":\"false\"");
     }
-
-    return listUser;
+    bdd_global::getDict();
+    return _map;
 }

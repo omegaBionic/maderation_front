@@ -8,13 +8,13 @@
 #include <QFile>
 #include <QJsonArray>
 
-bdd_CATEGORY::bdd_CATEGORY(QString idCategory, QString label): bdd_global(QString("id"), QString("table"))
+bdd_CATEGORY::bdd_CATEGORY(QString idCategory, QString label): bdd_global(QString("idCategory"), QString("category"))
 {
 this->_idIdCategory = idCategory;
 this->_label = label;
 }
 
-bdd_CATEGORY::bdd_CATEGORY(): bdd_global(QString("id"), QString("table")){
+bdd_CATEGORY::bdd_CATEGORY(): bdd_global(QString("idCategory"), QString("category")){
 
 }
 bdd_CATEGORY::~bdd_CATEGORY(){
@@ -36,38 +36,22 @@ QString bdd_CATEGORY::getLabel(){
 }
 
 QString bdd_CATEGORY::getId(){
-    return "idAddressSupplier";
+    return "idCategory";
 }
 QString bdd_CATEGORY::getTable(){
-    return "address_supplier";
+    return "category";
 }
 
-QMap<QString, QString> bdd_CATEGORY::getDict(){
+void bdd_CATEGORY::addKey(QString key, QString value){
+    bdd_global::addKey(key, value);
+    _map.insert(key, value);
+}
 
-    QFile file("DATA/jsonCategory.json");
-    file.open(QIODevice::ReadOnly);
-    QByteArray rawData = file.readAll();
 
-    // Parse document
-    QJsonDocument doc(QJsonDocument::fromJson(rawData));
+QMap<QString, QString> bdd_CATEGORY::getDict() {
+    this->addKey("idCategory", "\"S\":\""+ this->_idIdCategory + "\"");
+    this->addKey("label", "\"S\":\""+ this->_label + "\"");
 
-    // Get JSON object
-    QJsonObject json = doc.object();
-
-    // Access properties
-
-    QMap<QString, QString> listCategory;
-
-    QJsonValue itemsValues = json.value("datas");
-    QJsonArray itemsArray = itemsValues["Items"].toArray();
-
-    int cpt = 0;
-
-    foreach(const QJsonValue &v, itemsArray)
-    {
-        listCategory.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
-        cpt += 1;
-    }
-
-    return listCategory;
+    bdd_global::getDict();
+    return _map;
 }

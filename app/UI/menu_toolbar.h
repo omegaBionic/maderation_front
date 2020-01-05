@@ -19,6 +19,7 @@ public:
     ~menu_toolbar();
     void setWindow(QString win);
     bool _isHided;
+    void setAdmin(bool val);
 
 
 signals:
@@ -47,8 +48,10 @@ private:
     Ui::menu_toolbar *ui;
     void resizeEvent(QResizeEvent * event);
     void resizeAll();
+    void resizeAllNonAdmin();
     int _width;
     int _height;
+    bool _admin;
 
     /*
      * 0 : main_menu

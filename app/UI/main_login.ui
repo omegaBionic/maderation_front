@@ -118,8 +118,8 @@ background-color: #00000000;</string>
     </property>
     <property name="font">
      <font>
-      <family>Futura LT</family>
-      <pointsize>-1</pointsize>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>14</pointsize>
       <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
@@ -129,7 +129,40 @@ background-color: #00000000;</string>
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 14px &quot;Futura LT&quot;;</string>
+     <string notr="true">
+QCheckBox::indicator {
+  margin-left: 4px;
+  height: 16px;
+  width: 16px;
+}
+
+QCheckBox::indicator:unchecked {
+  image: url(:/pictures/img/checkBox_unchecked.png);
+}
+
+QCheckBox::indicator:unchecked:hover, QCheckBox::indicator:unchecked:focus, QCheckBox::indicator:unchecked:pressed {
+  border: none;
+  image: url(:/pictures/img/checkBox_unchecked_hover.png);
+}
+
+QCheckBox::indicator:checked {
+  image: url(:/pictures/img/checkBox_checked.png);
+}
+
+QCheckBox::indicator:checked:hover, QCheckBox::indicator:checked:focus, QCheckBox::indicator:checked:pressed {
+  border: none;
+  image: url(:/pictures/img/checkBox_checked_hover.png);
+}
+
+QCheckBox::indicator:unchecked:disabled {
+  image: url(:/pictures/img/checkBox_disabled.png);
+}
+
+
+QCheckBox::indicator:checked:disabled {
+  image: url(:/pictures/img/checkBox_checked_disabled.png);
+}
+</string>
     </property>
     <property name="text">
      <string>Remember me</string>

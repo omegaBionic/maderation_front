@@ -20,6 +20,7 @@ class bdd_STATUS : public bdd_global
     QString getId() override;
     QString getTable() override;
     QMap<QString, QString> getDict() override;
+    void addKey(QString key, QString value) override;
 
 private:
     QString _status;

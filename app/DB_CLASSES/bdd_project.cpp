@@ -8,7 +8,7 @@
 #include <QFile>
 #include <QJsonArray>
 
-bdd_PROJECT::bdd_PROJECT(QString validationDate, bool validation, QString creationDate, bool isTemplate, QString idProject, QString userUsername): bdd_global(QString("id"), QString("table"))
+bdd_PROJECT::bdd_PROJECT(QString validationDate, bool validation, QString creationDate, bool isTemplate, QString idProject, QString userUsername): bdd_global(QString("idProject"), QString("project"))
 {
     this->_validationDate = validationDate;
     this->_validation = validation;
@@ -16,28 +16,52 @@ bdd_PROJECT::bdd_PROJECT(QString validationDate, bool validation, QString creati
     this->_isTemplate = isTemplate;
     this->_idProject = idProject;
     this->_userUserName = userUsername;
-}
-bdd_PROJECT::bdd_PROJECT(): bdd_global(QString("id"), QString("table")){
+    this->addKey("validationDate", "\"S\":\""+ this->_validationDate + "\"");
+    if(this->_validation){
+        this->addKey("validation", "\"B\":\"true\"");
+    }else{
+        this->addKey("validation", "\"B\":\"false\"");
+    }
+
+    if(this->_isTemplate){
+        this->addKey("isTemplate", "\"B\":\"true\"");
+    }else{
+        this->addKey("isTemplate", "\"B\":\"false\"");
+    }
+    this->addKey("idProject", "\"S\":\""+ this->_idProject + "\"");
+    this->addKey("creationDate", "\"S\":\""+ this->_creationDate + "\"");
+    this->addKey("userUsername", "\"S\":\""+ this->_userUserName + "\"");
+
 
 }
+bdd_PROJECT::bdd_PROJECT(): bdd_global(QString("idProject"), QString("project")){
+
+}
+
 bdd_PROJECT::~bdd_PROJECT(){
 
 }
+
 void bdd_PROJECT::setValidationDate(QString validD){
     _validationDate = validD;
 }
+
 void bdd_PROJECT::setValidation(bool valid){
     _validation = valid;
 }
+
 void bdd_PROJECT::setCreationDate(QString creaDat){
     _creationDate = creaDat;
 }
+
 void bdd_PROJECT::setIsTemplate(bool temp){
     _isTemplate = temp;
 }
+
 void bdd_PROJECT::setIdProject(QString idPro){
     _idProject =idPro;
 }
+
 void bdd_PROJECT::setuserUseName(QString usrN){
     _userUserName = usrN;
 }
@@ -45,18 +69,23 @@ void bdd_PROJECT::setuserUseName(QString usrN){
 QString bdd_PROJECT::getValidationDate(){
    return _validationDate;
 }
+
 bool bdd_PROJECT::getValidation(){
     return _validation;
 }
+
 QString bdd_PROJECT::getCreationDate(){
     return _creationDate;
 }
+
 bool bdd_PROJECT::getIsTemplate(){
     return _isTemplate;
 }
+
 QString bdd_PROJECT::getIdProject(){
     return _idProject;
 }
+
 QString bdd_PROJECT::getUserUserName(){
     return _userUserName;
 }
@@ -64,36 +93,33 @@ QString bdd_PROJECT::getUserUserName(){
 QString bdd_PROJECT::getId(){
     return "idProject";
 }
+
 QString bdd_PROJECT::getTable(){
     return "project";
 }
 
-QMap<QString, QString> bdd_PROJECT::getDict(){
+void bdd_PROJECT::addKey(QString key, QString value){
+    bdd_global::addKey(key, value);
+    _map.insert(key, value);
+}
 
-    QFile file("DATA/jsonProject.json");
-    file.open(QIODevice::ReadOnly);
-    QByteArray rawData = file.readAll();
-
-    // Parse document
-    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-    // Get JSON object
-    QJsonObject json = doc.object();
-
-    // Access properties
-
-    QMap<QString, QString> listProject;
-
-    QJsonValue itemsValues = json.value("datas");
-    QJsonArray itemsArray = itemsValues["Items"].toArray();
-
-    int cpt = 0;
-
-    foreach(const QJsonValue &v, itemsArray)
-    {
-        listProject.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
-        cpt += 1;
+QMap<QString, QString> bdd_PROJECT::getDict() {
+    this->addKey("validationDate", "\"S\":\""+ this->_validationDate + "\"");
+    if(this->_validation){
+        this->addKey("validation", "\"B\":\"true\"");
+    }else{
+        this->addKey("validation", "\"B\":\"false\"");
     }
 
-    return listProject;
+    if(this->_isTemplate){
+        this->addKey("isTemplate", "\"B\":\"true\"");
+    }else{
+        this->addKey("isTemplate", "\"B\":\"false\"");
+    }
+    this->addKey("idProject", "\"S\":\""+ this->_idProject + "\"");
+    this->addKey("creationDate", "\"S\":\""+ this->_creationDate + "\"");
+    this->addKey("userUsername", "\"S\":\""+ this->_userUserName + "\"");
+
+    bdd_global::getDict();
+    return _map;
 }

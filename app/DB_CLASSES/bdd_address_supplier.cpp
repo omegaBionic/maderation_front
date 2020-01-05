@@ -7,7 +7,7 @@
 #include <QObject>
 #include <QJsonArray>
 
-bdd_ADDRESS_SUPPLIER::bdd_ADDRESS_SUPPLIER(QString city, QString idAddressSupplier, QString country, int postalCode, QString street): bdd_global(QString("id"), QString("table"))
+bdd_ADDRESS_SUPPLIER::bdd_ADDRESS_SUPPLIER(QString city, QString idAddressSupplier, QString country, int postalCode, QString street): bdd_global(QString("idAddressSupplier"), QString("address_supplier"))
 {
     this->_city = city;
     this->_idAddressSupplier = idAddressSupplier;
@@ -15,7 +15,7 @@ bdd_ADDRESS_SUPPLIER::bdd_ADDRESS_SUPPLIER(QString city, QString idAddressSuppli
     this->_postalCod = postalCode;
     this->_street = street;
 }
-bdd_ADDRESS_SUPPLIER::bdd_ADDRESS_SUPPLIER(): bdd_global(QString("id"), QString("table")){
+bdd_ADDRESS_SUPPLIER::bdd_ADDRESS_SUPPLIER(): bdd_global(QString("idAddressSupplier"), QString("address_supplier")){
 
 }
 bdd_ADDRESS_SUPPLIER::~bdd_ADDRESS_SUPPLIER(){
@@ -60,32 +60,20 @@ QString bdd_ADDRESS_SUPPLIER::getTable(){
     return "address_supplier";
 }
 
-QMap<QString, QString> bdd_ADDRESS_SUPPLIER::getDict(){
-
-    QFile file("DATA/jsonAddress_supplier.json");
-    file.open(QIODevice::ReadOnly);
-    QByteArray rawData = file.readAll();
-
-    // Parse document
-    QJsonDocument doc(QJsonDocument::fromJson(rawData));
-
-    // Get JSON object
-    QJsonObject json = doc.object();
-
-    // Access properties
-
-    QMap<QString, QString> listAddressSupplier;
-
-    QJsonValue itemsValues = json.value("datas");
-    QJsonArray itemsArray = itemsValues["Items"].toArray();
-
-    int cpt = 0;
-
-    foreach(const QJsonValue &v, itemsArray)
-    {
-        listAddressSupplier.insert(itemsArray.at(cpt).toObject().keys()[cpt], v.toObject().value(v.toObject().keys()[cpt])["S"].toString());
-        cpt += 1;
-    }
-
-    return listAddressSupplier;
+void bdd_ADDRESS_SUPPLIER::addKey(QString key, QString value){
+    bdd_global::addKey(key, value);
+    _map.insert(key, value);
 }
+
+
+QMap<QString, QString> bdd_ADDRESS_SUPPLIER::getDict() {
+    this->addKey("city", "\"S\":\""+ this->_city + "\"");
+    this->addKey("street", "\"S\":\""+ this->_street + "\"");
+    this->addKey("country", "\"S\":\""+ this->_country + "\"");
+    this->addKey("postalCode", "\"N\":\""+ QString::number(this->_postalCod) + "\"");
+    this->addKey("idAddressSupplier", "\"S\":\""+ this->_idAddressSupplier + "\"");
+
+    bdd_global::getDict();
+    return _map;
+}
+

@@ -37,6 +37,7 @@ public:
     QString getId() override;
     QString getTable() override;
     QMap<QString, QString> getDict() override;
+    void addKey(QString key, QString value) override;
 
 private:
     int _supplierIdSupplier;

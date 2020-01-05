@@ -30,8 +30,7 @@ bdd_PROJECT core_menu::getProject(int ID){
     qDebug() << listProject.count();
     for(int i = 0; i< listProject.count(); i++){
         bdd_PROJECT project = listProject.at(i);
-        if(project.getIdProject() == ID){
-
+        if(project.getIdProject() == QString::number(ID)){
             result = project;
         }
     }
@@ -42,5 +41,6 @@ bdd_PROJECT core_menu::getProject(int ID){
 
 void core_menu::deleteProject(bdd_PROJECT project){
     api_post_request* api = new api_post_request();
-//    api->modifyData(project, "delete");
+    project.getDict();
+    api->modifyData(project, "delete");
 }

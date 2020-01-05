@@ -22,7 +22,20 @@ Main_Login::Main_Login(QWidget *parent) :
     ui(new Ui::Main_Login)
 {
     ui->setupUi(this);
-//    this->setWindowState(Qt::WindowFullScreen);
+    if(QFile::exists("DATA/user_save.txt")){
+        ui->chk_remember->setCheckState(Qt::Checked);
+        QFile file("DATA/user_save.txt");
+        file.open(QIODevice::ReadOnly);
+        QByteArray rawData = file.readAll();
+        ui->lineEdit_user->setText(rawData);
+    }
+
+    if(QFile::exists("DATA/pwd_save.txt")){
+        QFile file("DATA/pwd_save.txt");
+        file.open(QIODevice::ReadOnly);
+        QByteArray rawData = file.readAll();
+        ui->lineEdit_pwd->setText(rawData);
+    }
 }
 
 Main_Login::~Main_Login()
@@ -86,6 +99,27 @@ void Main_Login::on_btn_forgot_clicked()
 void Main_Login::on_btn_login_clicked()
 {
     //récupérée par le controleur
+    if(ui->chk_remember->isChecked()){
+        QFile *file = new QFile("DATA/user_save.txt");
+        QByteArray response_data = ui->lineEdit_user->text().toUtf8();
+
+        file->open(QIODevice::ReadWrite);
+        QTextStream out(file);
+        out << response_data;
+        file->flush();
+        file->close();
+
+        QFile *filePwd = new QFile("DATA/pwd_save.txt");
+        QByteArray response_dataPwd = ui->lineEdit_pwd->text().toUtf8();
+
+        filePwd->open(QIODevice::ReadWrite);
+        QTextStream outPwd(filePwd);
+        outPwd << response_dataPwd;
+        filePwd->flush();
+        filePwd->close();
+
+    }
+
     emit check_login(ui->lineEdit_user->text(), ui->lineEdit_pwd->text());
 
 

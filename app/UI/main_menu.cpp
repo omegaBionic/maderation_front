@@ -47,9 +47,11 @@ Main_Menu::Main_Menu(QWidget *parent, menu_toolbar* m, QVector<bdd_PROJECT>* lis
     for(int i = 0; i< _listButton_quot->size(); i++){
         _listButton_quot->at(i)->setText("");
         _listButton_quot->at(i)->setStyleSheet("QPushButton {background-color: #00000000; border-radius: 30px; border: 10px solid #7f7f7f;}");
+        _listButton_quot->at(i)->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
         QObject::connect(_listButton_quot->at(i), &button_quotation::clicked_ID, this, &Main_Menu::getButton_clicked);
         _listButton_del->at(i)->setText("");
         _listButton_del->at(i)->setStyleSheet("QPushButton {background-color: #00000000; border: 0px;}");
+        _listButton_del->at(i)->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
         QObject::connect(_listButton_del->at(i), &button_quotation::clicked_ID, this, &Main_Menu::getButtonDel_clicked);
         _listLabel_Button->at(i)->setAlignment(Qt::AlignmentFlag::AlignCenter);
         _listLabel_Button->at(i)->setStyleSheet("QLabel { font: 12pt 'Futura LT';}");
@@ -77,6 +79,16 @@ void Main_Menu::getButton_clicked(int ID){
 
 void Main_Menu::getButtonDel_clicked(int ID){
     qDebug()<< "button delete clicked : "+ QString::number(ID);
+    for(int i = 0; i < _listButton_del->count();i++){
+        if( _listButton_del->at(i)->getID() == ID){
+            _listButton_del->remove(i);
+        }
+        if( _listButton_quot->at(i)->getID() == ID){
+            _listButton_quot->remove(i);
+        }
+        _listLabel_Button->remove(i);
+    }
+
     emit deleteProject(ID);
 
 }
