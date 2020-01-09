@@ -81,14 +81,14 @@ QMap<QString, QString> bdd_QUOTATION::getDict() {
     this->addKey("userUserName", "\"S\":\""+ this->_userUserName + "\"");
     this->addKey("validationDate", "\"S\":\""+ this->_validationDate + "\"");
     if(this->_validation){
-        this->addKey("validation", "\"B\":\"true\"");
+        this->addKey("validation", "\"BOOL\":true");
     }else{
-        this->addKey("validation", "\"B\":\"false\"");
+        this->addKey("validation", "\"BOOL\":false");
     }
     if(this->_isTemplate){
-        this->addKey("isTemplate", "\"B\":\"true\"");
+        this->addKey("isTemplate", "\"BOOL\":true");
     }else{
-        this->addKey("isTemplate", "\"B\":\"false\"");
+        this->addKey("isTemplate", "\"BOOL\":false");
     }
     bdd_global::getDict();
     return _map;

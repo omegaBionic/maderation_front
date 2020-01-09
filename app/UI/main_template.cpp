@@ -83,7 +83,13 @@ void main_template::getButton_clicked(int ID){
     qDebug()<< "button clicked : "+ QString::number(ID);
     ui->grey_screen->show();
     ui->background_form->show();
-    _tpl->setRessource("./DATA_IMG/quot_default.png");
+    QString url = "./DATA_IMG/quot_default.png";
+    for(int i = 0; i< _listButton_quot->count();i++){
+        if(_listButton_quot->at(i)->getID() == ID){
+            url = _listButton_quot->at(i)->getIconUrl();
+        }
+    }
+    _tpl->setRessource(url);
     _tpl->setGeometry(17*_width,7*_height,94*_width, 52*_height);
     _tpl->show();
 }
@@ -149,7 +155,7 @@ void main_template::tplValidated(){
     ui->background_form->hide();
     ui->grey_screen->hide();
 
-    emit openProject(bdd_PROJECT("Tue Dec  2 00:00:00 PST 2014", "true", "Tue Dec  2 00:00:00 PST 2014", "true", "0", "omega"));
+    emit openProject(bdd_PROJECT("Tue Dec  2 00:00:00 PST 2014", "true", "Tue Dec  2 00:00:00 PST 2014", "true", "0", "omega", "test"));
 }
 
 void main_template::on_pushButton_power_clicked()

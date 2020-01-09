@@ -107,31 +107,6 @@ width: 20%;
 }
 </string>
    </property>
-   <item>
-    <property name="text">
-     <string>shop</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>test</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>polop</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>123</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>truc</string>
-    </property>
-   </item>
   </widget>
   <widget class="QPushButton" name="pushButton_validate">
    <property name="geometry">
@@ -460,77 +435,29 @@ QCheckBox::indicator:checked:disabled {
      <height>281</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <property name="title">
     <string>Rôles</string>
    </property>
-   <widget class="QWidget" name="verticalLayoutWidget">
+   <widget class="QCheckBox" name="checkBox_admin">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>160</width>
-      <height>211</height>
+      <x>11</x>
+      <y>122</y>
+      <width>76</width>
+      <height>24</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QCheckBox" name="checkBox_user">
-       <property name="font">
-        <font>
-         <family>Futura Lt BT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QCheckBox::indicator {
-  margin-left: 4px;
-  height: 16px;
-  width: 16px;
-}
-
-QCheckBox::indicator:unchecked {
-  image: url(:/pictures/img/checkBox_unchecked.png);
-}
-
-QCheckBox::indicator:unchecked:hover, QCheckBox::indicator:unchecked:focus, QCheckBox::indicator:unchecked:pressed {
-  border: none;
-  image: url(:/pictures/img/checkBox_unchecked_hover.png);
-}
-
-QCheckBox::indicator:checked {
-  image: url(:/pictures/img/checkBox_checked.png);
-}
-
-QCheckBox::indicator:checked:hover, QCheckBox::indicator:checked:focus, QCheckBox::indicator:checked:pressed {
-  border: none;
-  image: url(:/pictures/img/checkBox_checked_hover.png);
-}
-
-QCheckBox::indicator:unchecked:disabled {
-  image: url(:/pictures/img/checkBox_disabled.png);
-}
-
-
-QCheckBox::indicator:checked:disabled {
-  image: url(:/pictures/img/checkBox_checked_disabled.png);
-}
-</string>
-       </property>
-       <property name="text">
-        <string>User</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_admin">
-       <property name="font">
-        <font>
-         <family>Futura Lt BT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QCheckBox::indicator {
+    <property name="font">
+     <font>
+      <family>Futura Lt BT</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox::indicator {
   margin-left: 4px;
   height: 16px;
   width: 16px;
@@ -564,62 +491,157 @@ QCheckBox::indicator:checked:disabled {
   image: url(:/pictures/img/checkBox_checked_disabled.png);
 }
 </string>
-       </property>
-       <property name="text">
-        <string>Admin</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_super_admin">
-       <property name="font">
-        <font>
-         <family>Futura Lt BT</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QCheckBox::indicator {
-  margin-left: 4px;
-  height: 16px;
-  width: 16px;
-}
-
-QCheckBox::indicator:unchecked {
-  image: url(:/pictures/img/checkBox_unchecked.png);
-}
-
-QCheckBox::indicator:unchecked:hover, QCheckBox::indicator:unchecked:focus, QCheckBox::indicator:unchecked:pressed {
-  border: none;
-  image: url(:/pictures/img/checkBox_unchecked_hover.png);
-}
-
-QCheckBox::indicator:checked {
-  image: url(:/pictures/img/checkBox_checked.png);
-}
-
-QCheckBox::indicator:checked:hover, QCheckBox::indicator:checked:focus, QCheckBox::indicator:checked:pressed {
-  border: none;
-  image: url(:/pictures/img/checkBox_checked_hover.png);
-}
-
-QCheckBox::indicator:unchecked:disabled {
-  image: url(:/pictures/img/checkBox_disabled.png);
-}
-
-
-QCheckBox::indicator:checked:disabled {
-  image: url(:/pictures/img/checkBox_checked_disabled.png);
-}
-</string>
-       </property>
-       <property name="text">
-        <string>SuperAdmin</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    </property>
+    <property name="text">
+     <string>Admin</string>
+    </property>
    </widget>
+   <widget class="QCheckBox" name="checkBox_user">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>61</y>
+      <width>62</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Futura Lt BT</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox::indicator {
+  margin-left: 4px;
+  height: 16px;
+  width: 16px;
+}
+
+QCheckBox::indicator:unchecked {
+  image: url(:/pictures/img/checkBox_unchecked.png);
+}
+
+QCheckBox::indicator:unchecked:hover, QCheckBox::indicator:unchecked:focus, QCheckBox::indicator:unchecked:pressed {
+  border: none;
+  image: url(:/pictures/img/checkBox_unchecked_hover.png);
+}
+
+QCheckBox::indicator:checked {
+  image: url(:/pictures/img/checkBox_checked.png);
+}
+
+QCheckBox::indicator:checked:hover, QCheckBox::indicator:checked:focus, QCheckBox::indicator:checked:pressed {
+  border: none;
+  image: url(:/pictures/img/checkBox_checked_hover.png);
+}
+
+QCheckBox::indicator:unchecked:disabled {
+  image: url(:/pictures/img/checkBox_disabled.png);
+}
+
+
+QCheckBox::indicator:checked:disabled {
+  image: url(:/pictures/img/checkBox_checked_disabled.png);
+}
+</string>
+    </property>
+    <property name="text">
+     <string>User</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_super_admin">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>183</y>
+      <width>115</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Futura Lt BT</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox::indicator {
+  margin-left: 4px;
+  height: 16px;
+  width: 16px;
+}
+
+QCheckBox::indicator:unchecked {
+  image: url(:/pictures/img/checkBox_unchecked.png);
+}
+
+QCheckBox::indicator:unchecked:hover, QCheckBox::indicator:unchecked:focus, QCheckBox::indicator:unchecked:pressed {
+  border: none;
+  image: url(:/pictures/img/checkBox_unchecked_hover.png);
+}
+
+QCheckBox::indicator:checked {
+  image: url(:/pictures/img/checkBox_checked.png);
+}
+
+QCheckBox::indicator:checked:hover, QCheckBox::indicator:checked:focus, QCheckBox::indicator:checked:pressed {
+  border: none;
+  image: url(:/pictures/img/checkBox_checked_hover.png);
+}
+
+QCheckBox::indicator:unchecked:disabled {
+  image: url(:/pictures/img/checkBox_disabled.png);
+}
+
+
+QCheckBox::indicator:checked:disabled {
+  image: url(:/pictures/img/checkBox_checked_disabled.png);
+}
+</string>
+    </property>
+    <property name="text">
+     <string>SuperAdmin</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_username">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>40</y>
+     <width>211</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura Lt BT</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit {
+  background-color: #00000000;
+  padding-top: 2px;
+  /* This QLineEdit fix  103, 111 */
+  padding-bottom: 2px;
+  /* This QLineEdit fix  103, 111 */
+  padding-left: 4px;
+  padding-right: 4px;
+  border-style: solid;
+  border-left: 2px solid rgb(141, 121, 99);
+  border-bottom: 2px solid rgb(141, 121, 99);
+  border-radius: 2%;
+}
+</string>
+   </property>
+   <property name="maxLength">
+    <number>60</number>
+   </property>
+   <property name="placeholderText">
+    <string>Username</string>
+   </property>
   </widget>
  </widget>
  <resources/>

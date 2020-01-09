@@ -4,6 +4,8 @@
 #include <QDebug>
 #include <QDate>
 #include <QScrollBar>
+#include "../CORE/api_post_request.h"
+#include "../CORE/core_messages.h"
 
 Form_messages::Form_messages(QWidget *parent) :
     QWidget(parent),
@@ -12,23 +14,24 @@ Form_messages::Form_messages(QWidget *parent) :
     ui->setupUi(this);
 }
 
-Form_messages::Form_messages(QWidget *parent, QVector<bdd_MESSAGE>* listMessage, QString title, QString username) :
+Form_messages::Form_messages(QWidget *parent, QVector<bdd_MESSAGE>* listMessage, QString title, QString username, QString IDChat) :
     QWidget(parent),
     ui(new Ui::Form_messages)
 {
 
     ui->setupUi(this);
     _author = username;
-    _listMessage = listMessage;
+    _IDChat = IDChat;
+    _listMessage = *listMessage;
     ui->label->setText(title);
     _listLabelDate = new QVector<QLabel*>();
     _listLabelAuthor = new QVector<QLabel*>();
     _listLabelMessages = new QVector<QLabel*>();
     qDebug() << "création des labels";
-    for (int i = 0; i < _listMessage->count(); i++){
+    for (int i = 0; i < _listMessage.count(); i++){
 
         qDebug() << "création du label " + QString::number(i);
-        bdd_MESSAGE m = _listMessage->at(i);
+        bdd_MESSAGE m = _listMessage.at(i);
         QLabel* label_Message = new QLabel(ui->scrollAreaWidgetContents);
         label_Message->setText(m.getMessage());
         label_Message->setStyleSheet("font: 12pt \"Futura Md BT\";");
@@ -72,6 +75,9 @@ void Form_messages::resizeAll(){
         for(int i = 0; i<_listLabelMessages->count(); i++){
             qDebug() << "i = " << i;
             if(_author == _listLabelAuthor->at(i)->text()){
+                _listLabelDate->at(i)->setVisible(true);
+                _listLabelAuthor->at(i)->setVisible(true);
+                _listLabelMessages->at(i)->setVisible(true);
                 qDebug()<<"affichage du message " + QString::number(i);
 
                 _listLabelAuthor->at(i)->setGeometry(98*_width, i* 16 *_height, 30*_width, 3*_height);
@@ -128,15 +134,23 @@ void Form_messages::on_pushButton_clicked()
     label_Message->setText(ui->plainTextEdit->toPlainText());
     label_Message->setStyleSheet("font: 12pt \"Futura Md BT\";");
     QLabel* label_Author = new QLabel(ui->scrollAreaWidgetContents);
-    label_Author->setText("toto");
+    label_Author->setText(_author);
     label_Author->setStyleSheet("font: 12pt \"Futura Md BT\";");
     QLabel* label_Date = new QLabel(ui->scrollAreaWidgetContents);
     label_Date->setText(QString::number(QDate::currentDate().day()) + " " + QDate::currentDate().longMonthName(QDate::currentDate().month()) + " " + QString::number(QDate::currentDate().year()));
     label_Date->setStyleSheet("font: 8pt \"Futura Md BT\";");
+    core_messages* core = new core_messages();
+
+    bdd_MESSAGE msg = bdd_MESSAGE(core->getTime(), ui->plainTextEdit->toPlainText(),_IDChat,_author, QString::number(core->getIDMsg()));
+
+    msg.getDict();
+    api_post_request* api = new api_post_request();
+    api->modifyData(msg, "add");
 
     _listLabelDate->append(label_Date);
     _listLabelAuthor->append(label_Author);
     _listLabelMessages->append(label_Message);
+    _listMessage.append(msg);
     this->resizeAll();
     this->update();
     ui->plainTextEdit->setPlainText("");

@@ -168,6 +168,34 @@ QPushButton::pressed {
      <string/>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_addChat">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>370</y>
+      <width>93</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-image: url(:/pictures/img/add_message.png);
+}
+
+QPushButton::hover {
+	border-image: url(:/pictures/img/add_message_hover.png);
+
+}
+
+QPushButton::pressed {
+	border-image: url(:/pictures/img/add_message_pressed.png);
+
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

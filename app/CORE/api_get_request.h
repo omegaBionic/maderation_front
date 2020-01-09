@@ -96,10 +96,14 @@ public:
      void get_table_attribut();
      QVector<bdd_ATTRIBUT> parse_file_attribut();
 
+     void get_all_table();
+
 private:
      utils_id id;
 
 signals:
+     void downloadended(QString Table);
+
 public slots:
     void downloadFinished(QNetworkReply* reply);
 

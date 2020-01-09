@@ -103,6 +103,82 @@ QPushButton::pressed {
      <string/>
     </property>
    </widget>
+   <widget class="QSlider" name="horizontalSlider">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>80</y>
+      <width>221</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QSlider:focus {
+  border: none;
+}
+
+QSlider::groove:horizontal {
+  background: rgb(221, 218, 200);
+  border: 1px solid #32414B;
+  height:20px;
+  margin: 0px;
+  border-radius:10px;
+}
+
+
+QSlider::sub-page:horizontal {
+  background: rgb(148, 116, 94);
+  border: 1px solid #32414B;
+  height: 20px;
+  margin: 0px;
+  border-radius:6px;
+}
+
+
+QSlider::handle:horizontal {
+  background: #787878;
+  border: 1px solid #32414B;
+  width: 20px;
+  height: 20px;
+  margin:0px 0px;
+  border-radius:10px;
+}
+
+QSlider::handle:horizontal:hover {
+  background: rgb(0, 0, 0);
+  border: 1px solid #148CD2;
+}
+</string>
+    </property>
+    <property name="maximum">
+     <number>1</number>
+    </property>
+    <property name="value">
+     <number>0</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>50</y>
+      <width>151</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Futura Lt BT</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>show All</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

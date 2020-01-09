@@ -8,6 +8,7 @@
 #include "../CORE/core_messages.h"
 #include "../CORE/core_user_management.h"
 #include "../CORE/core_login.h"
+#include "../CORE/core_template.h"
 
 
 Controller::Controller(QObject *parent) : QObject(parent)
@@ -338,6 +339,7 @@ void Controller::login(QString user, QString pwd){
         _toolbar->setWindow("menu");
         core_menu* menu = new core_menu();
         QVector<bdd_PROJECT>* listProject = menu->getProject(*_user);
+
         _menu = new Main_Menu(nullptr, _toolbar, listProject);
         QObject::connect(_menu, &Main_Menu::Initialized, this, &Controller::cleanup);
         QObject::connect(_menu, &Main_Menu::deleteProject, this, &Controller::delete_project);
@@ -380,7 +382,7 @@ void Controller::toolbar_messages(){
 }
 
 void Controller::toolbar_logoff(){
-
+    _user = nullptr;
     this->launchLogin();
 
 }
@@ -408,8 +410,8 @@ void Controller::open_project_by_ID(int ID) {
     if(ID == -1){
         qDebug()<<"template to open";
 
-        core_menu* menu = new core_menu();
-        QVector<bdd_PROJECT>* listProject = menu->getProject(*_user);
+        core_template* tpl = new core_template();
+        QVector<bdd_PROJECT>* listProject = tpl->getTemplates();
         _toolbar->setWindow("template");
         _template = new main_template(nullptr, _toolbar, listProject);
         QObject::connect(_template, &main_template::Initialized, this, &Controller::cleanup);
@@ -417,7 +419,17 @@ void Controller::open_project_by_ID(int ID) {
         QObject::connect(_template, &main_template::openProject, this, &Controller::open_project);
         _template->showFullScreen();
     }else{
-        qDebug()<< "project to open, not yet implemented";
+
+        api_get_request* api = new api_get_request();
+        QVector<bdd_PROJECT> listProject = api->parse_file_project();
+        bdd_PROJECT project;
+        for(int i = 0; i< listProject.count(); i++){
+            bdd_PROJECT temp = listProject.at(i);
+            if(temp.getIdProject() == ID){
+                project = temp;
+            }
+        }
+        this->open_project(project);
     }
 
 }

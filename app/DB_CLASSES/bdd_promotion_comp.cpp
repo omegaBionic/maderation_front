@@ -74,9 +74,9 @@ QMap<QString, QString> bdd_PROMOTION_COMP::getDict() {
     this->addKey("toDate", "\"S\":\""+ this->_toDate + "\"");
     this->addKey("idPromotionComp", "\"S\":\""+ this->_idPromotionComp + "\"");
     if(this->_addToExistingProm){
-        this->addKey("addToExistingProm", "\"B\":\"true\"");
+        this->addKey("addToExistingProm", "\"BOOL\":true");
     }else{
-        this->addKey("addToExistingProm", "\"B\":\"false\"");
+        this->addKey("addToExistingProm", "\"BOOL\":false");
     }
     bdd_global::getDict();
     return _map;

@@ -96,9 +96,9 @@ QMap<QString, QString> bdd_USER::getDict() {
     this->addKey("username", "\"S\":\""+ this->_username + "\"");
     this->addKey("idShop", "\"N\":\""+ QString::number(this->_IDAdress) + "\"");
     if(this->_isActive){
-        this->addKey("isActive", "\"B\":\"true\"");
+        this->addKey("isActive", "\"BOOL\":true");
     }else{
-        this->addKey("isActive", "\"B\":\"false\"");
+        this->addKey("isActive", "\"BOOL\":false");
     }
     bdd_global::getDict();
     return _map;

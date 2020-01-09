@@ -874,7 +874,7 @@ void test_app::main_user_exist(){
 }
 
 void test_app::form_user_exist(){
-    Form_users *m = new Form_users(0, new bdd_USER("0606060606",true,"polop","polop", "test",0,"polop@polop.com", "polop"));
+    Form_users *m = new Form_users(0, bdd_USER("0606060606",true,"polop","polop", "test",0,"polop@polop.com", "polop"));
     QVERIFY(m != NULL);
 }
 

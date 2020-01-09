@@ -66,36 +66,24 @@ QVector<bdd_MESSAGE> core_messages::getMessages(QString c)
     QVector<bdd_MESSAGE> listMessage = parseMessage->parse_file_message();
     qDebug()<<listMessage.count();
 
+    QVector<bdd_MESSAGE> result;
     QJsonArray myJsonArray;
 
     QJsonObject myObject;
 
     for(int i = 0; i < listMessage.count(); i++)
     {
-        /*qDebug()<<listMessage.value(i).getUserUsername();
-        qDebug()<<listMessage.value(i).getCreationDate();
-        qDebug()<<listMessage.value(i).getIdMessage();
-        qDebug()<<listMessage.value(i).getMessage();*/
-
-        if(listMessage.value(i).getUserUsername() != c)
+        bdd_MESSAGE msg = listMessage.at(i);
+        if(msg.getChatIoChat() == c)
         {
-            qDebug()<<"pas ok";
-            listMessage.remove(i);
-            i = 0;
+            result.append(msg);
         }
-        else
-        {
-            qDebug("ok");
-        }
-
 
     }
 
 
-    //qDebug()<< listMessage;
 
-
-    return listMessage;
+    return result;
 
 }
 
@@ -117,6 +105,52 @@ QString core_messages::getTime()
 
             return  currentDateTime;
 
+
+}
+
+int core_messages::getIDMsg()
+{
+
+        int result = 0;
+        api_get_request *api_get = new api_get_request();
+
+        QVector<bdd_MESSAGE> listMsg = api_get->parse_file_message();
+        bool hasChanged = true;
+        while(hasChanged){
+            hasChanged = false;
+            for(int i = 0; i< listMsg.count();i++){
+                bdd_MESSAGE msg = listMsg.at(i);
+                if(msg.getIdMessage().toInt() == result){
+                    result++;
+                    hasChanged = true;
+                }
+            }
+        }
+
+        return result;
+
+}
+
+QString core_messages::getIDChat()
+{
+
+        int result = 0;
+        api_get_request *api_get = new api_get_request();
+
+        QVector<bdd_CHAT> listChat = api_get->parse_file_chat();
+        bool hasChanged = true;
+        while(hasChanged){
+            hasChanged = false;
+            for(int i = 0; i< listChat.count();i++){
+                bdd_CHAT chat = listChat.at(i);
+                if(chat.getIdChat().toInt() == result){
+                    result++;
+                    hasChanged = true;
+                }
+            }
+        }
+
+        return QString::number(result);
 
 }
 

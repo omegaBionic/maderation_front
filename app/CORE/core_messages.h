@@ -16,6 +16,8 @@ public:
     QVector<bdd_MESSAGE> getMessages(QString c);
     bool addMessage(bdd_USER u, bdd_CHAT c);
     bool addChat(bdd_USER sender, bdd_USER receiver);
+    int getIDMsg();
+    QString getIDChat();
     QString getTime();
 };
 

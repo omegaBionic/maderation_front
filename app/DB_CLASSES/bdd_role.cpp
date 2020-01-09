@@ -56,7 +56,7 @@ void bdd_ROLE::addKey(QString key, QString value){
 QMap<QString, QString> bdd_ROLE::getDict() {
     this->addKey("idRole", "\"S\":\""+ this->_idRole + "\"");
     this->addKey("label", "\"S\":\""+ this->_label + "\"");
-    this->addKey("userUserName", "\"S\":\""+ this->_userUserName + "\"");
+    this->addKey("userUsername", "\"S\":\""+ this->_userUserName + "\"");
     bdd_global::getDict();
     return _map;
 }

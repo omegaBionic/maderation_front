@@ -302,3 +302,7 @@ void menu_toolbar::on_btn_user_clicked()
 void menu_toolbar::setAdmin(bool val){
     _admin = val;
 }
+
+bool menu_toolbar::isAdmin(){
+    return _admin;
+}

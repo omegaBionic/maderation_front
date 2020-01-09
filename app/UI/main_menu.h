@@ -32,12 +32,18 @@ private slots:
 
     void on_pushButton_power_clicked();
 
+    void on_horizontalSlider_sliderMoved(int position);
+
+    void on_horizontalSlider_valueChanged(int value);
+
 private:
     void resizeEvent(QResizeEvent * event);
+    void resizeAll();
     bool event(QEvent *event);
     QVector<button_quotation*>* _listButton_quot;
     QVector<button_quotation*>* _listButton_del;
     QVector<QLabel*>* _listLabel_Button;
+    QVector<bdd_PROJECT>* _listProjectUser;
     int _width;
     int _height;
     Ui::Main_Menu *ui;

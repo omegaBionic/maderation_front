@@ -67,5 +67,11 @@
         <file>img/powerOff_hover.png</file>
         <file>img/powerOff_pressed.png</file>
         <file>img/background_dialog.png</file>
+        <file>img/add_user.png</file>
+        <file>img/add_user_hover.png</file>
+        <file>img/add_user_pressed.png</file>
+        <file>img/add_message.png</file>
+        <file>img/add_message_hover.png</file>
+        <file>img/add_message_pressed.png</file>
     </qresource>
 </RCC>

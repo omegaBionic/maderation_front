@@ -1,5 +1,6 @@
 #include "core_user_management.h"
 #include "../app/DB_CLASSES/bdd_user.h"
+#include "../app/DB_CLASSES/bdd_role.h"
 #include "../app/CORE/api_get_request.h"
 #include "../app/CORE/api_post_request.h"
 #include <QVector>
@@ -18,6 +19,61 @@ QVector<bdd_USER> core_user_management::getUsers()
     qDebug()<<listUser.count();
 
     return listUser;
+
+
+}
+
+QVector<bdd_ROLE> core_user_management::getUserRole(bdd_USER u)
+
+{
+    api_get_request *api_get = new api_get_request();
+
+    QVector<bdd_ROLE> listRole = api_get->parse_file_role();
+    QVector<bdd_ROLE> result;
+    for(int i = 0; i< listRole.count();i++){
+        bdd_ROLE role = listRole.at(i);
+        if(role.getUserUsername() == u.getUsername()){
+            result.append(role);
+        }
+    }
+
+    return result;
+
+
+}
+
+int core_user_management::getLastIDRole()
+
+{
+    api_get_request *api_get = new api_get_request();
+
+    QVector<bdd_ROLE> listRole = api_get->parse_file_role();
+    int result = 0;
+    bool hasChanged = true;
+    while(hasChanged){
+        hasChanged = false;
+        for(int i = 0; i< listRole.count();i++){
+            bdd_ROLE role = listRole.at(i);
+            if(role.getIdRole().toInt() == result){
+                result++;
+                hasChanged = true;
+            }
+        }
+    }
+
+    return result;
+
+
+}
+
+QVector<bdd_SHOP> core_user_management::getUserShop()
+
+{
+    api_get_request *api_get = new api_get_request();
+
+    QVector<bdd_SHOP> listShop = api_get->parse_file_shop();
+
+    return listShop;
 
 
 }

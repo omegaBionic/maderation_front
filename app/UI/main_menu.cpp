@@ -4,6 +4,8 @@
 #include <math.h>
 #include <QThread>
 #include "dialog_critical.h"
+#include <QScrollArea>
+#include "../CORE/api_get_request.h"
 
 Main_Menu::Main_Menu(QWidget *parent) :
     QMainWindow(parent),
@@ -17,12 +19,15 @@ Main_Menu::Main_Menu(QWidget *parent, menu_toolbar* m, QVector<bdd_PROJECT>* lis
     QMainWindow(parent),
     ui(new Ui::Main_Menu)
 {
+
+
     ui->setupUi(this);
     _menu = m;
     _menu->setParent(this);
     _listButton_quot = new QVector<button_quotation*>;
     _listButton_del = new QVector<button_quotation*>;
     _listLabel_Button = new QVector<QLabel*>;
+    _listProjectUser = listProject;
 
 
     _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,-1, "DATA_IMG/quot_new.png"));
@@ -56,6 +61,11 @@ Main_Menu::Main_Menu(QWidget *parent, menu_toolbar* m, QVector<bdd_PROJECT>* lis
         _listLabel_Button->at(i)->setAlignment(Qt::AlignmentFlag::AlignCenter);
         _listLabel_Button->at(i)->setStyleSheet("QLabel { font: 12pt 'Futura LT';}");
     }
+
+    if(!_menu->isAdmin()){
+        ui->label->setVisible(false);
+        ui->horizontalSlider->setVisible(false);
+    }
 }
 
 Main_Menu::~Main_Menu()
@@ -78,19 +88,23 @@ void Main_Menu::getButton_clicked(int ID){
 }
 
 void Main_Menu::getButtonDel_clicked(int ID){
+
     qDebug()<< "button delete clicked : "+ QString::number(ID);
-    for(int i = 0; i < _listButton_del->count();i++){
-        if( _listButton_del->at(i)->getID() == ID){
-            _listButton_del->remove(i);
+    Dialog_Critical* c = new Dialog_Critical(this, "Delete Project ?", "Are you sure you want to erase the project ?", "question");
+    int result = c->exec();
+    if(result == QDialog::Accepted){
+        for(int i = 0; i < _listButton_del->count();i++){
+            if( _listButton_del->at(i)->getID() == ID){
+                _listButton_del->removeAt(i);
+                _listLabel_Button->removeAt(i);
+                _listButton_quot->removeAt(i);
+                this->resizeAll();
+            }
+
         }
-        if( _listButton_quot->at(i)->getID() == ID){
-            _listButton_quot->remove(i);
-        }
-        _listLabel_Button->remove(i);
+
+        emit deleteProject(ID);
     }
-
-    emit deleteProject(ID);
-
 }
 
 void Main_Menu::showFull(){
@@ -99,12 +113,12 @@ void Main_Menu::showFull(){
     qDebug() << "emited de la menu";
 }
 
-void Main_Menu::resizeEvent(QResizeEvent *){
-    // format 16:9 only for the moment
+void Main_Menu::resizeAll(){
     QRect win = this->geometry();
 
     _width = win.width()/128;
     _height = win.height()/72;
+    ui->scrollAreaWidgetContents->update();
     ui->scrollAreaWidgetContents->setGeometry(0*_width, 0*_height, 128*_width, (1 + _listButton_quot->size()/5) * 20 * _height + 8 * _height);
     ui->scrollArea->setGeometry(0*_width, 0*_height, 128*_width, 60*_height);
     ui->scrollArea->setWidget(ui->scrollAreaWidgetContents);
@@ -115,6 +129,7 @@ void Main_Menu::resizeEvent(QResizeEvent *){
         int count_w = i%5;
         int count_h = (int)i/5;
         qDebug() << "count_h : " + QString::number(count_h);
+        qDebug() << "pos X du bouton : " << i << " -> " << 15*_width + count_w * 20*_width;
         QString urlIcon = _listButton_quot->at(i)->getIconUrl();
         _listButton_quot->at(i)->setGeometry(15*_width + count_w * 20*_width,8*_height + count_h * 20*_height, 12* _width,12*_height);
         _listButton_quot->at(i)->setIcon(QPixmap(urlIcon).scaled(9*_width, 9*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
@@ -126,11 +141,19 @@ void Main_Menu::resizeEvent(QResizeEvent *){
 
         _listLabel_Button->at(i)->setGeometry(15*_width + count_w * 20*_width,6*_height + count_h * 20*_height, 12* _width,2*_height);
 
+        qDebug() << "real pos X du bouton : " << i << " -> " << _listButton_quot->at(i)->geometry().x();
     }
-
+    ui->label->setGeometry(122*_width,4*_height, 8* _width,2*_height);
+    ui->horizontalSlider->setGeometry(122*_width,6*_height, 4* _width,2*_height);
     ui->pushButton_power->setGeometry(124*_width, 0*_height ,4*_width, 4*_height);
     _menu->setGeometry(42*_width, 62*_height, 48*_width, 12*_height);
+    this->update();
+    ui->scrollAreaWidgetContents->update();
+}
 
+void Main_Menu::resizeEvent(QResizeEvent *){
+    // format 16:9 only for the moment
+    this->resizeAll();
 }
 
 void Main_Menu::on_pushButton_power_clicked()
@@ -141,4 +164,69 @@ void Main_Menu::on_pushButton_power_clicked()
     if(result == QDialog::Accepted){
         this->close();
     }
+}
+
+void Main_Menu::on_horizontalSlider_sliderMoved(int position)
+{
+
+}
+
+void Main_Menu::on_horizontalSlider_valueChanged(int value)
+{
+    qDebug() << "changed slider" << value;
+    QVector<bdd_PROJECT> listProject;
+    if(value == 1 ){
+        api_get_request* api = new api_get_request();
+        listProject = api->parse_file_project();
+    }else {
+        listProject = *_listProjectUser;
+    }
+
+
+
+    _listButton_quot = nullptr;
+    _listButton_quot = new QVector<button_quotation*>;
+    _listButton_del = nullptr;
+    _listButton_del = new QVector<button_quotation*>;
+    _listLabel_Button = nullptr;
+    _listLabel_Button = new QVector<QLabel*>;
+
+    ui->scrollAreaWidgetContents = new QWidget(ui->scrollArea);
+
+    _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,-1, "DATA_IMG/quot_new.png"));
+    button_quotation* btn = new button_quotation(ui->scrollAreaWidgetContents,-1, ":/pictures/img/trash_logo.png",true);
+    btn->hide();
+    _listButton_del->append(btn);
+    _listLabel_Button->append(new QLabel("New", ui->scrollAreaWidgetContents)); // new icon
+    for(int i = 0; i<listProject.count(); i++){
+        bdd_PROJECT project = listProject.at(i);
+        int ID = project.getIdProject().toInt();
+        qDebug() << "adding project : " + project.getTitle();
+        _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,ID, "./DATA_IMG/quot_ex_1.png"));
+        _listButton_del->append(new button_quotation(ui->scrollAreaWidgetContents,project.getIdProject().toInt(), ":/pictures/img/trash_logo.png",true));
+        qDebug() << "buttons added : " << project.getTitle();
+        if(value == 1){
+            _listLabel_Button->append(new QLabel(project.getTitle() + "(" + project.getUserUserName() + ")", ui->scrollAreaWidgetContents)); // new icon
+
+        }else{
+            _listLabel_Button->append(new QLabel(project.getTitle(), ui->scrollAreaWidgetContents)); // new icon
+
+        }
+
+    }
+    for(int i = 0; i< _listButton_quot->size(); i++){
+        _listButton_quot->at(i)->setText("");
+        _listButton_quot->at(i)->setStyleSheet("QPushButton {background-color: #00000000; border-radius: 30px; border: 10px solid #7f7f7f;}");
+        _listButton_quot->at(i)->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
+        QObject::connect(_listButton_quot->at(i), &button_quotation::clicked_ID, this, &Main_Menu::getButton_clicked);
+        _listButton_del->at(i)->setText("");
+        _listButton_del->at(i)->setStyleSheet("QPushButton {background-color: #00000000; border: 0px;}");
+        _listButton_del->at(i)->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
+        QObject::connect(_listButton_del->at(i), &button_quotation::clicked_ID, this, &Main_Menu::getButtonDel_clicked);
+        _listLabel_Button->at(i)->setAlignment(Qt::AlignmentFlag::AlignCenter);
+        _listLabel_Button->at(i)->setStyleSheet("QLabel { font: 12pt 'Futura LT';}");
+    }
+
+    this->resizeAll();
+    this->update();
 }

@@ -20,6 +20,7 @@ public:
     void setWindow(QString win);
     bool _isHided;
     void setAdmin(bool val);
+    bool isAdmin();
 
 
 signals:

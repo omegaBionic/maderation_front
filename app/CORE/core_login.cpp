@@ -20,10 +20,7 @@ bdd_USER core_login::getUser(QString username, QString password){
 
         }
     }
-
     return result;
-
-
 }
 
 

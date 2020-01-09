@@ -25,9 +25,16 @@ signals:
 private slots:
     void on_pushButton_power_clicked();
 
+    void on_pushButton_addChat_clicked();
+    void reloadChats(int status);
+    void reloadTable(QString t);
+
+
 private:
     void resizeEvent(QResizeEvent * event);
     bool event(QEvent *event);
+    void setAttributs();
+    void wait(int time, int interval);
 
     QString _user;
     Ui::main_chat *ui;

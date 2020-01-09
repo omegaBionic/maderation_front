@@ -97,9 +97,9 @@ QMap<QString, QString> bdd_CLIENT::getDict() {
     this->addKey("mail", "\"S\":\""+ this->_mail + "\"");
     this->addKey("firstname", "\"S\":\""+ this->_firstname + "\"");
     if(this->_isActive){
-        this->addKey("isActive", "\"B\":\"true\"");
+        this->addKey("isActive", "\"BOOL\":true");
     }else{
-        this->addKey("isActive", "\"B\":\"false\"");
+        this->addKey("isActive", "\"BOOL\":false");
     }
     this->addKey("addressIDAddress", "\"N\":\""+ QString::number(this->_addressIDAdress) + "\"");
     bdd_global::getDict();

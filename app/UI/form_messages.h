@@ -15,7 +15,7 @@ class Form_messages : public QWidget
 
 public:
     explicit Form_messages(QWidget *parent = nullptr);
-    explicit Form_messages(QWidget *parent = nullptr, QVector<bdd_MESSAGE>* listMessage = nullptr, QString title = "this is a title", QString author = "toto");
+    explicit Form_messages(QWidget *parent = nullptr, QVector<bdd_MESSAGE>* listMessage = nullptr, QString title = "this is a title", QString author = "toto", QString IDChat = "0");
     ~Form_messages();
 
 private slots:
@@ -26,7 +26,7 @@ private slots:
 private:
     void resizeAll();
     void resizeEvent(QResizeEvent * event);
-    QVector<bdd_MESSAGE>* _listMessage;
+    QVector<bdd_MESSAGE> _listMessage;
     QVector<QLabel*>* _listLabelMessages;
     QVector<QLabel*>* _listLabelAuthor;
     QVector<QLabel*>* _listLabelDate;
@@ -34,6 +34,7 @@ private:
     QString _author;
     int _width;
     int _height;
+    QString _IDChat;
     Ui::Form_messages *ui;
 };
 

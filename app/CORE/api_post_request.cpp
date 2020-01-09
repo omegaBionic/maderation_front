@@ -3,6 +3,7 @@
 #include <QTextStream>
 #include "../DB_CLASSES/bdd_global.h"
 #include "utils_id.h"
+#include "api_get_request.h"
 
 api_post_request::api_post_request(){
     qDebug() << "[api_post_request] id.get_id(): '" << id.get_id() << "'";
@@ -64,7 +65,6 @@ void api_post_request::pushData(){
     // TODO: add id.get_id() in id parameter on post request
 
 
-
     QFile fileFull("DATA/modif.json");
     fileFull.open(QIODevice::ReadOnly | QIODevice::Text);
     QByteArray line;   //a qbytearray object for read file line by line
@@ -108,7 +108,10 @@ void api_post_request::downloadFinished(QNetworkReply* reply){
     qDebug() << "response status : " +  response;
     if (response.contains("status\":200")){
         QFile fileFull("DATA/modif.json");
+        fileFull.copy("DATA/temp.json");
         fileFull.remove();
+        api_get_request* api = new api_get_request();
+        api->get_all_table();
     }
 
     reply->deleteLater();

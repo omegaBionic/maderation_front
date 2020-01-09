@@ -31,7 +31,12 @@ void api_get_request::downloadFinished(QNetworkReply* reply){
         qDebug() << "status found in table";
         fichier = "STATUS/json"+table+".json";
     }
+    if(QFile::exists(fichier)){
+        QFile::remove(fichier);
+    }
+
     file = new QFile(fichier);
+
     QByteArray response_data = reply->readAll();
 
     file->open(QIODevice::ReadWrite);
@@ -41,7 +46,7 @@ void api_get_request::downloadFinished(QNetworkReply* reply){
     file->close();
 
     reply->deleteLater();
-
+    emit downloadended(table);
 
 }
 
@@ -115,7 +120,7 @@ QVector<bdd_USER> api_get_request::parse_file_user(){
 
     foreach (const QJsonValue & v, itemsArray)
     {
-        bdd_USER* user = new bdd_USER(v.toObject().value("phoneNumber")["S"].toString(), v.toObject().value("isActive")["BOOL"].toBool(), v.toObject().value("lastName")["S"].toString(), v.toObject().value("password")["S"].toString(), v.toObject().value("firstname").toString(), v.toObject().value("idShop")["N"].toInt(), v.toObject().value("mail")["S"].toString(), v.toObject().value("username")["S"].toString());
+        bdd_USER* user = new bdd_USER(v.toObject().value("phoneNumber")["S"].toString(), v.toObject().value("isActive")["BOOL"].toBool(), v.toObject().value("lastname")["S"].toString(), v.toObject().value("password")["S"].toString(), v.toObject().value("firstname")["S"].toString(), v.toObject().value("idShop")["N"].toInt(), v.toObject().value("mail")["S"].toString(), v.toObject().value("username")["S"].toString());
         listUser.append(*user);
     }
     return listUser;
@@ -482,7 +487,7 @@ QVector<bdd_PROJECT> api_get_request::parse_file_project(){
 
     foreach (const QJsonValue & v, itemsArray)
     {
-        listProject.append(bdd_PROJECT(v.toObject().value("supplierIdSupplier")["S"].toString(), v.toObject().value("validation")["BOOL"].toBool(), v.toObject().value("creationDate")["S"].toString(), v.toObject().value("isTemplate")["BOOL"].toBool(), v.toObject().value("idProject")["S"].toString(), v.toObject().value("userUsername")["S"].toString()));
+        listProject.append(bdd_PROJECT(v.toObject().value("supplierIdSupplier")["S"].toString(), v.toObject().value("validation")["BOOL"].toBool(), v.toObject().value("creationDate")["S"].toString(), v.toObject().value("isTemplate")["BOOL"].toBool(), v.toObject().value("idProject")["S"].toString(), v.toObject().value("userUsername")["S"].toString(), v.toObject().value("Title")["S"].toString()));
     }
     return listProject;
 
@@ -651,7 +656,8 @@ QVector<bdd_SHOP> api_get_request::parse_file_shop(){
 
     foreach (const QJsonValue & v, itemsArray)
     {
-        listShop.append(bdd_SHOP(v.toObject().value("city")["S"].toString(), v.toObject().value("idShop")["S"].toString(), v.toObject().value("country")["S"].toString(), v.toObject().value("postalCode")["N"].toInt(), v.toObject().value("street")["S"].toString()));
+        qDebug() << v.toObject().value("postalCode")["N"].toString().toInt();
+        listShop.append(bdd_SHOP(v.toObject().value("city")["S"].toString(), v.toObject().value("idShop")["S"].toString(), v.toObject().value("country")["S"].toString(), v.toObject().value("postalCode")["N"].toString().toInt(), v.toObject().value("street")["S"].toString()));
     }
     return listShop;
 }
@@ -753,5 +759,29 @@ QVector<bdd_ATTRIBUT> api_get_request::parse_file_attribut(){
         listAttribut.append(bdd_ATTRIBUT(v.toObject().value("length")["N"].toInt(),v.toObject().value("positionY")["N"].toInt(),v.toObject().value("width")["N"].toInt(),v.toObject().value("height")["N"].toInt(),v.toObject().value("productIdProduct")["N"].toInt(),v.toObject().value("orderIdProject")["N"].toInt(),v.toObject().value("positionX")["N"].toInt(),v.toObject().value("rotationY")["N"].toInt(),v.toObject().value("positionZ")["N"].toInt(),v.toObject().value("rotationX")["N"].toInt(),v.toObject().value("idAttribut")["N"].toInt()));
     }
     return listAttribut;
+}
+
+void api_get_request::get_all_table(){
+    qDebug() << "------------------get all !!";
+    this->get_table_chat();
+    this->get_table_role();
+    this->get_table_shop();
+    this->get_table_user();
+    this->get_table_gamme();
+    this->get_table_stock();
+    this->get_table_client();
+    this->get_table_message();
+    this->get_table_product();
+    this->get_table_project();
+    this->get_table_attribut();
+    this->get_table_category();
+    this->get_table_supplier();
+    this->get_table_component();
+    this->get_table_quotation();
+    this->get_table_promotion_cat();
+    this->get_table_address_client();
+    this->get_table_promotion_comp();
+    this->get_table_address_supplier();
+    this->get_table_invoice_quotation();
 }
 

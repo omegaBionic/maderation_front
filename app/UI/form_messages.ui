@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">QWidget{
 background-color: #00000000;
-border: 2px;
+border:0px;
 }</string>
   </property>
   <widget class="QLabel" name="label">

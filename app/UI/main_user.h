@@ -29,10 +29,16 @@ signals:
 private slots:
     void on_pushButton_power_clicked();
 
+    void on_pushButton_clicked();
+    void reloadUsers(int status);
+    void reloadTable(QString t);
+
 private:
     QVector<Form_users*>* _listUIUsers;
-    QVector<bdd_USER>* _listUsers;
+    QVector<bdd_USER> _listUsers;
+    void setUsers();
     Ui::main_user *ui;
+    void wait(int time, int interval);
     void resizeEvent(QResizeEvent * event);
     bool event(QEvent *event);
     int _width;
