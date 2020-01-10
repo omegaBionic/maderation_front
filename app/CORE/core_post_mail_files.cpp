@@ -3,37 +3,18 @@
 #include <QFile>
 
 
-core_post_mail_files::core_post_mail_files(QObject* parent): QObject(parent)
+core_post_mail_files::core_post_mail_files(QObject* parent)
 {
 
 }
-void core_post_mail_files::upload()
+
+void core_post_mail_files::send(QString toAddresses, QString body1, QString body2)
 {
-    QNetworkAccessManager* manager = new QNetworkAccessManager;
-    QFile* file = new QFile();
-    file->setFileName("test.xml");
-    if(!file->open(QFile::ReadOnly|QIODevice::Text)) {
-        qDebug()<<"File failed to open - contact system administrator.";
+    // concatenate json line:
+    // {"ToAddresses":"guillaume.lefebvre@viacesi.fr", "CcAddresses":"", "Body2":"This is body 2 :D", "Body1":"Bonjour,<br><br>veuillez trouver ci-joint le document pour votre devis madera : <a href=\"https://maderationpictures.s3-eu-west-1.amazonaws.com/james.jpg\">DevisJames</a><br><br>Cordialement,<br>L'équipe Madera", "Subject":"Test email"}
+    QString toSend = "{\"ToAddresses\":\"guillaume.lefebvre@viacesi.fr\", \"CcAddresses\":\"\", \"Body2\":\"This is body 2 :D\", \"Body1\":\"Bonjour,<br><br>veuillez trouver ci-joint le document pour votre devis madera : <a href=\"https://maderationpictures.s3-eu-west-1.amazonaws.com/james.jpg\">DevisJames</a><br><br>Cordialement,<br>L'équipe Madera\", \"Subject\":\"Test email\"}";
+    qDebug() << "toSend: '" + toSend + "'";
 
-    } else {
-        QByteArray boundary = "---------------------------87142694621188";
-
-        QNetworkRequest request( QUrl( "http://localhost/qt/post.php" ) );
-        request.setRawHeader( "Referer", "http://localhost/" );
-        request.setRawHeader( "Content-Type", "multipart/form-data; boundary=" + boundary ); //<-- seulement 27 tirets
-
-        QFile file( "image.jpg" );
-        file.open( QIODevice::ReadOnly );
-        QByteArray aadata = "--" + boundary; //<-- mais 29 ici
-        aadata += "\r\nContent-Disposition: form-data; name=\"upload\"; filename=\"image.jpg\";\r\n";
-        // upload correspondant au nom du champ "file" du formulaire
-        aadata += "Content-Type: image/jpeg\r\n\r\n" + file.readAll();
-        aadata += "\r\n--" + boundary + "--\r\n"; //<-- et ici
-
-        request.setRawHeader( "Content-Length", QString::number(aadata.size()).toUtf8() );
-
-        QNetworkReply* reply = manager->post( request, aadata );
-
-//        QObject::connect(reply,SIGNAL(finished()),this, SLOT(done())); // reply finished - close file
-    }
+    // send json to :
+    // http://madera-api.maderation.net:8080/api/post/post_mail?key=bdd5c890be92b02115330360cd77c194
 }
