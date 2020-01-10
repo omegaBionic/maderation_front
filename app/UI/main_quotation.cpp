@@ -5,6 +5,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>
 #include "dialog_critical.h"
+#include "../CORE/core_quotation.h"
 
 Main_Quotation::Main_Quotation(QWidget *parent) :
     QMainWindow(parent),
@@ -13,7 +14,7 @@ Main_Quotation::Main_Quotation(QWidget *parent) :
     ui->setupUi(this);
 }
 
-Main_Quotation::Main_Quotation(QWidget *parent, menu_toolbar* tool) :
+Main_Quotation::Main_Quotation(QWidget *parent, menu_toolbar* tool, bdd_PROJECT project) :
     QMainWindow(parent),
     ui(new Ui::Main_Quotation)
 {
@@ -22,14 +23,39 @@ Main_Quotation::Main_Quotation(QWidget *parent, menu_toolbar* tool) :
     _menu->setParent(this);
     _isHided = false;
     _scene = new scene_custom(this);
+    _project = project;
     QObject::connect(_scene, &scene_custom::item_Selected, this, &Main_Quotation::Item_Updated);
     ui->graphicsView->setScene(_scene);
     _listRectangle = new QVector<Rect_Custom*>();
-    _listRectangle->append(new Rect_Custom(0, 0, 10,10,50,50,QPen(Qt::black), QBrush(Qt::black)));
-    _listRectangle->append(new Rect_Custom(0, 1, 60,60,50,50,QPen(Qt::black), QBrush(Qt::black)));
-    _listRectangle->append(new Rect_Custom(0, 2, 150,150,50,50,QPen(Qt::black), QBrush(Qt::black)));
-    _listRectangle->append(new Rect_Custom(0, 3, 250,10,50,50,QPen(Qt::black), QBrush(Qt::black)));
-    _listRectangle->append(new Rect_Custom(0, 4, 350,10,50,50,QPen(Qt::black), QBrush(Qt::black)));
+    _rectSelected = nullptr;
+    core_quotation* core = new core_quotation();
+
+    QVector<bdd_ATTRIBUT> listAttr = core->getAttributs(_project);
+
+    QVector<bdd_PRODUCT> listProduct = core->getAllProducts();
+
+    for(int i = 0; i < listProduct.count();i++){
+        bdd_PRODUCT product = listProduct.at(i);
+        bool isPresent = false;
+        for(int i = 0; i < ui->comboBox_type->count();i++){
+            if(ui->comboBox_type->itemText(i) == product.getType()){
+                isPresent = true;
+            }
+        }
+        if(!isPresent){
+            ui->comboBox_type->addItem(product.getType());
+        }
+
+    }
+
+
+    for(int i = 0; i < listAttr.count(); i++){
+        bdd_ATTRIBUT attr = listAttr.at(i);
+        _listRectangle->append(new Rect_Custom(0, attr.getIdAttribut().toInt(), attr.getPositionX(), attr.getPositionY(), attr.getHeight(), attr.getLength(), attr.getWidth(),QPen(Qt::black), QBrush(Qt::black)));
+
+
+    }
+
 
     for(int i = 0; i< _listRectangle->count();i++){
         Rect_Custom * rect = _listRectangle->at(i);
@@ -75,15 +101,14 @@ void Main_Quotation::resizeEvent(QResizeEvent *){
     ui->pushButton_menu->setGeometry(3*_widthGroup, 3*_heightGroup, 8*_widthGroup, 8*_heightGroup);
     ui->line_globale->setGeometry(0*_widthGroup, 10*_heightGroup, 80*_widthGroup, 1*_heightGroup);
 
+    ui->label->setGeometry(1*_widthGroup, 4*_heightGroup,40*_widthGroup, 8*_heightGroup);
 
     ui->pushButton_new->setGeometry(64*_widthGroup, 1*_heightGroup, 9*_widthGroup, 9*_heightGroup);
-    ui->comboBox_type->setGeometry(1*_widthGroup, 4*_heightGroup, 40*_widthGroup, 6*_heightGroup);
+    ui->comboBox_type->setGeometry(1*_widthGroup, 14*_heightGroup, 40*_widthGroup, 6*_heightGroup);
     ui->pushButton_Copy->setGeometry(64*_widthGroup, 12*_heightGroup, 9*_widthGroup, 9*_heightGroup);
-    ui->comboBox_element->setGeometry(1*_widthGroup, 14*_heightGroup, 40*_widthGroup, 6*_heightGroup);
-    ui->line->setGeometry(0*_widthGroup, 24*_heightGroup, 76*_widthGroup, 2*_heightGroup);
+    ui->pushButton_create->setGeometry(64*_widthGroup, 104*_heightGroup, 9*_widthGroup, 9*_heightGroup);
+    ui->comboBox_element->setGeometry(1*_widthGroup, 24*_heightGroup, 40*_widthGroup, 6*_heightGroup);
 
-    ui->checkBox_select->setGeometry(1*_widthGroup, 28*_heightGroup, 30*_widthGroup, 4*_heightGroup);
-    ui->checkBox_disable->setGeometry(1*_widthGroup, 36*_heightGroup, 30*_widthGroup, 4*_heightGroup);
     ui->line_3->setGeometry(0*_widthGroup, 42*_heightGroup, 76*_widthGroup, 2*_heightGroup);
 
     ui->spinBox_X->setGeometry(1*_widthGroup, 48*_heightGroup, 40*_widthGroup, 6*_heightGroup);
@@ -127,11 +152,31 @@ void Main_Quotation::on_pushButton_menu_clicked()
 
 
 void Main_Quotation::Item_Updated(Rect_Custom* rect){
+    _ModifiedBySignal = true;
     ui->spinBox_X->setValue(rect->x());
     ui->spinBox_Y->setValue(rect->y());
     ui->spinBox_Width->setValue(rect->getWidth());
     ui->spinBox_Length->setValue(rect->getLength());
+    core_quotation* core = new core_quotation();
+    bdd_ATTRIBUT attr = core->getAttributByID(rect->getID());
+    bdd_PRODUCT product = core->getProductByID(attr.getProductIdProduct());
 
+    for(int i = 0; i< ui->comboBox_type->count();i++){
+        if(ui->comboBox_type->itemText(i) == product.getLabel()){
+            ui->comboBox_type->setCurrentIndex(i);
+        }
+    }
+    this->configureComboBox();
+    for(int i = 0; i< ui->comboBox_element->count();i++){
+        if(ui->comboBox_element->itemText(i) == product.getMaterial()){
+            ui->comboBox_element->setCurrentIndex(i);
+        }
+    }
+    QString text = product.getLabel() + "(" + product.getProductCode() + ")";
+    ui->label->setText(text.toUpper());
+
+    _rectSelected = rect;
+    _ModifiedBySignal = false;
 }
 
 void Main_Quotation::on_pushButton_power_clicked()
@@ -142,4 +187,112 @@ void Main_Quotation::on_pushButton_power_clicked()
     if(result == QDialog::Accepted){
         this->close();
     }
+}
+
+void Main_Quotation::on_spinBox_Length_valueChanged(int arg1)
+{
+    if(_ModifiedBySignal){
+        return;
+    }
+    if(_rectSelected != nullptr){
+        _rectSelected->setLength(arg1);
+        _scene->updateRect(_rectSelected->getID(), arg1, "length");
+    }else{
+        Dialog_Critical* c = new Dialog_Critical(this, "Error", "Error : No attribut selected", "critical");
+        c->show();
+    }
+}
+
+void Main_Quotation::on_spinBox_Width_valueChanged(int arg1)
+{
+    if(_ModifiedBySignal){
+        return;
+    }
+    if(_rectSelected != nullptr){
+        _rectSelected->setWidth(arg1);
+        _scene->updateRect(_rectSelected->getID(), arg1, "width");
+    }else{
+        Dialog_Critical* c = new Dialog_Critical(this, "Error", "Error : No attribut selected", "critical");
+        c->show();
+    }
+}
+
+void Main_Quotation::on_spinBox_Height_valueChanged(int arg1)
+{
+    if(_ModifiedBySignal){
+        return;
+    }
+    if(_rectSelected != nullptr){
+        _rectSelected->setHeight(arg1);
+        _scene->updateRect(_rectSelected->getID(), arg1, "height");
+    }else{
+        Dialog_Critical* c = new Dialog_Critical(this, "Error", "Error : No attribut selected", "critical");
+        c->show();
+    }
+}
+
+void Main_Quotation::on_spinBox_X_valueChanged(int arg1)
+{
+    if(_ModifiedBySignal){
+        return;
+    }
+    if(_rectSelected != nullptr){
+        _rectSelected->setX(arg1);
+        _scene->updateRect(_rectSelected->getID(), arg1, "X");
+    }else{
+        Dialog_Critical* c = new Dialog_Critical(this, "Error", "Error : No attribut selected", "critical");
+        c->show();
+    }
+}
+
+void Main_Quotation::on_spinBox_Y_valueChanged(int arg1)
+{
+    if(_ModifiedBySignal){
+        return;
+    }
+    if(_rectSelected != nullptr){
+        _rectSelected->setY(arg1);
+        _scene->updateRect(_rectSelected->getID(), arg1, "Y");
+    }else{
+        Dialog_Critical* c = new Dialog_Critical(this, "Error", "Error : No attribut selected", "critical");
+        c->show();
+    }
+}
+
+void Main_Quotation::on_spinBox_Z_valueChanged(int arg1)
+{
+    if(_ModifiedBySignal){
+        return;
+    }
+    if(_rectSelected != nullptr){
+        _rectSelected->setZValue(arg1);
+        _scene->updateRect(_rectSelected->getID(), arg1, "Z");
+    }else{
+        Dialog_Critical* c = new Dialog_Critical(this, "Error", "Error : No attribut selected", "critical");
+        c->show();
+    }
+}
+
+void Main_Quotation::configureComboBox(){
+    QString type = ui->comboBox_type->currentText();
+    core_quotation* core = new core_quotation();
+    QVector<bdd_PRODUCT> listProduct = core->getAllProducts();
+
+    for(int i = 0; i <listProduct.count();i++){
+        bdd_PRODUCT prod = listProduct.at(i);
+        if(prod.getType() == type){
+            bool isPresent = false;
+            for(int i = 0; i < ui->comboBox_element->count();i++){
+                if(ui->comboBox_element->itemText(i) == prod.getMaterial()){
+                    isPresent = true;
+                }
+            }
+            if(!isPresent){
+                ui->comboBox_element->addItem(prod.getMaterial());
+            }
+        }
+    }
+
+
+
 }

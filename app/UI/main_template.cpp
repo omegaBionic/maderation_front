@@ -13,7 +13,7 @@ main_template::main_template(QWidget *parent) :
     _menu = new menu_toolbar(this);
 }
 
-main_template::main_template(QWidget *parent, menu_toolbar* m, QVector<bdd_PROJECT>* listProject) :
+main_template::main_template(QWidget *parent, menu_toolbar* m, QVector<bdd_PROJECT>* listProject, QString user) :
     QMainWindow(parent),
     ui(new Ui::main_template)
 {
@@ -22,17 +22,19 @@ main_template::main_template(QWidget *parent, menu_toolbar* m, QVector<bdd_PROJE
     ui->background_form->hide();
     ui->grey_screen->hide();
 
+
     _tpl = new Form_template(this, "");
     _tpl->hide();
     QObject::connect(_tpl, &Form_template::cancelled, this, &main_template::tplCancelled);
     QObject::connect(_tpl, &Form_template::validated, this, &main_template::tplValidated);
 
+    _user = user;
     _menu = m;
     _menu->setParent(this);
     _listButton_quot = new QVector<button_quotation*>;
     _listButton_del = new QVector<button_quotation*>;
     _listLabel_Button = new QVector<QLabel*>;
-
+    _listProject = * listProject;
 
     _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,-1, "DATA_IMG/quot_new.png"));
     button_quotation* btn = new button_quotation(ui->scrollAreaWidgetContents,-1, ":/pictures/img/trash_logo.png",true);
@@ -84,12 +86,27 @@ void main_template::getButton_clicked(int ID){
     ui->grey_screen->show();
     ui->background_form->show();
     QString url = "./DATA_IMG/quot_default.png";
-    for(int i = 0; i< _listButton_quot->count();i++){
-        if(_listButton_quot->at(i)->getID() == ID){
-            url = _listButton_quot->at(i)->getIconUrl();
+
+    if(ID == -1){
+        _tpl->setProject(bdd_PROJECT("not yet validated", false,"now", false, "0", _user, "new project", "0"));
+        url = "./DATA_IMG/quot_new_default.png";
+    }else{
+        for(int i = 0; i< _listButton_quot->count();i++){
+            if(_listButton_quot->at(i)->getID() == ID){
+                url = _listButton_quot->at(i)->getIconUrl();
+            }
+        }
+
+        for(int i = 0; i< _listProject.count();i++){
+            bdd_PROJECT project = _listProject.at(i);
+            if(project.getIdProject().toInt() == ID){
+                project.setuserUseName(_user);
+                _tpl->setProject(project);
+            }
         }
     }
     _tpl->setRessource(url);
+
     _tpl->setGeometry(17*_width,7*_height,94*_width, 52*_height);
     _tpl->show();
 }
@@ -150,12 +167,12 @@ void main_template::tplCancelled(){
 
 }
 
-void main_template::tplValidated(){
+void main_template::tplValidated(bdd_PROJECT project){
     _tpl->hide();
     ui->background_form->hide();
     ui->grey_screen->hide();
 
-    emit openProject(bdd_PROJECT("Tue Dec  2 00:00:00 PST 2014", "true", "Tue Dec  2 00:00:00 PST 2014", "true", "0", "omega", "test"));
+    emit openProject(project);
 }
 
 void main_template::on_pushButton_power_clicked()

@@ -19,7 +19,7 @@ class main_template : public QMainWindow
 
 public:
     explicit main_template(QWidget *parent = nullptr);
-    explicit main_template(QWidget *parent = nullptr, menu_toolbar* menu = nullptr, QVector<bdd_PROJECT>* listProject = nullptr);
+    explicit main_template(QWidget *parent = nullptr, menu_toolbar* menu = nullptr, QVector<bdd_PROJECT>* listProject = nullptr, QString user = "");
     ~main_template();
     void showFull();
 
@@ -33,7 +33,7 @@ private slots:
     void getButton_clicked(int ID);
     void getButtonDel_clicked(int ID);
     void tplCancelled();
-    void tplValidated();
+    void tplValidated(bdd_PROJECT project);
 
     void on_pushButton_power_clicked();
 
@@ -43,11 +43,13 @@ private:
     QVector<button_quotation*>* _listButton_quot;
     QVector<button_quotation*>* _listButton_del;
     QVector<QLabel*>* _listLabel_Button;
+    QVector<bdd_PROJECT> _listProject;
     int _width;
     int _height;
     Ui::main_template *ui;
     menu_toolbar* _menu;
     Form_template* _tpl;
+    QString _user;
 
 
 };

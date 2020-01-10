@@ -43,7 +43,7 @@ Main_Menu::Main_Menu(QWidget *parent, menu_toolbar* m, QVector<bdd_PROJECT>* lis
         _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,ID, "./DATA_IMG/quot_ex_1.png"));
         _listButton_del->append(new button_quotation(ui->scrollAreaWidgetContents,project.getIdProject().toInt(), ":/pictures/img/trash_logo.png",true));
         qDebug() << "buttons added : " << project.getIdProject().toInt();
-        _listLabel_Button->append(new QLabel(project.getUserUserName(), ui->scrollAreaWidgetContents)); // new icon
+        _listLabel_Button->append(new QLabel(project.getTitle(), ui->scrollAreaWidgetContents)); // new icon
         qDebug() << "buttons added : " << project.getIdProject().toInt();
 
     }
@@ -98,13 +98,25 @@ void Main_Menu::getButtonDel_clicked(int ID){
                 _listButton_del->removeAt(i);
                 _listLabel_Button->removeAt(i);
                 _listButton_quot->removeAt(i);
-                this->resizeAll();
+
+
             }
 
         }
 
+        for(int i = 0; i< _listProjectUser->count(); i++){
+            bdd_PROJECT proj = _listProjectUser->at(i);
+            if(proj.getIdProject().toInt() == ID){
+                _listProjectUser->removeAt(i);
+            }
+        }
+
         emit deleteProject(ID);
+        this->wait(500,500);
+        this->on_horizontalSlider_valueChanged(0);
     }
+
+
 }
 
 void Main_Menu::showFull(){
@@ -229,4 +241,24 @@ void Main_Menu::on_horizontalSlider_valueChanged(int value)
 
     this->resizeAll();
     this->update();
+}
+
+
+void Main_Menu::wait(int time, int interval){
+    qDebug() << "waiting...";
+    int timer = clock() + time;
+    qDebug()<<clock();
+    qDebug()<<timer;
+    bool hasUpgrade = false;
+    while(timer > clock()){
+        qApp->processEvents();
+        if(clock()%interval == 0){
+            if(!hasUpgrade){
+                hasUpgrade = true;
+            }
+        }else{
+            hasUpgrade = false;
+        }
+    }
+    qDebug() << "end of wait...";
 }

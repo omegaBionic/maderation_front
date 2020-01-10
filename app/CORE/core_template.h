@@ -14,6 +14,12 @@ class core_template : public QObject
 public:
     explicit core_template(QObject *parent = nullptr);
     QVector<bdd_PROJECT>* getTemplates();
+    QString getLastIDProject();
+    QString getTime();
+    QVector<QString> getClients();
+    QString getClient(QString name);
+    void copyAttributs(QString baseID, QString newID);
+    QString getLastAttributID();
 
 signals:
 

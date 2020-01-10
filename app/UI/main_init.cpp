@@ -237,6 +237,7 @@ void main_init::Transfert_Tables()
     QFile T_jsonStock("./DATA/jsonStock.json");
     QFile T_jsonSupplier("./DATA/jsonSupplier.json");
     QFile T_jsonAdressSupplier("./DATA/jsonAddressSupplier.json");
+    QFile T_jsonAttribut("./DATA/jsonAttribut.json");
 
     //timeOut Variable
 
@@ -567,6 +568,23 @@ void main_init::Transfert_Tables()
 
             this->wait(1200,20);
                getTables->get_table_address_supplier(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
+            qDebug("created");
+        }
+
+        if(T_jsonAttribut.exists())
+        {
+            //existe
+
+            this->wait(500,10);
+            qDebug("table T_jsonAttribut exist");
+        }
+        else if (!T_jsonAttribut.exists())
+        {
+            //existe pas
+            ui->label_info->setText("téléchargement du fichier attribut");
+
+            this->wait(1200,20);
+               getTables->get_table_attribut(); // pour crée d'autre dossier a l'interieur du dossier DATA, garder le point si aucun dossier.
             qDebug("created");
         }
         //---

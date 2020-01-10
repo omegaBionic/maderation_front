@@ -120,7 +120,7 @@ QVector<bdd_USER> api_get_request::parse_file_user(){
 
     foreach (const QJsonValue & v, itemsArray)
     {
-        bdd_USER* user = new bdd_USER(v.toObject().value("phoneNumber")["S"].toString(), v.toObject().value("isActive")["BOOL"].toBool(), v.toObject().value("lastname")["S"].toString(), v.toObject().value("password")["S"].toString(), v.toObject().value("firstname")["S"].toString(), v.toObject().value("idShop")["N"].toInt(), v.toObject().value("mail")["S"].toString(), v.toObject().value("username")["S"].toString());
+        bdd_USER* user = new bdd_USER(v.toObject().value("phoneNumber")["S"].toString(), v.toObject().value("isActive")["BOOL"].toBool(), v.toObject().value("lastname")["S"].toString(), v.toObject().value("password")["S"].toString(), v.toObject().value("firstname")["S"].toString(), v.toObject().value("idShop")["N"].toString().toInt(), v.toObject().value("mail")["S"].toString(), v.toObject().value("username")["S"].toString());
         listUser.append(*user);
     }
     return listUser;
@@ -154,7 +154,7 @@ QVector<bdd_CLIENT> api_get_request::parse_file_client(){
 
     foreach (const QJsonValue & v, itemsArray)
     {
-        listClient.append(bdd_CLIENT(v.toObject().value("username")["S"].toString(), v.toObject().value("phoneNumber")["S"].toString(), v.toObject().value("isActive")["BOOL"].toBool(), v.toObject().value("password")["S"].toString(), v.toObject().value("lastName")["S"].toString(), v.toObject().value("firstName")["S"].toString(), v.toObject().value("mail")["S"].toString(), v.toObject().value("addressId")["N"].toInt()));
+        listClient.append(bdd_CLIENT(v.toObject().value("idClient")["S"].toString(), v.toObject().value("phoneNumber")["S"].toString(), v.toObject().value("isActive")["BOOL"].toBool(), v.toObject().value("password")["S"].toString(), v.toObject().value("lastName")["S"].toString(), v.toObject().value("mail")["S"].toString(), v.toObject().value("firstName")["S"].toString(), v.toObject().value("addressId")["N"].toString().toInt()));
     }
     return listClient;
 }
@@ -188,7 +188,7 @@ QVector<bdd_ADDRESS_CLIENT> api_get_request::parse_file_address_client(){
 
     foreach (const QJsonValue & v, itemsArray)
     {
-        listAddressClient.append(bdd_ADDRESS_CLIENT(v.toObject().value("city")["S"].toString(), v.toObject().value("idAddressClient")["S"].toString(), v.toObject().value("country")["S"].toString(), v.toObject().value("postalCode")["N"].toInt(), v.toObject().value("street")["S"].toString()));
+        listAddressClient.append(bdd_ADDRESS_CLIENT(v.toObject().value("city")["S"].toString(), v.toObject().value("idAddressClient")["S"].toString(), v.toObject().value("country")["S"].toString(), v.toObject().value("postalCode")["N"].toString().toInt(), v.toObject().value("street")["S"].toString()));
     }
     return listAddressClient;
 
@@ -222,7 +222,7 @@ QVector<bdd_ADDRESS_SUPPLIER> api_get_request::parse_file_address_supplier(){
 
     foreach (const QJsonValue & v, itemsArray)
     {
-        listAddressSupplier.append(bdd_ADDRESS_SUPPLIER(v.toObject().value("city")["S"].toString(), v.toObject().value("idAddressClient")["S"].toString(), v.toObject().value("country")["S"].toString(), v.toObject().value("postalCode")["N"].toInt(), v.toObject().value("street")["S"].toString()));
+        listAddressSupplier.append(bdd_ADDRESS_SUPPLIER(v.toObject().value("city")["S"].toString(), v.toObject().value("idAddressClient")["S"].toString(), v.toObject().value("country")["S"].toString(), v.toObject().value("postalCode")["N"].toString().toInt(), v.toObject().value("street")["S"].toString()));
     }
     return listAddressSupplier;
 }
@@ -323,7 +323,7 @@ QVector<bdd_COMPONENT> api_get_request::parse_file_component(){
 
     foreach (const QJsonValue & v, itemsArray)
     {
-        listComponent.append(bdd_COMPONENT(v.toObject().value("supplierIdSupplier")["N"].toInt(), v.toObject().value("idComponent")["S"].toString(), v.toObject().value("categoryIdCategory")["N"].toInt(), v.toObject().value("label")["S"].toString()));
+        listComponent.append(bdd_COMPONENT(v.toObject().value("supplierIdSupplier")["N"].toString().toInt(), v.toObject().value("idComponent")["S"].toString(), v.toObject().value("categoryIdCategory")["N"].toString().toInt(), v.toObject().value("label")["S"].toString()));
     }
     return listComponent;
 }
@@ -356,7 +356,7 @@ QVector<bdd_GAMME> api_get_request::parse_file_gamme(){
 
     foreach (const QJsonValue & v, itemsArray)
     {
-        listGamme.append(bdd_GAMME(v.toObject().value("idGamme")["S"].toString(), v.toObject().value("productIdProduct")["N"].toInt(), v.toObject().value("label")["S"].toString()));
+        listGamme.append(bdd_GAMME(v.toObject().value("idGamme")["S"].toString(), v.toObject().value("productIdProduct")["N"].toString().toInt(), v.toObject().value("label")["S"].toString()));
     }
     return listGamme;
 }
@@ -389,7 +389,7 @@ QVector<bdd_INVOICE_QUOTATION> api_get_request::parse_file_invoice_quotation(){
 
     foreach (const QJsonValue & v, itemsArray)
     {
-        listInvoiceQuotation.append(bdd_INVOICE_QUOTATION(v.toObject().value("transactionCode")["S"].toString(), v.toObject().value("idInvoiceQuotation")["S"].toString(), v.toObject().value("totalAmount")["N"].toInt(), v.toObject().value("payingMethod")["S"].toString(), v.toObject().value("transactionType")["S"].toString(), v.toObject().value("taxes")["N"].toInt()));
+        listInvoiceQuotation.append(bdd_INVOICE_QUOTATION(v.toObject().value("transactionCode")["S"].toString(), v.toObject().value("idInvoiceQuotation")["S"].toString(), v.toObject().value("totalAmount")["N"].toString().toInt(), v.toObject().value("payingMethod")["S"].toString(), v.toObject().value("transactionType")["S"].toString(), v.toObject().value("taxes")["N"].toString().toInt()));
     }
     return listInvoiceQuotation;
 }
@@ -455,7 +455,7 @@ QVector<bdd_PRODUCT> api_get_request::parse_file_product(){
 
     foreach (const QJsonValue & v, itemsArray)
     {
-        listProduct.append(bdd_PRODUCT(v.toObject().value("supplierIdSupplier")["N"].toInt(), v.toObject().value("idProduct")["S"].toString(), v.toObject().value("minWidth").toInt(), v.toObject().value("defaultLength")["N"].toInt(), v.toObject().value("label").toString(), v.toObject().value("productCode")["S"].toString(), v.toObject().value("defaultHeight")["N"].toInt(), v.toObject().value("defaultWidth")["N"].toInt(), v.toObject().value("material")["S"].toString(), v.toObject().value("minLength")["N"].toInt(), v.toObject().value("type")["N"].toString()));
+        listProduct.append(bdd_PRODUCT(v.toObject().value("supplierIdSupplier")["N"].toString().toInt(), v.toObject().value("idProduct")["S"].toString(), v.toObject().value("minWidth").toString().toInt(), v.toObject().value("defaultLength")["N"].toString().toInt(), v.toObject().value("label")["S"].toString(), v.toObject().value("productCode")["S"].toString(), v.toObject().value("defaultHeight")["N"].toString().toInt(), v.toObject().value("defaultWidth")["N"].toString().toInt(), v.toObject().value("material")["S"].toString(), v.toObject().value("minLength")["N"].toString().toInt(), v.toObject().value("type")["S"].toString()));
     }
     return listProduct;
 }
@@ -487,7 +487,7 @@ QVector<bdd_PROJECT> api_get_request::parse_file_project(){
 
     foreach (const QJsonValue & v, itemsArray)
     {
-        listProject.append(bdd_PROJECT(v.toObject().value("supplierIdSupplier")["S"].toString(), v.toObject().value("validation")["BOOL"].toBool(), v.toObject().value("creationDate")["S"].toString(), v.toObject().value("isTemplate")["BOOL"].toBool(), v.toObject().value("idProject")["S"].toString(), v.toObject().value("userUsername")["S"].toString(), v.toObject().value("Title")["S"].toString()));
+        listProject.append(bdd_PROJECT(v.toObject().value("supplierIdSupplier")["S"].toString(), v.toObject().value("validation")["BOOL"].toBool(), v.toObject().value("creationDate")["S"].toString(), v.toObject().value("isTemplate")["BOOL"].toBool(), v.toObject().value("idProject")["S"].toString(), v.toObject().value("userUsername")["S"].toString(), v.toObject().value("Title")["S"].toString(), v.toObject().value("IDClient")["S"].toString()));
     }
     return listProject;
 
@@ -521,7 +521,7 @@ QVector<bdd_PROMOTION_CAT> api_get_request::parse_file_promotion_cat(){
 
     foreach (const QJsonValue & v, itemsArray)
     {
-        listPromotionCat.append(bdd_PROMOTION_CAT(v.toObject().value("amount")["N"].toInt(), v.toObject().value("addToExistingProm")["BOOL"].toBool(), v.toObject().value("fromDate")["S"].toString(), v.toObject().value("idPromotionCat")["S"].toString(), v.toObject().value("toDate")["S"].toString()));
+        listPromotionCat.append(bdd_PROMOTION_CAT(v.toObject().value("amount")["N"].toString().toInt(), v.toObject().value("addToExistingProm")["BOOL"].toBool(), v.toObject().value("fromDate")["S"].toString(), v.toObject().value("idPromotionCat")["S"].toString(), v.toObject().value("toDate")["S"].toString()));
     }
     return listPromotionCat;
 
@@ -555,7 +555,7 @@ QVector<bdd_PROMOTION_COMP> api_get_request::parse_file_promotion_comp(){
 
     foreach (const QJsonValue & v, itemsArray)
     {
-        listPromotionComp.append(bdd_PROMOTION_COMP(v.toObject().value("amount")["N"].toInt(), v.toObject().value("addToExistingProm")["BOOL"].toBool(), v.toObject().value("fromDate")["S"].toString(), v.toObject().value("idPromotionComp")["S"].toString(), v.toObject().value("toDate")["S"].toString()));
+        listPromotionComp.append(bdd_PROMOTION_COMP(v.toObject().value("amount")["N"].toString().toInt(), v.toObject().value("addToExistingProm")["BOOL"].toBool(), v.toObject().value("fromDate")["S"].toString(), v.toObject().value("idPromotionComp")["S"].toString(), v.toObject().value("toDate")["S"].toString()));
     }
     return listPromotionComp;
 }
@@ -731,7 +731,7 @@ QVector<bdd_SUPPLIER> api_get_request::parse_file_supplier(){
 void api_get_request::get_table_attribut(){
 
         qDebug() << "start of getting attribut";
-        this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/attribut?key=86ad7be9d92e838132c9c182554531e9&id=69&id=" + id.get_id()));
+        this->get_table(QUrl("http://madera-api.maderation.net:8080/api/get/attribut?key=86ad7be9d92e838132c9c182554531e9&id=" + id.get_id()));
 
 }
 
@@ -756,7 +756,7 @@ QVector<bdd_ATTRIBUT> api_get_request::parse_file_attribut(){
 
     foreach (const QJsonValue & v, itemsArray)
     {
-        listAttribut.append(bdd_ATTRIBUT(v.toObject().value("length")["N"].toInt(),v.toObject().value("positionY")["N"].toInt(),v.toObject().value("width")["N"].toInt(),v.toObject().value("height")["N"].toInt(),v.toObject().value("productIdProduct")["N"].toInt(),v.toObject().value("orderIdProject")["N"].toInt(),v.toObject().value("positionX")["N"].toInt(),v.toObject().value("rotationY")["N"].toInt(),v.toObject().value("positionZ")["N"].toInt(),v.toObject().value("rotationX")["N"].toInt(),v.toObject().value("idAttribut")["N"].toInt()));
+        listAttribut.append(bdd_ATTRIBUT(v.toObject().value("length")["N"].toString().toInt(),v.toObject().value("positionY")["N"].toString().toInt(),v.toObject().value("width")["N"].toString().toInt(),v.toObject().value("height")["N"].toString().toInt(),v.toObject().value("productIdProduct")["N"].toString().toInt(),v.toObject().value("orderIdOrder")["N"].toString().toInt(),v.toObject().value("positionX")["N"].toString().toInt(),v.toObject().value("rotationY")["N"].toString().toInt(),v.toObject().value("positionZ")["N"].toString().toInt(),v.toObject().value("rotationX")["N"].toString().toInt(),v.toObject().value("idAttribut")["S"].toString()));
     }
     return listAttribut;
 }

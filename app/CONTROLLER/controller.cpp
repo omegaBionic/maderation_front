@@ -321,7 +321,7 @@ void Controller::login(QString user, QString pwd){
     core_login* login = new core_login();
     bdd_USER temp = login->getUser(user,pwd);
     qDebug()<< "username : " + temp.getUsername();
-    if(temp.getId() == ""){
+    if(temp.getUsername() == ""){
            Dialog_Critical* error = new Dialog_Critical(nullptr, "Error", "Error: wrong username or password...", "critical");
            error->show();
            return;
@@ -413,7 +413,7 @@ void Controller::open_project_by_ID(int ID) {
         core_template* tpl = new core_template();
         QVector<bdd_PROJECT>* listProject = tpl->getTemplates();
         _toolbar->setWindow("template");
-        _template = new main_template(nullptr, _toolbar, listProject);
+        _template = new main_template(nullptr, _toolbar, listProject, _user->getUsername());
         QObject::connect(_template, &main_template::Initialized, this, &Controller::cleanup);
         QObject::connect(_template, &main_template::deleteProject, this, &Controller::delete_project);
         QObject::connect(_template, &main_template::openProject, this, &Controller::open_project);
@@ -425,7 +425,7 @@ void Controller::open_project_by_ID(int ID) {
         bdd_PROJECT project;
         for(int i = 0; i< listProject.count(); i++){
             bdd_PROJECT temp = listProject.at(i);
-            if(temp.getIdProject() == ID){
+            if(temp.getIdProject().toInt() == ID){
                 project = temp;
             }
         }
@@ -434,11 +434,11 @@ void Controller::open_project_by_ID(int ID) {
 
 }
 
-void Controller::open_project(bdd_PROJECT) {
+void Controller::open_project(bdd_PROJECT project) {
         qDebug()<<"template to open";
 
         _toolbar->setWindow("quotation");
-        _quotation = new Main_Quotation(nullptr, _toolbar);
+        _quotation = new Main_Quotation(nullptr, _toolbar, project);
         QObject::connect(_quotation, &Main_Quotation::Initialized, this, &Controller::cleanup);
         _quotation->showFullScreen();
 

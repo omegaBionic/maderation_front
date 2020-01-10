@@ -12,6 +12,7 @@ class scene_custom : public QGraphicsScene
 public:
     explicit scene_custom(QObject *parent = nullptr);
     void addCustomRect(Rect_Custom*);
+    void updateRect(int IDRect, int value, QString param);
 
 signals:
     void item_Selected(Rect_Custom* rect);

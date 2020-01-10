@@ -7,14 +7,14 @@
 #include <QObject>
 #include <QJsonArray>
 
-bdd_ATTRIBUT::bdd_ATTRIBUT(int length, int positionY, int width, int height, int productIdProduct, int orderIdProject, int positionX, int rotationY, int positionZ, int rotationX, int idAttribut) : bdd_global(QString("idAttribut"), QString("attribut"))
+bdd_ATTRIBUT::bdd_ATTRIBUT(int length, int positionY, int width, int height, int productIdProduct, int orderIdProject, int positionX, int rotationY, int positionZ, int rotationX, QString idAttribut) : bdd_global(QString("idAttribut"), QString("attribut"))
 {
     this->_length = length;
     this->_positionY = positionY;
     this->_width = width;
     this->_height = height;
     this->_productIdProduct = productIdProduct;
-    this->_orderIdProject = orderIdProject;
+    this->_orderIdProject = QString::number(orderIdProject);
     this->_positionX = positionX;
     this->_rotationY = rotationY;
     this->_positionZ = positionZ;
@@ -44,7 +44,7 @@ void bdd_ATTRIBUT::setHeight(int lgth){
 void bdd_ATTRIBUT::setProductIdProduct(int idProd){
     _productIdProduct = idProd;
 }
-void bdd_ATTRIBUT::setOrderIdProject(int idOrd){
+void bdd_ATTRIBUT::setOrderIdProject(QString idOrd){
     _orderIdProject = idOrd;
 }
 void bdd_ATTRIBUT::setPositionX(int posX){
@@ -59,7 +59,7 @@ void bdd_ATTRIBUT::setPositionZ(int posZ){
 void bdd_ATTRIBUT::setRotationX(int rotX){
     _rotationX = rotX;
 }
-void bdd_ATTRIBUT::setIdAttribut(int idAtt){
+void bdd_ATTRIBUT::setIdAttribut(QString idAtt){
     _idAttribut = idAtt;
 }
 
@@ -78,7 +78,7 @@ int bdd_ATTRIBUT::getHeight(){
 int bdd_ATTRIBUT::getProductIdProduct(){
    return _productIdProduct;
 }
-int bdd_ATTRIBUT::getOrderIdProject(){
+QString bdd_ATTRIBUT::getOrderIdProject(){
    return _orderIdProject;
 }
 int bdd_ATTRIBUT::getPositionX(){
@@ -93,7 +93,7 @@ int bdd_ATTRIBUT::getPositionZ(){
 int bdd_ATTRIBUT::getRotationX(){
    return _rotationX;
 }
-int bdd_ATTRIBUT::getIdAttribut(){
+QString bdd_ATTRIBUT::getIdAttribut(){
    return _idAttribut;
 }
 
@@ -119,9 +119,9 @@ QMap<QString, QString> bdd_ATTRIBUT::getDict() {
     this->addKey("positionZ", "\"N\":\""+ QString::number(this->_positionZ) + "\"");
     this->addKey("rotationX", "\"N\":\""+ QString::number(this->_rotationX) + "\"");
     this->addKey("rotationY", "\"N\":\""+ QString::number(this->_rotationY) + "\"");
-    this->addKey("idAttribut", "\"N\":\""+ QString::number(this->_idAttribut) + "\"");
-    this->addKey("idProject", "\"N\":\""+ QString::number(this->_orderIdProject) + "\"");
-    this->addKey("idProduct", "\"N\":\""+ QString::number(this->_productIdProduct) + "\"");
+    this->addKey("idAttribut", "\"S\":\""+ this->_idAttribut + "\"");
+    this->addKey("orderIdOrder", "\"N\":\""+ this->_orderIdProject + "\"");
+    this->addKey("productIdProduct", "\"N\":\""+ QString::number(this->_productIdProduct) + "\"");
 
     bdd_global::getDict();
     return _map;

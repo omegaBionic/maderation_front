@@ -40,6 +40,7 @@ private:
     void resizeEvent(QResizeEvent * event);
     void resizeAll();
     bool event(QEvent *event);
+    void wait(int i, int j);
     QVector<button_quotation*>* _listButton_quot;
     QVector<button_quotation*>* _listButton_del;
     QVector<QLabel*>* _listLabel_Button;

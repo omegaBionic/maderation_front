@@ -5,22 +5,26 @@ Rect_Custom::Rect_Custom(QGraphicsRectItem *parent) : QGraphicsRectItem(parent)
 
 }
 
-Rect_Custom::Rect_Custom(QGraphicsRectItem *parent, int ID, int X, int Y, int Length, int Width, QPen pen, QBrush brush) : QGraphicsRectItem(parent)
+Rect_Custom::Rect_Custom(QGraphicsRectItem *parent, int ID, int X, int Y,int Height, int Length, int Width, QPen pen, QBrush brush) : QGraphicsRectItem(parent)
 {
     _ID = ID;
     _Length = Length;
     _Width = Width;
+    _Height = Height;
     this->setBrush(brush);
     this->setPen(pen);
-    this->setY(Y);
-    this->setX(X);
-    this->setRect(X, Y, _Length, _Width);
+    this->setPos(X, Y);
+    this->setRect(0,0, _Length, _Width);
 
 }
 
 
 int Rect_Custom::getLength(){
     return _Length;
+}
+
+int Rect_Custom::getHeight(){
+    return _Height;
 }
 
 int Rect_Custom::getWidth(){
@@ -38,4 +42,8 @@ void Rect_Custom::setLength(int Length){
 
 void Rect_Custom::setWidth(int Width){
     _Width = Width;
+}
+
+void Rect_Custom::setHeight(int h){
+    _Height = h;
 }

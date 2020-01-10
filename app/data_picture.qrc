@@ -73,5 +73,8 @@
         <file>img/add_message.png</file>
         <file>img/add_message_hover.png</file>
         <file>img/add_message_pressed.png</file>
+        <file>img/create.png</file>
+        <file>img/create_hover.png</file>
+        <file>img/create_pressed.png</file>
     </qresource>
 </RCC>

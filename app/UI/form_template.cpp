@@ -1,5 +1,7 @@
 #include "form_template.h"
 #include "ui_form_template.h"
+#include "../CORE/core_template.h"
+#include "dialog_critical.h"
 
 Form_template::Form_template(QWidget *parent) :
     QWidget(parent),
@@ -14,6 +16,15 @@ Form_template::Form_template(QWidget *parent, QString ressource) :
 {
     ui->setupUi(this);
     _res = ressource;
+
+
+    core_template* tpl = new core_template();
+    QVector<QString> listClient = tpl->getClients();
+
+    for(int i = 0; i<listClient.count(); i++){
+        QString client = listClient.at(i);
+        ui->comboBox_client->addItem(client);
+    }
 
 }
 
@@ -45,7 +56,24 @@ void Form_template::on_pushButton_cancel_clicked()
 
 void Form_template::on_pushButton_validate_clicked()
 {
-    emit validated();
+    if(ui->lineEdit_title->text() == ""){
+        Dialog_Critical* d = new Dialog_Critical(this, "error", "Please enter a title", "critical");
+        d->show();
+        return;
+    }
+    core_template* tpl = new core_template();
+    _project.setTitle(ui->lineEdit_title->text());
+    _project.setIsTemplate(false);
+    _project.setValidation(false);
+    _project.setCreationDate(tpl->getTime());
+    _project.setValidationDate("not yet validated");
+    _project.getDict();
+    tpl->copyAttributs(_baseProjectID, _project.getIdProject());
+    api_post_request* api = new api_post_request();
+
+    api->modifyData(_project, "add");
+
+    emit validated(_project);
 }
 
 void Form_template::setRessource(QString res)
@@ -53,4 +81,20 @@ void Form_template::setRessource(QString res)
     _res = res;
     ui->project_screen->setPixmap(QPixmap(_res).scaled(72*_width, 72*_height,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
 
+}
+void Form_template::setProject(bdd_PROJECT project)
+{
+    _project = project;
+    _baseProjectID = project.getIdProject();
+    core_template* tpl = new core_template();
+    _project.setIDClient(tpl->getClient(ui->comboBox_client->currentText()));
+    _project.setIdProject(tpl->getLastIDProject());
+
+}
+
+void Form_template::on_comboBox_client_currentIndexChanged(const QString &arg1)
+{
+
+    core_template* tpl = new core_template();
+    _project.setIDClient(tpl->getClient(ui->comboBox_client->currentText()));
 }

@@ -8,7 +8,7 @@
 #include <QFile>
 #include <QJsonArray>
 
-bdd_PROJECT::bdd_PROJECT(QString validationDate, bool validation, QString creationDate, bool isTemplate, QString idProject, QString userUsername, QString Title): bdd_global(QString("idProject"), QString("project"))
+bdd_PROJECT::bdd_PROJECT(QString validationDate, bool validation, QString creationDate, bool isTemplate, QString idProject, QString userUsername, QString Title, QString IDClient): bdd_global(QString("idProject"), QString("project"))
 {
     this->_validationDate = validationDate;
     this->_validation = validation;
@@ -17,6 +17,7 @@ bdd_PROJECT::bdd_PROJECT(QString validationDate, bool validation, QString creati
     this->_idProject = idProject;
     this->_userUserName = userUsername;
     this->_Title = Title;
+    this->_IDClient = IDClient;
     this->addKey("validationDate", "\"S\":\""+ this->_validationDate + "\"");
     if(this->_validation){
         this->addKey("validation", "\"BOOL\":\"true\"");
@@ -33,6 +34,7 @@ bdd_PROJECT::bdd_PROJECT(QString validationDate, bool validation, QString creati
     this->addKey("creationDate", "\"S\":\""+ this->_creationDate + "\"");
     this->addKey("userUsername", "\"S\":\""+ this->_userUserName + "\"");
     this->addKey("Title", "\"S\":\""+ this->_Title + "\"");
+    this->addKey("IDClient", "\"S\":\""+ this->_IDClient + "\"");
 
 
 }
@@ -68,6 +70,10 @@ void bdd_PROJECT::setuserUseName(QString usrN){
     _userUserName = usrN;
 }
 
+void bdd_PROJECT::setIDClient(QString id){
+    _IDClient = id;
+}
+
 void bdd_PROJECT::setTitle(QString title){
     _Title = title;
 }
@@ -100,6 +106,10 @@ QString bdd_PROJECT::getUserUserName(){
     return _userUserName;
 }
 
+QString bdd_PROJECT::getIDClient(){
+    return _IDClient;
+}
+
 QString bdd_PROJECT::getId(){
     return "idProject";
 }
@@ -130,6 +140,7 @@ QMap<QString, QString> bdd_PROJECT::getDict() {
     this->addKey("creationDate", "\"S\":\""+ this->_creationDate + "\"");
     this->addKey("userUsername", "\"S\":\""+ this->_userUserName + "\"");
     this->addKey("Title", "\"S\":\""+ this->_Title + "\"");
+    this->addKey("IDClient", "\"S\":\""+ this->_IDClient + "\"");
 
     bdd_global::getDict();
     return _map;

@@ -1007,12 +1007,12 @@ void test_app::test_core_quotation_getAttribut()
     poutreAttribut.setWidth(50);
     poutreAttribut.setHeight(50);
     poutreAttribut.setProductIdProduct(1);
-    poutreAttribut.setOrderIdProject(42);
+    poutreAttribut.setOrderIdProject("42");
     poutreAttribut.setPositionX(150);
     poutreAttribut.setRotationY(0);
     poutreAttribut.setPositionZ(0);
     poutreAttribut.setRotationX(0);
-    poutreAttribut.setIdAttribut(1);
+    poutreAttribut.setIdAttribut("1");
 
     core_quotation *test_core_quotation = new core_quotation();
 //    QVERIFY(!test_core_quotation->getAttributs() == NULL);
@@ -1055,12 +1055,12 @@ void test_app::test_core_quotation_setAttribut()
      poutreAttribut.setWidth(50);
      poutreAttribut.setHeight(50);
      poutreAttribut.setProductIdProduct(1);
-     poutreAttribut.setOrderIdProject(20);
+     poutreAttribut.setOrderIdProject("20");
      poutreAttribut.setPositionX(150);
      poutreAttribut.setRotationY(0);
      poutreAttribut.setPositionZ(0);
      poutreAttribut.setRotationX(0);
-     poutreAttribut.setIdAttribut(1);
+     poutreAttribut.setIdAttribut("1");
 
      Project1.setIdProject("42");
      Project1.setIsTemplate(false);

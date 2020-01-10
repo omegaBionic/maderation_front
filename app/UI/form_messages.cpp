@@ -74,16 +74,17 @@ void Form_messages::resizeAll(){
         qDebug()<<"affichage des messages";
         for(int i = 0; i<_listLabelMessages->count(); i++){
             qDebug() << "i = " << i;
+            int index = _listLabelMessages->count()-1 -i;
             if(_author == _listLabelAuthor->at(i)->text()){
                 _listLabelDate->at(i)->setVisible(true);
                 _listLabelAuthor->at(i)->setVisible(true);
                 _listLabelMessages->at(i)->setVisible(true);
                 qDebug()<<"affichage du message " + QString::number(i);
 
-                _listLabelAuthor->at(i)->setGeometry(98*_width, i* 16 *_height, 30*_width, 3*_height);
-                _listLabelMessages->at(i)->setGeometry(68*_width, i*16 *_height + 3*_height, 60*_width, 10*_height);
-                _listLabelMessages->at(i)->setStyleSheet("border-image: url(:/pictures/img/bg_plaintext.png);font: 12pt \"Futura Lt BT\";");
-                _listLabelDate->at(i)->setGeometry(98*_width, i*16 *_height + 13 *_height, 30*_width, 3*_height);
+                _listLabelAuthor->at(i)->setGeometry(98*_width, index* 16 *_height, 30*_width, 3*_height);
+                _listLabelMessages->at(i)->setGeometry(68*_width, index*16 *_height + 3*_height, 60*_width, 10*_height);
+                _listLabelMessages->at(i)->setStyleSheet("border-image: url(:/pictures/img/bg_plaintext.png);font: 12pt \"Futura Lt BT\";padding: 5 5 5 5;");
+                _listLabelDate->at(i)->setGeometry(98*_width, index*16 *_height + 13 *_height, 30*_width, 3*_height);
                 _listLabelAuthor->at(i)->setAlignment(Qt::AlignRight);
                 _listLabelMessages->at(i)->setAlignment(Qt::AlignRight);
                 _listLabelMessages->at(i)->setWordWrap(true);
@@ -93,10 +94,10 @@ void Form_messages::resizeAll(){
                 _listLabelDate->at(i)->setVisible(true);
                 _listLabelAuthor->at(i)->setVisible(true);
                 _listLabelMessages->at(i)->setVisible(true);
-                _listLabelAuthor->at(i)->setGeometry(0*_width, i*16 *_height, 30*_width, 3*_height);
-                _listLabelMessages->at(i)->setGeometry(0*_width, i*16 *_height+ 3*_height, 60*_width, 10*_height);
-                _listLabelMessages->at(i)->setStyleSheet("border-image: url(:/pictures/img/bg_plaintext.png);font: 12pt \"Futura Lt BT\";");
-                _listLabelDate->at(i)->setGeometry(0*_width, i*16 *_height + 13 * _height, 30*_width, 3*_height);
+                _listLabelAuthor->at(i)->setGeometry(0*_width, index*16 *_height, 30*_width, 3*_height);
+                _listLabelMessages->at(i)->setGeometry(0*_width, index*16 *_height+ 3*_height, 60*_width, 10*_height);
+                _listLabelMessages->at(i)->setStyleSheet("border-image: url(:/pictures/img/bg_plaintext.png);font: 12pt \"Futura Lt BT\";padding: 5 5 5 5;");
+                _listLabelDate->at(i)->setGeometry(0*_width, index*16 *_height + 13 * _height, 30*_width, 3*_height);
 
                 _listLabelMessages->at(i)->setAlignment(Qt::AlignLeft);
                 _listLabelMessages->at(i)->setWordWrap(true);

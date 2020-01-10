@@ -6,7 +6,7 @@
 class bdd_PROJECT : public bdd_global
 {
 public:
-    bdd_PROJECT(QString validationDate, bool validation, QString creationDate, bool isTemplate, QString idProject, QString userUsername, QString Title);
+    bdd_PROJECT(QString validationDate, bool validation, QString creationDate, bool isTemplate, QString idProject, QString userUsername, QString Title, QString IDClient);
     bdd_PROJECT();
     virtual ~bdd_PROJECT();
 
@@ -17,6 +17,7 @@ public:
     void setIdProject(QString);
     void setuserUseName(QString);
     void setTitle(QString);
+    void setIDClient(QString);
 
     QString getValidationDate();
     bool getValidation();
@@ -24,6 +25,7 @@ public:
     bool getIsTemplate();
     QString getIdProject();
     QString getUserUserName();
+    QString getIDClient();
 
     QString getTitle();
 
@@ -41,6 +43,7 @@ private:
     QString _idProject;
     QString _userUserName;
     QString _Title;
+    QString _IDClient;
 };
 
 #endif // BDD_PROJECT_H
