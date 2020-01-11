@@ -6,6 +6,8 @@
 #include <QDebug>
 #include "dialog_critical.h"
 #include "../CORE/core_quotation.h"
+#include "../CORE/api_post_request.h"
+#include "form_quotation.h"
 
 Main_Quotation::Main_Quotation(QWidget *parent) :
     QMainWindow(parent),
@@ -19,6 +21,8 @@ Main_Quotation::Main_Quotation(QWidget *parent, menu_toolbar* tool, bdd_PROJECT 
     ui(new Ui::Main_Quotation)
 {
     ui->setupUi(this);
+
+    _ModifiedBySignal = true;
     _menu = tool;
     _menu->setParent(this);
     _isHided = false;
@@ -67,6 +71,11 @@ Main_Quotation::Main_Quotation(QWidget *parent, menu_toolbar* tool, bdd_PROJECT 
         _scene->update();
 
     }
+
+
+    ui->background_form->hide();
+    ui->grey_screen->hide();
+
 }
 
 Main_Quotation::~Main_Quotation()
@@ -101,35 +110,49 @@ void Main_Quotation::resizeEvent(QResizeEvent *){
     ui->pushButton_menu->setGeometry(3*_widthGroup, 3*_heightGroup, 8*_widthGroup, 8*_heightGroup);
     ui->line_globale->setGeometry(0*_widthGroup, 10*_heightGroup, 80*_widthGroup, 1*_heightGroup);
 
-    ui->label->setGeometry(1*_widthGroup, 4*_heightGroup,40*_widthGroup, 8*_heightGroup);
+    ui->label->setGeometry(1*_widthGroup, 0*_heightGroup,40*_widthGroup, 8*_heightGroup);
 
     ui->pushButton_new->setGeometry(64*_widthGroup, 1*_heightGroup, 9*_widthGroup, 9*_heightGroup);
-    ui->comboBox_type->setGeometry(1*_widthGroup, 14*_heightGroup, 40*_widthGroup, 6*_heightGroup);
+    ui->comboBox_type->setGeometry(1*_widthGroup, 8*_heightGroup, 40*_widthGroup, 6*_heightGroup);
     ui->pushButton_Copy->setGeometry(64*_widthGroup, 12*_heightGroup, 9*_widthGroup, 9*_heightGroup);
-    ui->pushButton_create->setGeometry(64*_widthGroup, 104*_heightGroup, 9*_widthGroup, 9*_heightGroup);
-    ui->comboBox_element->setGeometry(1*_widthGroup, 24*_heightGroup, 40*_widthGroup, 6*_heightGroup);
+    ui->comboBox_element->setGeometry(1*_widthGroup, 18*_heightGroup, 40*_widthGroup, 6*_heightGroup);
 
-    ui->line_3->setGeometry(0*_widthGroup, 42*_heightGroup, 76*_widthGroup, 2*_heightGroup);
+    ui->line_3->setGeometry(0*_widthGroup, 30*_heightGroup, 76*_widthGroup, 2*_heightGroup);
 
-    ui->spinBox_X->setGeometry(1*_widthGroup, 48*_heightGroup, 40*_widthGroup, 6*_heightGroup);
-    ui->label_X->setGeometry(1*_widthGroup, 44*_heightGroup, 40*_widthGroup, 4*_heightGroup);
-    ui->spinBox_Y->setGeometry(1*_widthGroup, 60*_heightGroup, 40*_widthGroup, 6*_heightGroup);
-    ui->label_Y->setGeometry(1*_widthGroup, 56*_heightGroup, 40*_widthGroup, 4*_heightGroup);
-    ui->spinBox_Z->setGeometry(1*_widthGroup, 72*_heightGroup, 40*_widthGroup, 6*_heightGroup);
-    ui->label_Z->setGeometry(1*_widthGroup, 68*_heightGroup, 40*_widthGroup, 4*_heightGroup);
+    ui->spinBox_X->setGeometry(2*_widthGroup, 36*_heightGroup, 30*_widthGroup, 6*_heightGroup);
+    ui->label_X->setGeometry(2*_widthGroup,32*_heightGroup, 30*_widthGroup, 4*_heightGroup);
+    ui->spinBox_Y->setGeometry(42*_widthGroup, 36*_heightGroup, 30*_widthGroup, 6*_heightGroup);
+    ui->label_Y->setGeometry(42*_widthGroup, 32*_heightGroup, 30*_widthGroup, 4*_heightGroup);
 
-    ui->spinBox_Width->setGeometry(1*_widthGroup, 84*_heightGroup, 40*_widthGroup, 6*_heightGroup);
-    ui->label_Width->setGeometry(1*_widthGroup, 80*_heightGroup, 40*_widthGroup, 4*_heightGroup);
-    ui->spinBox_Height->setGeometry(1*_widthGroup, 96*_heightGroup, 40*_widthGroup, 6*_heightGroup);
-    ui->label_Height->setGeometry(1*_widthGroup, 92*_heightGroup, 40*_widthGroup, 4*_heightGroup);
-    ui->spinBox_Length->setGeometry(1*_widthGroup, 108*_heightGroup, 40*_widthGroup, 6*_heightGroup);
-    ui->label_Length->setGeometry(1*_widthGroup, 104*_heightGroup, 40*_widthGroup, 4*_heightGroup);
+    ui->spinBox_Z->setGeometry(2*_widthGroup, 48*_heightGroup, 30*_widthGroup, 6*_heightGroup);
+    ui->label_Z->setGeometry(2*_widthGroup, 44*_heightGroup, 30*_widthGroup, 4*_heightGroup);
+    ui->spinBox_Width->setGeometry(42*_widthGroup, 48*_heightGroup, 30*_widthGroup, 6*_heightGroup);
+    ui->label_Width->setGeometry(42*_widthGroup, 44*_heightGroup, 30*_widthGroup, 4*_heightGroup);
+
+    ui->spinBox_Height->setGeometry(2*_widthGroup, 60*_heightGroup, 30*_widthGroup, 6*_heightGroup);
+    ui->label_Height->setGeometry(2*_widthGroup, 56*_heightGroup, 30*_widthGroup, 4*_heightGroup);
+    ui->spinBox_Length->setGeometry(42*_widthGroup, 60*_heightGroup, 30*_widthGroup, 6*_heightGroup);
+    ui->label_Length->setGeometry(42*_widthGroup, 56*_heightGroup, 30*_widthGroup, 4*_heightGroup);
+
+    ui->spinBox_rotation->setGeometry(21*_widthGroup, 72*_heightGroup, 30*_widthGroup, 6*_heightGroup);
+    ui->label_rotation->setGeometry(21*_widthGroup, 68*_heightGroup, 30*_widthGroup, 4*_heightGroup);
+
+
+    ui->pushButton_create->setGeometry(39*_widthGroup, 90*_heightGroup, 18*_widthGroup, 18*_heightGroup);
+    ui->pushButton_save->setGeometry(15*_widthGroup, 90*_heightGroup, 18*_widthGroup, 18*_heightGroup);
+
+    ui->pushButton_width->setGeometry(106*_width, 57*_height, 20*_width, 3*_height);
+    ui->pushButton_length->setGeometry(120*_width, 41*_height, 6*_width, 20*_height);
 
     ui->graphicsView->setGeometry(37*_width, 1*_height, 90*_width, 60*_height);
     _scene->setSceneRect(ui->graphicsView->rect());
 
     ui->pushButton_power->setGeometry(124*_width, 0*_height ,4*_width, 4*_height);
     _menu->setGeometry(42*_width, 62*_height, 48*_width, 12*_height);
+
+
+    ui->grey_screen->setGeometry(0,0,128*_width, 72*_height);
+    ui->background_form->setGeometry(15*_width,5*_height,98*_width, 56*_height);
 
 }
 
@@ -157,12 +180,14 @@ void Main_Quotation::Item_Updated(Rect_Custom* rect){
     ui->spinBox_Y->setValue(rect->y());
     ui->spinBox_Width->setValue(rect->getWidth());
     ui->spinBox_Length->setValue(rect->getLength());
+    ui->spinBox_Height->setValue(rect->getHeight());
+    ui->spinBox_rotation->setValue(rect->rotation());
     core_quotation* core = new core_quotation();
     bdd_ATTRIBUT attr = core->getAttributByID(rect->getID());
     bdd_PRODUCT product = core->getProductByID(attr.getProductIdProduct());
 
     for(int i = 0; i< ui->comboBox_type->count();i++){
-        if(ui->comboBox_type->itemText(i) == product.getLabel()){
+        if(ui->comboBox_type->itemText(i) == product.getType()){
             ui->comboBox_type->setCurrentIndex(i);
         }
     }
@@ -278,15 +303,21 @@ void Main_Quotation::configureComboBox(){
     core_quotation* core = new core_quotation();
     QVector<bdd_PRODUCT> listProduct = core->getAllProducts();
 
+    for(int i = 0; i < ui->comboBox_element->count();i++){
+        ui->comboBox_element->removeItem(0);
+    }
     for(int i = 0; i <listProduct.count();i++){
         bdd_PRODUCT prod = listProduct.at(i);
         if(prod.getType() == type){
             bool isPresent = false;
+
+
             for(int i = 0; i < ui->comboBox_element->count();i++){
                 if(ui->comboBox_element->itemText(i) == prod.getMaterial()){
                     isPresent = true;
                 }
             }
+
             if(!isPresent){
                 ui->comboBox_element->addItem(prod.getMaterial());
             }
@@ -295,4 +326,226 @@ void Main_Quotation::configureComboBox(){
 
 
 
+}
+
+void Main_Quotation::on_comboBox_element_currentIndexChanged(int index)
+{
+    if(_ModifiedBySignal){
+        return;
+    }
+    bdd_PRODUCT newProduct;
+    core_quotation* core  = new core_quotation();
+    newProduct = core->getProduct(ui->comboBox_element->currentText(), ui->comboBox_type->currentText());
+
+
+    if(_rectSelected != nullptr){
+        _rectSelected->setWidth(newProduct.getDefaultWidth());
+        _rectSelected->setLength(newProduct.getDefaultLength());
+        _scene->updateRect(_rectSelected->getID(), newProduct.getDefaultWidth(), "width");
+        _scene->updateRect(_rectSelected->getID(), newProduct.getDefaultLength(), "length");
+        ui->spinBox_Width->setValue(newProduct.getDefaultWidth());
+        ui->spinBox_Length->setValue(newProduct.getDefaultLength());
+    }else{
+        Dialog_Critical* c = new Dialog_Critical(this, "Error", "Error : No attribut selected", "critical");
+        c->show();
+    }
+
+    this->saveCurrentAttr();
+}
+
+void Main_Quotation::on_comboBox_type_currentIndexChanged(int index)
+{
+    if(_ModifiedBySignal){
+        return;
+    }
+    this->configureComboBox();
+    bdd_PRODUCT newProduct;
+    core_quotation* core  = new core_quotation();
+    newProduct = core->getProduct(ui->comboBox_element->currentText(), ui->comboBox_type->currentText());
+
+
+    if(_rectSelected != nullptr){
+        _rectSelected->setWidth(newProduct.getDefaultWidth());
+        _rectSelected->setLength(newProduct.getDefaultLength());
+        _scene->updateRect(_rectSelected->getID(), newProduct.getDefaultWidth(), "width");
+        _scene->updateRect(_rectSelected->getID(), newProduct.getDefaultLength(), "length");
+        ui->spinBox_Width->setValue(newProduct.getDefaultWidth());
+        ui->spinBox_Length->setValue(newProduct.getDefaultLength());
+    }else{
+        Dialog_Critical* c = new Dialog_Critical(this, "Error", "Error : No attribut selected", "critical");
+        c->show();
+    }
+    this->saveCurrentAttr();
+}
+
+
+void Main_Quotation::saveCurrentAttr(){
+    bdd_ATTRIBUT current;
+    bdd_PRODUCT newProduct;
+    core_quotation* core  = new core_quotation();
+    current = core->getAttributByID(_rectSelected->getID());
+    newProduct = core->getProduct(ui->comboBox_element->currentText(), ui->comboBox_type->currentText());
+    current.setProductIdProduct(newProduct.getIdProduct().toInt());
+    current.setWidth(_rectSelected->getWidth());
+    current.setHeight(_rectSelected->getHeight());
+    current.setLength(ui->spinBox_Length->value());
+    current.setPositionX(ui->spinBox_X->value());
+    current.setPositionY(ui->spinBox_Y->value());
+    current.setPositionZ(ui->spinBox_Z->value());
+    current.setRotationX(ui->spinBox_rotation->value());
+    QString text = newProduct.getLabel() + "(" + newProduct.getProductCode() + ")";
+    ui->label->setText(text.toUpper());
+    current.getDict();
+    api_post_request* api = new api_post_request();
+    api->modifyData(current, "modify");
+}
+
+void Main_Quotation::on_spinBox_rotation_valueChanged(double arg1)
+{
+    if(_ModifiedBySignal){
+        return;
+    }
+    if(_rectSelected != nullptr){
+        _rectSelected->setRotation(arg1);
+        _scene->updateRect(_rectSelected->getID(), arg1, "rotation");
+    }else{
+        Dialog_Critical* c = new Dialog_Critical(this, "Error", "Error : No attribut selected", "critical");
+        c->show();
+    }
+}
+
+void Main_Quotation::on_pushButton_save_clicked()
+{
+    core_quotation* core = new core_quotation();
+    api_post_request* api = new api_post_request();
+    QVector<Rect_Custom*>* listRect = _scene->getRect();
+    _listRectangle = listRect;
+    for(int i = 0; i < this->_listRectangle->count(); i++){
+        Rect_Custom* rect = _listRectangle->at(i);
+        bdd_ATTRIBUT attr = core->getAttributByID(rect->getID());
+        attr = core->getAttributByID(rect->getID());
+        attr.setWidth(rect->getWidth());
+        attr.setLength(rect->getLength());
+        attr.setPositionX(rect->x());
+        attr.setPositionY(rect->y());
+        attr.setRotationX(rect->rotation());
+        attr.getDict();
+        api->addData(attr, "modify");
+
+
+    }
+
+    api->pushData();
+}
+
+void Main_Quotation::on_spinBox_Length_editingFinished()
+{
+    this->saveCurrentAttr();
+}
+
+void Main_Quotation::on_spinBox_rotation_editingFinished()
+{
+    this->saveCurrentAttr();
+}
+
+void Main_Quotation::on_spinBox_X_editingFinished()
+{
+    this->saveCurrentAttr();
+}
+
+void Main_Quotation::on_spinBox_Height_editingFinished()
+{
+    this->saveCurrentAttr();
+}
+
+void Main_Quotation::on_spinBox_Y_editingFinished()
+{
+    this->saveCurrentAttr();
+}
+
+void Main_Quotation::on_spinBox_Z_editingFinished()
+{
+    this->saveCurrentAttr();
+}
+
+void Main_Quotation::on_spinBox_Width_editingFinished()
+{
+    this->saveCurrentAttr();
+}
+
+void Main_Quotation::on_pushButton_new_clicked()
+{
+    bdd_ATTRIBUT current;
+    bdd_PRODUCT newProduct;
+    core_quotation* core  = new core_quotation();
+    current.setIdAttribut(core->getLastAttributID());
+    newProduct = core->getProduct(ui->comboBox_element->currentText(), ui->comboBox_type->currentText());
+    current.setProductIdProduct(newProduct.getIdProduct().toInt());
+    current.setOrderIdProject(_project.getIdProject());
+    current.setWidth(newProduct.getDefaultWidth());
+    current.setHeight(newProduct.getDefaultHeight());
+    current.setLength(newProduct.getDefaultLength());
+    current.setPositionX(5);
+    current.setPositionY(5);
+    current.setPositionZ(0);
+    current.setRotationX(0);
+    QString text = newProduct.getLabel() + "(" + newProduct.getProductCode() + ")";
+    ui->label->setText(text.toUpper());
+    current.getDict();
+    api_post_request* api = new api_post_request();
+    api->modifyData(current, "add");
+
+
+    Rect_Custom * rect = new Rect_Custom(0, current.getIdAttribut().toInt(), current.getPositionX() + 10, current.getPositionY() + 10, current.getHeight(), current.getLength(), current.getWidth(),QPen(Qt::black), QBrush(Qt::black));
+
+    _listRectangle->append(rect);
+    rect->setFlag(QGraphicsItem::ItemIsMovable);
+    rect->setFlag(QGraphicsItem::ItemIsSelectable);
+    _scene->addItem(rect);
+    _scene->addCustomRect(rect);
+    _scene->update();
+}
+
+void Main_Quotation::on_pushButton_Copy_clicked()
+{
+    bdd_ATTRIBUT current;
+    bdd_PRODUCT newProduct;
+    core_quotation* core  = new core_quotation();
+    current.setIdAttribut(core->getLastAttributID());
+    newProduct = core->getProduct(ui->comboBox_element->currentText(), ui->comboBox_type->currentText());
+    current.setProductIdProduct(newProduct.getIdProduct().toInt());
+    current.setOrderIdProject(_project.getIdProject());
+    current.setWidth(_rectSelected->getWidth());
+    current.setHeight(_rectSelected->getHeight());
+    current.setLength(ui->spinBox_Length->value());
+    current.setPositionX(ui->spinBox_X->value());
+    current.setPositionY(ui->spinBox_Y->value());
+    current.setPositionZ(ui->spinBox_Z->value());
+    current.setRotationX(ui->spinBox_rotation->value());
+    QString text = newProduct.getLabel() + "(" + newProduct.getProductCode() + ")";
+    ui->label->setText(text.toUpper());
+    current.getDict();
+    api_post_request* api = new api_post_request();
+    api->modifyData(current, "add");
+
+
+    Rect_Custom * rect = new Rect_Custom(0, current.getIdAttribut().toInt(), current.getPositionX() + 10, current.getPositionY() + 10, current.getHeight(), current.getLength(), current.getWidth(),QPen(Qt::black), QBrush(Qt::black));
+
+    _listRectangle->append(rect);
+    rect->setFlag(QGraphicsItem::ItemIsMovable);
+    rect->setFlag(QGraphicsItem::ItemIsSelectable);
+    _scene->addItem(rect);
+    _scene->addCustomRect(rect);
+    _scene->update();
+}
+
+void Main_Quotation::on_pushButton_create_clicked()
+{
+    ui->grey_screen->show();
+    ui->background_form->show();
+
+    Form_quotation* form = new Form_quotation(this);
+
+    form->setGeometry(17*_width,7*_height,94*_width, 52*_height);
+    form->show();
 }

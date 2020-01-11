@@ -39,7 +39,7 @@ void bdd_ATTRIBUT::setWidth(int wdth){
     _width = wdth;
 }
 void bdd_ATTRIBUT::setHeight(int lgth){
-    _length = lgth;
+    _height = lgth;
 }
 void bdd_ATTRIBUT::setProductIdProduct(int idProd){
     _productIdProduct = idProd;
@@ -73,7 +73,7 @@ int bdd_ATTRIBUT::getWidth(){
    return _width;
 }
 int bdd_ATTRIBUT::getHeight(){
-   return _length;
+   return _height;
 }
 int bdd_ATTRIBUT::getProductIdProduct(){
    return _productIdProduct;

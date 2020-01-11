@@ -1039,7 +1039,7 @@ void test_app::test_core_quotation_getProduct()
 
 
     core_quotation *test_core_quotation = new core_quotation();
-    QVector<bdd_PRODUCT> listProduct;
+    bdd_PRODUCT listProduct;
     listProduct = test_core_quotation->getProduct("Poutre", "Type");
     QVERIFY(&listProduct != NULL);
 

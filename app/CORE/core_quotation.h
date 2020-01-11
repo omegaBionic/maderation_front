@@ -14,9 +14,10 @@ public:
     QVector<bdd_ATTRIBUT> getAttributs(bdd_PROJECT project);
     bdd_ATTRIBUT getAttributByID(int ID);
     bdd_PRODUCT getProductByID(int ID);
-    QVector<bdd_PRODUCT> getProduct(QString element, QString type);
+    bdd_PRODUCT getProduct(QString element, QString type);
     QVector<bdd_PRODUCT> getAllProducts();
     bool setAttribut(bdd_PROJECT project, bdd_ATTRIBUT attribut);
+    QString getLastAttributID();
 };
 
 #endif // CORE_QUOTATION_H

@@ -14,7 +14,7 @@ Rect_Custom::Rect_Custom(QGraphicsRectItem *parent, int ID, int X, int Y,int Hei
     this->setBrush(brush);
     this->setPen(pen);
     this->setPos(X, Y);
-    this->setRect(0,0, _Length, _Width);
+    this->setRect(0,0, _Width, _Length);
 
 }
 

@@ -14,6 +14,7 @@ public:
     api_post_request();
 
     void modifyData(bdd_global dataTable, QString modify);
+    void addData(bdd_global dataTable, QString modify);
     void pushData();
 
 

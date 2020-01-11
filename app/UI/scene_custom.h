@@ -13,6 +13,8 @@ public:
     explicit scene_custom(QObject *parent = nullptr);
     void addCustomRect(Rect_Custom*);
     void updateRect(int IDRect, int value, QString param);
+    void updateRect(int IDRect, double value, QString param);
+    QVector<Rect_Custom*>* getRect();
 
 signals:
     void item_Selected(Rect_Custom* rect);

@@ -76,5 +76,10 @@
         <file>img/create.png</file>
         <file>img/create_hover.png</file>
         <file>img/create_pressed.png</file>
+        <file>img/save.png</file>
+        <file>img/save_hover.png</file>
+        <file>img/save_pressed.png</file>
+        <file>img/length_indicator.png</file>
+        <file>img/width_indicator.png</file>
     </qresource>
 </RCC>

@@ -60,6 +60,57 @@ void api_post_request::modifyData(bdd_global dataTable, QString modify){
 
 }
 
+void api_post_request::addData(bdd_global dataTable, QString modify){
+
+    QFile file("DATA/modif.json");
+    int nbItems = 0;
+    if(file.open(QIODevice::ReadWrite | QIODevice::Text)){
+        QString data = file.readAll();
+        QTextStream out(&file);
+        if(data.count() < 1){ // pas de données présentes à modifier
+            out << "{";
+        }else{
+            QString jsonFull = data + "}";
+            qDebug() << jsonFull;
+            QJsonDocument doc(QJsonDocument::fromJson(jsonFull.toUtf8()));
+
+            // Get JSON object
+            QJsonObject json = doc.object();
+
+            nbItems = json.count();
+        }
+        if(nbItems == 0){
+            out << "\"" << nbItems << "\":" ;
+        }else{
+            out << ",\"" << nbItems << "\":" ;
+        }
+        out << "{";
+        out << "\"status\":\"" << modify << "\"," ;
+        out << "\"table\":\"madera_" << dataTable.getTable() << "\"," ;
+        out << "\"values\":{" ;
+        QMap<QString, QString> dictData = dataTable.getDict();
+        qDebug() << dictData.count();
+        for(int i =0; i< dictData.keys().count(); i++){
+            out << "\"" << dictData.keys().at(i) << "\":";
+            if(i+1 >= dictData.keys().count()){
+                out << "{"<< dictData[dictData.keys().at(i)] << "}";
+            }else{
+                out << "{" << dictData[dictData.keys().at(i)] << "},";
+            }
+        }
+
+
+        out << "}}" ;
+
+    }
+    qDebug() << file.readAll();
+    file.flush();
+    file.close();
+
+
+}
+
+
 void api_post_request::pushData(){
 
     // TODO: add id.get_id() in id parameter on post request

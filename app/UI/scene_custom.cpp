@@ -97,6 +97,7 @@ void scene_custom::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
 
 void scene_custom::addCustomRect(Rect_Custom * rect){
     _listRect->append(rect);
+
 }
 
 
@@ -106,14 +107,14 @@ void scene_custom::updateRect(int IDRect, int value, QString param){
         if(rect->getID() == IDRect){
             if(param == "width"){
                 rect->setWidth(value);
-                rect->setRect(0,0, value, rect->getHeight());
+                rect->setRect(0,0, value, rect->getLength());
             }else if (param =="height"){
 
                 rect->setHeight(value);
-                rect->setRect(0,0, rect->getWidth(),value);
             }else if (param == "length"){
 
                 rect->setLength(value);
+                rect->setRect(0,0, rect->getWidth(),value);
             }else if (param == "X"){
 
                 rect->setX(value);
@@ -126,4 +127,20 @@ void scene_custom::updateRect(int IDRect, int value, QString param){
             }
         }
     }
+}
+
+void scene_custom::updateRect(int IDRect, double value, QString param){
+    for(int i = 0; i < _listRect->count(); i++){
+        Rect_Custom* rect = _listRect->at(i);
+        if(rect->getID() == IDRect){
+            if(param == "rotation"){
+                rect->setRotation(value);
+            }
+        }
+    }
+}
+
+
+QVector<Rect_Custom*>* scene_custom::getRect(){
+    return _listRect;
 }

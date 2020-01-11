@@ -1,1 +1,1 @@
-{"0":{"status":"add","table":"madera_chat","values":{"creationDate":{"S":"ven. janv. 10 2020 14:17:05"},"idChat":{"S":"1"},"title":{"S":"second chat"},"userUsernameAsAutor":{"S":"polop"},"userUsernameAsReceiver":{"S":"JulienJulien"}}}
+{"0":{"status":"modify","table":"madera_attribut","values":{"height":{"N":"15"},"idAttribut":{"S":"3"},"length":{"N":"50"},"orderIdOrder":{"N":"0"},"positionX":{"N":"315"},"positionY":{"N":"557"},"positionZ":{"N":"0"},"productIdProduct":{"N":"2"},"rotationX":{"N":"0"},"rotationY":{"N":"2"},"width":{"N":"50"}}}

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "menu_toolbar.h"
 #include "../DB_CLASSES/bdd_project.h"
+#include "../DB_CLASSES/bdd_attribut.h"
 #include "form_template.h"
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
@@ -46,11 +47,41 @@ private slots:
 
     void on_spinBox_Z_valueChanged(int arg1);
 
+    void on_comboBox_element_currentIndexChanged(int index);
+
+    void on_comboBox_type_currentIndexChanged(int index);
+
+
+    void on_spinBox_rotation_valueChanged(double arg1);
+
+    void on_pushButton_save_clicked();
+
+    void on_spinBox_Length_editingFinished();
+
+    void on_spinBox_rotation_editingFinished();
+
+    void on_spinBox_X_editingFinished();
+
+    void on_spinBox_Height_editingFinished();
+
+    void on_spinBox_Y_editingFinished();
+
+    void on_spinBox_Z_editingFinished();
+
+    void on_spinBox_Width_editingFinished();
+
+    void on_pushButton_new_clicked();
+
+    void on_pushButton_Copy_clicked();
+
+    void on_pushButton_create_clicked();
+
 private:
     Ui::Main_Quotation *ui;
     void resizeEvent(QResizeEvent * event);
     void configureComboBox();
     bool event(QEvent *event);
+    void saveCurrentAttr();
     int _width;
     int _height;
     bool _isHided;
