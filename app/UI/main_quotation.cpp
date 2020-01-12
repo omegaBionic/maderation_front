@@ -55,7 +55,11 @@ Main_Quotation::Main_Quotation(QWidget *parent, menu_toolbar* tool, bdd_PROJECT 
 
     for(int i = 0; i < listAttr.count(); i++){
         bdd_ATTRIBUT attr = listAttr.at(i);
-        _listRectangle->append(new Rect_Custom(0, attr.getIdAttribut().toInt(), attr.getPositionX(), attr.getPositionY(), attr.getHeight(), attr.getLength(), attr.getWidth(),QPen(Qt::black), QBrush(Qt::black)));
+        bdd_PRODUCT product = core->getProductByID(attr.getProductIdProduct());
+        Rect_Custom* rect = new Rect_Custom(0, attr.getIdAttribut().toInt(), attr.getPositionX(), attr.getPositionY(), attr.getHeight(), attr.getLength(), attr.getWidth(),QPen(Qt::black), QBrush(QColor(product.getR(), product.getG(), product.getB())));
+        rect->setRotation(attr.getRotationX());
+        rect->setZValue(attr.getPositionZ());
+        _listRectangle->append(rect);
 
 
     }
@@ -113,6 +117,8 @@ void Main_Quotation::resizeEvent(QResizeEvent *){
     ui->label->setGeometry(1*_widthGroup, 0*_heightGroup,40*_widthGroup, 8*_heightGroup);
 
     ui->pushButton_new->setGeometry(64*_widthGroup, 1*_heightGroup, 9*_widthGroup, 9*_heightGroup);
+    ui->pushButton_firstPlan->setGeometry(54*_widthGroup, 1*_heightGroup, 9*_widthGroup, 9*_heightGroup);
+    ui->pushButton_delete->setGeometry(54*_widthGroup, 12*_heightGroup, 9*_widthGroup, 9*_heightGroup);
     ui->comboBox_type->setGeometry(1*_widthGroup, 8*_heightGroup, 40*_widthGroup, 6*_heightGroup);
     ui->pushButton_Copy->setGeometry(64*_widthGroup, 12*_heightGroup, 9*_widthGroup, 9*_heightGroup);
     ui->comboBox_element->setGeometry(1*_widthGroup, 18*_heightGroup, 40*_widthGroup, 6*_heightGroup);
@@ -178,6 +184,7 @@ void Main_Quotation::Item_Updated(Rect_Custom* rect){
     _ModifiedBySignal = true;
     ui->spinBox_X->setValue(rect->x());
     ui->spinBox_Y->setValue(rect->y());
+    ui->spinBox_Z->setValue(rect->zValue());
     ui->spinBox_Width->setValue(rect->getWidth());
     ui->spinBox_Length->setValue(rect->getLength());
     ui->spinBox_Height->setValue(rect->getHeight());
@@ -339,12 +346,8 @@ void Main_Quotation::on_comboBox_element_currentIndexChanged(int index)
 
 
     if(_rectSelected != nullptr){
-        _rectSelected->setWidth(newProduct.getDefaultWidth());
-        _rectSelected->setLength(newProduct.getDefaultLength());
-        _scene->updateRect(_rectSelected->getID(), newProduct.getDefaultWidth(), "width");
-        _scene->updateRect(_rectSelected->getID(), newProduct.getDefaultLength(), "length");
-        ui->spinBox_Width->setValue(newProduct.getDefaultWidth());
-        ui->spinBox_Length->setValue(newProduct.getDefaultLength());
+        _rectSelected->setPen(QPen(Qt::black));
+        _rectSelected->setBrush(QBrush(QColor(QColor(newProduct.getR(), newProduct.getG(), newProduct.getB()))));
     }else{
         Dialog_Critical* c = new Dialog_Critical(this, "Error", "Error : No attribut selected", "critical");
         c->show();
@@ -367,6 +370,8 @@ void Main_Quotation::on_comboBox_type_currentIndexChanged(int index)
     if(_rectSelected != nullptr){
         _rectSelected->setWidth(newProduct.getDefaultWidth());
         _rectSelected->setLength(newProduct.getDefaultLength());
+        _rectSelected->setPen(QPen(Qt::black));
+        _rectSelected->setBrush(QBrush(QColor(QColor(newProduct.getR(), newProduct.getG(), newProduct.getB()))));
         _scene->updateRect(_rectSelected->getID(), newProduct.getDefaultWidth(), "width");
         _scene->updateRect(_rectSelected->getID(), newProduct.getDefaultLength(), "length");
         ui->spinBox_Width->setValue(newProduct.getDefaultWidth());
@@ -495,9 +500,11 @@ void Main_Quotation::on_pushButton_new_clicked()
     api_post_request* api = new api_post_request();
     api->modifyData(current, "add");
 
+    bdd_PRODUCT product = core->getProductByID(current.getProductIdProduct());
+    Rect_Custom * rect = new Rect_Custom(0, current.getIdAttribut().toInt(), current.getPositionX() + 10, current.getPositionY() + 10, current.getHeight(), current.getLength(), current.getWidth(),QPen(Qt::black), QBrush(QColor(product.getR(), product.getG(), product.getB())));
+    rect->setRotation(current.getRotationX());
 
-    Rect_Custom * rect = new Rect_Custom(0, current.getIdAttribut().toInt(), current.getPositionX() + 10, current.getPositionY() + 10, current.getHeight(), current.getLength(), current.getWidth(),QPen(Qt::black), QBrush(Qt::black));
-
+    rect->setZValue(current.getPositionZ());
     _listRectangle->append(rect);
     rect->setFlag(QGraphicsItem::ItemIsMovable);
     rect->setFlag(QGraphicsItem::ItemIsSelectable);
@@ -529,8 +536,10 @@ void Main_Quotation::on_pushButton_Copy_clicked()
     api->modifyData(current, "add");
 
 
-    Rect_Custom * rect = new Rect_Custom(0, current.getIdAttribut().toInt(), current.getPositionX() + 10, current.getPositionY() + 10, current.getHeight(), current.getLength(), current.getWidth(),QPen(Qt::black), QBrush(Qt::black));
-
+    bdd_PRODUCT product = core->getProductByID(current.getProductIdProduct());
+    Rect_Custom * rect = new Rect_Custom(0, current.getIdAttribut().toInt(), current.getPositionX() + 10, current.getPositionY() + 10, current.getHeight(), current.getLength(), current.getWidth(),QPen(Qt::black), QBrush(QColor(product.getR(), product.getG(), product.getB())));
+    rect->setRotation(current.getRotationX());
+    rect->setZValue(current.getPositionZ());
     _listRectangle->append(rect);
     rect->setFlag(QGraphicsItem::ItemIsMovable);
     rect->setFlag(QGraphicsItem::ItemIsSelectable);
@@ -548,4 +557,56 @@ void Main_Quotation::on_pushButton_create_clicked()
 
     form->setGeometry(17*_width,7*_height,94*_width, 52*_height);
     form->show();
+}
+
+void Main_Quotation::on_pushButton_delete_clicked()
+{
+    if(_rectSelected != nullptr){
+        _scene->deleteRect(_rectSelected->getID());
+        for(int i = 0; i < _listRectangle->count(); i++){
+            Rect_Custom* rect = _listRectangle->at(i);
+            if(rect->getID() == rect->getID()){
+                _listRectangle->removeAt(i);
+            }
+        }
+        bdd_ATTRIBUT current;
+        core_quotation* core  = new core_quotation();
+        current = core->getAttributByID(_rectSelected->getID());
+
+        current.getDict();
+        api_post_request* api = new api_post_request();
+        api->modifyData(current, "delete");
+
+        _rectSelected = nullptr;
+    }else{
+        Dialog_Critical* c = new Dialog_Critical(this, "Error", "Error : No attribut selected", "critical");
+        c->show();
+    }
+}
+
+void Main_Quotation::on_pushButton_firstPlan_clicked()
+{
+
+    qreal maxZ = _rectSelected->zValue();
+
+    for(int i = 0; i < _listRectangle->count(); i++){
+        Rect_Custom* rect = _listRectangle->at(i);
+        if(rect->zValue() > maxZ){
+            maxZ = rect->zValue();
+        }
+    }
+
+    _rectSelected->setZValue(maxZ + 1);
+
+    _scene->updateRect(_rectSelected->getID(), maxZ+1, "Z");
+
+    bdd_ATTRIBUT current;
+    core_quotation* core  = new core_quotation();
+    current = core->getAttributByID(_rectSelected->getID());
+    current.setPositionZ(maxZ+1);
+    ui->spinBox_Z->setValue(maxZ+1);
+    current.getDict();
+    api_post_request* api = new api_post_request();
+    api->modifyData(current, "modify");
+
 }

@@ -4,11 +4,11 @@
 #include <QObject>
 
 
-class core_post_mail_files
+class core_post_mail_files : public QObject
 {
     Q_OBJECT
 public:
-    explicit core_post_mail_files();
+    explicit core_post_mail_files(QObject* parent =nullptr);
     void send(QString toAddresses, QString body1, QString body2);
 };
 

@@ -6,7 +6,7 @@
 class bdd_PRODUCT : public bdd_global
 {
 public:
-    bdd_PRODUCT(int supplierIdsupplier, QString idProduct, int minWidth, int defaultLength, QString label, QString productCode, int defaultHeight, int defaultWidth, QString material, int minLength, QString type);
+    bdd_PRODUCT(int supplierIdsupplier, QString idProduct, int minWidth, int defaultLength, QString label, QString productCode, int defaultHeight, int defaultWidth, QString material, int minLength, QString type, int R, int G, int B);
     bdd_PRODUCT();
     virtual ~bdd_PRODUCT();
 
@@ -21,6 +21,10 @@ public:
     void setMaterial(QString);
     void setMinLength(int);
     void setType(QString);
+    void setR(int);
+    void setB(int);
+    void setG(int);
+
 
     int getSupplierIdSupplier();
     QString getIdProduct();
@@ -33,6 +37,9 @@ public:
     QString getMaterial();
     int getMinLength();
     QString getType();
+    int getR();
+    int getG();
+    int getB();
 
     QString getId() override;
     QString getTable() override;
@@ -50,6 +57,9 @@ private:
     int _defaultWidth;
     QString _material;
     int _minLength;
+    int _R;
+    int _G;
+    int _B;
     QString _type;
 };
 

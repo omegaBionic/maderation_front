@@ -1,5 +1,6 @@
 QT       += core gui
 QT       += network
+QT       += printsupport
 CONFIG += qt warn_on depend_includepath testcase
 CONFIG += qtc_runnable
 

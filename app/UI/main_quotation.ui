@@ -260,8 +260,8 @@ width: 20%;
      <widget class="QPushButton" name="pushButton_new">
       <property name="geometry">
        <rect>
-        <x>200</x>
-        <y>40</y>
+        <x>220</x>
+        <y>0</y>
         <width>93</width>
         <height>28</height>
        </rect>
@@ -292,8 +292,8 @@ QPushButton::pressed {
      <widget class="QPushButton" name="pushButton_Copy">
       <property name="geometry">
        <rect>
-        <x>210</x>
-        <y>90</y>
+        <x>220</x>
+        <y>60</y>
         <width>93</width>
         <height>28</height>
        </rect>
@@ -984,6 +984,70 @@ width: 20%;
        <double>5.000000000000000</double>
       </property>
      </widget>
+     <widget class="QPushButton" name="pushButton_firstPlan">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>60</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	
+	border-image: url(:/pictures/img/firstplan.png);
+}
+
+QPushButton::hover {
+	border-image: url(:/pictures/img/firstplan_hover.png);
+
+}
+
+QPushButton::pressed {
+	border-image: url(:/pictures/img/firstplan_pressed.png);
+
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_delete">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>0</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	
+	border-image: url(:/pictures/img/delete.png);
+}
+
+QPushButton::hover {
+	border-image: url(:/pictures/img/delete_hover.png);
+
+}
+
+QPushButton::pressed {
+	border-image: url(:/pictures/img/delete_pressed.png);
+
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
      <zorder>line_3</zorder>
      <zorder>comboBox_type</zorder>
      <zorder>comboBox_element</zorder>
@@ -1006,6 +1070,8 @@ width: 20%;
      <zorder>label_rotation</zorder>
      <zorder>pushButton_save</zorder>
      <zorder>spinBox_rotation</zorder>
+     <zorder>pushButton_firstPlan</zorder>
+     <zorder>pushButton_delete</zorder>
     </widget>
     <widget class="Line" name="line_globale">
      <property name="geometry">

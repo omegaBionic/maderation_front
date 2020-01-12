@@ -8,7 +8,7 @@
 #include <QFile>
 #include <QJsonArray>
 
-bdd_PRODUCT::bdd_PRODUCT(int supplierIdsupplier, QString idProduct, int minWidth, int defaultLength, QString label, QString productCode, int defaultHeight, int defaultWidth, QString material, int minLength, QString type): bdd_global(QString("idProduct"), QString("product"))
+bdd_PRODUCT::bdd_PRODUCT(int supplierIdsupplier, QString idProduct, int minWidth, int defaultLength, QString label, QString productCode, int defaultHeight, int defaultWidth, QString material, int minLength, QString type, int R, int G, int B): bdd_global(QString("idProduct"), QString("product"))
 {
 this->_supplierIdSupplier = supplierIdsupplier;
     this->_idProduct = idProduct;
@@ -21,6 +21,9 @@ this->_supplierIdSupplier = supplierIdsupplier;
     this->_material = material;
     this->_minLength = minLength;
     this->_type = type;
+    this->_R = R;
+    this->_G = G;
+    this->_B = B;
 }
 bdd_PRODUCT::bdd_PRODUCT(): bdd_global(QString("idProduct"), QString("product")){
 
@@ -61,6 +64,15 @@ void bdd_PRODUCT::setMinLength(int minL){
 void bdd_PRODUCT::setType(QString tpe){
     _type = tpe;
 }
+void bdd_PRODUCT::setR(int minL){
+    _R = minL;
+}
+void bdd_PRODUCT::setG(int minL){
+    _G = minL;
+}
+void bdd_PRODUCT::setB(int minL){
+    _B = minL;
+}
 
 int bdd_PRODUCT::getSupplierIdSupplier(){
     return _supplierIdSupplier;
@@ -95,6 +107,15 @@ int bdd_PRODUCT::getMinLength(){
 QString bdd_PRODUCT::getType(){
     return _type;
 }
+int bdd_PRODUCT::getR(){
+    return _R;
+}
+int bdd_PRODUCT::getG(){
+    return _G;
+}
+int bdd_PRODUCT::getB(){
+    return _B;
+}
 
 QString bdd_PRODUCT::getId(){
     return "idProduct";
@@ -120,6 +141,9 @@ QMap<QString, QString> bdd_PRODUCT::getDict() {
     this->addKey("label", "\"S\":\""+ this->_label + "\"");
     this->addKey("productCode", "\"S\":\""+ this->_productCode + "\"");
     this->addKey("type", "\"S\":\""+ this->_type + "\"");
+    this->addKey("R", "\"N\":\""+ QString::number(this->_R) + "\"");
+    this->addKey("G", "\"N\":\""+ QString::number(this->_G) + "\"");
+    this->addKey("B", "\"N\":\""+ QString::number(this->_B) + "\"");
     bdd_global::getDict();
     return _map;
 }

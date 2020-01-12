@@ -275,11 +275,13 @@ void Controller::init_folder(int step){
 }
 
 void Controller::launchLogin(){
-    _login = new Main_Login();
-    QObject::connect(_login, &Main_Login::check_login, this, &Controller::login);
-    QObject::connect(_login, &Main_Login::forgot_password, this, &Controller::login_forgot_password);
-    QObject::connect(_login, &Main_Login::Initialized, this, &Controller::cleanup);
-    _login->showFull();
+    if(_login == nullptr){
+        _login = new Main_Login();
+        QObject::connect(_login, &Main_Login::check_login, this, &Controller::login);
+        QObject::connect(_login, &Main_Login::forgot_password, this, &Controller::login_forgot_password);
+        QObject::connect(_login, &Main_Login::Initialized, this, &Controller::cleanup);
+        _login->showFull();
+    }
 }
 
 int Controller::init(){

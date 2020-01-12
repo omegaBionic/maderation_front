@@ -14,6 +14,7 @@ public:
     void addCustomRect(Rect_Custom*);
     void updateRect(int IDRect, int value, QString param);
     void updateRect(int IDRect, double value, QString param);
+    void deleteRect(int IDRect);
     QVector<Rect_Custom*>* getRect();
 
 signals:

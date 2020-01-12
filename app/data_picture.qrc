@@ -81,5 +81,11 @@
         <file>img/save_pressed.png</file>
         <file>img/length_indicator.png</file>
         <file>img/width_indicator.png</file>
+        <file>img/delete.png</file>
+        <file>img/delete_hover.png</file>
+        <file>img/delete_pressed.png</file>
+        <file>img/firstplan.png</file>
+        <file>img/firstplan_hover.png</file>
+        <file>img/firstplan_pressed.png</file>
     </qresource>
 </RCC>

@@ -2,6 +2,7 @@ QT       += testlib
 QT       += gui
 QT       += network
 QT       += core
+QT       += printsupport
 CONFIG += qt warn_on depend_includepath testcase
 CONFIG += qtc_runnable
 

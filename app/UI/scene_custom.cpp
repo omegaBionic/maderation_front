@@ -140,6 +140,16 @@ void scene_custom::updateRect(int IDRect, double value, QString param){
     }
 }
 
+void scene_custom::deleteRect(int IDRect){
+    for(int i = 0; i < _listRect->count(); i++){
+        Rect_Custom* rect = _listRect->at(i);
+        if(rect->getID() == IDRect){
+            _listRect->removeAt(i);
+            this->removeItem(rect);
+        }
+    }
+}
+
 
 QVector<Rect_Custom*>* scene_custom::getRect(){
     return _listRect;

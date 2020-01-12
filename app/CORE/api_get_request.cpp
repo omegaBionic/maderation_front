@@ -455,7 +455,7 @@ QVector<bdd_PRODUCT> api_get_request::parse_file_product(){
 
     foreach (const QJsonValue & v, itemsArray)
     {
-        listProduct.append(bdd_PRODUCT(v.toObject().value("supplierIdSupplier")["N"].toString().toInt(), v.toObject().value("idProduct")["S"].toString(), v.toObject().value("minWidth").toString().toInt(), v.toObject().value("defaultLength")["N"].toString().toInt(), v.toObject().value("label")["S"].toString(), v.toObject().value("productCode")["S"].toString(), v.toObject().value("defaultHeight")["N"].toString().toInt(), v.toObject().value("defaultWidth")["N"].toString().toInt(), v.toObject().value("material")["S"].toString(), v.toObject().value("minLength")["N"].toString().toInt(), v.toObject().value("type")["S"].toString()));
+        listProduct.append(bdd_PRODUCT(v.toObject().value("supplierIdSupplier")["N"].toString().toInt(), v.toObject().value("idProduct")["S"].toString(), v.toObject().value("minWidth").toString().toInt(), v.toObject().value("defaultLength")["N"].toString().toInt(), v.toObject().value("label")["S"].toString(), v.toObject().value("productCode")["S"].toString(), v.toObject().value("defaultHeight")["N"].toString().toInt(), v.toObject().value("defaultWidth")["N"].toString().toInt(), v.toObject().value("material")["S"].toString(), v.toObject().value("minLength")["N"].toString().toInt(), v.toObject().value("type")["S"].toString(), v.toObject().value("R")["N"].toString().toInt(), v.toObject().value("G")["N"].toString().toInt(), v.toObject().value("B")["N"].toString().toInt()));
     }
     return listProduct;
 }

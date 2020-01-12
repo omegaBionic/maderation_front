@@ -76,6 +76,10 @@ private slots:
 
     void on_pushButton_create_clicked();
 
+    void on_pushButton_delete_clicked();
+
+    void on_pushButton_firstPlan_clicked();
+
 private:
     Ui::Main_Quotation *ui;
     void resizeEvent(QResizeEvent * event);
