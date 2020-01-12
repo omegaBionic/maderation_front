@@ -1,1 +1,1 @@
-{"status":200,"datas":{"Items":[{"transactionCode":{"S":"0"},"idInvoiceQuotation":{"S":"0"},"totalAmount":{"N":"5000"},"payingMethod":{"S":"cb"},"transactionType":{"S":"cb"},"taxes":{"N":"20"}}],"Count":1,"ScannedCount":1}}
+{"status":200,"datas":{"Items":[{"transactionCode":{"S":"fhg"},"idInvoiceQuotation":{"S":"0"},"totalAmount":{"N":"5000"},"payingMethod":{"S":"cb"},"transactionType":{"S":"cb"},"taxes":{"N":"20"}}],"Count":1,"ScannedCount":1}}

@@ -169,7 +169,7 @@ void api_get_request::get_table_address_client(){
 
 QVector<bdd_ADDRESS_CLIENT> api_get_request::parse_file_address_client(){
 
-    QFile file("data/jsonAddressClient.json");
+    QFile file("data/jsonAddress_client.json");
     file.open(QIODevice::ReadOnly);
     QByteArray rawData = file.readAll();
 
@@ -305,6 +305,8 @@ QVector<bdd_COMPONENT> api_get_request::parse_file_component(){
 
     QFile file("data/jsonComponent.json");
     file.open(QIODevice::ReadOnly);
+    QTextStream lines(&file);
+    lines.setCodec(QTextCodec::codecForName("UTF-8"));
     QByteArray rawData = file.readAll();
 
     // Parse document
@@ -323,7 +325,7 @@ QVector<bdd_COMPONENT> api_get_request::parse_file_component(){
 
     foreach (const QJsonValue & v, itemsArray)
     {
-        listComponent.append(bdd_COMPONENT(v.toObject().value("supplierIdSupplier")["N"].toString().toInt(), v.toObject().value("idComponent")["S"].toString(), v.toObject().value("categoryIdCategory")["N"].toString().toInt(), v.toObject().value("label")["S"].toString()));
+        listComponent.append(bdd_COMPONENT(v.toObject().value("supplierIdSupplier")["N"].toString().toInt(), v.toObject().value("idComponent")["S"].toString(), v.toObject().value("categoryIdCategory")["N"].toString().toInt(), v.toObject().value("label")["S"].toString(), v.toObject().value("amount")["N"].toString().toInt(), v.toObject().value("unitairPrice")["N"].toString().toDouble(), v.toObject().value("productIDProduct")["S"].toString()));
     }
     return listComponent;
 }

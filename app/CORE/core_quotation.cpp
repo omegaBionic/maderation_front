@@ -127,3 +127,123 @@ QString core_quotation::getLastAttributID(){
     return QString::number(result);
 
 }
+
+QString core_quotation::getClientName(int ID){
+    QString result = "";
+    api_get_request *api_get = new api_get_request();
+
+    QVector<bdd_CLIENT> listClient = api_get->parse_file_client();
+        for(int i = 0; i< listClient.count();i++){
+            bdd_CLIENT client = listClient.at(i);
+            if(client.getIdClient().toInt() == ID){
+                result = client.getFirstName() + " " + client.getLastName();
+
+        }
+    }
+
+    return result;
+
+}
+
+
+QString core_quotation::getClientCity(int ID){
+    QString result = "";
+    api_get_request *api_get = new api_get_request();
+
+    QVector<bdd_CLIENT> listClient = api_get->parse_file_client();
+        for(int i = 0; i< listClient.count();i++){
+            bdd_CLIENT client = listClient.at(i);
+            if(client.getIdClient().toInt() == ID){
+                QVector<bdd_ADDRESS_CLIENT> listAddress = api_get->parse_file_address_client();
+                    for(int i = 0; i< listAddress.count();i++){
+                        bdd_ADDRESS_CLIENT address = listAddress.at(i);
+                        if(client.getAddressIdAddress() == address.getIdAddressClient().toInt()){
+                            result =  QString::number(address.getPostalCode()) + " " + address.getCity() + ", " + address.getCountry();
+
+                    }
+                }
+
+        }
+    }
+
+    return result;
+
+}
+
+
+QString core_quotation::getClientAddress(int ID){
+    QString result = "";
+    api_get_request *api_get = new api_get_request();
+
+    QVector<bdd_CLIENT> listClient = api_get->parse_file_client();
+        for(int i = 0; i< listClient.count();i++){
+            bdd_CLIENT client = listClient.at(i);
+            if(client.getIdClient().toInt() == ID){
+                QVector<bdd_ADDRESS_CLIENT> listAddress = api_get->parse_file_address_client();
+                    for(int i = 0; i< listAddress.count();i++){
+                        bdd_ADDRESS_CLIENT address = listAddress.at(i);
+                        if(client.getAddressIdAddress() == address.getIdAddressClient().toInt()){
+                            result =address.getStreet() ;
+
+                    }
+                }
+
+        }
+    }
+
+    return result;
+
+}
+
+
+QString core_quotation::getClientPhone(int ID){
+    QString result = "";
+    api_get_request *api_get = new api_get_request();
+
+    QVector<bdd_CLIENT> listClient = api_get->parse_file_client();
+        for(int i = 0; i< listClient.count();i++){
+            bdd_CLIENT client = listClient.at(i);
+            if(client.getIdClient().toInt() == ID){
+                result = client.getPhoneNumber();
+
+        }
+    }
+
+    return result;
+
+}
+
+QVector<bdd_COMPONENT> core_quotation::getComponents(bdd_PRODUCT prod){
+
+    QVector<bdd_COMPONENT> result;
+
+   api_get_request* api = new api_get_request();
+    QVector<bdd_COMPONENT> listComp = api->parse_file_component();
+    for(int i = 0; i< listComp.count(); i++){
+        bdd_COMPONENT comp = listComp.at(i);
+        if(comp.getIDProduct() == prod.getIdProduct()){
+
+            result.append(comp);
+        }
+    }
+
+    return result;
+
+}
+
+QString core_quotation::getClientMail(int ID){
+    QString result = "";
+    api_get_request *api_get = new api_get_request();
+
+    QVector<bdd_CLIENT> listClient = api_get->parse_file_client();
+        for(int i = 0; i< listClient.count();i++){
+            bdd_CLIENT client = listClient.at(i);
+            if(client.getIdClient().toInt() == ID){
+                result = client.getMail();
+
+        }
+    }
+
+    return result;
+
+}

@@ -87,5 +87,12 @@
         <file>img/firstplan.png</file>
         <file>img/firstplan_hover.png</file>
         <file>img/firstplan_pressed.png</file>
+        <file>img/sendMail.png</file>
+        <file>img/sendMail_hover.png</file>
+        <file>img/sendMail_pressed.png</file>
+    </qresource>
+    <qresource prefix="/html_template">
+        <file>template_line.html</file>
+        <file>template_html.htm</file>
     </qresource>
 </RCC>

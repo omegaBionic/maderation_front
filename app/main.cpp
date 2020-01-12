@@ -5,11 +5,13 @@
 #include <QObject>
 #include <QtNetwork>
 #include "DB_CLASSES/bdd_address_client.h"
+#include <QTextCodec>
 
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
 
 
     QDir *file = new QDir("./STATUS");

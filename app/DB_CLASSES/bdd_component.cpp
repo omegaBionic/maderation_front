@@ -8,12 +8,15 @@
 #include <QFile>
 #include <QJsonArray>
 
-bdd_COMPONENT::bdd_COMPONENT(int supplierIdSupplier, QString idComponent, int categoryIdCategory, QString label): bdd_global(QString("idComponent"), QString("component"))
+bdd_COMPONENT::bdd_COMPONENT(int supplierIdSupplier, QString idComponent, int categoryIdCategory, QString label, int amount, double price, QString idProduct): bdd_global(QString("idComponent"), QString("component"))
 {
     this->_supplierIdSupplier = supplierIdSupplier;
     this->_idComponent = idComponent;
     this->_categoryIdCategory = categoryIdCategory;
     this->_label = label;
+    this->_amount = amount;
+    this->_price = price;
+    this->_idProduct = idProduct;
 }
 bdd_COMPONENT::bdd_COMPONENT(): bdd_global(QString("idComponent"), QString("component")){
 
@@ -34,6 +37,18 @@ void bdd_COMPONENT::setLabel(QString lbl){
     _label = lbl;
 }
 
+void bdd_COMPONENT::setIDProduct(QString lbl){
+    _idProduct = lbl;
+}
+
+void bdd_COMPONENT::setPrice(double lbl){
+    _price = lbl;
+}
+
+void bdd_COMPONENT::setAmount(int lbl){
+    _amount = lbl;
+}
+
 int bdd_COMPONENT::getSupplierIdSupplier(){
     return _supplierIdSupplier;
 }
@@ -45,6 +60,21 @@ int bdd_COMPONENT::getCategoryIdCategory(){
 }
 QString bdd_COMPONENT::getLabel(){
     return _label;
+}
+
+
+QString bdd_COMPONENT::getIDProduct(){
+    return _idProduct;
+}
+
+
+double bdd_COMPONENT::getPrice(){
+    return _price;
+}
+
+
+int bdd_COMPONENT::getAmount(){
+    return _amount;
 }
 
 QString bdd_COMPONENT::getId(){
@@ -62,9 +92,12 @@ void bdd_COMPONENT::addKey(QString key, QString value){
 //int supplierIdSupplier, QString idComponent, int categoryIdCategory, QString label
 QMap<QString, QString> bdd_COMPONENT::getDict() {
     this->addKey("idComponent", "\"S\":\""+ this->_idComponent + "\"");
+    this->addKey("productIDProduct", "\"S\":\""+ this->_idProduct + "\"");
     this->addKey("label", "\"S\":\""+ this->_label + "\"");
     this->addKey("supplierIdSupplier", "\"N\":\""+ QString::number(this->_supplierIdSupplier) + "\"");
     this->addKey("categoryIdCategory", "\"N\":\""+ QString::number(this->_categoryIdCategory) + "\"");
+    this->addKey("amount", "\"N\":\""+ QString::number(this->_amount) + "\"");
+    this->addKey("unitairPrice", "\"N\":\""+ QString::number(this->_price) + "\"");
     bdd_global::getDict();
     return _map;
 }

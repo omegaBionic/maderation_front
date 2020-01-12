@@ -553,7 +553,7 @@ void Main_Quotation::on_pushButton_create_clicked()
     ui->grey_screen->show();
     ui->background_form->show();
 
-    Form_quotation* form = new Form_quotation(this);
+    Form_quotation* form = new Form_quotation(this, _project);
 
     form->setGeometry(17*_width,7*_height,94*_width, 52*_height);
     form->show();
