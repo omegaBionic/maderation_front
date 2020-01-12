@@ -1,7 +1,7 @@
 #include "core_post_mail_files.h"
 #include <QNetworkAccessManager>
 #include <QFile>
-
+#include "utils_id.h"
 
 core_post_mail_files::core_post_mail_files()
 {
@@ -17,4 +17,53 @@ void core_post_mail_files::send(QString toAddresses, QString ccAddress, QString 
 
     // send json to :
     // http://madera-api.maderation.net:8080/api/post/post_mail?key=bdd5c890be92b02115330360cd77c194
+
+    // TODO: add id.get_id() in id parameter on post request
+
+
+    QFile temp("DATA_IMG/temp.json");
+    temp.open(QIODevice::ReadWrite | QIODevice::Text);
+    QTextStream out(&temp);
+    out << toSend;
+
+    temp.flush();
+    temp.close();
+
+    QByteArray jsonString = toSend.toUtf8();
+
+    QByteArray postDataSize = QByteArray::number(jsonString.size());
+    utils_id id;
+    QUrl req("http://madera-api.maderation.net:8080/api/post/post_mail?key=bdd5c890be92b02115330360cd77c194&id="+id.get_id());
+
+    QNetworkRequest request(req);
+
+    request.setRawHeader("Content-Type", "application/json");
+    request.setRawHeader("Content-Length", postDataSize);
+
+    QNetworkAccessManager test;
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    if(manager->networkAccessible() == QNetworkAccessManager::Accessible){
+        connect(manager, &QNetworkAccessManager::finished,
+                this, &core_post_mail_files::downloadFinished);
+        manager->post(request, jsonString);
+
+    }else if (manager->networkAccessible() == QNetworkAccessManager::NotAccessible || manager->networkAccessible() == QNetworkAccessManager::UnknownAccessibility){
+        qDebug()<<"erreur de connexion à internet";
+    }
+
+}
+
+
+void core_post_mail_files::downloadFinished(QNetworkReply* reply){
+
+    qDebug() << reply->url().toString();
+    qDebug("finished");
+    QByteArray response = reply->readAll();
+    qDebug() << "response status : " +  response;
+    if (response.contains("status\":200")){
+        qDebug() << "done";
+    }
+
+    reply->deleteLater();
+
 }

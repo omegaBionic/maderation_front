@@ -24,6 +24,7 @@ public:
     QString getClientCity(int ID);
     QString getClientPhone(int ID);
     QString getClientMail(int ID);
+    QString getUserMail(QString username);
     QVector<bdd_COMPONENT> getComponents(bdd_PRODUCT);
 
 };

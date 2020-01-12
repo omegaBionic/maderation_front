@@ -8,6 +8,7 @@
 #include "widget_custom.h"
 #include <QtPrintSupport/QtPrintSupport>
 #include "../CORE/core_quotation.h"
+#include "../CORE/core_post_mail_files.h"
 
 
 #include <QPrinter>
@@ -48,7 +49,7 @@ Form_quotation::Form_quotation(QWidget *parent, bdd_PROJECT project) :
     _paiement = ui->comboBox->currentText();
     core_quotation* core = new core_quotation();
 
-    ui->plainTextEdit->setPlainText(core->getClientMail(_project.getIDClient().toInt()));
+    ui->lineEdit->setText(core->getClientMail(_project.getIDClient().toInt()));
     _template_full_html.replace("{{date_today}}", this->getTime());
     _template_full_html.replace("{{expiration_date}}", this->getExpirationTime());
     _template_full_html.replace("{{echeance}}", this->getExpirationTime());
@@ -63,9 +64,6 @@ Form_quotation::Form_quotation(QWidget *parent, bdd_PROJECT project) :
     _template_full_html.replace("{{client_phone}}", core->getClientPhone(_project.getIDClient().toInt()));
     _template_full_html.replace("{{user_name}}", _project.getUserUserName());
     _template_full_html.replace("{{echeance}}", this->getExpirationTime());
-
-
-
 
 
 
@@ -181,20 +179,6 @@ void Form_quotation::refreshScene(){
         total += totalValue;
     }
 
-//    for(int i =0; i< listAttribut.count(); i++){
-//        bdd_ATTRIBUT attr = listAttribut.at(i);
-//        bdd_PRODUCT product = core->getProductByID(attr.getProductIdProduct());
-//        QVector<bdd_COMPONENT> listCompo = core->getComponents(product);
-//        for(int j = 0; j < listCompo.count();j++){
-//            bdd_COMPONENT compo = listCompo.at(j);
-//            text += "-- " + compo.getLabel()  + "\n";
-//            text += "   - Quantité : " + QString::number(compo.getAmount())  + "\n";
-//            text += "   - Prix unitaire : " + QString::number(compo.getPrice())  + "\n";
-//            text += "   - Total : " + QString::number(compo.getPrice() * compo.getAmount()) + "€"  + "\n";
-//            total += compo.getPrice() * compo.getAmount();
-//        }
-
-//    }
 
 
     text += "\n\nSous-total : " + QString::number(total) + "€" + "\n";
@@ -219,7 +203,7 @@ void Form_quotation::resizeEvent(QResizeEvent *){
     ui->pushButton_cancel->setGeometry(QRect(103*_width, 64*_height, 10*_width, 10*_height));
     ui->pushButton_validate->setGeometry(115*_width, 64*_height, 10*_width, 10 *_height);
     ui->label->setGeometry(95*_width, 16*_height, 30*_width, 4*_height);
-    ui->plainTextEdit->setGeometry(95*_width, 40*_height, 30*_width, 4*_height);
+    ui->lineEdit->setGeometry(95*_width, 40*_height, 30*_width, 4*_height);
     ui->comboBox->setGeometry(95*_width, 20*_height, 30*_width, 4*_height);
     ui->comboBox_tva->setGeometry(95*_width, 30*_height, 30*_width, 4*_height);
     this->refreshScene();
@@ -313,7 +297,7 @@ void Form_quotation::on_pushButton_validate_clicked()
     _template_full_html.replace("{{sous_total}}", QString::number(total));
     _template_full_html.replace("{{total}}", QString::number(total * _tva/100));
 
-    QFile temp("DATA_IMG/temp.html");
+    QFile temp("DATA_IMG/" + _Facture + ".html");
     temp.open(QIODevice::ReadWrite | QIODevice::Text);
     QTextStream out(&temp);
     out << _template_full_html;
@@ -329,10 +313,20 @@ void Form_quotation::on_pushButton_validate_clicked()
     printer.setOutputFormat(QPrinter::PdfFormat);
 
     printer.setPaperSize(QPrinter::A3);
-    printer.setOutputFileName("DATA_IMG/testhtml.pdf");
+    printer.setOutputFileName("DATA_IMG/" + _Facture + ".pdf");
     printer.setPageMargins(QMarginsF(15, 15, 15, 15));
 
     document.print(&printer);
+
+    core_quotation* quot = new core_quotation();
+    core_post_mail_files* core = new core_post_mail_files();
+    QString body =
+    "Bonjour,<br><br>veuillez trouver ci-joint le document pour votre devis madera : "
+    "<a href='https://maderationpictures.s3-eu-west-1.amazonaws.com/"+_Facture + ".pdf'>Au format PDF</a><br>"
+    "<a href='https://maderationpictures.s3-eu-west-1.amazonaws.com/"+_Facture + ".html'>Au format HTML</a>"
+    "<br><br>Cordialement,<br>L'équipe Madera" ;
+    qDebug() << body;
+    core->send(ui->lineEdit->text(),quot->getUserMail(_project.getUserUserName()),"Votre devis de " + _project.getTitle(),body,"");
 }
 
 void Form_quotation::on_pushButton_cancel_clicked()

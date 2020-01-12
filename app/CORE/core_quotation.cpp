@@ -247,3 +247,21 @@ QString core_quotation::getClientMail(int ID){
     return result;
 
 }
+
+
+QString core_quotation::getUserMail(QString username){
+    QString result = "";
+    api_get_request *api_get = new api_get_request();
+
+    QVector<bdd_USER> listUser = api_get->parse_file_user();
+        for(int i = 0; i< listUser.count();i++){
+            bdd_USER user = listUser.at(i);
+            if(user.getUsername() == username){
+                result = user.getMail();
+
+        }
+    }
+
+    return result;
+
+}

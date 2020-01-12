@@ -136,42 +136,6 @@ width: 20%;
     <string>Méthode de paiement</string>
    </property>
   </widget>
-  <widget class="QPlainTextEdit" name="plainTextEdit">
-   <property name="geometry">
-    <rect>
-     <x>740</x>
-     <y>140</y>
-     <width>241</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Futura Lt BT</family>
-     <pointsize>12</pointsize>
-     <stylestrategy>PreferDefault</stylestrategy>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QPlainTextEdit {
-  background-color: #00000000;
-  padding-top: 2px;
-  /* This QLineEdit fix  103, 111 */
-  padding-bottom: 2px;
-  /* This QLineEdit fix  103, 111 */
-  padding-left: 4px;
-  padding-right: 4px;
-  border-style: solid;
-  border-left: 2px solid rgb(141, 121, 99);
-  border-bottom: 2px solid rgb(141, 121, 99);
-  border-radius: 2%;
-}
-</string>
-   </property>
-   <property name="placeholderText">
-    <string>adresses mails séparé par une virgule (&quot;,&quot;)</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pushButton_validate">
    <property name="geometry">
     <rect>
@@ -237,8 +201,8 @@ QPushButton::pressed {
   <widget class="QComboBox" name="comboBox_tva">
    <property name="geometry">
     <rect>
-     <x>760</x>
-     <y>210</y>
+     <x>750</x>
+     <y>300</y>
      <width>221</width>
      <height>31</height>
     </rect>
@@ -396,6 +360,41 @@ width: 20%;
      </property>
     </widget>
    </widget>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit">
+   <property name="geometry">
+    <rect>
+     <x>760</x>
+     <y>140</y>
+     <width>221</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura Lt BT</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit {
+  background-color: #00000000;
+  padding-top: 2px;
+  /* This QLineEdit fix  103, 111 */
+  padding-bottom: 2px;
+  /* This QLineEdit fix  103, 111 */
+  padding-left: 4px;
+  padding-right: 4px;
+  border-style: solid;
+  border-left: 2px solid rgb(141, 121, 99);
+  border-bottom: 2px solid rgb(141, 121, 99);
+  border-radius: 2%;
+}
+</string>
+   </property>
+   <property name="placeholderText">
+    <string>Adresse mail du client</string>
+   </property>
   </widget>
  </widget>
  <resources/>
