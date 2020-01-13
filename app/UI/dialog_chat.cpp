@@ -14,7 +14,7 @@ Dialog_chat::Dialog_chat(QWidget *parent, QString userName) :
     this->setWindowFlags(Qt::FramelessWindowHint);
     int width = parent->width()/128;
     int height = parent->height()/72;
-    ui->label_title->setText("NEW CHAT");
+    ui->label_title->setText("NOUVEAU CHAT");
     this->setGeometry(52*width,22*height,30*width - (30*width%128),32*height - (32*height%72));
     ui->validate->raise();
     ui->cancel->raise();

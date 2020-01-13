@@ -46,7 +46,7 @@ main_template::main_template(QWidget *parent, menu_toolbar* m, QVector<bdd_PROJE
         qDebug() << "buttons added : ";
         qDebug() << project.getIdProject();
         int ID = project.getIdProject().toInt();
-        _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,ID, "./DATA_IMG/quot_ex_1.png"));
+        _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,ID, "./DATA_IMG/" + project.getTitle().replace(" ","") +  ".png"));
         _listButton_del->append(new button_quotation(ui->scrollAreaWidgetContents,project.getIdProject().toInt(), ":/pictures/img/trash_logo.png",true));
         qDebug() << "buttons added : " << project.getIdProject().toInt();
         _listLabel_Button->append(new QLabel(project.getUserUserName(), ui->scrollAreaWidgetContents)); // new icon

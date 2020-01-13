@@ -40,7 +40,7 @@ Main_Menu::Main_Menu(QWidget *parent, menu_toolbar* m, QVector<bdd_PROJECT>* lis
         qDebug() << "buttons added : ";
         qDebug() << project.getIdProject();
         int ID = project.getIdProject().toInt();
-        _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,ID, "./DATA_IMG/quot_ex_1.png"));
+        _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,ID, "./DATA_IMG/" + project.getTitle().replace(" ","") +  ".png"));
         _listButton_del->append(new button_quotation(ui->scrollAreaWidgetContents,project.getIdProject().toInt(), ":/pictures/img/trash_logo.png",true));
         qDebug() << "buttons added : " << project.getIdProject().toInt();
         _listLabel_Button->append(new QLabel(project.getTitle(), ui->scrollAreaWidgetContents)); // new icon
@@ -90,7 +90,7 @@ void Main_Menu::getButton_clicked(int ID){
 void Main_Menu::getButtonDel_clicked(int ID){
 
     qDebug()<< "button delete clicked : "+ QString::number(ID);
-    Dialog_Critical* c = new Dialog_Critical(this, "Delete Project ?", "Are you sure you want to erase the project ?", "question");
+    Dialog_Critical* c = new Dialog_Critical(this, "SUPPRESSION ?", "Etes-vous sûr de vouloir supprimer ce projet ?", "question");
     int result = c->exec();
     if(result == QDialog::Accepted){
         for(int i = 0; i < _listButton_del->count();i++){
@@ -214,7 +214,7 @@ void Main_Menu::on_horizontalSlider_valueChanged(int value)
         bdd_PROJECT project = listProject.at(i);
         int ID = project.getIdProject().toInt();
         qDebug() << "adding project : " + project.getTitle();
-        _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,ID, "./DATA_IMG/quot_ex_1.png"));
+        _listButton_quot->append(new button_quotation(ui->scrollAreaWidgetContents,ID, "./DATA_IMG/" + project.getTitle().replace(" ","") +  ".png"));
         _listButton_del->append(new button_quotation(ui->scrollAreaWidgetContents,project.getIdProject().toInt(), ":/pictures/img/trash_logo.png",true));
         qDebug() << "buttons added : " << project.getTitle();
         if(value == 1){

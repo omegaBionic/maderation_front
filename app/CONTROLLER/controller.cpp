@@ -305,7 +305,7 @@ int Controller::init(){
 
 
 void Controller::login_forgot_password(){
-    QDesktopServices::openUrl(QUrl("https://google.com"));
+    QDesktopServices::openUrl(QUrl("http://reset-password.maderation.net/index.php"));
 }
 
 
@@ -313,7 +313,7 @@ void Controller::login(QString user, QString pwd){
 
     if(user == "" || pwd == ""){
 
-        Dialog_Critical* error = new Dialog_Critical(nullptr, "Error", "Error: please enter username and password !", "critical");
+        Dialog_Critical* error = new Dialog_Critical(nullptr, "ERREUR", "ERREUR: Veuillez saisir mot de passe et nom d'utilisateur !", "critical");
         error->show();
         return;
     }
@@ -324,7 +324,7 @@ void Controller::login(QString user, QString pwd){
     bdd_USER temp = login->getUser(user,pwd);
     qDebug()<< "username : " + temp.getUsername();
     if(temp.getUsername() == ""){
-           Dialog_Critical* error = new Dialog_Critical(nullptr, "Error", "Error: wrong username or password...", "critical");
+           Dialog_Critical* error = new Dialog_Critical(nullptr, "ERREUR", "ERREUR : Mot de passe ou nom d'utilisateur erroné...", "critical");
            error->show();
            return;
     }else{

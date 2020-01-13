@@ -112,15 +112,15 @@ void main_user::setUsers(){
 void main_user::reloadUsers(int status){
     if(status == 0){
 
-        Dialog_Critical* d = new Dialog_Critical(this, "Success", "User added successfully", "information");
+        Dialog_Critical* d = new Dialog_Critical(this, "SUCCES", "Ajout de l'utilisateur réussi", "information");
         d->show();
     }else if (status == 1){
 
-        Dialog_Critical* d = new Dialog_Critical(this, "Success", "User deleted successfully", "information");
+        Dialog_Critical* d = new Dialog_Critical(this, "SUCCES", "Suppression de l'utilisateur réussi", "information");
         d->show();
     }else if (status == 2){
 
-        Dialog_Critical* d = new Dialog_Critical(this, "Success", "User modified successfully", "information");
+        Dialog_Critical* d = new Dialog_Critical(this, "SUCCES", "Modification de l'utilisateur réussi", "information");
         d->show();
     }
     this->wait(500,500);

@@ -57,7 +57,7 @@ void Form_template::on_pushButton_cancel_clicked()
 void Form_template::on_pushButton_validate_clicked()
 {
     if(ui->lineEdit_title->text() == ""){
-        Dialog_Critical* d = new Dialog_Critical(this, "error", "Please enter a title", "critical");
+        Dialog_Critical* d = new Dialog_Critical(this, "ERREUR", "Veuillez saisir un titre", "critical");
         d->show();
         return;
     }

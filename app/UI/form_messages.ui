@@ -88,11 +88,14 @@ border:0px;
      <pointsize>10</pointsize>
     </font>
    </property>
+   <property name="cursor" stdset="0">
+    <cursorShape>IBeamCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true"/>
    </property>
    <property name="placeholderText">
-    <string>max 240 characters...</string>
+    <string>240 caractères maximum...</string>
    </property>
   </widget>
   <widget class="QScrollArea" name="scrollArea">

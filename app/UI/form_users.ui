@@ -31,7 +31,7 @@
    <property name="font">
     <font>
      <family>Futura Lt BT</family>
-     <pointsize>10</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="styleSheet">
@@ -117,6 +117,9 @@ width: 20%;
      <height>71</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
 	border-image: url(:/pictures/img/validate_user.png);
@@ -145,6 +148,9 @@ QPushButton::pressed {
      <height>91</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
 	border-image: url(:/pictures/img/reset.png);
@@ -172,6 +178,9 @@ QPushButton::pressed {
      <width>131</width>
      <height>71</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
@@ -204,7 +213,7 @@ QPushButton::pressed {
    <property name="font">
     <font>
      <family>Futura Lt BT</family>
-     <pointsize>10</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="styleSheet">
@@ -227,7 +236,7 @@ QPushButton::pressed {
     <string/>
    </property>
    <property name="placeholderText">
-    <string>FirstName</string>
+    <string>Prénom</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_lastname">
@@ -242,7 +251,7 @@ QPushButton::pressed {
    <property name="font">
     <font>
      <family>Futura Lt BT</family>
-     <pointsize>10</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="styleSheet">
@@ -262,7 +271,7 @@ QPushButton::pressed {
 </string>
    </property>
    <property name="placeholderText">
-    <string>LastName</string>
+    <string>Nom</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_email">
@@ -277,7 +286,7 @@ QPushButton::pressed {
    <property name="font">
     <font>
      <family>Futura Lt BT</family>
-     <pointsize>10</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="styleSheet">
@@ -315,7 +324,7 @@ QPushButton::pressed {
    <property name="font">
     <font>
      <family>Futura Lt BT</family>
-     <pointsize>10</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="styleSheet">
@@ -338,7 +347,7 @@ QPushButton::pressed {
     <number>10</number>
    </property>
    <property name="placeholderText">
-    <string>Phone Number</string>
+    <string>N° de téléphone</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton_reset_pwd">
@@ -349,6 +358,9 @@ QPushButton::pressed {
      <width>101</width>
      <height>91</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
@@ -381,8 +393,11 @@ QPushButton::pressed {
    <property name="font">
     <font>
      <family>Futura Lt BT</family>
-     <pointsize>10</pointsize>
+     <pointsize>12</pointsize>
     </font>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">QCheckBox::indicator {
@@ -420,7 +435,7 @@ QCheckBox::indicator:checked:disabled {
 </string>
    </property>
    <property name="text">
-    <string>IS Active</string>
+    <string>Actif</string>
    </property>
    <property name="checked">
     <bool>false</bool>
@@ -453,8 +468,11 @@ QCheckBox::indicator:checked:disabled {
     <property name="font">
      <font>
       <family>Futura Lt BT</family>
-      <pointsize>10</pointsize>
+      <pointsize>12</pointsize>
      </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">QCheckBox::indicator {
@@ -493,7 +511,7 @@ QCheckBox::indicator:checked:disabled {
 </string>
     </property>
     <property name="text">
-     <string>Admin</string>
+     <string>Administrateur</string>
     </property>
    </widget>
    <widget class="QCheckBox" name="checkBox_user">
@@ -508,8 +526,11 @@ QCheckBox::indicator:checked:disabled {
     <property name="font">
      <font>
       <family>Futura Lt BT</family>
-      <pointsize>10</pointsize>
+      <pointsize>12</pointsize>
      </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">QCheckBox::indicator {
@@ -547,7 +568,7 @@ QCheckBox::indicator:checked:disabled {
 </string>
     </property>
     <property name="text">
-     <string>User</string>
+     <string>Utilisateur</string>
     </property>
    </widget>
    <widget class="QCheckBox" name="checkBox_super_admin">
@@ -562,8 +583,11 @@ QCheckBox::indicator:checked:disabled {
     <property name="font">
      <font>
       <family>Futura Lt BT</family>
-      <pointsize>10</pointsize>
+      <pointsize>12</pointsize>
      </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">QCheckBox::indicator {
@@ -601,7 +625,7 @@ QCheckBox::indicator:checked:disabled {
 </string>
     </property>
     <property name="text">
-     <string>SuperAdmin</string>
+     <string>Super Admin</string>
     </property>
    </widget>
   </widget>
@@ -617,7 +641,7 @@ QCheckBox::indicator:checked:disabled {
    <property name="font">
     <font>
      <family>Futura Lt BT</family>
-     <pointsize>10</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="styleSheet">

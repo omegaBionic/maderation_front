@@ -149,6 +149,9 @@ QTabBar::tab:left:only-one, QTabBar::tab:right:only-one {
       <height>28</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
 	border-image: url(:/pictures/img/powerOff.png);
@@ -176,6 +179,9 @@ QPushButton::pressed {
       <width>93</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {

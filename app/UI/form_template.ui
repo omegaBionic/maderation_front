@@ -38,6 +38,9 @@
      <height>91</height>
     </rect>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
 	border-image: url(:/pictures/img/validate.png);
@@ -65,6 +68,9 @@ QPushButton::pressed {
      <width>121</width>
      <height>91</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
@@ -97,7 +103,7 @@ QPushButton::pressed {
    <property name="font">
     <font>
      <family>Futura Lt BT</family>
-     <pointsize>10</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="styleSheet">
@@ -117,7 +123,7 @@ QPushButton::pressed {
 </string>
    </property>
    <property name="placeholderText">
-    <string>Title</string>
+    <string>Titre</string>
    </property>
   </widget>
   <widget class="QComboBox" name="comboBox_client">
@@ -132,7 +138,7 @@ QPushButton::pressed {
    <property name="font">
     <font>
      <family>Futura Lt BT</family>
-     <pointsize>10</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="cursor">

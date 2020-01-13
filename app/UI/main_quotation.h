@@ -31,6 +31,7 @@ signals:
 
 private slots:
     void on_pushButton_menu_clicked();
+    void form_cancelled();
     void Item_Updated(Rect_Custom* rect);
 
     void on_pushButton_power_clicked();

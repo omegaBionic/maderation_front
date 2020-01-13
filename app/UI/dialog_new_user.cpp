@@ -11,7 +11,7 @@ Dialog_new_user::Dialog_new_user(QWidget *parent) :
     this->setWindowFlags(Qt::FramelessWindowHint);
     int width = parent->width()/128;
     int height = parent->height()/72;
-    ui->label_title->setText("NEW USER");
+    ui->label_title->setText("NOUVEL UTILISATEUR");
     this->setGeometry(42*width,12*height,50*width - (50*width%128),52*height - (52*height%72));
     ui->validate->raise();
     ui->cancel->raise();

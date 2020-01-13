@@ -1,6 +1,7 @@
 #include "main_init.h"
 #include "ui_main_init.h"
 #include "../CORE/api_get_request.h"
+#include "../CORE/core_post_mail_files.h"
 #include <QDesktopServices>
 #include <QUrl>
 #include <QProcess>
@@ -15,6 +16,7 @@
 #include <QCoreApplication>
 #include <QDir>
 #include "dialog_critical.h"
+
 
 main_init::main_init(QWidget *parent) :
     QMainWindow(parent),
@@ -179,7 +181,7 @@ bool main_init::checkConnection()
 void main_init::Check_folder()
 {
     // verification de lexistence du dossier DATA
-    ui->label_info->setText("Vérification de la présence du dosier de donnée");
+    ui->label_info->setText("Vérification de la présence du dossier de donnée");
     QDir stat("./STATUS");
     if(!stat.exists()){
         stat.mkpath(".");
@@ -243,6 +245,7 @@ void main_init::Transfert_Tables()
 
 
     api_get_request *getTables = new api_get_request;
+
 
 
         //debut du timer
@@ -600,6 +603,16 @@ void main_init::Transfert_Tables()
 
 
 void main_init::endInit(){
+
+    QVector<bdd_PROJECT> listProject;
+    api_get_request* api = new api_get_request();
+    listProject = api->parse_file_project();
+
+    core_post_mail_files* core = new core_post_mail_files();
+    for(int i = 0; i < listProject.count();i++){
+        bdd_PROJECT proj = listProject.at(i);
+        core->getFile(proj.getTitle().replace(" ","") + ".png");
+    }
     ui->label_info->setText("Finalisation...");
     int increment = (2000 - ui->progressBar->value()) / 60;
 

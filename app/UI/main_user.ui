@@ -46,7 +46,7 @@
      </font>
     </property>
     <property name="text">
-     <string>USER MANAGEMENT</string>
+     <string>GESTION DES UTILISATEURS</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -150,7 +150,7 @@ QToolBox::tab:hover:!selected {
          <x>0</x>
          <y>0</y>
          <width>491</width>
-         <height>166</height>
+         <height>171</height>
         </rect>
        </property>
        <attribute name="label">
@@ -168,6 +168,9 @@ QToolBox::tab:hover:!selected {
       <width>93</width>
       <height>28</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
@@ -196,6 +199,9 @@ QPushButton::pressed {
       <width>93</width>
       <height>28</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {

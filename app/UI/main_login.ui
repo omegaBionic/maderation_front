@@ -104,7 +104,7 @@ background-color: #00000000;</string>
      <enum>QLineEdit::Password</enum>
     </property>
     <property name="placeholderText">
-     <string>Password</string>
+     <string>Mot de passe</string>
     </property>
    </widget>
    <widget class="QCheckBox" name="chk_remember">
@@ -118,8 +118,8 @@ background-color: #00000000;</string>
     </property>
     <property name="font">
      <font>
-      <family>MS Shell Dlg 2</family>
-      <pointsize>14</pointsize>
+      <family>Futura Lt BT</family>
+      <pointsize>12</pointsize>
       <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
@@ -165,7 +165,7 @@ QCheckBox::indicator:checked:disabled {
 </string>
     </property>
     <property name="text">
-     <string>Remember me</string>
+     <string>Se souvenir de moi</string>
     </property>
    </widget>
    <widget class="Line" name="line">
@@ -212,7 +212,7 @@ color:white;
 }</string>
     </property>
     <property name="text">
-     <string>Log In</string>
+     <string>Connection</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_title">
@@ -369,7 +369,7 @@ color:black;
 }</string>
     </property>
     <property name="text">
-     <string>Forgot Password ?</string>
+     <string>Mot de passe oublié ?</string>
     </property>
    </widget>
    <widget class="QLabel" name="background">
@@ -393,6 +393,9 @@ color:black;
       <width>93</width>
       <height>28</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {

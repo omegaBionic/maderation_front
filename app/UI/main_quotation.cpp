@@ -7,6 +7,7 @@
 #include "dialog_critical.h"
 #include "../CORE/core_quotation.h"
 #include "../CORE/api_post_request.h"
+#include "../CORE/core_post_mail_files.h"
 #include "form_quotation.h"
 
 Main_Quotation::Main_Quotation(QWidget *parent) :
@@ -230,7 +231,7 @@ void Main_Quotation::on_spinBox_Length_valueChanged(int arg1)
         _rectSelected->setLength(arg1);
         _scene->updateRect(_rectSelected->getID(), arg1, "length");
     }else{
-        Dialog_Critical* c = new Dialog_Critical(this, "Error", "Error : No attribut selected", "critical");
+        Dialog_Critical* c = new Dialog_Critical(this, "ERREUR", "ERREUR : Aucun attribut n'a été sélectionné", "critical");
         c->show();
     }
 }
@@ -244,7 +245,7 @@ void Main_Quotation::on_spinBox_Width_valueChanged(int arg1)
         _rectSelected->setWidth(arg1);
         _scene->updateRect(_rectSelected->getID(), arg1, "width");
     }else{
-        Dialog_Critical* c = new Dialog_Critical(this, "Error", "Error : No attribut selected", "critical");
+        Dialog_Critical* c = new Dialog_Critical(this, "ERREUR", "ERREUR : Aucun attribut n'a été sélectionné", "critical");
         c->show();
     }
 }
@@ -258,7 +259,7 @@ void Main_Quotation::on_spinBox_Height_valueChanged(int arg1)
         _rectSelected->setHeight(arg1);
         _scene->updateRect(_rectSelected->getID(), arg1, "height");
     }else{
-        Dialog_Critical* c = new Dialog_Critical(this, "Error", "Error : No attribut selected", "critical");
+        Dialog_Critical* c = new Dialog_Critical(this, "ERREUR", "ERREUR : Aucun attribut n'a été sélectionné", "critical");
         c->show();
     }
 }
@@ -272,7 +273,7 @@ void Main_Quotation::on_spinBox_X_valueChanged(int arg1)
         _rectSelected->setX(arg1);
         _scene->updateRect(_rectSelected->getID(), arg1, "X");
     }else{
-        Dialog_Critical* c = new Dialog_Critical(this, "Error", "Error : No attribut selected", "critical");
+        Dialog_Critical* c = new Dialog_Critical(this, "ERREUR", "ERREUR : Aucun attribut n'a été sélectionné", "critical");
         c->show();
     }
 }
@@ -286,7 +287,7 @@ void Main_Quotation::on_spinBox_Y_valueChanged(int arg1)
         _rectSelected->setY(arg1);
         _scene->updateRect(_rectSelected->getID(), arg1, "Y");
     }else{
-        Dialog_Critical* c = new Dialog_Critical(this, "Error", "Error : No attribut selected", "critical");
+        Dialog_Critical* c = new Dialog_Critical(this, "ERREUR", "ERREUR : Aucun attribut n'a été sélectionné", "critical");
         c->show();
     }
 }
@@ -300,7 +301,7 @@ void Main_Quotation::on_spinBox_Z_valueChanged(int arg1)
         _rectSelected->setZValue(arg1);
         _scene->updateRect(_rectSelected->getID(), arg1, "Z");
     }else{
-        Dialog_Critical* c = new Dialog_Critical(this, "Error", "Error : No attribut selected", "critical");
+        Dialog_Critical* c = new Dialog_Critical(this, "ERREUR", "ERREUR : Aucun attribut n'a été sélectionné", "critical");
         c->show();
     }
 }
@@ -349,7 +350,7 @@ void Main_Quotation::on_comboBox_element_currentIndexChanged(int index)
         _rectSelected->setPen(QPen(Qt::black));
         _rectSelected->setBrush(QBrush(QColor(QColor(newProduct.getR(), newProduct.getG(), newProduct.getB()))));
     }else{
-        Dialog_Critical* c = new Dialog_Critical(this, "Error", "Error : No attribut selected", "critical");
+        Dialog_Critical* c = new Dialog_Critical(this, "ERREUR", "ERREUR : Aucun attribut n'a été sélectionné", "critical");
         c->show();
     }
 
@@ -377,7 +378,7 @@ void Main_Quotation::on_comboBox_type_currentIndexChanged(int index)
         ui->spinBox_Width->setValue(newProduct.getDefaultWidth());
         ui->spinBox_Length->setValue(newProduct.getDefaultLength());
     }else{
-        Dialog_Critical* c = new Dialog_Critical(this, "Error", "Error : No attribut selected", "critical");
+        Dialog_Critical* c = new Dialog_Critical(this, "ERREUR", "ERREUR : Aucun attribut n'a été sélectionné", "critical");
         c->show();
     }
     this->saveCurrentAttr();
@@ -414,7 +415,7 @@ void Main_Quotation::on_spinBox_rotation_valueChanged(double arg1)
         _rectSelected->setRotation(arg1);
         _scene->updateRect(_rectSelected->getID(), arg1, "rotation");
     }else{
-        Dialog_Critical* c = new Dialog_Critical(this, "Error", "Error : No attribut selected", "critical");
+        Dialog_Critical* c = new Dialog_Critical(this, "ERREUR", "ERREUR : Aucun attribut n'a été sélectionné", "critical");
         c->show();
     }
 }
@@ -439,7 +440,12 @@ void Main_Quotation::on_pushButton_save_clicked()
 
 
     }
+    QPixmap image = ui->graphicsView->grab(ui->graphicsView->sceneRect().toRect());
+    QString filename = _project.getTitle().replace(" ","") + ".png";
+    image.save("DATA_IMG/" + filename);
+    core_post_mail_files* core_file = new core_post_mail_files();
 
+    core_file->sendFile("DATA_IMG/" + filename, filename, "png");
     api->pushData();
 }
 
@@ -554,9 +560,10 @@ void Main_Quotation::on_pushButton_create_clicked()
     ui->background_form->show();
 
     Form_quotation* form = new Form_quotation(this, _project);
-
+    QObject::connect(form, &Form_quotation::cancelled, this, &Main_Quotation::form_cancelled);
     form->setGeometry(17*_width,7*_height,94*_width, 52*_height);
     form->show();
+
 }
 
 void Main_Quotation::on_pushButton_delete_clicked()
@@ -609,4 +616,11 @@ void Main_Quotation::on_pushButton_firstPlan_clicked()
     api_post_request* api = new api_post_request();
     api->modifyData(current, "modify");
 
+}
+
+
+void Main_Quotation::form_cancelled(){
+
+    ui->grey_screen->hide();
+    ui->background_form->hide();
 }

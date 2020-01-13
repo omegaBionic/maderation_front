@@ -23,7 +23,8 @@ public:
     explicit Form_quotation(QWidget *parent = nullptr);
     explicit Form_quotation(QWidget *parent = nullptr, bdd_PROJECT project = bdd_PROJECT());
     ~Form_quotation();
-
+signals:
+    void cancelled();
 private slots:
     void on_comboBox_currentTextChanged(const QString &arg1);
 

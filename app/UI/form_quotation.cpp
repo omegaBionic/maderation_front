@@ -320,8 +320,11 @@ void Form_quotation::on_pushButton_validate_clicked()
 
     core_quotation* quot = new core_quotation();
     core_post_mail_files* core = new core_post_mail_files();
+    core->sendFile("DATA_IMG/" + _Facture + ".pdf",  _Facture.split("-")[0] + ".pdf", "pdf");
+    core->sendFile("DATA_IMG/" + _Facture + ".html",  _Facture.split("-")[0] + ".html", "html");
+
     QString body =
-    "Bonjour,<br><br>veuillez trouver ci-joint le document pour votre devis madera : "
+    "Bonjour,<br><br>veuillez trouver ci-joint le document pour votre devis madera :<br> "
     "<a href='https://maderationpictures.s3-eu-west-1.amazonaws.com/"+_Facture + ".pdf'>Au format PDF</a><br>"
     "<a href='https://maderationpictures.s3-eu-west-1.amazonaws.com/"+_Facture + ".html'>Au format HTML</a>"
     "<br><br>Cordialement,<br>L'équipe Madera" ;
@@ -331,5 +334,6 @@ void Form_quotation::on_pushButton_validate_clicked()
 
 void Form_quotation::on_pushButton_cancel_clicked()
 {
+    emit cancelled();
     this->close();
 }

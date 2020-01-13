@@ -17,7 +17,6 @@ int main(int argc, char *argv[])
     QDir *file = new QDir("./STATUS");
     file->rmdir("./STATUS");
     Controller ct;
-
     /* mail example */
     //core_post_mail_files sender;
     // (QString toAddresses, QString ccAddress, QString subject, QString body1, QString body2)

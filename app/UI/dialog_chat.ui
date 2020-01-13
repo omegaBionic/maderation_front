@@ -192,7 +192,7 @@ border-image:&quot;&quot;;</string>
    <property name="font">
     <font>
      <family>Futura Lt BT</family>
-     <pointsize>10</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="styleSheet">
@@ -281,7 +281,7 @@ width: 20%;
    <property name="font">
     <font>
      <family>Futura Lt BT</family>
-     <pointsize>10</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="styleSheet">
@@ -301,7 +301,7 @@ width: 20%;
 </string>
    </property>
    <property name="placeholderText">
-    <string>Title</string>
+    <string>Titre</string>
    </property>
   </widget>
  </widget>

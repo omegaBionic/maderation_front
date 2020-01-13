@@ -114,7 +114,7 @@ void main_chat::on_pushButton_addChat_clicked()
 void main_chat::reloadChats(int status){
     if(status == 0){
 
-        Dialog_Critical* d = new Dialog_Critical(this, "Success", "Chat added successfully", "information");
+        Dialog_Critical* d = new Dialog_Critical(this, "SUCCES", "Ajout du chat réussi", "information");
         d->show();
     }
     this->wait(500,500);
