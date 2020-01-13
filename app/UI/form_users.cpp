@@ -280,7 +280,7 @@ bdd_USER Form_users::getUser(){
 }
 
 void Form_users::addUser(){
-    _user.setPassword("polop");
+    _user.setPassword("admin");
     if(ui->lineEdit_username->text() == ""){
         return;
     }
