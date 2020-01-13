@@ -17,10 +17,6 @@ int main(int argc, char *argv[])
     QDir *file = new QDir("./STATUS");
     file->rmdir("./STATUS");
     Controller ct;
-    /* mail example */
-    //core_post_mail_files sender;
-    // (QString toAddresses, QString ccAddress, QString subject, QString body1, QString body2)
-    //sender.send(QString("julien.boully721@gmail.com"), QString(""), QString("Votre devis madera"), QString("Bonjour,<br><br>veuillez trouver ci-joint le document pour votre devis madera : <a href=\"https://maderationpictures.s3-eu-west-1.amazonaws.com/james.jpg\">DevisJames</a><br><br>Cordialement,<br>L'équipe Madera"), QString("Madera"));
 
     ct.init();
 

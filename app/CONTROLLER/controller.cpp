@@ -365,8 +365,8 @@ void Controller::toolbar_menu(){
 
 void Controller::toolbar_archive(){
 
-    Main_Menu *m = new Main_Menu(nullptr, _toolbar);
-    m->showFull();
+    Dialog_Critical* error = new Dialog_Critical(nullptr, "Ca marche pas", "DESOLE, cette page n'est pas encore implémentée :/", "critical");
+    error->show();
 
 }
 
